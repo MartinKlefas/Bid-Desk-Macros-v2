@@ -3,14 +3,15 @@ Imports System.Diagnostics
 Imports MySql.Data.MySqlClient
 Imports String_Extensions.StringExtensions
 
-Public Class clsDatabase
+Public Class ClsDatabase
     Dim conn As MySqlConnection
     Public Sub Make_connection(server As String, user As String,
                                     database As String, port As Integer)
-        conn = New MySqlConnection
-        conn.ConnectionString = "server=" & server & ";user=" & user &
-                                 ";database=" & database & ";port=" & port '&
-        '";password=" & password
+        conn = New MySqlConnection With {
+            .ConnectionString = "server=" & server & ";user=" & user &
+                                 ";database=" & database & ";port=" & port
+            }
+        ' & ";password=" & password
 
         conn.Open()
 
@@ -25,11 +26,11 @@ Public Class clsDatabase
 
     Public Function SelectData(Optional what As String = "*", Optional where As String = "",
                                Optional table As String = ThisAddIn.defaultTable) As String
+        Dim cmd As New MySqlCommand With {
+            .Connection = conn,
+            .CommandText = "Select " & what & " from " & table
+        }
 
-        Dim cmd As New MySqlCommand
-        cmd.Connection = conn
-
-        cmd.CommandText = "Select " & what & " from " & table
         If where <> "" Then
             cmd.CommandText = cmd.CommandText & " where " & where
         End If
@@ -59,11 +60,15 @@ Public Class clsDatabase
 
     Public Function SelectData_List(Optional what As String = "*", Optional where As String = "",
                                Optional table As String = ThisAddIn.defaultTable) As List(Of List(Of String))
-        Dim cmd As New MySqlCommand
-        cmd.Connection = conn
+        Dim cmd As New MySqlCommand With {
+            .Connection = conn,
+            .CommandText = "Select " & what & " from " & table
+        }
+
+
         SelectData_List = New List(Of List(Of String))
 
-        cmd.CommandText = "Select " & what & " from " & table
+
         If where <> "" Then
             cmd.CommandText.Append(" where " & where)
         End If
