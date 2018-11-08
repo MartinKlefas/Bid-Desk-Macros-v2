@@ -2,7 +2,7 @@
 Imports mysql.data.mysqlclient
 
 Public Class ThisAddIn
-    Public Const server As String = "172.27.41.59"
+    Public Const server As String = "localhost"
     Public Const user As String = "root"
     Public Const database As String = "Bids"
     Public Const defaultTable As String = "All_Bids"
