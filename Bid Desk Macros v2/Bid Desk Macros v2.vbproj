@@ -232,6 +232,22 @@
       <Name>String Extensions</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\128 %281%29.png" />
+    <Content Include="Resources\128 %282%29.png" />
+    <Content Include="Resources\128.png" />
+    <Content Include="Resources\actions_view_calendar_tasks.png" />
+    <Content Include="Resources\copy_cut_clipboard.png" />
+    <Content Include="Resources\exclamation_mark_red.png" />
+    <Content Include="Resources\face_sad_smiley.png" />
+    <Content Include="Resources\folder_download_down_decrease_arrow.png" />
+    <Content Include="Resources\light_champion_signal.png" />
+    <Content Include="Resources\money_dollar_coins_cash_piggy_bank_finance_business.png" />
+    <Content Include="Resources\repeat_alt_media.png" />
+    <Content Include="Resources\right_arrow.png" />
+    <Content Include="Resources\smiley_devilish_face.png" />
+    <Content Include="Resources\technical_pen.png" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
