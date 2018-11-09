@@ -14,4 +14,8 @@ Public Class Ribbon1
         tmp = sqlInterface.SelectData("AM", "DealID = 16859207")
         Debug.WriteLine(tmp)
     End Sub
+
+    Private Sub Button2_Click(sender As Object, e As RibbonControlEventArgs) Handles Button2.Click
+        Globals.ThisAddIn.MoveBasedOnDealID()
+    End Sub
 End Class

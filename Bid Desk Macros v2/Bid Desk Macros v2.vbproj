@@ -185,6 +185,13 @@
   -->
   <ItemGroup>
     <AppDesigner Include="My Project\" />
+    <Compile Include="DealID.designer.vb">
+      <DependentUpon>DealID.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DealID.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Functions.vb" />
     <Compile Include="My Project\clsDatabase.vb" />
     <Compile Include="Ribbon1.Designer.vb">
       <DependentUpon>Ribbon1.vb</DependentUpon>
@@ -195,6 +202,9 @@
     <Compile Include="ThisAddIn.vb">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="DealID.resx">
+      <DependentUpon>DealID.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ribbon1.resx">
       <DependentUpon>Ribbon1.vb</DependentUpon>
     </EmbeddedResource>
@@ -233,20 +243,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\128 %281%29.png" />
-    <Content Include="Resources\128 %282%29.png" />
-    <Content Include="Resources\128.png" />
-    <Content Include="Resources\actions_view_calendar_tasks.png" />
-    <Content Include="Resources\copy_cut_clipboard.png" />
-    <Content Include="Resources\exclamation_mark_red.png" />
-    <Content Include="Resources\face_sad_smiley.png" />
-    <Content Include="Resources\folder_download_down_decrease_arrow.png" />
-    <Content Include="Resources\light_champion_signal.png" />
-    <Content Include="Resources\money_dollar_coins_cash_piggy_bank_finance_business.png" />
-    <Content Include="Resources\repeat_alt_media.png" />
-    <Content Include="Resources\right_arrow.png" />
-    <Content Include="Resources\smiley_devilish_face.png" />
-    <Content Include="Resources\technical_pen.png" />
+    <None Include="Resources\smiley_devilish_face.png" />
+    <None Include="Resources\right_arrow.png" />
+    <None Include="Resources\repeat_alt_media.png" />
+    <None Include="Resources\money_dollar_coins_cash_piggy_bank_finance_business.png" />
+    <None Include="Resources\light_champion_signal.png" />
+    <None Include="Resources\folder_download_down_decrease_arrow.png" />
+    <None Include="Resources\face_sad_smiley.png" />
+    <None Include="Resources\exclamation_mark_red.png" />
+    <None Include="Resources\copy_cut_clipboard.png" />
+    <None Include="Resources\actions_view_calendar_tasks.png" />
+    <None Include="Resources\128.png" />
+    <None Include="Resources\128 %282%29.png" />
+    <None Include="Resources\128 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\technical_pen.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

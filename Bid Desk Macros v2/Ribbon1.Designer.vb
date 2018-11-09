@@ -70,6 +70,7 @@
         'Button2
         '
         Me.Button2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.Button2.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.folder_download_down_decrease_arrow
         Me.Button2.Label = "Move by Deal ID"
         Me.Button2.Name = "Button2"
         Me.Button2.ShowImage = True

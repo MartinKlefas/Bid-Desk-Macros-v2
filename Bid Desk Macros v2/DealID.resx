@@ -117,47 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="actions_view_calendar_tasks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\actions_view_calendar_tasks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="copy_cut_clipboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\copy_cut_clipboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="exclamation_mark_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\exclamation_mark_red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="face_sad_smiley" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\face_sad_smiley.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="folder_download_down_decrease_arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\folder_download_down_decrease_arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="light_champion_signal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\light_champion_signal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="money_dollar_coins_cash_piggy_bank_finance_business" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\money_dollar_coins_cash_piggy_bank_finance_business.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="repeat_alt_media" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\repeat_alt_media.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="right_arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\right_arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="smiley_devilish_face" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\smiley_devilish_face.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="technical_pen" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\technical_pen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_128__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\128 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_128__2_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\128 (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>
