@@ -1,17 +1,24 @@
 ﻿Imports System.Data.Common
+Imports System.Data.SqlClient
 Imports System.Diagnostics
-Imports MySql.Data.MySqlClient
 Imports String_Extensions.StringExtensions
 
 Public Class ClsDatabase
-    Dim conn As MySqlConnection
+    Dim conn As SqlConnection
     Public Sub Make_connection(server As String, user As String,
-                                    database As String, port As Integer)
-        conn = New MySqlConnection With {
-            .ConnectionString = "server=" & server & ";user=" & user &
-                                 ";database=" & database & ";port=" & port
-            }
-        ' & ";password=" & password
+                                    database As String, password As String)
+        Dim builder As New SqlConnectionStringBuilder
+        With builder
+
+            .DataSource = server
+            .UserID = user
+            .Password = password
+
+            .InitialCatalog = database
+
+        End With
+
+        conn = New SqlConnection(builder.ConnectionString)
 
         conn.Open()
 
@@ -26,7 +33,7 @@ Public Class ClsDatabase
 
     Public Function SelectData(Optional what As String = "*", Optional where As String = "",
                                Optional table As String = ThisAddIn.defaultTable) As String
-        Dim cmd As New MySqlCommand With {
+        Dim cmd As New SqlCommand With {
             .Connection = conn,
             .CommandText = "Select " & what & " from " & table
         }
@@ -37,7 +44,7 @@ Public Class ClsDatabase
 
         SelectData = ""
 
-        Dim reader As MySqlDataReader
+        Dim reader As SqlDataReader
         reader = cmd.ExecuteReader
 
         Dim j As Integer
@@ -60,7 +67,7 @@ Public Class ClsDatabase
 
     Public Function SelectData_List(Optional what As String = "*", Optional where As String = "",
                                Optional table As String = ThisAddIn.defaultTable) As List(Of List(Of String))
-        Dim cmd As New MySqlCommand With {
+        Dim cmd As New SqlCommand With {
             .Connection = conn,
             .CommandText = "Select " & what & " from " & table
         }
@@ -73,7 +80,7 @@ Public Class ClsDatabase
             cmd.CommandText.Append(" where " & where)
         End If
 
-        Dim reader As MySqlDataReader
+        Dim reader As SqlDataReader
         reader = cmd.ExecuteReader
 
         Dim j As Integer

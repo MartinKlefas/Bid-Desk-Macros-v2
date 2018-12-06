@@ -3,8 +3,9 @@ Imports Microsoft.Office.Interop.Outlook
 Imports MySql.Data.MySqlClient
 
 Public Class ThisAddIn
-    Public Const server As String = "localhost"
+    Public Const server As String = "mklefass-sql.database.windows.net"
     Public Const user As String = "root"
+    Public Const password As String = "nuNDCb4MqmU66j58"
     Public Const database As String = "Bids"
     Public Const defaultTable As String = "All_Bids"
     Public Const port As Integer = 3306
