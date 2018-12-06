@@ -9,9 +9,9 @@ Public Class Ribbon1
 
     Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs) Handles Button1.Click
         Dim sqlInterface As New ClsDatabase(ThisAddIn.server, ThisAddIn.user,
-                                   ThisAddIn.database, ThisAddIn.port,
+                                   ThisAddIn.database, ThisAddIn.password)
         Dim tmp As String
-        tmp = sqlInterface.SelectData("AM", "DealID = 16859207")
+        tmp = sqlInterface.SelectData("Name", "Location = Australia")
         Debug.WriteLine(tmp)
     End Sub
 

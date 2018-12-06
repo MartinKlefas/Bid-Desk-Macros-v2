@@ -25,9 +25,9 @@ Public Class ClsDatabase
     End Sub
 
     Sub New(server As String, user As String,
-                                    database As String, port As Integer)
+                                    database As String, password As String)
 
-        Call Make_connection(server, user, database, port)
+        Call Make_connection(server, user, database, password)
 
     End Sub
 
