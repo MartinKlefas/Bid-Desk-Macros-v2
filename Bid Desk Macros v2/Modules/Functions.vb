@@ -4,7 +4,6 @@ Partial Class ThisAddIn
     Public sqlInterface As New ClsDatabase(ThisAddIn.server, ThisAddIn.user,
                                    ThisAddIn.database, ThisAddIn.port)
 
-    Public userform3 As DealIdent
 
     Public Function MoveToFolder(folderName As String, thisMailItem As MailItem, Optional suppressWarnings As Boolean = False) As Boolean
         Dim mailboxNameString As String
@@ -39,7 +38,7 @@ Partial Class ThisAddIn
                                     Optional SuppressWarnings As Boolean = False) As String
 
         Try
-            Return sqlInterface.SelectData("AM", "DealID = 16859207")
+            Return sqlInterface.SelectData("AM", "DealID = " & dealID)
         Catch
             If Not SuppressWarnings Then
                 MsgBox("there was an error")
@@ -51,8 +50,8 @@ Partial Class ThisAddIn
     Public Function FindDealID(MsgSubject As String, msgBody As String, Optional completeAutonomy As Boolean = False) As String
         Dim myAr As String(), i As Integer, myArTwo As Object
         myAr = Split(MsgSubject, " ")
+        Dim DealIDForm As New DealIdent
 
-        userform3.DealID.Text = ""
 
         For i = LBound(myAr) To UBound(myAr)
             '~~> This will give you the contents of your email
@@ -61,18 +60,19 @@ Partial Class ThisAddIn
 
             If Len(myAr(i)) > 4 Then
                 If myAr(i).StartsWith("P00", ThisAddIn.searchType) Or
-                    myAr(i).StartsWith("E00", ThisAddIn.searchType) Then
+                    myAr(i).StartsWith("E00", ThisAddIn.searchType) Or
+                    myAr(i).StartsWith("NQ", ThisAddIn.searchType) Then
                     If Mid(LCase(myAr(i)), Len(myAr(i)) - 2, 2) = "-v" Then myAr(i) = Left(myAr(i), Len(myAr(i)) - 3)
-                    userform3.DealID.Text = Trim(myAr(i))
+                    DealIDForm.DealID.Text = Trim(myAr(i))
                 End If
                 If myAr(i).StartsWith("REGI-", ThisAddIn.searchType) Or
                     myAr(i).StartsWith("REGE-", ThisAddIn.searchType) Then
-                    userform3.DealID.Text = Trim(myAr(i))
+                    DealIDForm.DealID.Text = Trim(myAr(i))
                 End If
             End If
         Next i
 
-        If userform3.DealID.Text = "" Then
+        If DealIDForm.DealID.Text = "" Then
             myAr = Split(msgBody, vbCrLf)
             For i = LBound(myAr) To UBound(myAr)
                 '~~> This will give you the contents of your email
@@ -80,7 +80,7 @@ Partial Class ThisAddIn
                 If Len(myAr(i)) > 8 Then
                     If myAr(i).StartsWith("Deal ID:", ThisAddIn.searchType) Then
                         myArTwo = Split(myAr(i))
-                        userform3.DealID.Text = Trim(myArTwo(2))
+                        DealIDForm.DealID.Text = Trim(myArTwo(2))
                     End If
                 End If
             Next
@@ -88,22 +88,22 @@ Partial Class ThisAddIn
 
         If i + 3 < UBound(myAr) Then
             If myAr(i) = "Quote" And myAr(i + 1) = "Review" And myAr(i + 2) = "Quote" Then
-                userform3.DealID.Text = Trim(myAr(i + 4))
+                DealIDForm.DealID.Text = Trim(myAr(i + 4))
             End If
             If myAr(i) = "QUOTE" And myAr(i + 1) = "Deal" And myAr(i + 3) = "Version" Then
-                userform3.DealID.Text = Trim(myAr(i + 2))
+                DealIDForm.DealID.Text = Trim(myAr(i + 2))
             End If
 
         End If
 
         If Not completeAutonomy Then
-            userform3.ShowDialog()
+            DealIDForm.ShowDialog()
 
         End If
 
 
 
-        FindDealID = userform3.DealID.Text
+        FindDealID = DealIDForm.DealID.Text
     End Function
 
     Private Function RecordWaitTime(receivedTime As Date, completedTime As Date, person As String) As String
@@ -207,5 +207,29 @@ Partial Class ThisAddIn
     End Function
     Function IsInspector(itm As Object) As Boolean
         IsInspector = (TypeName(itm) = "Inspector")
+    End Function
+
+    Function WriteGreeting(myTime As Date, Optional toName As String = "") As String
+        Dim currenthour As Integer
+
+        currenthour = Microsoft.VisualBasic.DateAndTime.Hour(myTime)
+
+        WriteGreeting = "Good "
+
+        If currenthour < 12 Then
+            WriteGreeting &= "Morning"
+        ElseIf currenthour >= 17 Then
+            WriteGreeting &= "Evening"
+        Else
+            WriteGreeting &= "Afternoon"
+        End If
+
+        If toName = "" Or toName.ToLower = "insight" Then
+            WriteGreeting &= ","
+        Else
+            WriteGreeting &= " " & toName & ","
+        End If
+
+
     End Function
 End Class

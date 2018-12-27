@@ -5,7 +5,7 @@ Public Class DealIdent
 
 
 
-    Private Sub dealID_KeyDown(sender As Object, e As KeyEventArgs) Handles DealID.KeyDown
+    Private Sub DealID_KeyDown(sender As Object, e As KeyEventArgs) Handles DealID.KeyDown
         If e.KeyCode = Keys.Enter Then
             Button1_Click()
         End If
@@ -15,13 +15,15 @@ Public Class DealIdent
         Call Button2_Click()
     End Sub
 
-    Private Sub Button1_Click() Handles Button1.Click
+    Private Sub Button1_Click() Handles OKButton.Click
         DealID.Text = Trim(DealID.Text)
+        Me.DialogResult = DialogResult.OK
         Me.Hide()
     End Sub
 
     Private Sub Button2_Click() Handles Button2.Click
         DealID.Text = ""
+        Me.DialogResult = DialogResult.Cancel
         Me.Hide()
     End Sub
 
@@ -31,5 +33,6 @@ Public Class DealIdent
             DealID.Text = My.Computer.Clipboard.GetText
         End If
     End Sub
+
 
 End Class

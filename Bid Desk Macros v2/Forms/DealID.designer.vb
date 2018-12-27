@@ -24,61 +24,66 @@ Partial Class DealIdent
     Private Sub InitializeComponent()
         Me.SpecialMsg = New System.Windows.Forms.Label()
         Me.DealID = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.OKButton = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'SpecialMsg
         '
         Me.SpecialMsg.AutoSize = True
-        Me.SpecialMsg.Location = New System.Drawing.Point(12, 3)
+        Me.SpecialMsg.Location = New System.Drawing.Point(16, 4)
+        Me.SpecialMsg.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.SpecialMsg.Name = "SpecialMsg"
-        Me.SpecialMsg.Size = New System.Drawing.Size(182, 13)
+        Me.SpecialMsg.Size = New System.Drawing.Size(232, 17)
         Me.SpecialMsg.TabIndex = 0
         Me.SpecialMsg.Text = "Deal ID / SQ ID / Deal Reg Number:"
         '
         'DealID
         '
-        Me.DealID.Location = New System.Drawing.Point(12, 19)
+        Me.DealID.Location = New System.Drawing.Point(16, 23)
+        Me.DealID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DealID.Name = "DealID"
-        Me.DealID.Size = New System.Drawing.Size(291, 20)
+        Me.DealID.Size = New System.Drawing.Size(387, 22)
         Me.DealID.TabIndex = 1
         '
-        'Button1
+        'OKButton
         '
-        Me.Button1.Location = New System.Drawing.Point(15, 45)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(131, 25)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "OK"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.OKButton.Location = New System.Drawing.Point(20, 55)
+        Me.OKButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.OKButton.Name = "OKButton"
+        Me.OKButton.Size = New System.Drawing.Size(175, 31)
+        Me.OKButton.TabIndex = 2
+        Me.OKButton.Text = "OK"
+        Me.OKButton.UseVisualStyleBackColor = True
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(172, 45)
+        Me.Button2.Location = New System.Drawing.Point(229, 55)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(131, 25)
+        Me.Button2.Size = New System.Drawing.Size(175, 31)
         Me.Button2.TabIndex = 3
         Me.Button2.Text = "Cancel"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'DealIdent
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(317, 79)
+        Me.ClientSize = New System.Drawing.Size(423, 97)
         Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.OKButton)
         Me.Controls.Add(Me.DealID)
         Me.Controls.Add(Me.SpecialMsg)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "DealIdent"
-        Me.Text = "Form1"
+        Me.Text = "Deal ID Finder"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents SpecialMsg As System.Windows.Forms.Label
     Friend WithEvents DealID As System.Windows.Forms.TextBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents OKButton As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
 End Class
