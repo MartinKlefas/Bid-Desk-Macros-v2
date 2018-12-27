@@ -97,4 +97,32 @@ Public Class ClsDatabase
         End While
 
     End Function
+
+    Public Function Add_Data(what As Dictionary(Of String, String), Optional table As String = ThisAddIn.defaultTable) As Boolean
+
+        Dim cmd As New SqlCommand With {
+           .Connection = conn
+        }
+
+        Dim columns As String, values As String
+
+        columns = "("
+        values = "("
+        For Each kvp As KeyValuePair(Of String, String) In what
+            columns &= "[" & kvp.Key & "], "
+            values &= "N'" & MS_SQL_Escape(kvp.Value) & "', "
+        Next
+
+        columns = Left(columns, columns.Length - 2) & ")"
+        values = Left(values, values.Length - 2) & ")"
+
+        cmd.CommandText = "INSERT INTO " & table & columns & " VALUES " & values
+
+        Add_Data = (cmd.ExecuteNonQuery = 1)
+
+    End Function
+
+    Function MS_SQL_Escape(rawStr As String) As String
+        MS_SQL_Escape = Replace(rawStr, "'", "''")
+    End Function
 End Class

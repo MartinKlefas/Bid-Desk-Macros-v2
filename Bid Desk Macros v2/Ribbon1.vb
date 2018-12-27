@@ -18,4 +18,8 @@ Public Class Ribbon1
     Private Sub Button2_Click(sender As Object, e As RibbonControlEventArgs) Handles Button2.Click
         Globals.ThisAddIn.MoveBasedOnDealID()
     End Sub
+
+    Private Sub Button3_Click(sender As Object, e As RibbonControlEventArgs) Handles Button3.Click
+        Globals.ThisAddIn.ReplyToBidRequest()
+    End Sub
 End Class

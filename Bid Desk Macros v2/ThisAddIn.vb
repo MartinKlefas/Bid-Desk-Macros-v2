@@ -6,10 +6,12 @@ Public Class ThisAddIn
     Public Const server As String = "mklefass-sql2.database.windows.net"
     Public Const user As String = "mklefass"
     Public Const password As String = "nuNDCb4MqmU66j58"
-    Public Const database As String = "TutorialDB"
-    Public Const defaultTable As String = "Customers"
+    Public Const database As String = "Bids"
+    Public Const defaultTable As String = "all_bids"
     Public Const port As Integer = 1433
     Public Const searchType As StringComparison = vbTextCompare
+
+    Public Const drloglink = "<br><a href=""https://1drv.ms/x/s!Au1UdiaV3TWEgRFgZ3Lldlmbb_oj"">Click here for an automatically updated deal status report(which you should be able to filter)</a>"
 
 
 
@@ -46,6 +48,54 @@ Public Class ThisAddIn
                 success = MoveToFolder(targetFolder, msg)
             End If
         Next m
+    End Sub
+    Sub ReplyToBidRequest()
+
+
+
+        Dim obj As Object
+        Dim msg As Outlook.MailItem, myGreeting As String, success As Boolean
+        Dim msgReply As Outlook.MailItem
+        Dim Result As Object, rFName As Object, msgTxt As String
+
+        Dim olCurrExplorer As Outlook.Explorer
+        Dim olCurrSelection As Outlook.Selection
+
+        olCurrExplorer = Application.ActiveExplorer
+        olCurrSelection = olCurrExplorer.Selection
+
+        If olCurrSelection.Count > 1 Then
+            MsgBox("This can only be used with one bid request at a time", vbCritical)
+            Exit Sub
+        End If
+
+        obj = GetCurrentItem()
+        If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
+            msg = obj
+            msgReply = msg.ReplyAll
+
+            Debug.Write(recordWaitTime(msg.ReceivedTime, Now(), "Me"))
+            Result = CreateDealRecord(msgReply)
+
+
+
+            rFName = Split(Result(2))
+
+            myGreeting = writeGreeting(Now(), CStr(rFName(0)))
+
+            msgTxt = myGreeting & "<br>&nbsp;I've created the below for you with " & Result(3) & " (ref: " _
+                & Result(4) _
+                & ").<br>&nbsp;Please check that everything is correct and let me know asap if there are any " _
+                & "errors.<br> Regards, Martin."
+
+            With msgReply
+                .HTMLBody = msgTxt & drLogLink & .HTMLBody
+                .Subject = .Subject & " - " & Result(4)
+                .Display() ' or .Send
+            End With
+            success = MoveToFolder(Trim(Result(2)), msg)
+        End If
+
     End Sub
 
 

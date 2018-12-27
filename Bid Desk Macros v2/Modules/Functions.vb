@@ -1,6 +1,6 @@
 ﻿Imports Microsoft.Office.Interop.Outlook
 
-Module Functions
+Partial Class ThisAddIn
     Public sqlInterface As New ClsDatabase(ThisAddIn.server, ThisAddIn.user,
                                    ThisAddIn.database, ThisAddIn.port)
 
@@ -105,4 +105,107 @@ Module Functions
 
         FindDealID = userform3.DealID.Text
     End Function
-End Module
+
+    Private Function RecordWaitTime(receivedTime As Date, completedTime As Date, person As String) As String
+
+
+        Dim tmpDict As New Dictionary(Of String, String) From {
+            {"WaitingFor", person},
+            {"Received", receivedTime},
+            {"Completed", completedTime}
+        }
+
+
+        If sqlInterface.Add_Data(tmpDict, "wait_times") Then
+            Return PrettyString(completedTime - receivedTime)
+        Else
+            Return ""
+        End If
+
+
+    End Function
+
+
+    Function CreateDealRecord(ReplyMail As Outlook.MailItem) As Dictionary(Of String, String)
+        Dim NewDealForm As New newDeal
+        Dim requestorName As String, Vendor As String, ccNames As String
+
+        If NewDealForm.ShowDialog() = Windows.Forms.DialogResult.OK Then ' Show and wait
+            Dim toNames As String(), rName() As String
+
+            toNames = Split(ReplyMail.To, ";") ' Split out each recipient
+
+            If InStr(toNames(0), ",") > 1 Then ' Some email names are "fName, lName" others aren't
+
+                rName = Split(toNames(0), ",")
+                requestorName = Trim(rName(1)) & " " & Trim(rName(0))
+            Else
+                requestorName = Trim(toNames(0))
+            End If
+
+            If NewDealForm.DellOption.Checked Then
+                Vendor = "Dell"
+            ElseIf NewDealForm.HPIOption.Checked Then
+                Vendor = "HPI"
+            Else
+                Vendor = "HPE"
+            End If
+
+            ccNames = ReplyMail.CC
+            For i = 1 To UBound(toNames) ' append the second and later "to" names to the CC list
+                ccNames = ccNames & "; " & toNames(i)
+            Next
+
+            CreateDealRecord = New Dictionary(Of String, String) From {
+                {"AM", requestorName},
+                {"Customer", NewDealForm.CustomerName.Text},
+                {"Vendor", Vendor},
+                {"DealID", NewDealForm.DealID.Text},
+                {"Ingram", NewDealForm.cIngram.Checked},
+                {"Techdata", NewDealForm.cTechData.Checked},
+                {"Westcoast", NewDealForm.cWestcoast.Checked},
+                {"CC", ccNames}
+            }
+
+
+            If sqlInterface.Add_Data(CreateDealRecord) Then
+                CreateDealRecord.Add("Result", "Success")
+            Else
+                CreateDealRecord.Add("Result", "Failed")
+            End If
+
+
+        Else
+                Return New Dictionary(Of String, String) From {
+                {"Result", "Cancelled"}
+            }
+
+
+
+        End If
+
+
+
+
+
+
+    End Function
+
+
+    Function GetCurrentItem() As Object
+        Select Case True
+            Case IsExplorer(Application.ActiveWindow)
+                GetCurrentItem = Application.ActiveExplorer.Selection.Item(1)
+            Case IsInspector(Application.ActiveWindow)
+                GetCurrentItem = Application.ActiveInspector.CurrentItem
+            Case Else
+                GetCurrentItem = Nothing
+        End Select
+    End Function
+    Function IsExplorer(itm As Object) As Boolean
+        IsExplorer = (TypeName(itm) = "Explorer")
+    End Function
+    Function IsInspector(itm As Object) As Boolean
+        IsInspector = (TypeName(itm) = "Inspector")
+    End Function
+End Class
