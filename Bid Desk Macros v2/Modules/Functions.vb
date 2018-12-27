@@ -171,6 +171,9 @@ Partial Class ThisAddIn
 
             CreateDealRecord.Add("NDT", ndt.CreateTicket(1, makeTicketData(CreateDealRecord, ReplyMail)).ToString)
 
+            'add people to notify
+            'update ticket with bid number
+
             If sqlInterface.Add_Data(CreateDealRecord) Then
                 CreateDealRecord.Add("Result", "Success")
             Else
