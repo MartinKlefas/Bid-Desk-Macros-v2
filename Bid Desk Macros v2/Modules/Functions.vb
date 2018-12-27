@@ -167,6 +167,9 @@ Partial Class ThisAddIn
                 {"CC", ccNames}
             }
 
+            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
+
+            CreateDealRecord.Add("NDT", ndt.CreateTicket(1, makeTicketData(CreateDealRecord, ReplyMail)).ToString)
 
             If sqlInterface.Add_Data(CreateDealRecord) Then
                 CreateDealRecord.Add("Result", "Success")
@@ -191,6 +194,24 @@ Partial Class ThisAddIn
 
     End Function
 
+    Private Function MakeTicketData(DealDict As Dictionary(Of String, String), email As Outlook.MailItem) As Dictionary(Of String, String)
+
+        Dim requestor As Outlook.ExchangeUser
+        requestor = email.Recipients(0).AddressEntry.GetExchangeUser
+
+
+
+        MakeTicketData = New Dictionary(Of String, String) From {
+            {"Short Description", DealDict("Vendor") & "Bid for " & DealDict("Customer")},
+            {"Vendor", DealDict("Vendor")},
+            {"Client Name", DealDict("Customer")},
+            {"Sales Name", requestor.Name},
+            {"Sales Number", requestor.BusinessTelephoneNumber},
+            {"Sales Email", requestor.PrimarySmtpAddress},
+            {"Description", "This is a copy of a request sent in by email, the original email will be attached. The request has been completed, and the results of these actions will be automatically added when ready."}
+        }
+
+    End Function
 
     Function GetCurrentItem() As Object
         Select Case True
