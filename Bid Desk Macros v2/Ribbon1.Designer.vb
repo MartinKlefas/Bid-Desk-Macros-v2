@@ -44,8 +44,9 @@
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.Button1 = Me.Factory.CreateRibbonButton
-        Me.Button2 = Me.Factory.CreateRibbonButton
-        Me.Button3 = Me.Factory.CreateRibbonButton
+        Me.MoveBtn = Me.Factory.CreateRibbonButton
+        Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
+        Me.ExpireButton = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.SuspendLayout()
@@ -59,8 +60,9 @@
         'Group1
         '
         Me.Group1.Items.Add(Me.Button1)
-        Me.Group1.Items.Add(Me.Button2)
-        Me.Group1.Items.Add(Me.Button3)
+        Me.Group1.Items.Add(Me.MoveBtn)
+        Me.Group1.Items.Add(Me.ReplyToBidBtn)
+        Me.Group1.Items.Add(Me.ExpireButton)
         Me.Group1.Label = "Group1"
         Me.Group1.Name = "Group1"
         '
@@ -69,21 +71,29 @@
         Me.Button1.Label = "Button1"
         Me.Button1.Name = "Button1"
         '
-        'Button2
+        'MoveBtn
         '
-        Me.Button2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.Button2.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.folder_download_down_decrease_arrow
-        Me.Button2.Label = "Move by Deal ID"
-        Me.Button2.Name = "Button2"
-        Me.Button2.ShowImage = True
+        Me.MoveBtn.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.MoveBtn.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.folder_download_down_decrease_arrow
+        Me.MoveBtn.Label = "Move by Deal ID"
+        Me.MoveBtn.Name = "MoveBtn"
+        Me.MoveBtn.ShowImage = True
         '
-        'Button3
+        'ReplyToBidBtn
         '
-        Me.Button3.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.Button3.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources._128__1_
-        Me.Button3.Label = "Reply to Bid Request"
-        Me.Button3.Name = "Button3"
-        Me.Button3.ShowImage = True
+        Me.ReplyToBidBtn.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.ReplyToBidBtn.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources._128__1_
+        Me.ReplyToBidBtn.Label = "Reply to Bid Request"
+        Me.ReplyToBidBtn.Name = "ReplyToBidBtn"
+        Me.ReplyToBidBtn.ShowImage = True
+        '
+        'ExpireButton
+        '
+        Me.ExpireButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.ExpireButton.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.exclamation_mark_red
+        Me.ExpireButton.Label = "Create Expiry Messages"
+        Me.ExpireButton.Name = "ExpireButton"
+        Me.ExpireButton.ShowImage = True
         '
         'Ribbon1
         '
@@ -101,8 +111,9 @@
     Friend WithEvents Tab1 As Microsoft.Office.Tools.Ribbon.RibbonTab
     Friend WithEvents Group1 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents Button1 As Microsoft.Office.Tools.Ribbon.RibbonButton
-    Friend WithEvents Button2 As Microsoft.Office.Tools.Ribbon.RibbonButton
-    Friend WithEvents Button3 As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents MoveBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents ReplyToBidBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents ExpireButton As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

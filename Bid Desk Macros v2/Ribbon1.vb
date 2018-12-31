@@ -15,11 +15,15 @@ Public Class Ribbon1
         Debug.WriteLine(tmp)
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As RibbonControlEventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As RibbonControlEventArgs) Handles MoveBtn.Click
         Globals.ThisAddIn.MoveBasedOnDealID()
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As RibbonControlEventArgs) Handles Button3.Click
+    Private Sub Button3_Click(sender As Object, e As RibbonControlEventArgs) Handles ReplyToBidBtn.Click
         Globals.ThisAddIn.ReplyToBidRequest()
+    End Sub
+
+    Private Sub ExpireButton_Click(sender As Object, e As RibbonControlEventArgs) Handles ExpireButton.Click
+        Globals.ThisAddIn.ExpiryMessages()
     End Sub
 End Class

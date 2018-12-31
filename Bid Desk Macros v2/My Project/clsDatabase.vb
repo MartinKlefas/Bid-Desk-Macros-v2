@@ -65,15 +65,15 @@ Public Class ClsDatabase
         reader.Close()
     End Function
 
-    Public Function SelectData_List(Optional what As String = "*", Optional where As String = "",
-                               Optional table As String = ThisAddIn.defaultTable) As List(Of List(Of String))
+    Public Function SelectData_Dict(Optional what As String = "*", Optional where As String = "",
+                               Optional table As String = ThisAddIn.defaultTable) As List(Of Dictionary(Of String, String))
         Dim cmd As New SqlCommand With {
             .Connection = conn,
             .CommandText = "Select " & what & " from " & table
         }
 
 
-        SelectData_List = New List(Of List(Of String))
+        SelectData_Dict = New List(Of Dictionary(Of String, String))
 
 
         If where <> "" Then
@@ -84,15 +84,15 @@ Public Class ClsDatabase
         reader = cmd.ExecuteReader
 
         Dim j As Integer
-        Dim tmp As List(Of String)
+        Dim tmp As Dictionary(Of String, String)
 
         While reader.Read
-            tmp = New List(Of String)
+            tmp = New Dictionary(Of String, String)
 
             For j = 0 To reader.FieldCount - 1
-                tmp.Add(reader.GetString(j))
+                tmp.Add(reader.GetName(j), reader.GetString(j))
             Next
-            SelectData_List.Add(tmp)
+            SelectData_Dict.Add(tmp)
 
         End While
 
@@ -121,6 +121,22 @@ Public Class ClsDatabase
         Add_Data = (cmd.ExecuteNonQuery = 1)
 
     End Function
+
+    Public Function Update_Data(what As String, Optional where As String = "",
+                               Optional table As String = ThisAddIn.defaultTable) As Integer
+        Dim cmd As New SqlCommand With {
+           .Connection = conn
+        }
+
+        cmd.CommandText = "UPDATE " & table & " SET " & what
+
+        If where <> "" Then
+            cmd.CommandText &= " WHERE " & where
+        End If
+
+        Update_Data = cmd.ExecuteNonQuery
+    End Function
+
 
     Function MS_SQL_Escape(rawStr As String) As String
         MS_SQL_Escape = Replace(rawStr, "'", "''")

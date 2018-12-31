@@ -11,7 +11,6 @@ Public Class ThisAddIn
     Public Const port As Integer = 1433
     Public Const searchType As StringComparison = vbTextCompare
 
-    Public Const drloglink = "<br><a href=""https://1drv.ms/x/s!Au1UdiaV3TWEgRFgZ3Lldlmbb_oj"">Click here for an automatically updated deal status report(which you should be able to filter)</a>"
 
 
 
@@ -95,6 +94,37 @@ Public Class ThisAddIn
             End With
             success = MoveToFolder(Trim(Result(2)), msg)
         End If
+
+    End Sub
+
+    Sub ExpiryMessages(Optional passedMsg As Outlook.MailItem = Nothing)
+
+        If passedMsg Is Nothing Then
+            Dim obj As Object
+            Dim msg As Outlook.MailItem
+
+
+            Dim olCurrExplorer As Outlook.Explorer
+            Dim olCurrSelection As Outlook.Selection
+
+            olCurrExplorer = Application.ActiveExplorer
+            olCurrSelection = olCurrExplorer.Selection
+
+            For Each obj In olCurrSelection
+                If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
+                    msg = obj
+                    doOneExpiry(msg)
+
+                End If
+
+
+            Next
+        Else
+            doOneExpiry(passedMsg)
+        End If
+
+
+
 
     End Sub
 

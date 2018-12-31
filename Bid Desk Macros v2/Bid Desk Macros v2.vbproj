@@ -204,6 +204,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modules\Functions.vb" />
+    <Compile Include="Modules\MessageTexts.vb" />
+    <Compile Include="Modules\Lookup Functions.vb" />
     <Compile Include="Modules\TimeSpanPrettyString.vb" />
     <Compile Include="My Project\clsDatabase.vb" />
     <Compile Include="Ribbon1.Designer.vb">

@@ -34,18 +34,7 @@ Partial Class ThisAddIn
         End Try
     End Function
 
-    Public Function GetFolderbyDeal(dealID As String,
-                                    Optional SuppressWarnings As Boolean = False) As String
 
-        Try
-            Return sqlInterface.SelectData("AM", "DealID = " & dealID)
-        Catch
-            If Not SuppressWarnings Then
-                MsgBox("there was an error")
-            End If
-            Return ""
-        End Try
-    End Function
 
     Public Function FindDealID(MsgSubject As String, msgBody As String, Optional completeAutonomy As Boolean = False) As String
         Dim myAr As String(), i As Integer, myArTwo As Object
@@ -216,6 +205,77 @@ Partial Class ThisAddIn
 
     End Function
 
+    Private Function MakeTicketData(DealID As String) As Dictionary(Of String, String)
+
+        Dim tmp = sqlInterface.SelectData_Dict("*", "DealID = " & DealID)
+
+        Dim DealDict As Dictionary(Of String, String) = tmp(0)
+
+        Dim requestor As Outlook.ExchangeUser
+
+        requestor = Globals.ThisAddIn.Application.Session.CreateRecipient(DealDict("AM")).AddressEntry
+
+        MakeTicketData = New Dictionary(Of String, String) From {
+            {"Short Description", DealDict("Vendor") & "Bid for " & DealDict("Customer")},
+            {"Vendor", DealDict("Vendor")},
+            {"Client Name", DealDict("Customer")},
+            {"Sales Name", requestor.Name},
+            {"Sales Number", requestor.BusinessTelephoneNumber},
+            {"Sales Email", requestor.PrimarySmtpAddress},
+            {"Description", "We have received an expiry notice from the vendor as attached."}
+        }
+
+
+    End Function
+
+    Private Function DoOneExpiry(msg As Outlook.MailItem) As Boolean
+
+        Dim msgReply As Outlook.MailItem, success As Boolean = True
+        Dim DealID As String, TargetFolder As String
+
+        DealID = FindDealID(msg.Subject, msg.Body, True)
+        TargetFolder = GetFolderbyDeal(DealID, True)
+
+        If TargetFolder <> "" AndAlso Not IsDealDead(DealID) Then
+            msgReply = msg.Forward
+            With msgReply
+                .HTMLBody = WriteGreeting(Now(), Split(TargetFolder)(0)) & Replace(Replace(DRExpire, "%dealID%", DealID), "%customer%", GetCustomerbyDeal(DealID)) & .HTMLBody
+                .To = TargetFolder
+                .CC = GetCCbyDeal(DealID)
+                .Send()
+            End With
+
+            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False)
+            Dim TicketNum As Integer
+            Try
+                TicketNum = ndt.CreateTicket(1, MakeTicketData(DealID))
+
+                If TicketNum <> 0 AndAlso AddNewTicketToDeal(DealID, TicketNum) <> 1 Then
+                    MsgBox("Adding the new ticketID failed")
+                    success = False
+                End If
+
+                'update notify
+                'attachments
+                'message
+
+            Catch
+                Return False
+            End Try
+
+        End If
+
+        Return success
+    End Function
+    Function IsDealDead(DealID As String) As Boolean
+
+        Dim tmp As String
+        tmp = sqlInterface.SelectData(IsDealDead, "DealID = " & DealID)
+        Return CInt(tmp) = 1
+
+
+    End Function
+
     Function GetCurrentItem() As Object
         Select Case True
             Case IsExplorer(Application.ActiveWindow)
@@ -254,6 +314,30 @@ Partial Class ThisAddIn
             WriteGreeting &= " " & toName & ","
         End If
 
+
+    End Function
+
+    Function MyResolveName(lookupName As String) As Outlook.AddressEntry
+        Dim oNS As Outlook.NameSpace, newLookupName As String
+
+        newLookupName = lookupName
+
+        Dim noChangeNamesStr As String
+        noChangeNamesStr = "LGN.Enquiries;Lorrae.Tomlinson@insight.com;NHSSupport;TeamWhite.UK;Insight ACPO TAM Team;Insight Met Police Team;Mel Wardle;Insight Capgemini Team;Insight Police Team;ipt@insight.com;_iuk-72-2-brianboys@insight.com"
+
+        Dim nameArry = Split(lookupName, " ")
+        If UBound(nameArry) > 0 Then
+            newLookupName = nameArry(1) & ", " & nameArry(0)
+        End If
+        oNS = Application.GetNamespace("MAPI")
+
+        If lookupName = "Not Defined" Or lookupName = "TP2 Enquiries" Then newLookupName = "Klefas, Martin"
+        If lookupName = "Andy Walsh" Then newLookupName = "Walsh, Andrew"
+        If lookupName = "NHS Solutions" Then newLookupName = "NHSSolutions@Insight.com"
+
+        If noChangeNamesStr.ToLower.Contains(lookupName.ToLower) Then newLookupName = lookupName
+
+        Return Globals.ThisAddIn.Application.Session.CreateRecipient(newLookupName).AddressEntry
 
     End Function
 End Class
