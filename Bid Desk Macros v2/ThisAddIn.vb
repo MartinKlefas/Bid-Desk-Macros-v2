@@ -74,7 +74,7 @@ Public Class ThisAddIn
             msgReply = msg.ReplyAll
 
             Debug.Write(recordWaitTime(msg.ReceivedTime, Now(), "Me"))
-            Result = CreateDealRecord(msgReply)
+            Result = CreateDealRecord(msg)
 
 
 

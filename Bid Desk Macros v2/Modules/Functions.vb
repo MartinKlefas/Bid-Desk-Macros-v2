@@ -115,9 +115,11 @@ Partial Class ThisAddIn
     End Function
 
 
-    Function CreateDealRecord(ReplyMail As Outlook.MailItem) As Dictionary(Of String, String)
+    Function CreateDealRecord(Mail As Outlook.MailItem) As Dictionary(Of String, String)
         Dim NewDealForm As New newDeal
         Dim requestorName As String, Vendor As String, ccNames As String
+        Dim ReplyMail As MailItem = Mail.ReplyAll
+        Dim tCreateDealRecord As Dictionary(Of String, String)
 
         If NewDealForm.ShowDialog() = Windows.Forms.DialogResult.OK Then ' Show and wait
             Dim toNames As String(), rName() As String
@@ -145,7 +147,7 @@ Partial Class ThisAddIn
                 ccNames = ccNames & "; " & toNames(i)
             Next
 
-            CreateDealRecord = New Dictionary(Of String, String) From {
+            tCreateDealRecord = New Dictionary(Of String, String) From {
                 {"AM", requestorName},
                 {"Customer", NewDealForm.CustomerName.Text},
                 {"Vendor", Vendor},
@@ -158,20 +160,31 @@ Partial Class ThisAddIn
 
             Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
 
-            CreateDealRecord.Add("NDT", ndt.CreateTicket(1, makeTicketData(CreateDealRecord, ReplyMail)).ToString)
-
+            tCreateDealRecord.Add("NDT", ndt.CreateTicket(1, MakeTicketData(tCreateDealRecord, ReplyMail)).ToString)
+            Dim aliases As String = ""
             'add people to notify
-            'update ticket with bid number
+            For Each recipient As Outlook.Recipient In ReplyMail.Recipients
+                Try
+                    aliases &= recipient.AddressEntry.GetExchangeUser.Alias & ";"
+                Catch
+                    Diagnostics.Debug.WriteLine("Could not find alias for: " & recipient.ToString)
+                End Try
+            Next
+            ndt.AddToNotify(aliases)
 
-            If sqlInterface.Add_Data(CreateDealRecord) Then
-                CreateDealRecord.Add("Result", "Success")
+            'update ticket with bid number & original email
+            ndt.AttachMail(Mail, "Deal ID  " & tCreateDealRecord("DealID") & "was submitted to " & tCreateDealRecord("Vendor") & " based on the information in the attached email")
+
+            If sqlInterface.Add_Data(tCreateDealRecord) Then
+                tCreateDealRecord.Add("Result", "Success")
             Else
-                CreateDealRecord.Add("Result", "Failed")
+                tCreateDealRecord.Add("Result", "Failed")
             End If
 
+            Return tCreateDealRecord
 
         Else
-                Return New Dictionary(Of String, String) From {
+            Return New Dictionary(Of String, String) From {
                 {"Result", "Cancelled"}
             }
 
@@ -238,10 +251,11 @@ Partial Class ThisAddIn
 
         If TargetFolder <> "" AndAlso Not IsDealDead(DealID) Then
             msgReply = msg.Forward
+            Dim CCList As String = GetCCbyDeal(DealID)
             With msgReply
                 .HTMLBody = WriteGreeting(Now(), Split(TargetFolder)(0)) & Replace(Replace(DRExpire, "%dealID%", DealID), "%customer%", GetCustomerbyDeal(DealID)) & .HTMLBody
                 .To = TargetFolder
-                .CC = GetCCbyDeal(DealID)
+                .CC = CCList
                 .Send()
             End With
 
@@ -255,9 +269,22 @@ Partial Class ThisAddIn
                     success = False
                 End If
 
-                'update notify
-                'attachments
-                'message
+                'update notify to include everyone.
+                Dim aliases As String = TargetFolder
+                aliases = MyResolveName(TargetFolder).GetExchangeUser.Alias
+                For Each ccPerson In Split(CCList, ";")
+                    Try
+                        aliases &= ";" & MyResolveName(ccPerson).GetExchangeUser.Alias
+                    Catch
+                        Diagnostics.Debug.WriteLine("Could not find alias for: " & ccPerson)
+                    End Try
+                Next
+
+                'attach the notification with an explanation
+                ndt.AttachMail(msg, "This is the vendor's original expiration notification")
+
+                'Ask the CC List what to do.
+                ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
 
             Catch
                 Return False
