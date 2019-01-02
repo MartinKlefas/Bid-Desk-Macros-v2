@@ -48,6 +48,35 @@ Public Class ThisAddIn
             End If
         Next m
     End Sub
+
+    Friend Sub FwdDRDecision(Optional passedMessage As Outlook.MailItem = Nothing)
+        If passedMessage Is Nothing Then
+            Dim obj As Object
+            Dim msg As Outlook.MailItem
+
+
+            Dim olCurrExplorer As Outlook.Explorer
+            Dim olCurrSelection As Outlook.Selection
+
+            olCurrExplorer = Application.ActiveExplorer
+            olCurrSelection = olCurrExplorer.Selection
+
+            For Each obj In olCurrSelection
+                If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
+                    msg = obj
+                    DoOneFwdDR(msg)
+
+                End If
+
+
+            Next
+        Else
+            DoOneFwdDR(passedMessage)
+
+
+        End If
+    End Sub
+
     Sub ReplyToBidRequest()
 
 
@@ -64,7 +93,7 @@ Public Class ThisAddIn
         olCurrSelection = olCurrExplorer.Selection
 
         If olCurrSelection.Count > 1 Then
-            MsgBox("This can only be used with one bid request at a time", vbCritical)
+            ShoutError("This can only be used with one bid request at a time", False)
             Exit Sub
         End If
 
@@ -97,7 +126,7 @@ Public Class ThisAddIn
 
     End Sub
 
-    Sub ExpiryMessages(Optional passedMsg As Outlook.MailItem = Nothing)
+    Sub ExpiryMessages(Optional passedMsg As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
 
         If passedMsg Is Nothing Then
             Dim obj As Object
@@ -113,14 +142,18 @@ Public Class ThisAddIn
             For Each obj In olCurrSelection
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
-                    doOneExpiry(msg)
+                    If Not DoOneExpiry(msg) Then
+                        ShoutError("There was an error processing this expiration", SuppressWarnings)
 
+                    End If
                 End If
 
 
             Next
         Else
-            doOneExpiry(passedMsg)
+            If Not DoOneExpiry(passedMsg) Then
+                ShoutError("There was an error processing this expiration")
+            End If
         End If
 
 

@@ -65,6 +65,35 @@ Public Class ClsDatabase
         reader.Close()
     End Function
 
+    Public Function SelectData_Date(what As String, where As String,
+                               Optional table As String = ThisAddIn.defaultTable) As Date
+        Dim cmd As New SqlCommand With {
+            .Connection = conn,
+            .CommandText = "Select " & what & " from " & table
+        }
+
+        If where <> "" Then
+            cmd.CommandText = cmd.CommandText & " where " & where
+        End If
+
+        SelectData_Date = Nothing
+
+        Dim reader As SqlDataReader
+        reader = cmd.ExecuteReader
+
+
+        While reader.Read
+            If reader.FieldCount > 1 Then
+                Exit While
+            End If
+
+            SelectData_Date = reader.GetDateTime(0)
+
+        End While
+
+        reader.Close()
+    End Function
+
     Public Function SelectData_Dict(Optional what As String = "*", Optional where As String = "",
                                Optional table As String = ThisAddIn.defaultTable) As List(Of Dictionary(Of String, String))
         Dim cmd As New SqlCommand With {

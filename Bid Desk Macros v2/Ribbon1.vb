@@ -26,4 +26,8 @@ Public Class Ribbon1
     Private Sub ExpireButton_Click(sender As Object, e As RibbonControlEventArgs) Handles ExpireButton.Click
         Globals.ThisAddIn.ExpiryMessages()
     End Sub
+
+    Private Sub FwdDecision_Click(sender As Object, e As RibbonControlEventArgs) Handles FwdDecision.Click
+        Globals.ThisAddIn.fwdDRDecision()
+    End Sub
 End Class

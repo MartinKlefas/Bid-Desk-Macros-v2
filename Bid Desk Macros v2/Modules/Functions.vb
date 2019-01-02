@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Office.Interop.Outlook
+﻿Imports System.Diagnostics
+Imports Microsoft.Office.Interop.Outlook
 
 Partial Class ThisAddIn
     Public sqlInterface As New ClsDatabase(ThisAddIn.server, ThisAddIn.user,
@@ -167,7 +168,7 @@ Partial Class ThisAddIn
                 Try
                     aliases &= recipient.AddressEntry.GetExchangeUser.Alias & ";"
                 Catch
-                    Diagnostics.Debug.WriteLine("Could not find alias for: " & recipient.ToString)
+                    ShoutError("Could not find alias for: " & recipient.ToString)
                 End Try
             Next
             ndt.AddToNotify(aliases)
@@ -241,59 +242,14 @@ Partial Class ThisAddIn
 
     End Function
 
-    Private Function DoOneExpiry(msg As Outlook.MailItem) As Boolean
+    Sub ShoutError(errorText As String, Optional SuppressWarnings As Boolean = True)
+        Debug.WriteLine(errorText)
 
-        Dim msgReply As Outlook.MailItem, success As Boolean = True
-        Dim DealID As String, TargetFolder As String
+        If Not SuppressWarnings Then MsgBox(errorText)
 
-        DealID = FindDealID(msg.Subject, msg.Body, True)
-        TargetFolder = GetFolderbyDeal(DealID, True)
 
-        If TargetFolder <> "" AndAlso Not IsDealDead(DealID) Then
-            msgReply = msg.Forward
-            Dim CCList As String = GetCCbyDeal(DealID)
-            With msgReply
-                .HTMLBody = WriteGreeting(Now(), Split(TargetFolder)(0)) & Replace(Replace(DRExpire, "%dealID%", DealID), "%customer%", GetCustomerbyDeal(DealID)) & .HTMLBody
-                .To = TargetFolder
-                .CC = CCList
-                .Send()
-            End With
+    End Sub
 
-            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False)
-            Dim TicketNum As Integer
-            Try
-                TicketNum = ndt.CreateTicket(1, MakeTicketData(DealID))
-
-                If TicketNum <> 0 AndAlso AddNewTicketToDeal(DealID, TicketNum) <> 1 Then
-                    MsgBox("Adding the new ticketID failed")
-                    success = False
-                End If
-
-                'update notify to include everyone.
-                Dim aliases As String = TargetFolder
-                aliases = MyResolveName(TargetFolder).GetExchangeUser.Alias
-                For Each ccPerson In Split(CCList, ";")
-                    Try
-                        aliases &= ";" & MyResolveName(ccPerson).GetExchangeUser.Alias
-                    Catch
-                        Diagnostics.Debug.WriteLine("Could not find alias for: " & ccPerson)
-                    End Try
-                Next
-
-                'attach the notification with an explanation
-                ndt.AttachMail(msg, "This is the vendor's original expiration notification")
-
-                'Ask the CC List what to do.
-                ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
-
-            Catch
-                Return False
-            End Try
-
-        End If
-
-        Return success
-    End Function
     Function IsDealDead(DealID As String) As Boolean
 
         Dim tmp As String
