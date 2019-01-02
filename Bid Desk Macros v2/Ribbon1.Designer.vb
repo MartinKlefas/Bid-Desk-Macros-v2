@@ -48,6 +48,7 @@
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.ExpireButton = Me.Factory.CreateRibbonButton
         Me.FwdDecision = Me.Factory.CreateRibbonButton
+        Me.FwdPrice = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.SuspendLayout()
@@ -65,6 +66,7 @@
         Me.Group1.Items.Add(Me.ReplyToBidBtn)
         Me.Group1.Items.Add(Me.ExpireButton)
         Me.Group1.Items.Add(Me.FwdDecision)
+        Me.Group1.Items.Add(Me.FwdPrice)
         Me.Group1.Label = "Group1"
         Me.Group1.Name = "Group1"
         '
@@ -105,6 +107,14 @@
         Me.FwdDecision.Name = "FwdDecision"
         Me.FwdDecision.ShowImage = True
         '
+        'FwdPrice
+        '
+        Me.FwdPrice.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.FwdPrice.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.right_arrow
+        Me.FwdPrice.Label = "Forward Pricing"
+        Me.FwdPrice.Name = "FwdPrice"
+        Me.FwdPrice.ShowImage = True
+        '
         'Ribbon1
         '
         Me.Name = "Ribbon1"
@@ -125,6 +135,7 @@
     Friend WithEvents ReplyToBidBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents ExpireButton As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents FwdDecision As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents FwdPrice As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

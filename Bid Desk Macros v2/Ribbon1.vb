@@ -30,4 +30,8 @@ Public Class Ribbon1
     Private Sub FwdDecision_Click(sender As Object, e As RibbonControlEventArgs) Handles FwdDecision.Click
         Globals.ThisAddIn.fwdDRDecision()
     End Sub
+
+    Private Sub FwdPrice_Click(sender As Object, e As RibbonControlEventArgs) Handles FwdPrice.Click
+        Globals.ThisAddIn.FwdPricing()
+    End Sub
 End Class

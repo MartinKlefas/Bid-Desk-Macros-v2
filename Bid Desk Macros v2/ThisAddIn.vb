@@ -49,7 +49,8 @@ Public Class ThisAddIn
         Next m
     End Sub
 
-    Friend Sub FwdDRDecision(Optional passedMessage As Outlook.MailItem = Nothing)
+    Sub FwdPricing(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
+
         If passedMessage Is Nothing Then
             Dim obj As Object
             Dim msg As Outlook.MailItem
@@ -64,14 +65,54 @@ Public Class ThisAddIn
             For Each obj In olCurrSelection
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
-                    DoOneFwdDR(msg)
+                    If msg.Subject.ToLower.Contains("opg") Then
+                        DoOneFwd(msg, opgFwdMessage, SuppressWarnings)
+                    Else
+                        DoOneFwd(msg, sqFwdMessage, SuppressWarnings)
+                    End If
+
 
                 End If
 
 
             Next
         Else
-            DoOneFwdDR(passedMessage)
+            If passedMessage.Subject.ToLower.Contains("opg") Then
+                DoOneFwd(passedMessage, opgFwdMessage, SuppressWarnings)
+            Else
+                DoOneFwd(passedMessage, sqFwdMessage, SuppressWarnings)
+            End If
+
+
+        End If
+
+    End Sub
+
+
+
+    Sub FwdDRDecision(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
+        If passedMessage Is Nothing Then
+            Dim obj As Object
+            Dim msg As Outlook.MailItem
+
+
+            Dim olCurrExplorer As Outlook.Explorer
+            Dim olCurrSelection As Outlook.Selection
+
+            olCurrExplorer = Application.ActiveExplorer
+            olCurrSelection = olCurrExplorer.Selection
+
+            For Each obj In olCurrSelection
+                If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
+                    msg = obj
+                    DoOneFwd(msg, drDecision, SuppressWarnings)
+
+                End If
+
+
+            Next
+        Else
+            DoOneFwd(passedMessage, drDecision, SuppressWarnings)
 
 
         End If
@@ -142,7 +183,7 @@ Public Class ThisAddIn
             For Each obj In olCurrSelection
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
-                    If Not DoOneExpiry(msg) Then
+                    If Not DoOneExpiry(msg, SuppressWarnings) Then
                         ShoutError("There was an error processing this expiration", SuppressWarnings)
 
                     End If
@@ -151,7 +192,7 @@ Public Class ThisAddIn
 
             Next
         Else
-            If Not DoOneExpiry(passedMsg) Then
+            If Not DoOneExpiry(passedMsg, SuppressWarnings) Then
                 ShoutError("There was an error processing this expiration")
             End If
         End If

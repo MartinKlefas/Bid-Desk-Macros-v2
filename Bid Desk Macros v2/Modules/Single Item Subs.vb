@@ -54,7 +54,7 @@
         Return success
     End Function
 
-    Private Function DoOneFwdDR(msg As Outlook.MailItem, Optional SuppressWarnings As Boolean = True) As Boolean
+    Private Function DoOneFwd(msg As Outlook.MailItem, messageBodyAddition As String, Optional SuppressWarnings As Boolean = True) As Boolean
         Dim success As Boolean = True
         Dim fNames As String()
 
@@ -77,10 +77,14 @@
         With msgFwdOne
             .To = MyResolveName(TargetFolder).Address
             .CC = GetCCbyDeal(DealID)
-            .HTMLBody = myGreeting & drDecision & drloglink & .HTMLBody
+            .HTMLBody = myGreeting & messageBodyAddition & drloglink & .HTMLBody
             .Send() ' or .Display
         End With
 
         Return MoveToFolder(TargetFolder, msg, SuppressWarnings)
     End Function
+
+
+
+
 End Class
