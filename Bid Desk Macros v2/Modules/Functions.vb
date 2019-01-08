@@ -250,6 +250,16 @@ Partial Class ThisAddIn
 
     End Sub
 
+    Function GetSelection() As Outlook.Selection
+        Dim olCurrExplorer As Outlook.Explorer
+
+
+        olCurrExplorer = Application.ActiveExplorer
+        GetSelection = olCurrExplorer.Selection
+
+    End Function
+
+
     Function IsDealDead(DealID As String) As Boolean
 
         Dim tmp As String

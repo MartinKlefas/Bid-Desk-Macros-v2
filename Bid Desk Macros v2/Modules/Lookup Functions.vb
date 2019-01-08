@@ -1,4 +1,10 @@
 ﻿Partial Class ThisAddIn
+    Public Function GetAMbyDeal(dealID As String,
+                                    Optional SuppressWarnings As Boolean = False) As String
+        Return GetFolderbyDeal(dealID, SuppressWarnings)
+
+    End Function
+
     Public Function GetFolderbyDeal(dealID As String,
                                     Optional SuppressWarnings As Boolean = False) As String
 

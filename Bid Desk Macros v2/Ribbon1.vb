@@ -38,4 +38,8 @@ Public Class Ribbon1
     Private Sub HPFwd_Click(sender As Object, e As RibbonControlEventArgs) Handles HPFwd.Click
         Globals.ThisAddIn.FwdHPResponse()
     End Sub
+
+    Private Sub ExtensionBtn_Click(sender As Object, e As RibbonControlEventArgs) Handles ExtensionBtn.Click
+        Globals.ThisAddIn.ExtensionMessage()
+    End Sub
 End Class

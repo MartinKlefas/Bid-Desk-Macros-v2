@@ -46,10 +46,11 @@
         Me.Button1 = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
-        Me.ExpireButton = Me.Factory.CreateRibbonButton
-        Me.FwdDecision = Me.Factory.CreateRibbonButton
         Me.FwdPrice = Me.Factory.CreateRibbonButton
         Me.HPFwd = Me.Factory.CreateRibbonButton
+        Me.FwdDecision = Me.Factory.CreateRibbonButton
+        Me.ExpireButton = Me.Factory.CreateRibbonButton
+        Me.ExtensionBtn = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.SuspendLayout()
@@ -69,6 +70,7 @@
         Me.Group1.Items.Add(Me.HPFwd)
         Me.Group1.Items.Add(Me.FwdDecision)
         Me.Group1.Items.Add(Me.ExpireButton)
+        Me.Group1.Items.Add(Me.ExtensionBtn)
         Me.Group1.Label = "Group1"
         Me.Group1.Name = "Group1"
         '
@@ -93,22 +95,6 @@
         Me.ReplyToBidBtn.Name = "ReplyToBidBtn"
         Me.ReplyToBidBtn.ShowImage = True
         '
-        'ExpireButton
-        '
-        Me.ExpireButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.ExpireButton.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.exclamation_mark_red
-        Me.ExpireButton.Label = "Create Expiry Messages"
-        Me.ExpireButton.Name = "ExpireButton"
-        Me.ExpireButton.ShowImage = True
-        '
-        'FwdDecision
-        '
-        Me.FwdDecision.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.FwdDecision.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.money_dollar_coins_cash_piggy_bank_finance_business
-        Me.FwdDecision.Label = "Forward DR Decision"
-        Me.FwdDecision.Name = "FwdDecision"
-        Me.FwdDecision.ShowImage = True
-        '
         'FwdPrice
         '
         Me.FwdPrice.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -124,6 +110,30 @@
         Me.HPFwd.Label = "Forward HP Response"
         Me.HPFwd.Name = "HPFwd"
         Me.HPFwd.ShowImage = True
+        '
+        'FwdDecision
+        '
+        Me.FwdDecision.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.FwdDecision.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.money_dollar_coins_cash_piggy_bank_finance_business
+        Me.FwdDecision.Label = "Forward DR Decision"
+        Me.FwdDecision.Name = "FwdDecision"
+        Me.FwdDecision.ShowImage = True
+        '
+        'ExpireButton
+        '
+        Me.ExpireButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.ExpireButton.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.exclamation_mark_red
+        Me.ExpireButton.Label = "Create Expiry Messages"
+        Me.ExpireButton.Name = "ExpireButton"
+        Me.ExpireButton.ShowImage = True
+        '
+        'ExtensionBtn
+        '
+        Me.ExtensionBtn.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.ExtensionBtn.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.actions_view_calendar_tasks
+        Me.ExtensionBtn.Label = "Send Extension Message"
+        Me.ExtensionBtn.Name = "ExtensionBtn"
+        Me.ExtensionBtn.ShowImage = True
         '
         'Ribbon1
         '
@@ -147,6 +157,7 @@
     Friend WithEvents FwdDecision As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents FwdPrice As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents HPFwd As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents ExtensionBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

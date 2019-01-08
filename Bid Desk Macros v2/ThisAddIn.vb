@@ -28,16 +28,10 @@ Public Class ThisAddIn
 
         '  Dim olApp As New Outlook.Application 'new throws security error
         Dim DealID As String, targetFolder As String
-        Dim olCurrExplorer As Outlook.Explorer
-        Dim olCurrSelection As Outlook.Selection
 
 
-        '  Set olNameSpace = olApp.GetNamespace("MAPI")
-        olCurrExplorer = Application.ActiveExplorer
-        olCurrSelection = olCurrExplorer.Selection
-
-        For m = 1 To olCurrSelection.Count
-            obj = olCurrSelection.Item(m)
+        For m = 1 To GetSelection().Count
+            obj = GetSelection().Item(m)
             If TypeName(obj) = "MailItem" Then
                 msg = obj
                 DealID = FindDealID(msg.Subject, msg.Body)
@@ -55,13 +49,8 @@ Public Class ThisAddIn
             Dim msg As Outlook.MailItem
 
 
-            Dim olCurrExplorer As Outlook.Explorer
-            Dim olCurrSelection As Outlook.Selection
 
-            olCurrExplorer = Application.ActiveExplorer
-            olCurrSelection = olCurrExplorer.Selection
-
-            For Each obj In olCurrSelection
+            For Each obj In GetSelection()
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
                     DoOneDistiReminder(msg, SuppressWarnings)
@@ -76,6 +65,50 @@ Public Class ThisAddIn
 
     End Sub
 
+    Friend Sub ExtensionMessage()
+        Dim obj As Object
+        Dim msg As Outlook.MailItem, DealID As String
+        Dim msgReply As Outlook.MailItem
+
+        Dim replyText As String, myGreeting As String, AM As String
+
+
+
+        For Each obj In GetSelection()
+            If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
+                msg = obj
+                msgReply = msg.ReplyAll
+
+                DealID = FindDealID(msg.Subject, msg.Body)
+
+                AM = GetAMbyDeal(DealID)
+
+                If GetVendor(DealID).ToLower.Contains("hp") Then
+                    replyText = HPExtensionSubmitted
+                Else
+                    replyText = DellExtensionSubmitted
+
+                End If
+
+                Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
+                    .TicketNumber = GetNDTbyDeal(DealID)
+                }
+
+                ndt.AttachMail(msg, "Request to extend the DR")
+                ndt.CloseTicket("As requested, an extension has been requested on the vendor portal.")
+
+                myGreeting = WriteGreeting(Now(), AM.Split(" ")(0))
+
+                msgReply.HTMLBody = myGreeting & replyText & msgReply.HTMLBody
+
+                msgReply.Send()
+
+
+            End If
+        Next
+
+    End Sub
+
     Sub FwdPricing(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
 
         If passedMessage Is Nothing Then
@@ -83,13 +116,9 @@ Public Class ThisAddIn
             Dim msg As Outlook.MailItem
 
 
-            Dim olCurrExplorer As Outlook.Explorer
-            Dim olCurrSelection As Outlook.Selection
 
-            olCurrExplorer = Application.ActiveExplorer
-            olCurrSelection = olCurrExplorer.Selection
 
-            For Each obj In olCurrSelection
+            For Each obj In GetSelection()
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
                     If msg.Subject.ToLower.Contains("opg") Then
@@ -123,13 +152,9 @@ Public Class ThisAddIn
             Dim msg As Outlook.MailItem
 
 
-            Dim olCurrExplorer As Outlook.Explorer
-            Dim olCurrSelection As Outlook.Selection
 
-            olCurrExplorer = Application.ActiveExplorer
-            olCurrSelection = olCurrExplorer.Selection
 
-            For Each obj In olCurrSelection
+            For Each obj In GetSelection()
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
                     DoOneFwd(msg, drDecision, SuppressWarnings)
@@ -154,13 +179,9 @@ Public Class ThisAddIn
         Dim msgReply As Outlook.MailItem
         Dim Result As Object, rFName As Object, msgTxt As String
 
-        Dim olCurrExplorer As Outlook.Explorer
-        Dim olCurrSelection As Outlook.Selection
 
-        olCurrExplorer = Application.ActiveExplorer
-        olCurrSelection = olCurrExplorer.Selection
 
-        If olCurrSelection.Count > 1 Then
+        If GetSelection().Count > 1 Then
             ShoutError("This can only be used with one bid request at a time", False)
             Exit Sub
         End If
@@ -170,14 +191,14 @@ Public Class ThisAddIn
             msg = obj
             msgReply = msg.ReplyAll
 
-            Debug.Write(recordWaitTime(msg.ReceivedTime, Now(), "Me"))
+            Debug.Write(RecordWaitTime(msg.ReceivedTime, Now(), "Me"))
             Result = CreateDealRecord(msg)
 
 
 
             rFName = Split(Result(2))
 
-            myGreeting = writeGreeting(Now(), CStr(rFName(0)))
+            myGreeting = WriteGreeting(Now(), CStr(rFName(0)))
 
             msgTxt = myGreeting & "<br>&nbsp;I've created the below for you with " & Result(3) & " (ref: " _
                 & Result(4) _
@@ -185,7 +206,7 @@ Public Class ThisAddIn
                 & "errors.<br> Regards, Martin."
 
             With msgReply
-                .HTMLBody = msgTxt & drLogLink & .HTMLBody
+                .HTMLBody = msgTxt & drloglink & .HTMLBody
                 .Subject = .Subject & " - " & Result(4)
                 .Display() ' or .Send
             End With
@@ -201,13 +222,7 @@ Public Class ThisAddIn
             Dim msg As Outlook.MailItem
 
 
-            Dim olCurrExplorer As Outlook.Explorer
-            Dim olCurrSelection As Outlook.Selection
-
-            olCurrExplorer = Application.ActiveExplorer
-            olCurrSelection = olCurrExplorer.Selection
-
-            For Each obj In olCurrSelection
+            For Each obj In GetSelection()
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
                     If Not DoOneExpiry(msg, SuppressWarnings) Then
