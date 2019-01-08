@@ -55,7 +55,7 @@
     End Function
 
     Private Function DoOneFwd(msg As Outlook.MailItem, messageBodyAddition As String, Optional SuppressWarnings As Boolean = True) As Boolean
-        Dim success As Boolean = True
+
         Dim fNames As String()
 
         Dim msgFwdOne As Outlook.MailItem
@@ -77,14 +77,60 @@
         With msgFwdOne
             .To = MyResolveName(TargetFolder).Address
             .CC = GetCCbyDeal(DealID)
-            .HTMLBody = myGreeting & messageBodyAddition & drloglink & .HTMLBody
+            .HTMLBody = myGreeting & messageBodyAddition & getfact(DealID) & drloglink & .HTMLBody
             .Send() ' or .Display
         End With
 
         Return MoveToFolder(TargetFolder, msg, SuppressWarnings)
     End Function
 
+    Private Function DoOneDistiReminder(msg As Outlook.MailItem, Optional SuppressWarnings As Boolean = True) As Boolean
 
+        Dim msgFwdOne As Outlook.MailItem
+
+        Dim DealID As String, myGreeting As String
+
+
+        DealID = FindDealID(msg.Subject, msg.Body)
+
+        If DealID = "" Then Return False
+
+        Try
+            If IsWestcoast(DealID) Then
+                msgFwdOne = msg.Forward
+                msgFwdOne.To = "quotes@westcoast.co.uk"
+                myGreeting = WriteGreeting(Now(), "All")
+                msgFwdOne.Send()
+            End If
+        Catch
+            Return False
+        End Try
+
+        Try
+            If IsIngram(DealID) Then
+                msgFwdOne = msg.Forward
+                msgFwdOne.To = "Insight.UK@ingrammicro.co.uk"
+                myGreeting = WriteGreeting(Now(), "All")
+                msgFwdOne.Send()
+            End If
+        Catch
+            Return False
+        End Try
+
+        Try
+            If IsTechData(DealID) Then
+                msgFwdOne = msg.Forward
+                msgFwdOne.To = "insightsales@techdata.co.uk"
+                myGreeting = WriteGreeting(Now(), "All")
+                msgFwdOne.Send()
+            End If
+        Catch
+            Return False
+        End Try
+
+        Return True
+
+    End Function
 
 
 End Class

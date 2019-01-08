@@ -34,4 +34,8 @@ Public Class Ribbon1
     Private Sub FwdPrice_Click(sender As Object, e As RibbonControlEventArgs) Handles FwdPrice.Click
         Globals.ThisAddIn.FwdPricing()
     End Sub
+
+    Private Sub HPFwd_Click(sender As Object, e As RibbonControlEventArgs) Handles HPFwd.Click
+        Globals.ThisAddIn.FwdHPResponse()
+    End Sub
 End Class

@@ -49,6 +49,33 @@ Public Class ThisAddIn
         Next m
     End Sub
 
+    Friend Sub FwdHPResponse(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
+        If passedMessage Is Nothing Then
+            Dim obj As Object
+            Dim msg As Outlook.MailItem
+
+
+            Dim olCurrExplorer As Outlook.Explorer
+            Dim olCurrSelection As Outlook.Selection
+
+            olCurrExplorer = Application.ActiveExplorer
+            olCurrSelection = olCurrExplorer.Selection
+
+            For Each obj In olCurrSelection
+                If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
+                    msg = obj
+                    DoOneDistiReminder(msg, SuppressWarnings)
+                    DoOneFwd(msg, HPPublishMessage, SuppressWarnings)
+                End If
+
+            Next
+        Else
+            DoOneDistiReminder(passedMessage, SuppressWarnings)
+            DoOneFwd(passedMessage, HPPublishMessage, SuppressWarnings)
+        End If
+
+    End Sub
+
     Sub FwdPricing(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
 
         If passedMessage Is Nothing Then

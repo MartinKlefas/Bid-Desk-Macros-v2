@@ -4,4 +4,6 @@
     Public Const drDecision = "<br>&nbsp; Please see below the vendor's decision on your deal registration.<br> Thanks,<br> Martin."
     Public Const sqFwdMessage = "<br>&nbsp; Please see attached pricing from distribution.<br> Thanks,<br> Martin."
     Public Const opgFwdMessage = "<br>&nbsp; Please see attached the OPG pricing from distribution, which you'll need for UPR Creation.<br> Thanks,<br> Martin."
+    Public Const HPPublishMessage = "<br>&nbsp; Your SmartQuote has been approved by HP, and is now being priced by distribution. We should have the first responses back very shortly. "
+
 End Module
