@@ -113,9 +113,6 @@
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="clsNextDeskTicket">
-      <HintPath>..\..\clsNextDeskTicket\clsNextDeskTicket\bin\Release\clsNextDeskTicket.dll</HintPath>
-    </Reference>
     <Reference Include="MySql.Data, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySql.Web, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -257,6 +254,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\MartinKlefas\clsNextDeskTicket\clsNextDeskTicket\clsNextDeskTicket.vbproj">
+      <Project>{d346ba40-e4d7-47fd-b4c0-daf313ddaa13}</Project>
+      <Name>clsNextDeskTicket</Name>
+    </ProjectReference>
     <ProjectReference Include="..\String Extensions\String Extensions.vbproj">
       <Project>{b020b362-9b91-40b2-a97f-a01e57f8fd62}</Project>
       <Name>String Extensions</Name>
