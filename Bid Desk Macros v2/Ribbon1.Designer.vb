@@ -51,6 +51,8 @@
         Me.FwdDecision = Me.Factory.CreateRibbonButton
         Me.ExpireButton = Me.Factory.CreateRibbonButton
         Me.ExtensionBtn = Me.Factory.CreateRibbonButton
+        Me.WonBtn = Me.Factory.CreateRibbonButton
+        Me.DeadBtn = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.SuspendLayout()
@@ -64,13 +66,15 @@
         'Group1
         '
         Me.Group1.Items.Add(Me.Button1)
-        Me.Group1.Items.Add(Me.MoveBtn)
         Me.Group1.Items.Add(Me.ReplyToBidBtn)
+        Me.Group1.Items.Add(Me.MoveBtn)
         Me.Group1.Items.Add(Me.FwdPrice)
         Me.Group1.Items.Add(Me.HPFwd)
         Me.Group1.Items.Add(Me.FwdDecision)
         Me.Group1.Items.Add(Me.ExpireButton)
         Me.Group1.Items.Add(Me.ExtensionBtn)
+        Me.Group1.Items.Add(Me.WonBtn)
+        Me.Group1.Items.Add(Me.DeadBtn)
         Me.Group1.Label = "Group1"
         Me.Group1.Name = "Group1"
         '
@@ -135,6 +139,16 @@
         Me.ExtensionBtn.Name = "ExtensionBtn"
         Me.ExtensionBtn.ShowImage = True
         '
+        'WonBtn
+        '
+        Me.WonBtn.Label = "Marked as Won"
+        Me.WonBtn.Name = "WonBtn"
+        '
+        'DeadBtn
+        '
+        Me.DeadBtn.Label = "Mark Dead"
+        Me.DeadBtn.Name = "DeadBtn"
+        '
         'Ribbon1
         '
         Me.Name = "Ribbon1"
@@ -158,6 +172,8 @@
     Friend WithEvents FwdPrice As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents HPFwd As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents ExtensionBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents WonBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents DeadBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

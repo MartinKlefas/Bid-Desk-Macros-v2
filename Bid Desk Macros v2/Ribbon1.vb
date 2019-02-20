@@ -42,4 +42,8 @@ Public Class Ribbon1
     Private Sub ExtensionBtn_Click(sender As Object, e As RibbonControlEventArgs) Handles ExtensionBtn.Click
         Globals.ThisAddIn.ExtensionMessage()
     End Sub
+
+    Private Sub WonBtn_Click(sender As Object, e As RibbonControlEventArgs) Handles WonBtn.Click
+        Globals.ThisAddIn.MarkedWon()
+    End Sub
 End Class

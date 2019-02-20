@@ -65,6 +65,32 @@ Public Class ThisAddIn
 
     End Sub
 
+    Friend Sub MarkedWon()
+        Dim obj As Object
+        Dim msg As Outlook.MailItem
+
+        Dim DealID As String, targetFolder As String
+
+
+        For Each obj In GetSelection()
+            If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
+                msg = obj
+
+                DealID = FindDealID(msg.Subject, msg.Body)
+                If DealID = "" Then Exit Sub
+                targetFolder = GetFolderbyDeal(DealID, False)
+
+                DoOneWon(msg, False)
+
+                MoveToFolder(targetFolder, msg)
+
+
+            End If
+
+        Next
+    End Sub
+
+
     Friend Sub ExtensionMessage()
         Dim obj As Object
         Dim msg As Outlook.MailItem, DealID As String
