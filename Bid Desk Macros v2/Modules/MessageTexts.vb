@@ -7,5 +7,6 @@
     Public Const HPPublishMessage As String = "<br>&nbsp; Your SmartQuote has been approved by HP, and is now being priced by distribution. We should have the first responses back very shortly. "
     Public Const HPExtensionSubmitted As String = "<br>&nbsp; I've submitted your request for an extension in the portal, you should hopefully receive an updated response shortly. Please note though that pricing may be different on the renewed deal. <br> Thanks,<br> Martin."
     Public Const DellExtensionSubmitted As String = "<br>&nbsp; I've submitted your request for an extension in the portal, and it has been extended by 90 days. Please ensure the continued validity of any quotes before passing them on to your customer. <br> Thanks,<br> Martin."
-
+    Public Const WonMessage As String = "<br>&nbsp; As below, your SQ has been set to won. I'm now getting OPG Pricing from distribution for you to use on your UPR Creation ticket.<br> Thanks,<br> Martin."
+    Public Const DeadMessage As String = "<br>&nbsp; Thank you for letting me know, I've updated my records.<br> Thanks,<br> Martin."
 End Module

@@ -44,8 +44,8 @@
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.Button1 = Me.Factory.CreateRibbonButton
-        Me.MoveBtn = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
+        Me.MoveBtn = Me.Factory.CreateRibbonButton
         Me.FwdPrice = Me.Factory.CreateRibbonButton
         Me.HPFwd = Me.Factory.CreateRibbonButton
         Me.FwdDecision = Me.Factory.CreateRibbonButton
@@ -83,14 +83,6 @@
         Me.Button1.Label = "Button1"
         Me.Button1.Name = "Button1"
         '
-        'MoveBtn
-        '
-        Me.MoveBtn.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.MoveBtn.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.folder_download_down_decrease_arrow
-        Me.MoveBtn.Label = "Move by Deal ID"
-        Me.MoveBtn.Name = "MoveBtn"
-        Me.MoveBtn.ShowImage = True
-        '
         'ReplyToBidBtn
         '
         Me.ReplyToBidBtn.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -98,6 +90,14 @@
         Me.ReplyToBidBtn.Label = "Reply to Bid Request"
         Me.ReplyToBidBtn.Name = "ReplyToBidBtn"
         Me.ReplyToBidBtn.ShowImage = True
+        '
+        'MoveBtn
+        '
+        Me.MoveBtn.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.MoveBtn.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.folder_download_down_decrease_arrow
+        Me.MoveBtn.Label = "Move by Deal ID"
+        Me.MoveBtn.Name = "MoveBtn"
+        Me.MoveBtn.ShowImage = True
         '
         'FwdPrice
         '

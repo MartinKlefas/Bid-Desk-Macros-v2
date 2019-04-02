@@ -46,4 +46,9 @@ Public Class Ribbon1
     Private Sub WonBtn_Click(sender As Object, e As RibbonControlEventArgs) Handles WonBtn.Click
         Globals.ThisAddIn.MarkedWon()
     End Sub
+
+    Private Sub DeadBtn_Click(sender As Object, e As RibbonControlEventArgs) Handles DeadBtn.Click
+        Globals.ThisAddIn.MarkDead()
+
+    End Sub
 End Class

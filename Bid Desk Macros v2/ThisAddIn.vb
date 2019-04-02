@@ -80,7 +80,51 @@ Public Class ThisAddIn
                 If DealID = "" Then Exit Sub
                 targetFolder = GetFolderbyDeal(DealID, False)
 
-                DoOneWon(msg, False)
+
+                Dim msgFwdOne As Outlook.MailItem = msg.Forward
+
+
+                With msgFwdOne
+                    .To = MyResolveName(targetFolder).Address
+                    .CC = GetCCbyDeal(DealID)
+                    .HTMLBody = WriteGreeting(Now(), CStr(Split(targetFolder)(0))) & WonMessage & drloglink & .HTMLBody
+                    .Send()
+                End With
+
+                MoveToFolder(targetFolder, msg)
+
+
+            End If
+
+        Next
+    End Sub
+
+
+    Friend Sub MarkDead()
+        Dim obj As Object
+        Dim msg As Outlook.MailItem
+
+        Dim DealID As String, targetFolder As String
+
+
+        For Each obj In GetSelection()
+            If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
+                msg = obj
+
+                DealID = FindDealID(msg.Subject, msg.Body)
+                If DealID = "" Then Exit Sub
+                targetFolder = GetFolderbyDeal(DealID, False)
+
+
+                Dim msgReplyOne As Outlook.MailItem = msg.ReplyAll
+
+
+                With msgReplyOne
+
+                    .CC = GetCCbyDeal(DealID)
+                    .HTMLBody = WriteGreeting(Now(), CStr(Split(targetFolder)(0))) & DeadMessage & drloglink & .HTMLBody
+                    .Send()
+                End With
 
                 MoveToFolder(targetFolder, msg)
 
