@@ -44,7 +44,15 @@
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.Button1 = Me.Factory.CreateRibbonButton
-        Me.Button2 = Me.Factory.CreateRibbonButton
+        Me.MoveBtn = Me.Factory.CreateRibbonButton
+        Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
+        Me.FwdPrice = Me.Factory.CreateRibbonButton
+        Me.HPFwd = Me.Factory.CreateRibbonButton
+        Me.FwdDecision = Me.Factory.CreateRibbonButton
+        Me.ExpireButton = Me.Factory.CreateRibbonButton
+        Me.ExtensionBtn = Me.Factory.CreateRibbonButton
+        Me.WonBtn = Me.Factory.CreateRibbonButton
+        Me.DeadBtn = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.SuspendLayout()
@@ -58,7 +66,15 @@
         'Group1
         '
         Me.Group1.Items.Add(Me.Button1)
-        Me.Group1.Items.Add(Me.Button2)
+        Me.Group1.Items.Add(Me.ReplyToBidBtn)
+        Me.Group1.Items.Add(Me.MoveBtn)
+        Me.Group1.Items.Add(Me.FwdPrice)
+        Me.Group1.Items.Add(Me.HPFwd)
+        Me.Group1.Items.Add(Me.FwdDecision)
+        Me.Group1.Items.Add(Me.ExpireButton)
+        Me.Group1.Items.Add(Me.ExtensionBtn)
+        Me.Group1.Items.Add(Me.WonBtn)
+        Me.Group1.Items.Add(Me.DeadBtn)
         Me.Group1.Label = "Group1"
         Me.Group1.Name = "Group1"
         '
@@ -67,13 +83,71 @@
         Me.Button1.Label = "Button1"
         Me.Button1.Name = "Button1"
         '
-        'Button2
+        'MoveBtn
         '
-        Me.Button2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.Button2.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.folder_download_down_decrease_arrow
-        Me.Button2.Label = "Move by Deal ID"
-        Me.Button2.Name = "Button2"
-        Me.Button2.ShowImage = True
+        Me.MoveBtn.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.MoveBtn.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.folder_download_down_decrease_arrow
+        Me.MoveBtn.Label = "Move by Deal ID"
+        Me.MoveBtn.Name = "MoveBtn"
+        Me.MoveBtn.ShowImage = True
+        '
+        'ReplyToBidBtn
+        '
+        Me.ReplyToBidBtn.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.ReplyToBidBtn.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources._128__1_
+        Me.ReplyToBidBtn.Label = "Reply to Bid Request"
+        Me.ReplyToBidBtn.Name = "ReplyToBidBtn"
+        Me.ReplyToBidBtn.ShowImage = True
+        '
+        'FwdPrice
+        '
+        Me.FwdPrice.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.FwdPrice.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.right_arrow
+        Me.FwdPrice.Label = "Forward Pricing"
+        Me.FwdPrice.Name = "FwdPrice"
+        Me.FwdPrice.ShowImage = True
+        '
+        'HPFwd
+        '
+        Me.HPFwd.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.HPFwd.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources._128
+        Me.HPFwd.Label = "Forward HP Response"
+        Me.HPFwd.Name = "HPFwd"
+        Me.HPFwd.ShowImage = True
+        '
+        'FwdDecision
+        '
+        Me.FwdDecision.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.FwdDecision.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.money_dollar_coins_cash_piggy_bank_finance_business
+        Me.FwdDecision.Label = "Forward DR Decision"
+        Me.FwdDecision.Name = "FwdDecision"
+        Me.FwdDecision.ShowImage = True
+        '
+        'ExpireButton
+        '
+        Me.ExpireButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.ExpireButton.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.exclamation_mark_red
+        Me.ExpireButton.Label = "Create Expiry Messages"
+        Me.ExpireButton.Name = "ExpireButton"
+        Me.ExpireButton.ShowImage = True
+        '
+        'ExtensionBtn
+        '
+        Me.ExtensionBtn.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.ExtensionBtn.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.actions_view_calendar_tasks
+        Me.ExtensionBtn.Label = "Send Extension Message"
+        Me.ExtensionBtn.Name = "ExtensionBtn"
+        Me.ExtensionBtn.ShowImage = True
+        '
+        'WonBtn
+        '
+        Me.WonBtn.Label = "Marked as Won"
+        Me.WonBtn.Name = "WonBtn"
+        '
+        'DeadBtn
+        '
+        Me.DeadBtn.Label = "Mark Dead"
+        Me.DeadBtn.Name = "DeadBtn"
         '
         'Ribbon1
         '
@@ -91,7 +165,15 @@
     Friend WithEvents Tab1 As Microsoft.Office.Tools.Ribbon.RibbonTab
     Friend WithEvents Group1 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents Button1 As Microsoft.Office.Tools.Ribbon.RibbonButton
-    Friend WithEvents Button2 As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents MoveBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents ReplyToBidBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents ExpireButton As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents FwdDecision As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents FwdPrice As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents HPFwd As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents ExtensionBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents WonBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents DeadBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection
