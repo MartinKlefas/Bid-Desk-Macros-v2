@@ -9,7 +9,7 @@
                                     Optional SuppressWarnings As Boolean = False) As String
 
         Try
-            Return sqlInterface.SelectData("AM", "DealID = " & dealID)
+            Return sqlInterface.SelectData("AM", "DealID = '" & dealID & "'")
         Catch
             ShoutError("there was an error there was an error looking up the AM", SuppressWarnings)
 
@@ -21,7 +21,7 @@
                                     Optional SuppressWarnings As Boolean = False) As String
 
         Try
-            Return sqlInterface.SelectData("Customer", "DealID = " & dealID)
+            Return sqlInterface.SelectData("Customer", "DealID = '" & dealID & "'")
         Catch
 
             ShoutError("there was an error there was an error getting the customer name", SuppressWarnings)
@@ -33,7 +33,7 @@
                                     Optional SuppressWarnings As Boolean = False) As String
 
         Try
-            Return sqlInterface.SelectData("CC", "DealID = " & dealID)
+            Return sqlInterface.SelectData("CC", "DealID = '" & dealID & "'")
         Catch
             ShoutError("there was an error getting the CC details", SuppressWarnings)
 
@@ -43,7 +43,7 @@
 
     Public Function GetNDTbyDeal(DealID As String, Optional AllTickets As Boolean = False, Optional SuppressWarnings As Boolean = True) As String
         Try
-            Dim allData As String = sqlInterface.SelectData("NDT", "DealID = " & DealID)
+            Dim allData As String = sqlInterface.SelectData("NDT", "DealID = '" & DealID & "'")
 
             If AllTickets Or Not allData.Contains(";") Then
                 Return allData
@@ -65,12 +65,12 @@
         oldNDT = GetNDTbyDeal(DealID)
         newNDT = oldNDT & ";" & TicketNumber
 
-        Return sqlInterface.Update_Data("NDT = " & newNDT, "DealID = " & DealID)
+        Return sqlInterface.Update_Data("NDT = " & newNDT, "DealID = '" & DealID & "'")
     End Function
 
     Public Function GetSubmitTime(DealID As String, Optional SuppressWarnings As Boolean = True) As Date
         Try
-            Return sqlInterface.SelectData_Date("Date", "DealID = " & DealID)
+            Return sqlInterface.SelectData_Date("Date", "DealID = '" & DealID & "'")
         Catch
 
             ShoutError("there was an error getting the deal submission time", SuppressWarnings)
@@ -79,7 +79,7 @@
     End Function
     Public Function GetVendor(DealID As String, Optional SuppressWarnings As Boolean = True) As String
         Try
-            Return sqlInterface.SelectData("Vendor", "DealID = " & DealID)
+            Return sqlInterface.SelectData("Vendor", "DealID = '" & DealID & "'")
         Catch
             ShoutError("there was an error getting the vendor", SuppressWarnings)
 
@@ -132,7 +132,7 @@
 
     Public Function IsWestcoast(DealID As Integer) As Boolean
         Dim tmpResult As String, intresult As Integer
-        tmpResult = sqlInterface.SelectData("Westcoast", "DealID = " & DealID)
+        tmpResult = sqlInterface.SelectData("Westcoast", "DealID = '" & DealID & "'")
 
         Try
             intresult = CInt(tmpResult)
@@ -144,7 +144,7 @@
     End Function
     Public Function IsTechData(DealID As Integer) As Boolean
         Dim tmpResult As String, intresult As Integer
-        tmpResult = sqlInterface.SelectData("Techdata", "DealID = " & DealID)
+        tmpResult = sqlInterface.SelectData("Techdata", "DealID = '" & DealID & "'")
 
         Try
             intresult = CInt(tmpResult)
@@ -156,7 +156,7 @@
     End Function
     Public Function IsIngram(DealID As Integer) As Boolean
         Dim tmpResult As String, intresult As Integer
-        tmpResult = sqlInterface.SelectData("Ingram", "DealID = " & DealID)
+        tmpResult = sqlInterface.SelectData("Ingram", "DealID = '" & DealID & "'")
 
         Try
             intresult = CInt(tmpResult)

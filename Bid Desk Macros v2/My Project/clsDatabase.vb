@@ -7,20 +7,30 @@ Public Class ClsDatabase
     Dim conn As SqlConnection
     Public Sub Make_connection(server As String, user As String,
                                     database As String, password As String)
-        Dim builder As New SqlConnectionStringBuilder
-        With builder
+        Try
+            Dim builder As New SqlConnectionStringBuilder
+            With builder
 
-            .DataSource = server
-            .UserID = user
-            .Password = password
+                .DataSource = server
+                .UserID = user
+                .Password = password
 
-            .InitialCatalog = database
+                .InitialCatalog = database
 
-        End With
+            End With
 
-        conn = New SqlConnection(builder.ConnectionString)
+            conn = New SqlConnection(builder.ConnectionString)
 
-        conn.Open()
+            conn.Open()
+        Catch
+
+            Dim connectionString As String
+
+
+            connectionString = "Data Source=GBMNCDT12830\SQLEXPRESS;Initial Catalog=bids;Integrated Security=SSPI"
+            conn = New SqlConnection(connectionString)
+            conn.Open()
+        End Try
 
     End Sub
 

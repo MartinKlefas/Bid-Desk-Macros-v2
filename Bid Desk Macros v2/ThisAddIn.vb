@@ -3,10 +3,10 @@ Imports Microsoft.Office.Interop.Outlook
 Imports MySql.Data.MySqlClient
 
 Public Class ThisAddIn
-    Public Const server As String = "mklefass-sql2.database.windows.net"
+    Public Const server As String = "GBMNCDT12830\SQLEXPRESS"
     Public Const user As String = "mklefass"
     Public Const password As String = "nuNDCb4MqmU66j58"
-    Public Const database As String = "Bids"
+    Public Const database As String = "bids"
     Public Const defaultTable As String = "all_bids"
     Public Const port As Integer = 1433
     Public Const searchType As StringComparison = vbTextCompare

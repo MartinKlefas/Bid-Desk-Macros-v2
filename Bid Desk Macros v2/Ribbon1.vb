@@ -11,7 +11,7 @@ Public Class Ribbon1
         Dim sqlInterface As New ClsDatabase(ThisAddIn.server, ThisAddIn.user,
                                    ThisAddIn.database, ThisAddIn.password)
         Dim tmp As String
-        tmp = sqlInterface.SelectData("Name", "Location = Australia")
+        tmp = sqlInterface.SelectData("Customer", "DealID = 'E002540241'")
         Debug.WriteLine(tmp)
     End Sub
 
