@@ -38,7 +38,7 @@ Partial Class ThisAddIn
 
 
     Public Function FindDealID(MsgSubject As String, msgBody As String, Optional completeAutonomy As Boolean = False) As String
-        Dim myAr As String(), i As Integer, myArTwo As Object
+        Dim myAr As String(), i As Integer, myArTwo As String()
         myAr = Split(MsgSubject, " ")
         Dim DealIDForm As New DealIdent
 
