@@ -35,15 +35,23 @@ Public Class NewMailForm
     End Sub
 
     Private Function IsPricing(msg As MailItem) As Boolean
-        Throw New NotImplementedException()
+        If msg.SenderEmailAddress.Equals("smart.quotes@techdata.com", searchType) And msg.Subject.StartsWith("QUOTE Deal", searchType) Then
+            Return True
+        ElseIf msg.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", searchType) And msg.Subject.StartsWith("Deal", searchType) And msg.Subject.ToLower.Contains("for reseller insight direct") Then
+            Return True
+
+        Else
+            Return False
+        End If
+
     End Function
 
     Private Function IsDRDecision(msg As MailItem) As Boolean
-        If msg.SenderEmailAddress.Equals("", searchType) And msg.Subject.StartsWith("Opportunity", searchType) Then
+        If msg.SenderEmailAddress.Equals("no_reply@dell.com", searchType) And msg.Subject.StartsWith("Opportunity", searchType) Then
             Return True
-        ElseIf msg.Subject.StartsWith("Deal Registration REGE", searchType) And msg.Subject.endswith("review complete", searchtype) Then
+        ElseIf msg.Subject.StartsWith("Deal Registration REGE", searchType) And msg.Subject.EndsWith("review complete", searchType) Then
             Return True
-        ElseIf msg.Subject.StartsWith("Deal Registration REGI", searchtype) AndAlso msg.Body.tolower.Contains("the review for the deal registration") Then
+        ElseIf msg.Subject.StartsWith("Deal Registration REGI", searchType) AndAlso msg.Body.ToLower.Contains("the review for the deal registration") Then
             Return True
         Else
             Return False
