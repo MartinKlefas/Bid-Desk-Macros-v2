@@ -247,7 +247,7 @@ Public Class ThisAddIn
         Dim obj As Object
         Dim msg As Outlook.MailItem, myGreeting As String, success As Boolean
         Dim msgReply As Outlook.MailItem
-        Dim Result As Object, rFName As Object, msgTxt As String
+        Dim Result As Dictionary(Of String, String), rFName As Object, msgTxt As String
 
 
 
@@ -264,25 +264,22 @@ Public Class ThisAddIn
             Debug.Write(RecordWaitTime(msg.ReceivedTime, Now(), "Me"))
             Result = CreateDealRecord(msg)
 
+            If Result("Result").Equals("Success", searchType) Then
+
+                rFName = Split(Result("AM"))
+
+                myGreeting = WriteGreeting(Now(), CStr(rFName(0)))
 
 
-            rFName = Split(Result(2))
 
-            myGreeting = WriteGreeting(Now(), CStr(rFName(0)))
-
-            msgTxt = myGreeting & "<br>&nbsp;I've created the below for you with " & Result(3) & " (ref: " _
-                & Result(4) _
-                & ").<br>&nbsp;Please check that everything is correct and let me know asap if there are any " _
-                & "errors.<br> Regards, Martin."
-
-            With msgReply
-                .HTMLBody = msgTxt & drloglink & .HTMLBody
-                .Subject = .Subject & " - " & Result(4)
-                .Display() ' or .Send
-            End With
-            success = MoveToFolder(Trim(Result(2)), msg)
+                With msgReply
+                    .HTMLBody = myGreeting & WriteSubmitMessage(Result) & .HTMLBody
+                    .Subject = .Subject & " - " & Result("DealID")
+                    .Display() ' or .Send
+                End With
+                success = MoveToFolder(Trim(Result("AM")), msg)
+            End If
         End If
-
     End Sub
 
     Sub ExpiryMessages(Optional passedMsg As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)

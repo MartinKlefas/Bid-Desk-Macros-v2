@@ -109,7 +109,7 @@ Partial Class ThisAddIn
         If sqlInterface.Add_Data(tmpDict, "wait_times") Then
             Return PrettyString(completedTime - receivedTime)
         Else
-            Return ""
+            Return "Adding the wait time failed"
         End If
 
 
@@ -153,6 +153,7 @@ Partial Class ThisAddIn
             Dim bWestcoast As Byte = BooltoByte(NewDealForm.cWestcoast.Checked)
 
             tCreateDealRecord = New Dictionary(Of String, String) From {
+                {"AMEmailAddress", Mail.SenderEmailAddress},
                 {"AM", requestorName},
                 {"Customer", NewDealForm.CustomerName.Text},
                 {"Vendor", Vendor},
@@ -349,6 +350,19 @@ Partial Class ThisAddIn
         Else
             BooltoByte = 0
         End If
+    End Function
+
+    Function WriteSubmitMessage(ByVal DealDetails As Dictionary(Of String, String)) As String
+        WriteSubmitMessage = Replace(SubmitMessage, "%DEALID%", DealDetails("DealID"))
+        WriteSubmitMessage = Replace(WriteSubmitMessage, "%VENDOR%", DealDetails("Vendor"))
+
+        If DealDetails.ContainsKey("NDT") Then
+            WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", Replace(NDTCreateMessage, "%NDT%", DealDetails("NDT")))
+        Else
+            WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", noNDTMessage)
+        End If
+
+        WriteSubmitMessage = WriteSubmitMessage & drloglink
     End Function
 End Class
 
