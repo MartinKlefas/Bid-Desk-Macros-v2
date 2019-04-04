@@ -54,7 +54,7 @@
         Return success
     End Function
 
-    Private Function DoOneFwd(msg As Outlook.MailItem, messageBodyAddition As String, Optional SuppressWarnings As Boolean = True) As Boolean
+    Private Function DoOneFwd(msg As Outlook.MailItem, messageBodyAddition As String, Optional SuppressWarnings As Boolean = True, Optional CompleteAutonomy As Boolean = False) As Boolean
 
         Dim fNames As String()
 
@@ -63,8 +63,11 @@
         Dim DealID As String, TargetFolder As String, myGreeting As String
 
 
-        DealID = FindDealID(msg.Subject, msg.Body)
-        If DealID = "" Then Return False
+        DealID = FindDealID(msg.Subject, msg.Body, CompleteAutonomy)
+        If DealID = "" OrElse dealExists(DealID) Then
+            Return False
+        End If
+
         RecordWaitTime(GetSubmitTime(DealID), msg.ReceivedTime, GetVendor(DealID))
 
         TargetFolder = GetFolderbyDeal(DealID, SuppressWarnings)
@@ -77,7 +80,7 @@
         With msgFwdOne
             .To = MyResolveName(TargetFolder).Address
             .CC = GetCCbyDeal(DealID)
-            .HTMLBody = myGreeting & messageBodyAddition & getfact(DealID) & drloglink & .HTMLBody
+            .HTMLBody = myGreeting & messageBodyAddition & GetFact(DealID) & drloglink & .HTMLBody
             .Send() ' or .Display
         End With
 

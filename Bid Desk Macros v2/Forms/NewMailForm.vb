@@ -24,7 +24,7 @@ Public Class NewMailForm
 
                 End If
                 If isDRDecision(msg) Then
-
+                    Globals.ThisAddIn.FwdDRDecision(msg)
                 End If
                 If isPricing(msg) Then
 

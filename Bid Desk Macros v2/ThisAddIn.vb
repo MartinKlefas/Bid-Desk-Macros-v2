@@ -238,7 +238,7 @@ Public Class ThisAddIn
 
             Next
         Else
-            DoOneFwd(passedMessage, drDecision, SuppressWarnings)
+            DoOneFwd(passedMessage, drDecision, SuppressWarnings, True)
 
 
         End If

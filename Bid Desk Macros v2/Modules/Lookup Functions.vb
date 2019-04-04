@@ -130,7 +130,7 @@
     End Function
 
 
-    Public Function IsWestcoast(DealID As Integer) As Boolean
+    Public Function IsWestcoast(DealID As String) As Boolean
         Dim tmpResult As String, intresult As Integer
         tmpResult = sqlInterface.SelectData("Westcoast", "DealID = '" & DealID & "'")
 
@@ -142,7 +142,7 @@
 
         Return intresult = 1
     End Function
-    Public Function IsTechData(DealID As Integer) As Boolean
+    Public Function IsTechData(DealID As String) As Boolean
         Dim tmpResult As String, intresult As Integer
         tmpResult = sqlInterface.SelectData("Techdata", "DealID = '" & DealID & "'")
 
@@ -154,7 +154,7 @@
 
         Return intresult = 1
     End Function
-    Public Function IsIngram(DealID As Integer) As Boolean
+    Public Function IsIngram(DealID As String) As Boolean
         Dim tmpResult As String, intresult As Integer
         tmpResult = sqlInterface.SelectData("Ingram", "DealID = '" & DealID & "'")
 
@@ -165,5 +165,9 @@
         End Try
 
         Return intresult = 1
+    End Function
+
+    Public Function DealExists(dealID As String) As Boolean
+        Return sqlInterface.ValueExists("DealID", dealID)
     End Function
 End Class
