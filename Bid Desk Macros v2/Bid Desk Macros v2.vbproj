@@ -200,6 +200,12 @@
     <Compile Include="Forms\DealLog.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\NewMailForm.Designer.vb">
+      <DependentUpon>NewMailForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewMailForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modules\Functions.vb" />
     <Compile Include="Modules\MessageTexts.vb" />
     <Compile Include="Modules\Lookup Functions.vb" />
@@ -220,6 +226,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DealLog.resx">
       <DependentUpon>DealLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewMailForm.resx">
+      <DependentUpon>NewMailForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ribbon1.resx">
       <DependentUpon>Ribbon1.vb</DependentUpon>

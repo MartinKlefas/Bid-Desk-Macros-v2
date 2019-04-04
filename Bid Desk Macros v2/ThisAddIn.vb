@@ -21,6 +21,10 @@ Public Class ThisAddIn
     Private Sub ThisAddIn_Shutdown() Handles Me.Shutdown
 
     End Sub
+
+
+
+
     Sub MoveBasedOnDealID(Optional suppressWarnings As Boolean = False)
 
         Dim obj As Object, success As Boolean
@@ -311,5 +315,12 @@ Public Class ThisAddIn
 
     End Sub
 
-
+    Private Sub Application_NewMailEx(EntryIDCollection As String) Handles Application.NewMailEx
+        If Globals.Ribbons.Ribbon1.chkNewMailEx.Checked Then
+            Dim frm As New NewMailForm(EntryIDCollection)
+            frm.Show()
+        Else
+            Debug.WriteLine("New Mail - Ignoring")
+        End If
+    End Sub
 End Class

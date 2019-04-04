@@ -13,4 +13,9 @@ Public Module StringExtensions
         aString = aString & bString
     End Sub
 
+    <Extension()>
+    Public Function CountCharacter(ByVal value As String, ByVal ch As Char) As Integer
+        Return value.Count(Function(c As Char) c = ch)
+    End Function
+
 End Module

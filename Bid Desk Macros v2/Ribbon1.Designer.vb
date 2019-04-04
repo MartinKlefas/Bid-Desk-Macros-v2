@@ -53,6 +53,7 @@
         Me.ExtensionBtn = Me.Factory.CreateRibbonButton
         Me.WonBtn = Me.Factory.CreateRibbonButton
         Me.DeadBtn = Me.Factory.CreateRibbonButton
+        Me.chkNewMailEx = Me.Factory.CreateRibbonCheckBox
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.SuspendLayout()
@@ -75,6 +76,7 @@
         Me.Group1.Items.Add(Me.ExtensionBtn)
         Me.Group1.Items.Add(Me.WonBtn)
         Me.Group1.Items.Add(Me.DeadBtn)
+        Me.Group1.Items.Add(Me.chkNewMailEx)
         Me.Group1.Label = "Group1"
         Me.Group1.Name = "Group1"
         '
@@ -149,6 +151,11 @@
         Me.DeadBtn.Label = "Mark Dead"
         Me.DeadBtn.Name = "DeadBtn"
         '
+        'chkNewMailEx
+        '
+        Me.chkNewMailEx.Label = "Process Incoming Emails"
+        Me.chkNewMailEx.Name = "chkNewMailEx"
+        '
         'Ribbon1
         '
         Me.Name = "Ribbon1"
@@ -174,6 +181,7 @@
     Friend WithEvents ExtensionBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents WonBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents DeadBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents chkNewMailEx As Microsoft.Office.Tools.Ribbon.RibbonCheckBox
 End Class
 
 Partial Class ThisRibbonCollection
