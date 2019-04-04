@@ -247,7 +247,7 @@ Public Class ThisAddIn
         Dim obj As Object
         Dim msg As Outlook.MailItem, myGreeting As String, success As Boolean
         Dim msgReply As Outlook.MailItem
-        Dim Result As Dictionary(Of String, String), rFName As Object, msgTxt As String
+        Dim Result As Dictionary(Of String, String), rFName As String()
 
 
 
