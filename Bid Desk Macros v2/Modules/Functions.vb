@@ -160,7 +160,10 @@ Partial Class ThisAddIn
                 {"Ingram", bIngram},
                 {"Techdata", bTechData},
                 {"Westcoast", bWestcoast},
-                {"CC", ccNames}
+                {"CC", ccNames},
+                {"Status", "Submitted to Vendor"},
+                {"StatusDate", DateTime.Now().ToString},
+                {"Date", DateTime.Now().ToString}
             }
 
             Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
