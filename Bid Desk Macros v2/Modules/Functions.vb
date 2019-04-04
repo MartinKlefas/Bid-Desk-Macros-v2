@@ -148,14 +148,18 @@ Partial Class ThisAddIn
                 ccNames = ccNames & "; " & toNames(i)
             Next
 
+            Dim bIngram As Byte = BooltoByte(NewDealForm.cIngram.Checked)
+            Dim bTechData As Byte = BooltoByte(NewDealForm.cTechData.Checked)
+            Dim bWestcoast As Byte = BooltoByte(NewDealForm.cWestcoast.Checked)
+
             tCreateDealRecord = New Dictionary(Of String, String) From {
                 {"AM", requestorName},
                 {"Customer", NewDealForm.CustomerName.Text},
                 {"Vendor", Vendor},
                 {"DealID", NewDealForm.DealID.Text},
-                {"Ingram", NewDealForm.cIngram.Checked},
-                {"Techdata", NewDealForm.cTechData.Checked},
-                {"Westcoast", NewDealForm.cWestcoast.Checked},
+                {"Ingram", bIngram},
+                {"Techdata", bTechData},
+                {"Westcoast", bWestcoast},
                 {"CC", ccNames}
             }
 
@@ -199,6 +203,8 @@ Partial Class ThisAddIn
 
 
     End Function
+
+
 
     Private Function MakeTicketData(DealDict As Dictionary(Of String, String), email As Outlook.MailItem) As Dictionary(Of String, String)
 
@@ -333,4 +339,15 @@ Partial Class ThisAddIn
         Return Globals.ThisAddIn.Application.Session.CreateRecipient(newLookupName).AddressEntry
 
     End Function
+
+    Function BooltoByte(ByVal tBoolean As Boolean) As Byte
+        If tBoolean Then
+            BooltoByte = 1
+        Else
+            BooltoByte = 0
+        End If
+    End Function
 End Class
+
+
+
