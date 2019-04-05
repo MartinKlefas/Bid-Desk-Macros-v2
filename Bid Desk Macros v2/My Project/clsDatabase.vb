@@ -43,16 +43,18 @@ Public Class ClsDatabase
 
     Public Function ValueExists(value As String, Optional column As String = "DealID", Optional table As String = ThisAddIn.defaultTable) As Boolean
 
-
+        Dim result As Boolean
         Dim cmd As New SqlCommand With {
             .Connection = conn,
-            .CommandText = "SELECT TOP 1 " & column & " FROM " & table & " WHERE" & column & " = '" & value & "'"
+            .CommandText = "SELECT TOP 1 " & column & " FROM " & table & " WHERE " & column & " = '" & value & "'"
         }
 
         Dim reader As SqlDataReader
         reader = cmd.ExecuteReader
-        Return reader.HasRows
+        result = reader.HasRows
+        reader.Close()
 
+        Return result
     End Function
 
     Public Function SelectData(Optional what As String = "*", Optional where As String = "",
@@ -148,6 +150,8 @@ Public Class ClsDatabase
             SelectData_Dict.Add(tmp)
 
         End While
+
+        reader.Close()
 
     End Function
 

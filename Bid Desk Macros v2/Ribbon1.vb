@@ -14,6 +14,9 @@ Public Class Ribbon1
         'tmp = sqlInterface.SelectData("Customer", "DealID = 'E002540241'")
         tmp = sqlInterface.ValueExists("E002540241")
         Debug.WriteLine(tmp)
+        tmp = sqlInterface.ValueExists("E002540251")
+        Debug.WriteLine(tmp)
+
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As RibbonControlEventArgs) Handles MoveBtn.Click
