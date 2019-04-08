@@ -82,7 +82,23 @@ Public Class ClsDatabase
                 If j > 0 Then
                     SelectData.Append(", ")
                 End If
-                SelectData.Append(reader.GetString(j))
+
+                Dim value As String
+                Select Case reader.GetDataTypeName(j)
+                    Case "varchar", "text"
+                        value = reader.GetString(j)
+                    Case "int"
+                        value = CStr(reader.GetSqlInt32(j))
+                    Case "bit"
+                        value = CStr(reader.GetSqlBoolean(j))
+                    Case "datetime"
+                        value = reader.GetDateTime(j).ToString
+                    Case Else
+                        Debug.WriteLine(reader.GetDataTypeName(j))
+                        value = ""
+                End Select
+
+                SelectData.Append(value)
 
             Next
 
@@ -140,12 +156,35 @@ Public Class ClsDatabase
 
         Dim j As Integer
         Dim tmp As Dictionary(Of String, String)
+        Dim key As String, value As String
 
         While reader.Read
             tmp = New Dictionary(Of String, String)
 
             For j = 0 To reader.FieldCount - 1
-                tmp.Add(reader.GetName(j), reader.GetString(j))
+                key = reader.GetName(j)
+                Try
+                    Select Case reader.GetDataTypeName(j)
+                        Case "varchar", "text"
+                            value = reader.GetString(j)
+                        Case "int"
+                            value = CStr(reader.GetSqlInt32(j))
+                        Case "bit"
+                            value = CStr(reader.GetSqlBoolean(j))
+                        Case "datetime"
+                            value = reader.GetDateTime(j).ToString
+                        Case Else
+                            Debug.WriteLine(reader.GetDataTypeName(j))
+                            value = ""
+                    End Select
+                Catch
+                    Debug.WriteLine(reader.GetDataTypeName(j))
+                    value = ""
+                End Try
+
+                tmp.Add(key, value)
+
+
             Next
             SelectData_Dict.Add(tmp)
 

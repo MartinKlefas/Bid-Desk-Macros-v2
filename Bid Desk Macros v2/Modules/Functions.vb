@@ -76,7 +76,7 @@ Partial Class ThisAddIn
             Next
         End If
 
-        If i + 3 < UBound(myAr) Then
+        If DealIDForm.DealID.Text = "" AndAlso i + 3 < UBound(myAr) Then
             If myAr(i) = "Quote" And myAr(i + 1) = "Review" And myAr(i + 2) = "Quote" Then
                 DealIDForm.DealID.Text = Trim(myAr(i + 4))
             End If
@@ -231,7 +231,7 @@ Partial Class ThisAddIn
 
     Private Function MakeTicketData(DealID As String) As Dictionary(Of String, String)
 
-        Dim tmp = sqlInterface.SelectData_Dict("*", "DealID = " & DealID)
+        Dim tmp = sqlInterface.SelectData_Dict("*", "DealID = '" & DealID & "'")
 
         Dim DealDict As Dictionary(Of String, String) = tmp(0)
 
@@ -273,8 +273,9 @@ Partial Class ThisAddIn
     Function IsDealDead(DealID As String) As Boolean
 
         Dim tmp As String
-        tmp = sqlInterface.SelectData(IsDealDead, "DealID = " & DealID)
-        Return CInt(tmp) = 1
+        tmp = sqlInterface.SelectData("Status", "DealID = '" & DealID & "'")
+
+        Return tmp.ToLower.Contains("deal lost")
 
 
     End Function

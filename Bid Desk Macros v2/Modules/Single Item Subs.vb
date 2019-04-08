@@ -15,7 +15,8 @@
                 .HTMLBody = WriteGreeting(Now(), Split(TargetFolder)(0)) & Replace(Replace(DRExpire, "%dealID%", DealID), "%customer%", GetCustomerbyDeal(DealID)) & .HTMLBody
                 .To = TargetFolder
                 .CC = CCList
-                .Send()
+                .Display()
+                '.Send()
             End With
 
             Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False)
