@@ -16,7 +16,7 @@
                 .To = TargetFolder
                 .CC = CCList
                 Try
-                    .Send()
+                    .Display() '.Send()
                 Catch
                     .Display()
                 End Try
@@ -28,7 +28,7 @@
                 Dim DealData As Dictionary(Of String, String) = MakeTicketData(DealID)
                 TicketNum = ndt.CreateTicket(1, DealData)
 
-                If TicketNum <> 0 AndAlso AddNewTicketToDeal(DealID, TicketNum) <> 1 Then
+                If TicketNum = 0 Then
                     ShoutError("Adding the new ticketID failed", SuppressWarnings)
                     success = False
                 Else
@@ -36,11 +36,13 @@
                     'update notify to include everyone.
                     Dim aliases As String = DealData("Sales Alias")
                     For Each ccPerson In Split(CCList, ";")
-                        Try
-                            aliases &= ";" & MyResolveName(ccPerson).Alias
-                        Catch
-                            ShoutError("Could not find alias for: " & ccPerson, SuppressWarnings)
-                        End Try
+                        If ccPerson <> "" Then
+                            Try
+                                aliases &= ";" & MyResolveName(ccPerson).Alias
+                            Catch
+                                ShoutError("Could not find alias for: " & ccPerson, SuppressWarnings)
+                            End Try
+                        End If
                     Next
 
                     'attach the notification with an explanation

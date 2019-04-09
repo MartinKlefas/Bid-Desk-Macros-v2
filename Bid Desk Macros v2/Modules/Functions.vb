@@ -218,7 +218,7 @@ Partial Class ThisAddIn
 
 
         MakeTicketData = New Dictionary(Of String, String) From {
-            {"Short Description", DealDict("Vendor") & "Bid for " & DealDict("Customer")},
+            {"Short Description", DealDict("Vendor") & " Bid for " & DealDict("Customer")},
             {"Vendor", DealDict("Vendor")},
             {"Client Name", DealDict("Customer")},
             {"Sales Name", requestor.Name},
