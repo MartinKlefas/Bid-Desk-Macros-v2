@@ -295,7 +295,9 @@ Public Class ThisAddIn
             Dim tSelection As Selection = GetSelection()
             Dim ProgressForm As New ProgressBarFrm(tSelection.longCount, "expiry notification emails.")
 
+            ProgressForm.Show()
             For Each obj In tSelection
+                ProgressForm.taskNum += 1
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
                     If Not DoOneExpiry(msg, SuppressWarnings) Then

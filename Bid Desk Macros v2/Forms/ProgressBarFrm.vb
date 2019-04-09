@@ -12,7 +12,7 @@
         Me.lblSnippet = LabelMessage
         Me.Label1.Text = "Processing " & lblSnippet & " 0 of " & ProgressBar1.Maximum
         InitializeComponent()
-
+        taskNum = 0
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
