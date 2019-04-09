@@ -15,8 +15,11 @@
                 .HTMLBody = WriteGreeting(Now(), Split(TargetFolder)(0)) & Replace(Replace(DRExpire, "%dealID%", DealID), "%customer%", GetCustomerbyDeal(DealID)) & .HTMLBody
                 .To = TargetFolder
                 .CC = CCList
-                .Display()
-                '.Send()
+                Try
+                    .Send()
+                Catch
+                    .Display()
+                End Try
             End With
 
             Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False)
@@ -46,6 +49,11 @@
                     'Ask the CC List what to do.
                     ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
                 End If
+                Try
+                    Globals.ThisAddIn.MoveToFolder(TargetFolder, msg, SuppressWarnings)
+                Catch ex As Exception
+                    ShoutError("Could not move to folder: " & TargetFolder, SuppressWarnings)
+                End Try
             Catch
                 Return False
             End Try
