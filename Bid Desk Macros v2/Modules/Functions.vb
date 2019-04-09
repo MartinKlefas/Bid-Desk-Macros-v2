@@ -237,7 +237,7 @@ Partial Class ThisAddIn
 
         Dim requestor As Outlook.ExchangeUser
 
-        requestor = Globals.ThisAddIn.Application.Session.CreateRecipient(DealDict("AM")).AddressEntry
+        requestor = Globals.ThisAddIn.Application.Session.CreateRecipient(DealDict("AM")).AddressEntry.GetExchangeUser
 
         MakeTicketData = New Dictionary(Of String, String) From {
             {"Short Description", DealDict("Vendor") & "Bid for " & DealDict("Customer")},
@@ -246,6 +246,7 @@ Partial Class ThisAddIn
             {"Sales Name", requestor.Name},
             {"Sales Number", requestor.BusinessTelephoneNumber},
             {"Sales Email", requestor.PrimarySmtpAddress},
+            {"Sales Alias", requestor.Alias},
             {"Description", "We have received an expiry notice from the vendor as attached."}
         }
 
@@ -321,7 +322,7 @@ Partial Class ThisAddIn
 
     End Function
 
-    Function MyResolveName(lookupName As String) As Outlook.AddressEntry
+    Function MyResolveName(lookupName As String) As Outlook.ExchangeUser
         Dim oNS As Outlook.NameSpace, newLookupName As String
 
         newLookupName = lookupName
@@ -341,7 +342,7 @@ Partial Class ThisAddIn
 
         If noChangeNamesStr.ToLower.Contains(lookupName.ToLower) Then newLookupName = lookupName
 
-        Return Globals.ThisAddIn.Application.Session.CreateRecipient(newLookupName).AddressEntry
+        Return Globals.ThisAddIn.Application.Session.CreateRecipient(newLookupName).AddressEntry.GetExchangeUser
 
     End Function
 

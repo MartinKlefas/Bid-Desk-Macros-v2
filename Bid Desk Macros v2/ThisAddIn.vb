@@ -89,7 +89,7 @@ Public Class ThisAddIn
 
 
                 With msgFwdOne
-                    .To = MyResolveName(targetFolder).Address
+                    .To = MyResolveName(targetFolder).PrimarySmtpAddress
                     .CC = GetCCbyDeal(DealID)
                     .HTMLBody = WriteGreeting(Now(), CStr(Split(targetFolder)(0))) & WonMessage & drloglink & .HTMLBody
                     .Send()

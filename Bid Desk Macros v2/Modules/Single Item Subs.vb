@@ -22,30 +22,30 @@
             Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False)
             Dim TicketNum As Integer
             Try
-                TicketNum = ndt.CreateTicket(1, MakeTicketData(DealID))
+                Dim DealData As Dictionary(Of String, String) = MakeTicketData(DealID)
+                TicketNum = ndt.CreateTicket(1, DealData)
 
                 If TicketNum <> 0 AndAlso AddNewTicketToDeal(DealID, TicketNum) <> 1 Then
                     ShoutError("Adding the new ticketID failed", SuppressWarnings)
                     success = False
+                Else
+
+                    'update notify to include everyone.
+                    Dim aliases As String = DealData("Sales Alias")
+                    For Each ccPerson In Split(CCList, ";")
+                        Try
+                            aliases &= ";" & MyResolveName(ccPerson).Alias
+                        Catch
+                            ShoutError("Could not find alias for: " & ccPerson, SuppressWarnings)
+                        End Try
+                    Next
+
+                    'attach the notification with an explanation
+                    ndt.AttachMail(msg, "This is the vendor's original expiration notification")
+
+                    'Ask the CC List what to do.
+                    ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
                 End If
-
-                'update notify to include everyone.
-                Dim aliases As String = TargetFolder
-                aliases = MyResolveName(TargetFolder).GetExchangeUser.Alias
-                For Each ccPerson In Split(CCList, ";")
-                    Try
-                        aliases &= ";" & MyResolveName(ccPerson).GetExchangeUser.Alias
-                    Catch
-                        ShoutError("Could not find alias for: " & ccPerson, SuppressWarnings)
-                    End Try
-                Next
-
-                'attach the notification with an explanation
-                ndt.AttachMail(msg, "This is the vendor's original expiration notification")
-
-                'Ask the CC List what to do.
-                ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
-
             Catch
                 Return False
             End Try
@@ -79,7 +79,7 @@
         myGreeting = WriteGreeting(Now(), CStr(fNames(0)))
 
         With msgFwdOne
-            .To = MyResolveName(TargetFolder).Address
+            .To = MyResolveName(TargetFolder).PrimarySmtpAddress
             .CC = GetCCbyDeal(DealID)
             .HTMLBody = myGreeting & messageBodyAddition & GetFact(DealID) & drloglink & .HTMLBody
             .Send() ' or .Display
