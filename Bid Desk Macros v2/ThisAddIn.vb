@@ -292,8 +292,10 @@ Public Class ThisAddIn
             Dim obj As Object
             Dim msg As Outlook.MailItem
 
+            Dim tSelection As Selection = GetSelection()
+            Dim ProgressForm As New ProgressBarFrm(tSelection.longCount, "expiry notification emails.")
 
-            For Each obj In GetSelection()
+            For Each obj In tSelection
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
                     If Not DoOneExpiry(msg, SuppressWarnings) Then
