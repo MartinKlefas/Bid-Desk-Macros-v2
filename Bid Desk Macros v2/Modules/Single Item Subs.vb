@@ -112,7 +112,6 @@
             ndt.CloseTicket(browser:=browser)
         End If
 
-
         Return MoveToFolder(TargetFolder, msg, SuppressWarnings)
     End Function
 
