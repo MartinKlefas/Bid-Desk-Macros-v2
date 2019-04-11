@@ -167,7 +167,23 @@
         Return intresult = 1
     End Function
 
-    Public Function DealExists(dealID As String) As Boolean
-        Return sqlInterface.ValueExists("DealID", dealID)
+    Public Function DealExists(ByRef dealID As String) As Boolean
+        Dim dealID_exists As Boolean = sqlInterface.ValueExists(dealID, "DealID")
+
+        If dealID_exists Then
+            Return True
+        Else
+            If sqlInterface.ValueExists(dealID, "OPGID") Then
+                dealID = GetDealfromOPG(dealID)
+                Return True
+            Else
+                Return False
+            End If
+        End If
+
     End Function
+    Public Function GetDealfromOPG(ByRef dealID As String) As String
+        Return sqlInterface.SelectData("DealID", "OPGID = '" & dealID & "'")
+    End Function
+
 End Class

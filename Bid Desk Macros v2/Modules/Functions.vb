@@ -1,4 +1,5 @@
 ﻿Imports System.Diagnostics
+Imports System.Threading
 Imports Microsoft.Office.Interop.Outlook
 
 Partial Class ThisAddIn
@@ -88,13 +89,16 @@ Partial Class ThisAddIn
 
         If Not completeAutonomy Then
             DealIDForm.ShowDialog()
-
+            If DealIDForm.DialogResult = Windows.Forms.DialogResult.Cancel Then
+                DealIDForm.DealID.Text = ""
+            End If
         End If
 
 
 
         FindDealID = DealIDForm.DealID.Text
     End Function
+
 
     Private Function RecordWaitTime(receivedTime As Date, completedTime As Date, person As String) As String
 
@@ -361,7 +365,7 @@ Partial Class ThisAddIn
         If DealDetails.ContainsKey("NDT") Then
             WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", Replace(NDTCreateMessage, "%NDT%", DealDetails("NDT")))
         Else
-            WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", noNDTMessage)
+            WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", NoNDTMessage)
         End If
 
         WriteSubmitMessage = WriteSubmitMessage & drloglink

@@ -1,9 +1,7 @@
-﻿Imports System.Windows.Forms
+﻿Imports System.ComponentModel
+Imports System.Windows.Forms
 
 Public Class DealIdent
-
-
-
 
     Private Sub DealID_KeyDown(sender As Object, e As KeyEventArgs) Handles DealID.KeyDown
         If e.KeyCode = Keys.Enter Then
@@ -35,4 +33,13 @@ Public Class DealIdent
     End Sub
 
 
+    Private Sub DealIdent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.DialogResult = DialogResult.None
+    End Sub
+
+    Private Sub DealIdent_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        If Me.DialogResult = DialogResult.None Then
+            Me.DialogResult = DialogResult.Cancel
+        End If
+    End Sub
 End Class

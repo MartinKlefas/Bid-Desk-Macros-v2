@@ -183,7 +183,7 @@ Public Class ThisAddIn
 
     End Sub
 
-    Sub FwdPricing(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
+    Sub FwdPricing(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True, Optional CompleteAutonomy As Boolean = False)
 
         If passedMessage Is Nothing Then
             Dim obj As Object
@@ -196,9 +196,9 @@ Public Class ThisAddIn
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
                     If msg.Subject.ToLower.Contains("opg") Then
-                        DoOneFwd(msg, opgFwdMessage, SuppressWarnings)
+                        DoOneFwd(msg, opgFwdMessage, SuppressWarnings, CompleteAutonomy)
                     Else
-                        DoOneFwd(msg, sqFwdMessage, SuppressWarnings)
+                        DoOneFwd(msg, sqFwdMessage, SuppressWarnings, CompleteAutonomy)
                     End If
 
 
@@ -208,9 +208,9 @@ Public Class ThisAddIn
             Next
         Else
             If passedMessage.Subject.ToLower.Contains("opg") Then
-                DoOneFwd(passedMessage, opgFwdMessage, SuppressWarnings)
+                DoOneFwd(passedMessage, opgFwdMessage, SuppressWarnings, CompleteAutonomy)
             Else
-                DoOneFwd(passedMessage, sqFwdMessage, SuppressWarnings)
+                DoOneFwd(passedMessage, sqFwdMessage, SuppressWarnings, CompleteAutonomy)
             End If
 
 
@@ -220,7 +220,7 @@ Public Class ThisAddIn
 
 
 
-    Sub FwdDRDecision(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
+    Sub FwdDRDecision(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True, Optional CompleteAutonomy As Boolean = False)
         If passedMessage Is Nothing Then
             Dim obj As Object
             Dim msg As Outlook.MailItem
@@ -238,7 +238,7 @@ Public Class ThisAddIn
 
             Next
         Else
-            DoOneFwd(passedMessage, drDecision, SuppressWarnings, True)
+            DoOneFwd(passedMessage, drDecision, SuppressWarnings, CompleteAutonomy)
 
 
         End If

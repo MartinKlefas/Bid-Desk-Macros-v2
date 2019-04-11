@@ -75,7 +75,7 @@
 
 
         DealID = FindDealID(msg.Subject, msg.Body, CompleteAutonomy)
-        If DealID = "" OrElse dealExists(DealID) Then
+        If DealID = "" OrElse Not DealExists(DealID) Then
             Return False
         End If
 
@@ -92,8 +92,26 @@
             .To = MyResolveName(TargetFolder).PrimarySmtpAddress
             .CC = GetCCbyDeal(DealID)
             .HTMLBody = myGreeting & messageBodyAddition & GetFact(DealID) & drloglink & .HTMLBody
-            .Send() ' or .Display
+            Try
+                .Display() '.Send()  or .Display
+            Catch
+                .Display()
+            End Try
         End With
+
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False) With {
+            .TicketNumber = GetNDTbyDeal(DealID)
+        }
+        Dim browser As OpenQA.Selenium.Chrome.ChromeDriver = ndt.GiveMeChrome(False)
+
+        If ndt.TicketNumber <> 0 AndAlso Not ndt.IsClosed(browser) Then
+            ndt.AttachMail(msg, "The attached pricing has been received from distritbution", browser)
+        End If
+
+        If Not CompleteAutonomy AndAlso MsgBox("Would you like to close the ticket", vbYesNo) = vbYes Then
+            ndt.CloseTicket(browser:=browser)
+        End If
+
 
         Return MoveToFolder(TargetFolder, msg, SuppressWarnings)
     End Function

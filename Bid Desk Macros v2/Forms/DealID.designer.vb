@@ -31,51 +31,46 @@ Partial Class DealIdent
         'SpecialMsg
         '
         Me.SpecialMsg.AutoSize = True
-        Me.SpecialMsg.Location = New System.Drawing.Point(16, 4)
-        Me.SpecialMsg.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.SpecialMsg.Location = New System.Drawing.Point(12, 3)
         Me.SpecialMsg.Name = "SpecialMsg"
-        Me.SpecialMsg.Size = New System.Drawing.Size(232, 17)
+        Me.SpecialMsg.Size = New System.Drawing.Size(182, 13)
         Me.SpecialMsg.TabIndex = 0
         Me.SpecialMsg.Text = "Deal ID / SQ ID / Deal Reg Number:"
         '
         'DealID
         '
-        Me.DealID.Location = New System.Drawing.Point(16, 23)
-        Me.DealID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DealID.Location = New System.Drawing.Point(12, 19)
         Me.DealID.Name = "DealID"
-        Me.DealID.Size = New System.Drawing.Size(387, 22)
+        Me.DealID.Size = New System.Drawing.Size(291, 20)
         Me.DealID.TabIndex = 1
         '
         'OKButton
         '
-        Me.OKButton.Location = New System.Drawing.Point(20, 55)
-        Me.OKButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.OKButton.Location = New System.Drawing.Point(15, 45)
         Me.OKButton.Name = "OKButton"
-        Me.OKButton.Size = New System.Drawing.Size(175, 31)
+        Me.OKButton.Size = New System.Drawing.Size(131, 25)
         Me.OKButton.TabIndex = 2
         Me.OKButton.Text = "OK"
         Me.OKButton.UseVisualStyleBackColor = True
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(229, 55)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button2.Location = New System.Drawing.Point(172, 45)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(175, 31)
+        Me.Button2.Size = New System.Drawing.Size(131, 25)
         Me.Button2.TabIndex = 3
         Me.Button2.Text = "Cancel"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'DealIdent
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(423, 97)
+        Me.ClientSize = New System.Drawing.Size(317, 79)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.OKButton)
         Me.Controls.Add(Me.DealID)
         Me.Controls.Add(Me.SpecialMsg)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "DealIdent"
         Me.Text = "Deal ID Finder"
         Me.ResumeLayout(False)
