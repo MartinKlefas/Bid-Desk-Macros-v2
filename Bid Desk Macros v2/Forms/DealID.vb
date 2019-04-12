@@ -59,8 +59,12 @@ Public Class DealIdent
             End Select
             EnableButtons()
             MessageNumber += 1
-            Me.DealID.Text = FindDealID(MessagesList(MessageNumber).Subject, MessagesList(MessageNumber).Body)
-            If CompleteAutonomy Then Call Button1_Click()
+            If MessageNumber < MessagesList.Count Then
+                Me.DealID.Text = FindDealID(MessagesList(MessageNumber).Subject, MessagesList(MessageNumber).Body)
+                If CompleteAutonomy Then Call Button1_Click()
+            Else
+                Me.Close()
+            End If
         Else
                 Me.Close()
         End If
