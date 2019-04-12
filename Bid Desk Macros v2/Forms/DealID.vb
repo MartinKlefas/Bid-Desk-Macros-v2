@@ -29,37 +29,40 @@ Public Class DealIdent
 
     Private Sub Button1_Click() Handles OKButton.Click
         If MessageNumber < MessagesList.Count Then
-            DisableButtons
+            DisableButtons()
+            Dim tDealID As String = Trim(Me.DealID.Text)
+            Dim tMsg As Outlook.MailItem = MessagesList(MessageNumber)
             Select Case Mode
                 Case "Move"
-                    Call Globals.ThisAddIn.DoOneMove(MessagesList(MessageNumber), Me.DealID.Text)
+                    Call Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
                 Case "FwdHP"
-                    Call Globals.ThisAddIn.DoOneDistiReminder(Me.DealID.Text, MessagesList(MessageNumber))
-                    Call Globals.ThisAddIn.DoOneFwd(Me.DealID.Text, MessagesList(MessageNumber), HPPublishMessage)
+                    Call Globals.ThisAddIn.DoOneDistiReminder(tDealID, tMsg)
+                    Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, HPPublishMessage)
                 Case "MarkedWon"
-                    Call Globals.ThisAddIn.OneMarkedWon(MessagesList(MessageNumber), Me.DealID.Text)
+                    Call Globals.ThisAddIn.OneMarkedWon(tMsg, tDealID)
                 Case "ExtensionMessage"
-                    Call Globals.ThisAddIn.DoOneExtensionMessage(MessagesList(MessageNumber), Me.DealID.Text)
+                    Call Globals.ThisAddIn.DoOneExtensionMessage(tMsg, tDealID)
                 Case "ForwardPricing"
-                    If MessagesList(MessageNumber).Subject.ToLower.Contains("opg") Then
-                        Globals.ThisAddIn.DoOneFwd(Me.DealID.Text, MessagesList(MessageNumber), opgFwdMessage, True, CompleteAutonomy)
+                    If tMsg.Subject.ToLower.Contains("opg") Then
+                        Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, opgFwdMessage, True, CompleteAutonomy)
                     Else
-                        Globals.ThisAddIn.DoOneFwd(Me.DealID.Text, MessagesList(MessageNumber), sqFwdMessage, True, CompleteAutonomy)
+                        Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, sqFwdMessage, True, CompleteAutonomy)
                     End If
                 Case "DRDecision"
-                    Globals.ThisAddIn.DoOneFwd(Me.DealID.Text, MessagesList(MessageNumber), drDecision, True, CompleteAutonomy)
+                    Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, drDecision, True, CompleteAutonomy)
                 Case "Expiry"
-                    Globals.ThisAddIn.DoOneExpiry(Me.DealID.Text, MessagesList(MessageNumber))
+                    Globals.ThisAddIn.DoOneExpiry(tDealID, tMsg)
 
                 Case Else
 
 
             End Select
-            EnableButtons
+            EnableButtons()
             MessageNumber += 1
             Me.DealID.Text = FindDealID(MessagesList(MessageNumber).Subject, MessagesList(MessageNumber).Body)
+            If CompleteAutonomy Then Call Button1_Click()
         Else
-            Me.Close()
+                Me.Close()
         End If
 
     End Sub
@@ -71,7 +74,7 @@ Public Class DealIdent
     Private Sub DealID_MouseDown1(sender As Object, e As MouseEventArgs) Handles DealID.MouseDown
         If e.Button = MouseButtons.Right Then
 
-            DealID.Text = My.Computer.Clipboard.GetText
+            DealID.Text = Trim(My.Computer.Clipboard.GetText)
         End If
     End Sub
 
