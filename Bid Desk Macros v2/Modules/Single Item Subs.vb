@@ -1,11 +1,11 @@
 ﻿Partial Class ThisAddIn
 
-    Private Function DoOneExpiry(msg As Outlook.MailItem, Optional SuppressWarnings As Boolean = True) As Boolean
+    Public Function DoOneExpiry(DealID As String, msg As Outlook.MailItem, Optional SuppressWarnings As Boolean = True) As Boolean
 
         Dim msgReply As Outlook.MailItem, success As Boolean = True
-        Dim DealID As String, TargetFolder As String
+        Dim TargetFolder As String
 
-        DealID = FindDealID(msg.Subject, msg.Body, True)
+
         TargetFolder = GetFolderbyDeal(DealID, True)
 
         If TargetFolder <> "" AndAlso Not IsDealDead(DealID) Then
@@ -65,19 +65,16 @@
         Return success
     End Function
 
-    Private Function DoOneFwd(msg As Outlook.MailItem, messageBodyAddition As String, Optional SuppressWarnings As Boolean = True, Optional CompleteAutonomy As Boolean = False) As Boolean
+    Public Function DoOneFwd(DealID As String, msg As Outlook.MailItem, messageBodyAddition As String, Optional SuppressWarnings As Boolean = True, Optional CompleteAutonomy As Boolean = False) As Boolean
 
         Dim fNames As String()
 
         Dim msgFwdOne As Outlook.MailItem
 
-        Dim DealID As String, TargetFolder As String, myGreeting As String
+        Dim TargetFolder As String, myGreeting As String
 
 
-        DealID = FindDealID(msg.Subject, msg.Body, CompleteAutonomy)
-        If DealID = "" OrElse Not DealExists(DealID) Then
-            Return False
-        End If
+
 
         RecordWaitTime(GetSubmitTime(DealID), msg.ReceivedTime, GetVendor(DealID))
 
@@ -115,16 +112,14 @@
         Return MoveToFolder(TargetFolder, msg, SuppressWarnings)
     End Function
 
-    Private Function DoOneDistiReminder(msg As Outlook.MailItem, Optional SuppressWarnings As Boolean = True) As Boolean
+    Public Function DoOneDistiReminder(DealID As String, msg As Outlook.MailItem, Optional SuppressWarnings As Boolean = True) As Boolean
 
         Dim msgFwdOne As Outlook.MailItem
 
-        Dim DealID As String, myGreeting As String
+        Dim myGreeting As String
 
 
-        DealID = FindDealID(msg.Subject, msg.Body)
 
-        If DealID = "" Then Return False
 
         Try
             If IsWestcoast(DealID) Then
@@ -162,6 +157,84 @@
         Return True
 
     End Function
+    Public Sub DoOneMove(Message As Outlook.MailItem, DealID As String)
+        Dim TargetFolder As String
+        If DealExists(DealID) Then
 
+            TargetFolder = GetFolderbyDeal(DealID)
+        Else
+            TargetFolder = "Not Defined"
+        End If
+        Dim success As Boolean = MoveToFolder(TargetFolder, Message)
+
+    End Sub
+
+    Public Sub OneMarkedWon(message As Outlook.MailItem, DealID As String)
+        Dim TargetFolder As String
+        TargetFolder = GetFolderbyDeal(DealID, False)
+
+
+        Dim msgFwdOne As Outlook.MailItem = message.Forward
+
+
+        With msgFwdOne
+            .To = MyResolveName(targetFolder).PrimarySmtpAddress
+            .CC = GetCCbyDeal(DealID)
+            .HTMLBody = WriteGreeting(Now(), CStr(Split(targetFolder)(0))) & WonMessage & drloglink & .HTMLBody
+            .Send()
+        End With
+
+        MoveToFolder(TargetFolder, message)
+    End Sub
+    Public Sub OneMarkedDead(msg As Outlook.MailItem, DealID As String)
+        Dim TargetFolder As String
+
+        If DealID = "" Then Exit Sub
+        targetFolder = GetFolderbyDeal(DealID, False)
+
+
+        Dim msgReplyOne As Outlook.MailItem = msg.ReplyAll
+
+
+        With msgReplyOne
+
+            .CC = GetCCbyDeal(DealID)
+            .HTMLBody = WriteGreeting(Now(), CStr(Split(targetFolder)(0))) & DeadMessage & drloglink & .HTMLBody
+            .Send()
+        End With
+
+        MoveToFolder(targetFolder, msg)
+
+
+    End Sub
+
+    Sub DoOneExtensionMessage(msg As Outlook.MailItem, DealID As String)
+        Dim msgReply As Outlook.MailItem = msg.ReplyAll
+
+
+
+        Dim AM As String = GetAMbyDeal(DealID)
+        Dim replyText, myGreeting As String
+
+        If GetVendor(DealID).ToLower.Contains("hp") Then
+            replyText = HPExtensionSubmitted
+        Else
+            replyText = DellExtensionSubmitted
+
+        End If
+
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
+            .TicketNumber = GetNDTbyDeal(DealID)
+        }
+
+        ndt.AttachMail(msg, "Request to extend the DR")
+        ndt.CloseTicket("As requested, an extension has been requested on the vendor portal.")
+
+        myGreeting = WriteGreeting(Now(), AM.Split(" ")(0))
+
+        msgReply.HTMLBody = myGreeting & replyText & msgReply.HTMLBody
+
+        msgReply.Send()
+    End Sub
 
 End Class

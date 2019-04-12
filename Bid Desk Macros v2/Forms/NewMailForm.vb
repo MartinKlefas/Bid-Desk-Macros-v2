@@ -24,7 +24,7 @@ Public Class NewMailForm
                     Globals.ThisAddIn.ExpiryMessages(msg, True)
                 End If
                 If isDRDecision(msg) Then
-                    ' Globals.ThisAddIn.FwdDRDecision(msg,SuppressWarnings:=True, CompleteAutonomy:=True))
+                    Globals.ThisAddIn.FwdDRDecision(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
                 End If
                 If isPricing(msg) Then
                     Globals.ThisAddIn.FwdPricing(msg, SuppressWarnings:=True, CompleteAutonomy:=True)

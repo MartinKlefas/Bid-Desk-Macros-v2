@@ -1,7 +1,21 @@
 ﻿Imports System.ComponentModel
 Imports System.Windows.Forms
+Imports Microsoft.Office.Interop.Outlook
 
 Public Class DealIdent
+    Private MessagesList As List(Of MailItem)
+    Private Mode As String
+    Private MessageNumber As Integer
+    Private CompleteAutonomy As Boolean
+
+    Public Sub New(messagesList As List(Of MailItem), OpMode As String, Optional Autonomy As Boolean = False)
+        Me.MessagesList = messagesList
+        Me.Mode = OpMode
+        Me.MessageNumber = 0
+        Me.CompleteAutonomy = Autonomy
+
+        InitializeComponent()
+    End Sub
 
     Private Sub DealID_KeyDown(sender As Object, e As KeyEventArgs) Handles DealID.KeyDown
         If e.KeyCode = Keys.Enter Then
@@ -14,15 +28,44 @@ Public Class DealIdent
     End Sub
 
     Private Sub Button1_Click() Handles OKButton.Click
-        DealID.Text = Trim(DealID.Text)
-        Me.DialogResult = DialogResult.OK
-        Me.Hide()
+        If MessageNumber < MessagesList.Count Then
+            DisableButtons
+            Select Case Mode
+                Case "Move"
+                    Call Globals.ThisAddIn.DoOneMove(MessagesList(MessageNumber), Me.DealID.Text)
+                Case "FwdHP"
+                    Call Globals.ThisAddIn.DoOneDistiReminder(Me.DealID.Text, MessagesList(MessageNumber))
+                    Call Globals.ThisAddIn.DoOneFwd(Me.DealID.Text, MessagesList(MessageNumber), HPPublishMessage)
+                Case "MarkedWon"
+                    Call Globals.ThisAddIn.OneMarkedWon(MessagesList(MessageNumber), Me.DealID.Text)
+                Case "ExtensionMessage"
+                    Call Globals.ThisAddIn.DoOneExtensionMessage(MessagesList(MessageNumber), Me.DealID.Text)
+                Case "ForwardPricing"
+                    If MessagesList(MessageNumber).Subject.ToLower.Contains("opg") Then
+                        Globals.ThisAddIn.DoOneFwd(Me.DealID.Text, MessagesList(MessageNumber), opgFwdMessage, True, CompleteAutonomy)
+                    Else
+                        Globals.ThisAddIn.DoOneFwd(Me.DealID.Text, MessagesList(MessageNumber), sqFwdMessage, True, CompleteAutonomy)
+                    End If
+                Case "DRDecision"
+                    Globals.ThisAddIn.DoOneFwd(Me.DealID.Text, MessagesList(MessageNumber), drDecision, True, CompleteAutonomy)
+                Case "Expiry"
+                    Globals.ThisAddIn.DoOneExpiry(Me.DealID.Text, MessagesList(MessageNumber))
+
+                Case Else
+
+
+            End Select
+            EnableButtons
+            MessageNumber += 1
+            Me.DealID.Text = FindDealID(MessagesList(MessageNumber).Subject, MessagesList(MessageNumber).Body)
+        Else
+            Me.Close()
+        End If
+
     End Sub
 
     Private Sub Button2_Click() Handles Button2.Click
-        DealID.Text = ""
-        Me.DialogResult = DialogResult.Cancel
-        Me.Hide()
+        Me.Close()
     End Sub
 
     Private Sub DealID_MouseDown1(sender As Object, e As MouseEventArgs) Handles DealID.MouseDown
@@ -34,12 +77,77 @@ Public Class DealIdent
 
 
     Private Sub DealIdent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         Me.DialogResult = DialogResult.None
+        Me.DealID.Text = FindDealID(MessagesList(0).Subject, MessagesList(0).Body)
+
+        If CompleteAutonomy Then Call Button1_Click()
+
     End Sub
 
-    Private Sub DealIdent_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        If Me.DialogResult = DialogResult.None Then
-            Me.DialogResult = DialogResult.Cancel
+
+    Public Function FindDealID(MsgSubject As String, msgBody As String) As String
+        Dim myAr As String(), i As Integer, myArTwo As String()
+
+        Dim tempResult As String = ""
+
+        myAr = Split(MsgSubject, " ")
+
+
+
+        For i = LBound(myAr) To UBound(myAr)
+            '~~> This will give you the contents of your email
+            '~~> on separate lines
+            myAr(i) = Trim(myAr(i))
+
+            If Len(myAr(i)) > 4 Then
+                If myAr(i).StartsWith("P00", ThisAddIn.searchType) Or
+                    myAr(i).StartsWith("E00", ThisAddIn.searchType) Or
+                    myAr(i).StartsWith("NQ", ThisAddIn.searchType) Then
+                    If Mid(LCase(myAr(i)), Len(myAr(i)) - 2, 2) = "-v" Then myAr(i) = Strings.Left(myAr(i), Len(myAr(i)) - 3)
+                    tempResult = Trim(myAr(i))
+                End If
+                If myAr(i).StartsWith("REGI-", ThisAddIn.searchType) Or
+                    myAr(i).StartsWith("REGE-", ThisAddIn.searchType) Then
+                    tempResult = Trim(myAr(i))
+                End If
+            End If
+        Next i
+
+        If tempResult = "" Then
+            myAr = Split(msgBody, vbCrLf)
+            For i = LBound(myAr) To UBound(myAr)
+                '~~> This will give you the contents of your email
+                '~~> on separate lines
+                If Len(myAr(i)) > 8 Then
+                    If myAr(i).StartsWith("Deal ID:", ThisAddIn.searchType) Then
+                        myArTwo = Split(myAr(i))
+                        tempResult = Trim(myArTwo(2))
+                    End If
+                End If
+            Next
         End If
+
+        If tempResult = "" AndAlso i + 3 < UBound(myAr) Then
+            If myAr(i) = "Quote" And myAr(i + 1) = "Review" And myAr(i + 2) = "Quote" Then
+                tempResult = Trim(myAr(i + 4))
+            End If
+            If myAr(i) = "QUOTE" And myAr(i + 1) = "Deal" And myAr(i + 3) = "Version" Then
+                tempResult = Trim(myAr(i + 2))
+            End If
+
+        End If
+
+
+
+        FindDealID = tempResult
+    End Function
+    Sub DisableButtons()
+        OKButton.Enabled = False
+        Button2.Enabled = False
+    End Sub
+    Sub EnableButtons()
+        OKButton.Enabled = True
+        Button2.Enabled = True
     End Sub
 End Class

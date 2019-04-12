@@ -14,40 +14,30 @@ Public Class ThisAddIn
 
 
 
-    Private Sub ThisAddIn_Startup() Handles Me.Startup
-
-    End Sub
-
-    Private Sub ThisAddIn_Shutdown() Handles Me.Shutdown
-
-    End Sub
-
-
-
-
     Sub MoveBasedOnDealID(Optional suppressWarnings As Boolean = False)
 
-        Dim obj As Object, success As Boolean
+        Dim obj As Object
         Dim msg As Outlook.MailItem
 
         '  Dim olApp As New Outlook.Application 'new throws security error
-        Dim DealID As String, targetFolder As String
+        Dim MessagesList As New List(Of Outlook.MailItem)
 
 
         For m = 1 To GetSelection().Count
             obj = GetSelection().Item(m)
             If TypeName(obj) = "MailItem" Then
                 msg = obj
-                DealID = FindDealID(msg.Subject, msg.Body)
-                If DealID = "" Then Exit Sub
-                targetFolder = GetFolderbyDeal(DealID, suppressWarnings)
-
-                success = MoveToFolder(targetFolder, msg)
+                MessagesList.Add(msg)
             End If
         Next m
+        Dim DealIDForm As New DealIdent(MessagesList, "Move")
+        DealIDForm.Show()
     End Sub
 
     Friend Sub FwdHPResponse(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
+        Dim MessagesList As New List(Of Outlook.MailItem)
+        Dim Autonomy As Boolean
+
         If passedMessage Is Nothing Then
             Dim obj As Object
             Dim msg As Outlook.MailItem
@@ -57,191 +47,125 @@ Public Class ThisAddIn
             For Each obj In GetSelection()
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
-                    DoOneDistiReminder(msg, SuppressWarnings)
-                    DoOneFwd(msg, HPPublishMessage, SuppressWarnings)
+                    MessagesList.Add(msg)
                 End If
 
             Next
+            Autonomy = False
         Else
-            DoOneDistiReminder(passedMessage, SuppressWarnings)
-            DoOneFwd(passedMessage, HPPublishMessage, SuppressWarnings)
+            MessagesList.Add(passedMessage)
+            Autonomy = True
         End If
 
+        Dim DealIDForm As New DealIdent(MessagesList, "FwdHP", Autonomy)
+        DealIDForm.Show()
     End Sub
 
     Friend Sub MarkedWon()
         Dim obj As Object
         Dim msg As Outlook.MailItem
-
-        Dim DealID As String, targetFolder As String
-
+        Dim MessagesList As New List(Of Outlook.MailItem)
 
         For Each obj In GetSelection()
             If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                 msg = obj
-
-                DealID = FindDealID(msg.Subject, msg.Body)
-                If DealID = "" Then Exit Sub
-                targetFolder = GetFolderbyDeal(DealID, False)
-
-
-                Dim msgFwdOne As Outlook.MailItem = msg.Forward
-
-
-                With msgFwdOne
-                    .To = MyResolveName(targetFolder).PrimarySmtpAddress
-                    .CC = GetCCbyDeal(DealID)
-                    .HTMLBody = WriteGreeting(Now(), CStr(Split(targetFolder)(0))) & WonMessage & drloglink & .HTMLBody
-                    .Send()
-                End With
-
-                MoveToFolder(targetFolder, msg)
-
-
+                MessagesList.Add(msg)
             End If
 
         Next
+
+        Dim DealIDForm As New DealIdent(MessagesList, "MarkedWon")
+        DealIDForm.Show()
     End Sub
 
 
     Friend Sub MarkDead()
         Dim obj As Object
         Dim msg As Outlook.MailItem
-
-        Dim DealID As String, targetFolder As String
-
+        Dim MessagesList As New List(Of Outlook.MailItem)
 
         For Each obj In GetSelection()
             If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                 msg = obj
-
-                DealID = FindDealID(msg.Subject, msg.Body)
-                If DealID = "" Then Exit Sub
-                targetFolder = GetFolderbyDeal(DealID, False)
-
-
-                Dim msgReplyOne As Outlook.MailItem = msg.ReplyAll
-
-
-                With msgReplyOne
-
-                    .CC = GetCCbyDeal(DealID)
-                    .HTMLBody = WriteGreeting(Now(), CStr(Split(targetFolder)(0))) & DeadMessage & drloglink & .HTMLBody
-                    .Send()
-                End With
-
-                MoveToFolder(targetFolder, msg)
-
-
+                MessagesList.Add(msg)
             End If
 
         Next
+        Dim DealIDForm As New DealIdent(MessagesList, "MarkedWon")
+        DealIDForm.Show()
     End Sub
 
 
     Friend Sub ExtensionMessage()
         Dim obj As Object
-        Dim msg As Outlook.MailItem, DealID As String
-        Dim msgReply As Outlook.MailItem
-
-        Dim replyText As String, myGreeting As String, AM As String
-
-
+        Dim msg As Outlook.MailItem
+        Dim MessagesList As New List(Of Outlook.MailItem)
 
         For Each obj In GetSelection()
             If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                 msg = obj
-                msgReply = msg.ReplyAll
-
-                DealID = FindDealID(msg.Subject, msg.Body)
-
-                AM = GetAMbyDeal(DealID)
-
-                If GetVendor(DealID).ToLower.Contains("hp") Then
-                    replyText = HPExtensionSubmitted
-                Else
-                    replyText = DellExtensionSubmitted
-
-                End If
-
-                Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
-                    .TicketNumber = GetNDTbyDeal(DealID)
-                }
-
-                ndt.AttachMail(msg, "Request to extend the DR")
-                ndt.CloseTicket("As requested, an extension has been requested on the vendor portal.")
-
-                myGreeting = WriteGreeting(Now(), AM.Split(" ")(0))
-
-                msgReply.HTMLBody = myGreeting & replyText & msgReply.HTMLBody
-
-                msgReply.Send()
-
-
+                MessagesList.Add(msg)
             End If
+
         Next
+        Dim DealIDForm As New DealIdent(MessagesList, "ExtensionMessage")
+        DealIDForm.Show()
+
 
     End Sub
 
     Sub FwdPricing(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True, Optional CompleteAutonomy As Boolean = False)
 
+        Dim MessagesList As New List(Of Outlook.MailItem)
+        Dim Autonomy As Boolean
+
         If passedMessage Is Nothing Then
             Dim obj As Object
             Dim msg As Outlook.MailItem
 
-
-
-
             For Each obj In GetSelection()
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
-                    If msg.Subject.ToLower.Contains("opg") Then
-                        DoOneFwd(msg, opgFwdMessage, SuppressWarnings, CompleteAutonomy)
-                    Else
-                        DoOneFwd(msg, sqFwdMessage, SuppressWarnings, CompleteAutonomy)
-                    End If
-
-
+                    MessagesList.Add(msg)
                 End If
 
-
             Next
+            Autonomy = False
         Else
-            If passedMessage.Subject.ToLower.Contains("opg") Then
-                DoOneFwd(passedMessage, opgFwdMessage, SuppressWarnings, CompleteAutonomy)
-            Else
-                DoOneFwd(passedMessage, sqFwdMessage, SuppressWarnings, CompleteAutonomy)
-            End If
-
-
+            MessagesList.Add(passedMessage)
+            Autonomy = True
         End If
+
+        Dim DealIDForm As New DealIdent(MessagesList, "ForwardPricing", Autonomy)
+        DealIDForm.Show()
 
     End Sub
 
 
 
     Sub FwdDRDecision(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True, Optional CompleteAutonomy As Boolean = False)
+        Dim MessagesList As New List(Of Outlook.MailItem)
+        Dim Autonomy As Boolean
+
         If passedMessage Is Nothing Then
             Dim obj As Object
             Dim msg As Outlook.MailItem
 
-
-
-
             For Each obj In GetSelection()
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
-                    DoOneFwd(msg, drDecision, SuppressWarnings)
-
+                    MessagesList.Add(msg)
                 End If
 
-
             Next
+            Autonomy = False
         Else
-            DoOneFwd(passedMessage, drDecision, SuppressWarnings, CompleteAutonomy)
-
-
+            MessagesList.Add(passedMessage)
+            Autonomy = True
         End If
+
+        Dim DealIDForm As New DealIdent(MessagesList, "DRDecision", Autonomy)
+        DealIDForm.Show()
     End Sub
 
     Sub ReplyToBidRequest()
@@ -288,35 +212,28 @@ Public Class ThisAddIn
 
     Sub ExpiryMessages(Optional passedMsg As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
 
+        Dim MessagesList As New List(Of Outlook.MailItem)
+        Dim Autonomy As Boolean
+
         If passedMsg Is Nothing Then
             Dim obj As Object
             Dim msg As Outlook.MailItem
 
-            Dim tSelection As Selection = GetSelection()
-            Dim ProgressForm As New ProgressBarFrm(tSelection.longCount, "expiry notification emails.")
-
-            ProgressForm.Show()
-            For Each obj In tSelection
-                ProgressForm.taskNum += 1
+            For Each obj In GetSelection()
                 If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
                     msg = obj
-                    If Not DoOneExpiry(msg, SuppressWarnings) Then
-                        ShoutError("There was an error processing this expiration", SuppressWarnings)
-
-                    End If
+                    MessagesList.Add(msg)
                 End If
 
-
             Next
+            Autonomy = False
         Else
-            If Not DoOneExpiry(passedMsg, SuppressWarnings) Then
-                ShoutError("There was an error processing this expiration")
-            End If
+            MessagesList.Add(passedMsg)
+            Autonomy = True
         End If
 
-
-
-
+        Dim DealIDForm As New DealIdent(MessagesList, "Expiry", True)
+        DealIDForm.Show()
     End Sub
 
     Private Sub Application_NewMailEx(EntryIDCollection As String) Handles Application.NewMailEx

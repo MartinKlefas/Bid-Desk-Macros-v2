@@ -38,66 +38,7 @@ Partial Class ThisAddIn
 
 
 
-    Public Function FindDealID(MsgSubject As String, msgBody As String, Optional completeAutonomy As Boolean = False) As String
-        Dim myAr As String(), i As Integer, myArTwo As String()
-        myAr = Split(MsgSubject, " ")
-        Dim DealIDForm As New DealIdent
 
-
-        For i = LBound(myAr) To UBound(myAr)
-            '~~> This will give you the contents of your email
-            '~~> on separate lines
-            myAr(i) = Trim(myAr(i))
-
-            If Len(myAr(i)) > 4 Then
-                If myAr(i).StartsWith("P00", ThisAddIn.searchType) Or
-                    myAr(i).StartsWith("E00", ThisAddIn.searchType) Or
-                    myAr(i).StartsWith("NQ", ThisAddIn.searchType) Then
-                    If Mid(LCase(myAr(i)), Len(myAr(i)) - 2, 2) = "-v" Then myAr(i) = Left(myAr(i), Len(myAr(i)) - 3)
-                    DealIDForm.DealID.Text = Trim(myAr(i))
-                End If
-                If myAr(i).StartsWith("REGI-", ThisAddIn.searchType) Or
-                    myAr(i).StartsWith("REGE-", ThisAddIn.searchType) Then
-                    DealIDForm.DealID.Text = Trim(myAr(i))
-                End If
-            End If
-        Next i
-
-        If DealIDForm.DealID.Text = "" Then
-            myAr = Split(msgBody, vbCrLf)
-            For i = LBound(myAr) To UBound(myAr)
-                '~~> This will give you the contents of your email
-                '~~> on separate lines
-                If Len(myAr(i)) > 8 Then
-                    If myAr(i).StartsWith("Deal ID:", ThisAddIn.searchType) Then
-                        myArTwo = Split(myAr(i))
-                        DealIDForm.DealID.Text = Trim(myArTwo(2))
-                    End If
-                End If
-            Next
-        End If
-
-        If DealIDForm.DealID.Text = "" AndAlso i + 3 < UBound(myAr) Then
-            If myAr(i) = "Quote" And myAr(i + 1) = "Review" And myAr(i + 2) = "Quote" Then
-                DealIDForm.DealID.Text = Trim(myAr(i + 4))
-            End If
-            If myAr(i) = "QUOTE" And myAr(i + 1) = "Deal" And myAr(i + 3) = "Version" Then
-                DealIDForm.DealID.Text = Trim(myAr(i + 2))
-            End If
-
-        End If
-
-        If Not completeAutonomy Then
-            DealIDForm.ShowDialog()
-            If DealIDForm.DialogResult = Windows.Forms.DialogResult.Cancel Then
-                DealIDForm.DealID.Text = ""
-            End If
-        End If
-
-
-
-        FindDealID = DealIDForm.DealID.Text
-    End Function
 
 
     Private Function RecordWaitTime(receivedTime As Date, completedTime As Date, person As String) As String
