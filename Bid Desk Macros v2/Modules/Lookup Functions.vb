@@ -88,7 +88,7 @@
     End Function
 
     Public Function GetFact(DealID As String) As String
-        Dim i As Integer = 0, number As Integer
+        Dim i As Integer = 1, number As Integer
 
         While Not RegularExpressions.Regex.IsMatch(Mid(DealID, i), "^[0-9]+$")
             i = i + 1
