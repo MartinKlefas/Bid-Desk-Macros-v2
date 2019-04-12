@@ -60,7 +60,7 @@ Public Class DealIdent
             EnableButtons()
             MessageNumber += 1
             If MessageNumber < MessagesList.Count Then
-                Me.DealID.Text = FindDealID(MessagesList(MessageNumber).Subject, MessagesList(MessageNumber).Body)
+                Me.DealID.Text = FindDealID(MessagesList(MessageNumber))
                 If CompleteAutonomy Then Call Button1_Click()
             Else
                 Me.Close()
@@ -86,61 +86,78 @@ Public Class DealIdent
     Private Sub DealIdent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.DialogResult = DialogResult.None
-        Me.DealID.Text = FindDealID(MessagesList(0).Subject, MessagesList(0).Body)
+        Me.DealID.Text = FindDealID(MessagesList(0))
 
         If CompleteAutonomy Then Call Button1_Click()
 
     End Sub
 
 
-    Public Function FindDealID(MsgSubject As String, msgBody As String) As String
-        Dim myAr As String(), i As Integer, myArTwo As String()
-
+    Public Function FindDealID(message As Outlook.MailItem) As String
+        Dim MsgSubject, msgBody As String
+        Dim subjAr, bodyAr, bodyLineAr As String()
+        Dim i As Integer
         Dim tempResult As String = ""
 
-        myAr = Split(MsgSubject, " ")
+        MsgSubject = message.Subject
+        msgBody = message.Body
+
+        subjAr = Split(MsgSubject, " ")
 
 
 
-        For i = LBound(myAr) To UBound(myAr)
+        For i = LBound(subjAr) To UBound(subjAr)
             '~~> This will give you the contents of your email
             '~~> on separate lines
-            myAr(i) = Trim(myAr(i))
+            subjAr(i) = Trim(subjAr(i))
 
-            If Len(myAr(i)) > 4 Then
-                If myAr(i).StartsWith("P00", ThisAddIn.searchType) Or
-                    myAr(i).StartsWith("E00", ThisAddIn.searchType) Or
-                    myAr(i).StartsWith("NQ", ThisAddIn.searchType) Then
-                    If Mid(LCase(myAr(i)), Len(myAr(i)) - 2, 2) = "-v" Then myAr(i) = Strings.Left(myAr(i), Len(myAr(i)) - 3)
-                    tempResult = Trim(myAr(i))
+            If Len(subjAr(i)) > 4 Then
+                If subjAr(i).StartsWith("P00", ThisAddIn.searchType) Or
+                    subjAr(i).StartsWith("E00", ThisAddIn.searchType) Or
+                    subjAr(i).StartsWith("NQ", ThisAddIn.searchType) Then
+                    If Mid(LCase(subjAr(i)), Len(subjAr(i)) - 2, 2) = "-v" Then subjAr(i) = Strings.Left(subjAr(i), Len(subjAr(i)) - 3)
+                    tempResult = Trim(subjAr(i))
                 End If
-                If myAr(i).StartsWith("REGI-", ThisAddIn.searchType) Or
-                    myAr(i).StartsWith("REGE-", ThisAddIn.searchType) Then
-                    tempResult = Trim(myAr(i))
+                If subjAr(i).StartsWith("REGI-", ThisAddIn.searchType) Or
+                    subjAr(i).StartsWith("REGE-", ThisAddIn.searchType) Then
+                    tempResult = Trim(subjAr(i))
                 End If
             End If
         Next i
 
         If tempResult = "" Then
-            myAr = Split(msgBody, vbCrLf)
-            For i = LBound(myAr) To UBound(myAr)
+            bodyAr = Split(msgBody, vbCrLf)
+            For i = LBound(bodyAr) To UBound(bodyAr)
                 '~~> This will give you the contents of your email
                 '~~> on separate lines
-                If Len(myAr(i)) > 8 Then
-                    If myAr(i).StartsWith("Deal ID:", ThisAddIn.searchType) Then
-                        myArTwo = Split(myAr(i))
-                        tempResult = Trim(myArTwo(2))
+                If Len(subjAr(i)) > 8 Then
+                    If subjAr(i).StartsWith("Deal ID:", ThisAddIn.searchType) Then
+                        bodyLineAr = Split(subjAr(i))
+                        tempResult = Trim(bodyLineAr(2))
                     End If
                 End If
             Next
         End If
 
-        If tempResult = "" AndAlso i + 3 < UBound(myAr) Then
-            If myAr(i) = "Quote" And myAr(i + 1) = "Review" And myAr(i + 2) = "Quote" Then
-                tempResult = Trim(myAr(i + 4))
+        i = 0
+        If tempResult = "" AndAlso i + 3 < UBound(subjAr) Then
+            If subjAr(i) = "Quote" And subjAr(i + 1) = "Review" And subjAr(i + 2) = "Quote" Then
+                tempResult = Trim(subjAr(i + 4))
             End If
-            If myAr(i) = "QUOTE" And myAr(i + 1) = "Deal" And myAr(i + 3) = "Version" Then
-                tempResult = Trim(myAr(i + 2))
+            If subjAr(i) = "QUOTE" And subjAr(i + 1) = "Deal" And subjAr(i + 3) = "Version" Then
+                tempResult = Trim(subjAr(i + 2))
+            End If
+
+        End If
+
+        If tempResult = "" Then
+            If message.SenderEmailAddress.Equals("smart.quotes@techdata.com", ThisAddIn.searchType) And MsgSubject.StartsWith("QUOTE Deal", ThisAddIn.searchType) Then
+                tempResult = subjAr(2)
+
+
+            ElseIf message.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", ThisAddIn.searchType) And MsgSubject.StartsWith("Deal", ThisAddIn.searchType) And msgSubject.ToLower.Contains("for reseller insight direct") Then
+                tempResult = subjAr(1)
+
             End If
 
         End If
