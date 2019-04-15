@@ -16,6 +16,7 @@ Partial Class ThisAddIn
 
         Dim olDestFolder As Outlook.MAPIFolder
 
+        If folderName = "" Then folderName = "Not Defined"
 
         olNameSpace = olApp.GetNamespace("MAPI")
 
