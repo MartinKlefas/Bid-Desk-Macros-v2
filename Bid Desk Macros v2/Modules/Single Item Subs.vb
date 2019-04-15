@@ -63,7 +63,10 @@
             Catch
                 Return False
             End Try
-
+        ElseIf TargetFolder = "" Then
+            Globals.ThisAddIn.MoveToFolder("Not Defined", msg, SuppressWarnings)
+        Else
+            msg.Delete()
         End If
 
         Return success
