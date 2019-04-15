@@ -226,13 +226,13 @@ Public Class ThisAddIn
                 End If
 
             Next
-            Autonomy = False
+            Autonomy = True
         Else
             MessagesList.Add(passedMsg)
             Autonomy = True
         End If
 
-        Dim DealIDForm As New DealIdent(MessagesList, "Expiry", True)
+        Dim DealIDForm As New DealIdent(MessagesList, "Expiry", Autonomy)
         DealIDForm.Show()
     End Sub
 

@@ -28,6 +28,7 @@ Public Class DealIdent
     End Sub
 
     Private Sub Button1_Click() Handles OKButton.Click
+        Me.DialogResult = DialogResult.OK
         If MessageNumber < MessagesList.Count Then
             DisableButtons()
             Dim tDealID As String = Trim(Me.DealID.Text)
@@ -51,7 +52,7 @@ Public Class DealIdent
                 Case "DRDecision"
                     Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, drDecision, True, CompleteAutonomy)
                 Case "Expiry"
-                    Globals.ThisAddIn.DoOneExpiry(tDealID, tMsg)
+                    Globals.ThisAddIn.DoOneExpiry(tDealID, tMsg, CompleteAutonomy)
 
                 Case Else
 
@@ -66,7 +67,7 @@ Public Class DealIdent
                 Me.Close()
             End If
         Else
-                Me.Close()
+            Me.Close()
         End If
 
     End Sub
@@ -86,7 +87,7 @@ Public Class DealIdent
     Private Sub DealIdent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.DialogResult = DialogResult.None
-        Me.DealID.Text = FindDealID(MessagesList(0))
+        Me.DealID.Text = FindDealID(MessagesList(MessageNumber))
 
         If CompleteAutonomy Then Call Button1_Click()
 
@@ -130,11 +131,10 @@ Public Class DealIdent
             For i = LBound(bodyAr) To UBound(bodyAr)
                 '~~> This will give you the contents of your email
                 '~~> on separate lines
-                If Len(subjAr(i)) > 8 Then
-                    If subjAr(i).StartsWith("Deal ID:", ThisAddIn.searchType) Then
-                        bodyLineAr = Split(subjAr(i))
-                        tempResult = Trim(bodyLineAr(2))
-                    End If
+                If Len(bodyAr(i)) > 8 AndAlso bodyAr(i).StartsWith("Deal ID:", ThisAddIn.searchType) Then
+                    bodyLineAr = Split(bodyAr(i))
+                    tempResult = Trim(bodyLineAr(2))
+
                 End If
             Next
         End If

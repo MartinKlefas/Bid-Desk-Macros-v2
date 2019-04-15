@@ -235,6 +235,8 @@
         msgReply.HTMLBody = myGreeting & replyText & msgReply.HTMLBody
 
         msgReply.Send()
+
+        MoveToFolder(AM, msg)
     End Sub
 
 End Class

@@ -7,6 +7,13 @@ Public Class Ribbon1
 
     End Sub
 
+    Public Sub DisableRibbon()
+        For Each control In Me.Group1.Items
+            control.Enabled = False
+        Next
+
+    End Sub
+
     Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs) Handles Button1.Click
         Dim sqlInterface As New ClsDatabase(ThisAddIn.server, ThisAddIn.user,
                                    ThisAddIn.database, ThisAddIn.password)

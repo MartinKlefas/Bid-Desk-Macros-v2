@@ -8,28 +8,33 @@ Public Class ClsDatabase
     Public Sub Make_connection(server As String, user As String,
                                     database As String, password As String)
         Try
-            Dim builder As New SqlConnectionStringBuilder
-            With builder
-
-                .DataSource = server
-                .UserID = user
-                .Password = password
-
-                .InitialCatalog = database
-
-            End With
-
-            conn = New SqlConnection(builder.ConnectionString)
-
-            conn.Open()
-        Catch
-
             Dim connectionString As String
 
 
             connectionString = "Data Source=GBMNCDT12830\SQLEXPRESS;Initial Catalog=bids;Integrated Security=SSPI"
             conn = New SqlConnection(connectionString)
             conn.Open()
+        Catch
+            'SQL Authentication not working for some reason
+
+            'Dim builder As New SqlConnectionStringBuilder
+            'With builder
+
+            '    .DataSource = server
+            '    .UserID = user
+            '    .Password = password
+
+            '    .InitialCatalog = database
+
+            'End With
+
+            'conn = New SqlConnection(builder.ConnectionString)
+
+            'conn.Open()
+
+            Debug.WriteLine("Could not authenticate to server")
+            Call Globals.Ribbons.Ribbon1.DisableRibbon()
+
         End Try
 
     End Sub
