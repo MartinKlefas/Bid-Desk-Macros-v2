@@ -100,7 +100,7 @@ Public Class DealIdent
         Dim i As Integer
         Dim tempResult As String = ""
 
-        MsgSubject = message.Subject
+        MsgSubject = Replace(message.Subject, " ", " ")
         msgBody = message.Body
 
         subjAr = Split(MsgSubject, " ")

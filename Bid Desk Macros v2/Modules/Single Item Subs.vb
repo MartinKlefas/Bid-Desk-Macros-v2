@@ -16,7 +16,7 @@
                 .To = TargetFolder
                 .CC = CCList
                 Try
-                    .Display() '.Send()
+                    .Send()
                 Catch
                     .Display()
                 End Try
@@ -90,7 +90,7 @@
             .CC = GetCCbyDeal(DealID)
             .HTMLBody = myGreeting & messageBodyAddition & GetFact(DealID) & drloglink & .HTMLBody
             Try
-                .Display() '.Send()  or .Display
+                .Send()  'or .Display
             Catch
                 .Display()
             End Try
