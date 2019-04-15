@@ -46,11 +46,14 @@ Public Class DealIdent
                 Case "ForwardPricing"
                     If tMsg.Subject.ToLower.Contains("opg") Then
                         Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, opgFwdMessage, True, CompleteAutonomy)
+                        Globals.ThisAddIn.UpdateStatus(tDealID, "OPG pricing with AM")
                     Else
                         Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, sqFwdMessage, True, CompleteAutonomy)
+                        Globals.ThisAddIn.UpdateStatus(tDealID, "Disti pricing with AM")
                     End If
                 Case "DRDecision"
                     Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, drDecision, True, CompleteAutonomy)
+                    Globals.ThisAddIn.UpdateStatus(tDealID, "DR Decision with AM")
                 Case "Expiry"
                     Globals.ThisAddIn.DoOneExpiry(tDealID, tMsg, CompleteAutonomy)
 

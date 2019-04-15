@@ -187,7 +187,7 @@
             .HTMLBody = WriteGreeting(Now(), CStr(Split(targetFolder)(0))) & WonMessage & drloglink & .HTMLBody
             .Send()
         End With
-
+        UpdateStatus(DealID, "Marked as Won in the Portal")
         MoveToFolder(TargetFolder, message)
     End Sub
     Public Sub OneMarkedDead(msg As Outlook.MailItem, DealID As String)
@@ -239,6 +239,8 @@
         msgReply.HTMLBody = myGreeting & replyText & msgReply.HTMLBody
 
         msgReply.Send()
+        UpdateStatus(DealID, "Extension requested online")
+
 
         MoveToFolder(AM, msg)
     End Sub
