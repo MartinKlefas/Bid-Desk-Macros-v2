@@ -20,6 +20,7 @@
             Call SetProgress(taskNum)
             Threading.Thread.Sleep(TimeSpan.FromSeconds(1))
         End While
+        Call CloseMe()
     End Sub
     Private Sub SetProgress(ByVal [progress] As Integer)
 
@@ -37,5 +38,21 @@
         End If
     End Sub
     Delegate Sub SetProgressCallback(ByVal [progress] As Integer)
+
+    Private Sub CloseMe()
+
+        ' InvokeRequired required compares the thread ID of the'
+        ' calling thread to the thread ID of the creating thread.'
+        ' If these threads are different, it returns true.'
+        If Me.Label1.InvokeRequired Then
+            Dim d As New CloseMeCallback(AddressOf CloseMe)
+            Me.Invoke(d, New Object() {})
+        Else
+
+            Me.Close()
+
+        End If
+    End Sub
+    Delegate Sub CloseMeCallback()
 
 End Class

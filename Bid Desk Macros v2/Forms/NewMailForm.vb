@@ -6,9 +6,10 @@ Public Class NewMailForm
     Private searchType As StringComparison = ThisAddIn.searchType
 
     Public Sub New(entryIDCollection As String)
-        Me.entryIDCollection = entryIDCollection
-        Me.Label1.Text = "Determining the appropriate action for " & entryIDCollection.CountCharacter(",") & " new emails."
         InitializeComponent()
+        Me.entryIDCollection = entryIDCollection
+        Me.Label1.Text = "Determining the appropriate action for " & entryIDCollection.CountCharacter(",") + 1 & " new emails."
+
         BackgroundWorker1.RunWorkerAsync()
     End Sub
 
@@ -32,6 +33,7 @@ Public Class NewMailForm
             End If
         Next
 
+        Call CloseMe()
     End Sub
 
     Private Function IsPricing(msg As MailItem) As Boolean
@@ -71,4 +73,20 @@ Public Class NewMailForm
         End If
 
     End Function
+
+    Private Sub CloseMe()
+
+        ' InvokeRequired required compares the thread ID of the'
+        ' calling thread to the thread ID of the creating thread.'
+        ' If these threads are different, it returns true.'
+        If Me.Label1.InvokeRequired Then
+            Dim d As New CloseMeCallback(AddressOf CloseMe)
+            Me.Invoke(d, New Object() {})
+        Else
+
+            Me.Close()
+
+        End If
+    End Sub
+    Delegate Sub CloseMeCallback()
 End Class
