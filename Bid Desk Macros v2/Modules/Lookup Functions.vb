@@ -65,7 +65,7 @@
         oldNDT = GetNDTbyDeal(DealID)
         newNDT = oldNDT & ";" & TicketNumber
 
-        Return sqlInterface.Update_Data("NDT = " & newNDT, "DealID = '" & DealID & "'")
+        Return sqlInterface.Update_Data("NDT = '" & newNDT & "'", "DealID = '" & DealID & "'")
     End Function
 
     Public Function GetSubmitTime(DealID As String, Optional SuppressWarnings As Boolean = True) As Date

@@ -51,6 +51,10 @@
                     'Ask the CC List what to do.
                     ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
                 End If
+
+                AddNewTicketToDeal(DealID, TicketNum)
+                UpdateStatus(DealID, "Expiration notice with AM")
+
                 Try
                     Globals.ThisAddIn.MoveToFolder(TargetFolder, msg, SuppressWarnings)
                 Catch ex As Exception

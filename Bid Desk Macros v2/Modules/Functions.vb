@@ -116,6 +116,7 @@ Partial Class ThisAddIn
 
             tCreateDealRecord.Add("NDT", ndt.CreateTicket(1, MakeTicketData(tCreateDealRecord, ReplyMail)).ToString)
             ndt.Move("Public Sector")
+
             Dim aliases As String = ""
             'add people to notify
             For Each recipient As Outlook.Recipient In ReplyMail.Recipients
@@ -224,6 +225,22 @@ Partial Class ThisAddIn
 
         Return tmp.ToLower.Contains("deal lost")
 
+
+    End Function
+
+    Function UpdateStatus(DealID As String, NewStatus As String) As Boolean
+
+        If DealExists(DealID) Then
+            Try
+                sqlInterface.Update_Data("Status = '" & NewStatus & "'", "DealID = '" & DealID & "'")
+                sqlInterface.Update_Data("StatusDate = '" & Now() & "'", "DealID = '" & DealID & "'")
+                Return True
+            Catch
+                Return False
+            End Try
+        Else
+            Return False
+        End If
 
     End Function
 
