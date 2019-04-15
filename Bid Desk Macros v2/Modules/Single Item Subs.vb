@@ -32,7 +32,7 @@
                     ShoutError("Adding the new ticketID failed", SuppressWarnings)
                     success = False
                 Else
-
+                    ndt.Move("Public Sector")
                     'update notify to include everyone.
                     Dim aliases As String = DealData("Sales Alias")
                     For Each ccPerson In Split(CCList, ";")

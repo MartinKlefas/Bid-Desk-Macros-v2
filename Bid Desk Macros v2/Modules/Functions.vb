@@ -115,6 +115,7 @@ Partial Class ThisAddIn
             Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
 
             tCreateDealRecord.Add("NDT", ndt.CreateTicket(1, MakeTicketData(tCreateDealRecord, ReplyMail)).ToString)
+            ndt.Move("Public Sector")
             Dim aliases As String = ""
             'add people to notify
             For Each recipient As Outlook.Recipient In ReplyMail.Recipients
