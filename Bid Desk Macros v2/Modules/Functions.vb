@@ -209,7 +209,7 @@ Partial Class ThisAddIn
 
     End Sub
 
-    Function GetSelection() As Outlook.Selection
+    Public Function GetSelection() As Outlook.Selection
         Dim olCurrExplorer As Outlook.Explorer
 
 

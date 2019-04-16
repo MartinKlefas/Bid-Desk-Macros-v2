@@ -54,6 +54,7 @@
         Me.WonBtn = Me.Factory.CreateRibbonButton
         Me.DeadBtn = Me.Factory.CreateRibbonButton
         Me.chkNewMailEx = Me.Factory.CreateRibbonCheckBox
+        Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.SuspendLayout()
@@ -67,6 +68,7 @@
         'Group1
         '
         Me.Group1.Items.Add(Me.Button1)
+        Me.Group1.Items.Add(Me.btnAutoAll)
         Me.Group1.Items.Add(Me.ReplyToBidBtn)
         Me.Group1.Items.Add(Me.MoveBtn)
         Me.Group1.Items.Add(Me.FwdPrice)
@@ -156,6 +158,11 @@
         Me.chkNewMailEx.Label = "Process Incoming Emails"
         Me.chkNewMailEx.Name = "chkNewMailEx"
         '
+        'btnAutoAll
+        '
+        Me.btnAutoAll.Label = "Auto Process Emails"
+        Me.btnAutoAll.Name = "btnAutoAll"
+        '
         'Ribbon1
         '
         Me.Name = "Ribbon1"
@@ -182,6 +189,7 @@
     Friend WithEvents WonBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents DeadBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents chkNewMailEx As Microsoft.Office.Tools.Ribbon.RibbonCheckBox
+    Friend WithEvents btnAutoAll As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

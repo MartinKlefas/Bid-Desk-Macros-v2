@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Office.Interop.Outlook
+﻿Imports System.Diagnostics
+Imports Microsoft.Office.Interop.Outlook
 Imports String_Extensions.StringExtensions
 
 Public Class NewMailForm
@@ -13,24 +14,42 @@ Public Class NewMailForm
         BackgroundWorker1.RunWorkerAsync()
     End Sub
 
+    Public Sub New(EmailMessages As List(Of Outlook.MailItem))
+        InitializeComponent()
+        Me.entryIDCollection = ""
+        For Each email As Outlook.MailItem In EmailMessages
+            If Me.entryIDCollection <> "" Then Me.entryIDCollection.Append(",")
+            Me.entryIDCollection.Append(email.EntryID)
+        Next
+        Me.Label1.Text = "Determining the appropriate action for " & entryIDCollection.CountCharacter(",") + 1 & " new emails."
+
+        BackgroundWorker1.RunWorkerAsync()
+    End Sub
+
+
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
 
         Dim msg As Outlook.MailItem
 
         For Each itemID In Split(entryIDCollection, ",")
-            Dim item = Globals.ThisAddIn.Application.Session.GetItemFromID(itemID)
-            If TypeName(item) = "MailItem" Then
-                msg = item
-                If isExpiryNotice(msg) Then
-                    Globals.ThisAddIn.ExpiryMessages(msg, True)
+            Try
+                Dim item = Globals.ThisAddIn.Application.Session.GetItemFromID(itemID)
+                If TypeName(item) = "MailItem" Then
+                    msg = item
+                    If IsExpiryNotice(msg) Then
+                        Globals.ThisAddIn.ExpiryMessages(msg, True)
+                    End If
+                    If IsDRDecision(msg) Then
+                        Globals.ThisAddIn.FwdDRDecision(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
+                    End If
+                    If IsPricing(msg) Then
+                        Globals.ThisAddIn.FwdPricing(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
+                    End If
                 End If
-                If isDRDecision(msg) Then
-                    Globals.ThisAddIn.FwdDRDecision(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
-                End If
-                If isPricing(msg) Then
-                    Globals.ThisAddIn.FwdPricing(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
-                End If
-            End If
+            Catch
+                Debug.WriteLine("Could not find item for some reason")
+            End Try
+
         Next
 
         Call CloseMe()
@@ -66,7 +85,7 @@ Public Class NewMailForm
             Return True
         ElseIf newMail.Subject.Equals("A Reminder that your Approved Deal is about to Expire", searchType) Then
             Return True
-        ElseIf newMail.Subject.tolower.Contains("your quote expiration reminder mail") Then
+        ElseIf newMail.Subject.ToLower.Contains("your quote expiration reminder mail") Then
             Return True
         Else
             Return False

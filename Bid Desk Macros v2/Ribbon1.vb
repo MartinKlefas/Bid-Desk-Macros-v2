@@ -62,4 +62,17 @@ Public Class Ribbon1
         Globals.ThisAddIn.MarkDead()
 
     End Sub
+
+    Private Sub Button2_Click_1(sender As Object, e As RibbonControlEventArgs) Handles btnAutoAll.Click
+        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
+        Dim MessageList As New List(Of Outlook.MailItem)
+
+        For Each item In selection
+            If TypeName(item) = "MailItem" Then
+                messagelist.Add(item)
+            End If
+        Next
+
+        Dim autoForm As New NewMailForm(messagelist)
+    End Sub
 End Class
