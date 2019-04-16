@@ -1,4 +1,7 @@
-﻿Partial Class ThisAddIn
+﻿Imports System.IO
+Imports System.Net
+
+Partial Class ThisAddIn
     Public Function GetAMbyDeal(dealID As String,
                                     Optional SuppressWarnings As Boolean = False) As String
         Return GetFolderbyDeal(dealID, SuppressWarnings)
@@ -97,27 +100,17 @@
 
         number = CInt(Mid(DealID, i))
 
-        Dim myURL As String, a As String
+        Dim myURL, a As String, shortnumber As Long
         myURL = "http://numbersapi.com/" & number & "/trivia?fragment"
 
-        Dim WinHttpReq As Object, shortNumber As Long
-
-        WinHttpReq = CreateObject("Microsoft.XMLHTTP")
-        WinHttpReq.Open("GET", myURL, False, "username", "password")
-        WinHttpReq.Send
-
-        'myURL = WinHttpReq.responseBody
-        a = ""
-        If WinHttpReq.status = 200 Then
-            a = System.Text.Encoding.Unicode.GetString(WinHttpReq.responseBody)
-        End If
+        a = LoadSiteContents(myURL)
 
         If a = "" Then
             GetFact = "the interesting number facts service is currently broken!"
-        ElseIf a = "a boring number" Or a = "an uninteresting number" Or a = "an unremarkable number" Or a = "a number for which we're missing a fact (submit one to numbersapi at google mail!)" Or a = "a boring number" Then
-            If Len(CStr(number)) > 2 Then
-                shortNumber = CLng(Right(CStr(number), 2))
-                GetFact = "Sadly " & number & " is unremarkable. " & GetFact(shortNumber)
+        ElseIf a = "a boring number" Or a = "an uninteresting number" Or a = "an unremarkable number" Or a = "a number for which we're missing a fact (submit one to numbersapi at google mail!)" Then
+            If number > 99 Then
+                shortnumber = CLng(Right(CStr(number), 2)) ' get the last 2 digits of the number
+                GetFact = "Sadly " & number & " is unremarkable. " & GetFact(shortnumber)
             Else
                 GetFact = "Unfortunately " & number & " is too!"
             End If
@@ -129,6 +122,26 @@
 
     End Function
 
+    ''' <summary>
+    ''' method for retrieving the data from the provided URL
+    ''' </summary>
+    ''' <param name="url">URL we're scraping</param>
+    ''' <returns></returns>
+    Private Function LoadSiteContents(ByVal url As String) As String
+        Try
+            'create a new WebRequest object
+            Dim request As WebRequest = WebRequest.Create(url)
+
+            'create StreamReader to hold the returned request
+            Dim stream As New StreamReader(request.GetResponse().GetResponseStream())
+
+            Dim text As String = stream.ReadToEnd()
+            Return text
+        Catch ex As Exception
+            'put your error handling here
+            Return String.Empty
+        End Try
+    End Function
 
     Public Function IsWestcoast(DealID As String) As Boolean
         Dim tmpResult As String, intresult As Integer

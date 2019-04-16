@@ -15,13 +15,9 @@ Public Class Ribbon1
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs) Handles Button1.Click
-        Dim sqlInterface As New ClsDatabase(ThisAddIn.server, ThisAddIn.user,
-                                   ThisAddIn.database, ThisAddIn.password)
         Dim tmp As String
-        'tmp = sqlInterface.SelectData("Customer", "DealID = 'E002540241'")
-        tmp = sqlInterface.ValueExists("E002540241")
-        Debug.WriteLine(tmp)
-        tmp = sqlInterface.ValueExists("E002540251")
+        tmp = Globals.ThisAddIn.GetFact("42117595")
+
         Debug.WriteLine(tmp)
 
     End Sub
