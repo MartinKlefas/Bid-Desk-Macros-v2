@@ -44,6 +44,10 @@
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.Button1 = Me.Factory.CreateRibbonButton
+        Me.WonBtn = Me.Factory.CreateRibbonButton
+        Me.DeadBtn = Me.Factory.CreateRibbonButton
+        Me.chkNewMailEx = Me.Factory.CreateRibbonCheckBox
+        Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
         Me.FwdPrice = Me.Factory.CreateRibbonButton
@@ -51,10 +55,6 @@
         Me.FwdDecision = Me.Factory.CreateRibbonButton
         Me.ExpireButton = Me.Factory.CreateRibbonButton
         Me.ExtensionBtn = Me.Factory.CreateRibbonButton
-        Me.WonBtn = Me.Factory.CreateRibbonButton
-        Me.DeadBtn = Me.Factory.CreateRibbonButton
-        Me.chkNewMailEx = Me.Factory.CreateRibbonCheckBox
-        Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.SuspendLayout()
@@ -86,6 +86,29 @@
         '
         Me.Button1.Label = "Button1"
         Me.Button1.Name = "Button1"
+        '
+        'WonBtn
+        '
+        Me.WonBtn.Label = "Mark Won"
+        Me.WonBtn.Name = "WonBtn"
+        '
+        'DeadBtn
+        '
+        Me.DeadBtn.Label = "Mark Dead"
+        Me.DeadBtn.Name = "DeadBtn"
+        '
+        'chkNewMailEx
+        '
+        Me.chkNewMailEx.Label = "Process Incoming Emails"
+        Me.chkNewMailEx.Name = "chkNewMailEx"
+        '
+        'btnAutoAll
+        '
+        Me.btnAutoAll.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnAutoAll.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.robot_pngrepo_com
+        Me.btnAutoAll.Label = "Auto Process"
+        Me.btnAutoAll.Name = "btnAutoAll"
+        Me.btnAutoAll.ShowImage = True
         '
         'ReplyToBidBtn
         '
@@ -142,26 +165,6 @@
         Me.ExtensionBtn.Label = "Send Extension Message"
         Me.ExtensionBtn.Name = "ExtensionBtn"
         Me.ExtensionBtn.ShowImage = True
-        '
-        'WonBtn
-        '
-        Me.WonBtn.Label = "Marked as Won"
-        Me.WonBtn.Name = "WonBtn"
-        '
-        'DeadBtn
-        '
-        Me.DeadBtn.Label = "Mark Dead"
-        Me.DeadBtn.Name = "DeadBtn"
-        '
-        'chkNewMailEx
-        '
-        Me.chkNewMailEx.Label = "Process Incoming Emails"
-        Me.chkNewMailEx.Name = "chkNewMailEx"
-        '
-        'btnAutoAll
-        '
-        Me.btnAutoAll.Label = "Auto Process Emails"
-        Me.btnAutoAll.Name = "btnAutoAll"
         '
         'Ribbon1
         '

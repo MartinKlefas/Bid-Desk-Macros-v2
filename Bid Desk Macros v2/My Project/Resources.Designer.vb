@@ -183,6 +183,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property robot_pngrepo_com() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("robot-pngrepo-com", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property smiley_devilish_face() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("smiley_devilish_face", resourceCulture)
