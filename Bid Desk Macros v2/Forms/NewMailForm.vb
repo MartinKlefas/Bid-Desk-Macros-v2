@@ -5,11 +5,13 @@ Imports String_Extensions.StringExtensions
 Public Class NewMailForm
     Private entryIDCollection As String
     Private searchType As StringComparison = ThisAddIn.searchType
+    Private NumberOfEmails As Integer
 
     Public Sub New(entryIDCollection As String)
         InitializeComponent()
         Me.entryIDCollection = entryIDCollection
-        Me.Label1.Text = "Determining the appropriate action for " & entryIDCollection.CountCharacter(",") + 1 & " new emails."
+        Me.NumberOfEmails = entryIDCollection.CountCharacter(",") + 1
+        Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails & " new emails."
 
         BackgroundWorker1.RunWorkerAsync()
     End Sub
@@ -21,7 +23,8 @@ Public Class NewMailForm
             If Me.entryIDCollection <> "" Then Me.entryIDCollection.Append(",")
             Me.entryIDCollection.Append(email.EntryID)
         Next
-        Me.Label1.Text = "Determining the appropriate action for " & entryIDCollection.CountCharacter(",") + 1 & " new emails."
+        Me.NumberOfEmails = entryIDCollection.CountCharacter(",") + 1
+        Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails + 1 & " new emails."
 
         BackgroundWorker1.RunWorkerAsync()
     End Sub
@@ -49,7 +52,8 @@ Public Class NewMailForm
             Catch
                 Debug.WriteLine("Could not find item for some reason")
             End Try
-
+            Me.NumberOfEmails -= 1
+            Call UpdateLabel(Me.NumberOfEmails)
         Next
 
         Call CloseMe()
@@ -108,4 +112,19 @@ Public Class NewMailForm
         End If
     End Sub
     Delegate Sub CloseMeCallback()
+    Private Sub UpdateLabel(ByVal [MailsRemaining] As Integer)
+
+        ' InvokeRequired required compares the thread ID of the'
+        ' calling thread to the thread ID of the creating thread.'
+        ' If these threads are different, it returns true.'
+        If Me.Label1.InvokeRequired Then
+            Dim d As New UpdateLabelCallback(AddressOf UpdateLabel)
+            Me.Invoke(d, New Object() {[MailsRemaining]})
+        Else
+
+            Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails & " new emails."
+
+        End If
+    End Sub
+    Delegate Sub UpdateLabelCallback(ByVal [MailsRemaining] As Integer)
 End Class

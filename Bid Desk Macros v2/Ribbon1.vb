@@ -73,6 +73,8 @@ Public Class Ribbon1
             End If
         Next
 
-        Dim autoForm As New NewMailForm(messagelist)
+        Dim autoForm As New NewMailForm(MessageList)
+        autoForm.Show()
+
     End Sub
 End Class
