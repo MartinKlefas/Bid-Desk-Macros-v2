@@ -47,8 +47,8 @@ Partial Class ThisAddIn
 
         Dim tmpDict As New Dictionary(Of String, String) From {
             {"WaitingFor", person},
-            {"Received", receivedTime},
-            {"Completed", completedTime}
+            {"Received", receivedTime.ToString("yyyyMMdd HH:mm:ss")},
+            {"Completed", completedTime.ToString("yyyyMMdd HH:mm:ss")}
         }
 
 
@@ -109,8 +109,8 @@ Partial Class ThisAddIn
                 {"Westcoast", bWestcoast},
                 {"CC", ccNames},
                 {"Status", "Submitted to Vendor"},
-                {"StatusDate", DateTime.Now().ToString},
-                {"Date", DateTime.Now().ToString}
+                {"StatusDate", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")},
+                {"Date", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")}
             }
 
             Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket

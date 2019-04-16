@@ -32,6 +32,7 @@ Public Class DealIdent
         If MessageNumber < MessagesList.Count Then
             DisableButtons()
             Dim tDealID As String = Trim(Me.DealID.Text)
+            If Not Globals.ThisAddIn.DealExists(tDealID) Then Mode = "Move"
             Dim tMsg As Outlook.MailItem = MessagesList(MessageNumber)
             Select Case Mode
                 Case "Move"
