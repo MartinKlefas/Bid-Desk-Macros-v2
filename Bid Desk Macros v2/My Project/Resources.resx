@@ -142,6 +142,9 @@
   <data name="technical_pen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\technical_pen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="database_add_insert_21836" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\database_add_insert_21836.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -163,7 +166,7 @@
   <data name="_128__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\128 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="database_add_insert_21836" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\database_add_insert_21836.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="0074af6a9c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0074af6a9c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

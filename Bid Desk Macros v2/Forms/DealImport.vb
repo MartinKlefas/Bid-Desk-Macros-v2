@@ -5,9 +5,10 @@ Public Class ImportDeal
 
         ' This call is required by the designer.
         InitializeComponent()
-        Me.AMMail.Text = AMEmailAddress
+
 
         ' Add any initialization after the InitializeComponent() call.
+        Me.AMMail.Text = AMEmailAddress
 
     End Sub
 
@@ -16,6 +17,53 @@ Public Class ImportDeal
         DealID.Text = Trim(DealID.Text)
         Me.DialogResult = DialogResult.OK
         'do the actual work!
+
+        Dim DealData As Dictionary(Of String, String)
+
+        Dim AmName, Vendor, bIngram, bWestCoast, bTechData As String
+
+        Vendor = "Unknown"
+        If HPIOption.Checked Then vendor = "HPI"
+        If HPEOption.Checked Then vendor = "HPE"
+        If DellOption.Checked Then vendor = "Dell"
+
+        AmName = Globals.ThisAddIn.MyResolveName(AMMail.Text).Name
+
+        If cIngram.Checked Then
+            bIngram = 1
+        Else
+            bIngram = 0
+        End If
+        If cWestcoast.Checked Then
+            bWestCoast = 1
+        Else
+            bWestCoast = 0
+        End If
+        If cTechData.Checked Then
+            bTechData = 1
+        Else
+            bTechData = 0
+        End If
+
+        DealData = New Dictionary(Of String, String) From {
+                {"AMEmailAddress", AMMail.Text},
+                {"AM", AmName},
+                {"Customer", CustomerName.Text},
+                {"Vendor", Vendor},
+                {"DealID", DealID.Text},
+                {"Ingram", bIngram},
+                {"Techdata", bTechData},
+                {"Westcoast", bWestCoast},
+                {"CC", ccList.Text},
+                {"Status", "Submitted to Vendor"},
+                {"StatusDate", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")},
+                {"Date", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")}
+            }
+
+        Globals.ThisAddIn.sqlInterface.Add_Data(DealData)
+
+
+        Me.Close()
     End Sub
 
     Private Sub Button2_Click() Handles tCancelButton.Click

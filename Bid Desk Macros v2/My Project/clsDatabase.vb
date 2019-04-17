@@ -112,6 +112,26 @@ Public Class ClsDatabase
         reader.Close()
     End Function
 
+    Friend Function FindColumns() As List(Of String)
+        FindColumns = New List(Of String)
+        Dim cmd As New SqlCommand With {
+            .Connection = conn,
+            .CommandText = "exec sp_columns all_bids"
+        }
+        Dim reader As SqlDataReader
+        reader = cmd.ExecuteReader
+
+        While reader.Read
+            For j = 0 To reader.FieldCount - 1
+                If reader.GetName(j) = "COLUMN_NAME" Then
+                    FindColumns.Add(reader.GetString(j))
+                    Exit For
+                End If
+            Next
+        End While
+
+    End Function
+
     Public Function SelectData_Date(what As String, where As String,
                                Optional table As String = ThisAddIn.defaultTable) As Date
         Dim cmd As New SqlCommand With {

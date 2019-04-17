@@ -190,6 +190,12 @@
   -->
   <ItemGroup>
     <AppDesigner Include="My Project\" />
+    <Compile Include="Forms\BulkImport.Designer.vb">
+      <DependentUpon>BulkImport.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BulkImport.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\DealID.designer.vb">
       <DependentUpon>DealID.vb</DependentUpon>
     </Compile>
@@ -319,6 +325,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\database_add_insert_21836.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0074af6a9c.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

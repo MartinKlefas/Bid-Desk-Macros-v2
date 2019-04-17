@@ -57,6 +57,7 @@
         Me.ExpireButton = Me.Factory.CreateRibbonButton
         Me.ExtensionBtn = Me.Factory.CreateRibbonButton
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
+        Me.ImprtLots = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.Group2.SuspendLayout()
@@ -109,6 +110,7 @@
         'Group2
         '
         Me.Group2.Items.Add(Me.BtnAddtoDB)
+        Me.Group2.Items.Add(Me.ImprtLots)
         Me.Group2.Label = "Database Actions"
         Me.Group2.Name = "Group2"
         '
@@ -184,6 +186,14 @@
         Me.BtnAddtoDB.Name = "BtnAddtoDB"
         Me.BtnAddtoDB.ShowImage = True
         '
+        'ImprtLots
+        '
+        Me.ImprtLots.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.ImprtLots.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources._0074af6a9c
+        Me.ImprtLots.Label = "Add Multiple Deals"
+        Me.ImprtLots.Name = "ImprtLots"
+        Me.ImprtLots.ShowImage = True
+        '
         'Ribbon1
         '
         Me.Name = "Ribbon1"
@@ -215,6 +225,7 @@
     Friend WithEvents btnAutoAll As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Group2 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents BtnAddtoDB As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents ImprtLots As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

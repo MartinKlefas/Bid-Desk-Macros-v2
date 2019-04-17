@@ -80,11 +80,25 @@ Public Class Ribbon1
 
         If Selection.Count = 1 AndAlso TypeName(Selection.Item(1)) = "MailItem" Then
             Dim msg As Outlook.MailItem = Selection.Item(1)
-            frmAddtoSql = New ImportDeal(msg.SenderEmailAddress)
+            Dim senderEmail As String
+            If msg.SenderEmailAddress.ToLower.Contains("insight") Then
+                senderEmail = msg.Sender.GetExchangeUser.PrimarySmtpAddress
+            Else
+                senderEmail = msg.SenderEmailAddress
+
+            End If
+            frmAddtoSql = New ImportDeal(senderEmail)
         Else
-            frmAddtoSql = New ImportDeal()
+                frmAddtoSql = New ImportDeal()
         End If
         frmAddtoSql.Show()
 
+    End Sub
+
+    Private Sub ImprtLots_Click(sender As Object, e As RibbonControlEventArgs) Handles ImprtLots.Click
+
+        Dim Columns As List(Of String) = Globals.ThisAddIn.sqlInterface.FindColumns()
+        'Dim frmBulkImport As New BulkImport
+        'frmBulkImport.Show()
     End Sub
 End Class

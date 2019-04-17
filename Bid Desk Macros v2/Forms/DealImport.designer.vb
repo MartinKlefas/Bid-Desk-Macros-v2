@@ -41,6 +41,8 @@ Partial Class ImportDeal
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.AMMail = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.ccList = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.VendorGroupBox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -48,7 +50,7 @@ Partial Class ImportDeal
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(10, 50)
+        Me.Label1.Location = New System.Drawing.Point(10, 86)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(85, 13)
         Me.Label1.TabIndex = 0
@@ -56,7 +58,7 @@ Partial Class ImportDeal
         '
         'CustomerName
         '
-        Me.CustomerName.Location = New System.Drawing.Point(13, 66)
+        Me.CustomerName.Location = New System.Drawing.Point(13, 102)
         Me.CustomerName.Name = "CustomerName"
         Me.CustomerName.Size = New System.Drawing.Size(290, 20)
         Me.CustomerName.TabIndex = 1
@@ -66,7 +68,7 @@ Partial Class ImportDeal
         Me.VendorGroupBox.Controls.Add(Me.HPEOption)
         Me.VendorGroupBox.Controls.Add(Me.DellOption)
         Me.VendorGroupBox.Controls.Add(Me.HPIOption)
-        Me.VendorGroupBox.Location = New System.Drawing.Point(13, 92)
+        Me.VendorGroupBox.Location = New System.Drawing.Point(13, 128)
         Me.VendorGroupBox.Name = "VendorGroupBox"
         Me.VendorGroupBox.Size = New System.Drawing.Size(290, 47)
         Me.VendorGroupBox.TabIndex = 2
@@ -110,7 +112,7 @@ Partial Class ImportDeal
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(10, 210)
+        Me.Label2.Location = New System.Drawing.Point(10, 246)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(182, 13)
         Me.Label2.TabIndex = 4
@@ -118,14 +120,14 @@ Partial Class ImportDeal
         '
         'DealID
         '
-        Me.DealID.Location = New System.Drawing.Point(13, 226)
+        Me.DealID.Location = New System.Drawing.Point(13, 262)
         Me.DealID.Name = "DealID"
         Me.DealID.Size = New System.Drawing.Size(287, 20)
         Me.DealID.TabIndex = 5
         '
         'OKButton
         '
-        Me.OKButton.Location = New System.Drawing.Point(10, 321)
+        Me.OKButton.Location = New System.Drawing.Point(10, 357)
         Me.OKButton.Name = "OKButton"
         Me.OKButton.Size = New System.Drawing.Size(138, 29)
         Me.OKButton.TabIndex = 6
@@ -134,7 +136,7 @@ Partial Class ImportDeal
         '
         'tCancelButton
         '
-        Me.tCancelButton.Location = New System.Drawing.Point(162, 321)
+        Me.tCancelButton.Location = New System.Drawing.Point(162, 357)
         Me.tCancelButton.Name = "tCancelButton"
         Me.tCancelButton.Size = New System.Drawing.Size(138, 29)
         Me.tCancelButton.TabIndex = 7
@@ -146,7 +148,7 @@ Partial Class ImportDeal
         Me.GroupBox2.Controls.Add(Me.cWestcoast)
         Me.GroupBox2.Controls.Add(Me.cTechData)
         Me.GroupBox2.Controls.Add(Me.cIngram)
-        Me.GroupBox2.Location = New System.Drawing.Point(13, 147)
+        Me.GroupBox2.Location = New System.Drawing.Point(13, 183)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(288, 60)
         Me.GroupBox2.TabIndex = 9
@@ -185,7 +187,7 @@ Partial Class ImportDeal
         '
         'NDTNumber
         '
-        Me.NDTNumber.Location = New System.Drawing.Point(13, 265)
+        Me.NDTNumber.Location = New System.Drawing.Point(13, 301)
         Me.NDTNumber.Name = "NDTNumber"
         Me.NDTNumber.Size = New System.Drawing.Size(287, 20)
         Me.NDTNumber.TabIndex = 11
@@ -193,7 +195,7 @@ Partial Class ImportDeal
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(10, 249)
+        Me.Label3.Location = New System.Drawing.Point(10, 285)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(127, 13)
         Me.Label3.TabIndex = 10
@@ -202,7 +204,7 @@ Partial Class ImportDeal
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(13, 292)
+        Me.CheckBox1.Location = New System.Drawing.Point(13, 328)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(121, 17)
         Me.CheckBox1.TabIndex = 12
@@ -225,11 +227,29 @@ Partial Class ImportDeal
         Me.Label4.TabIndex = 13
         Me.Label4.Text = "Account Manager Email or Alias:"
         '
+        'ccList
+        '
+        Me.ccList.Location = New System.Drawing.Point(11, 64)
+        Me.ccList.Name = "ccList"
+        Me.ccList.Size = New System.Drawing.Size(290, 20)
+        Me.ccList.TabIndex = 16
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(10, 48)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(158, 13)
+        Me.Label5.TabIndex = 15
+        Me.Label5.Text = "Extra People to CC (; separated)"
+        '
         'ImportDeal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(317, 356)
+        Me.ClientSize = New System.Drawing.Size(317, 425)
+        Me.Controls.Add(Me.ccList)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.AMMail)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.CheckBox1)
@@ -272,4 +292,6 @@ Partial Class ImportDeal
     Friend WithEvents CheckBox1 As Windows.Forms.CheckBox
     Friend WithEvents AMMail As Windows.Forms.TextBox
     Friend WithEvents Label4 As Windows.Forms.Label
+    Friend WithEvents ccList As Windows.Forms.TextBox
+    Friend WithEvents Label5 As Windows.Forms.Label
 End Class
