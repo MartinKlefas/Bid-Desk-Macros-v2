@@ -45,5 +45,6 @@ Public Class BulkImport
             Next
             Globals.ThisAddIn.sqlInterface.Add_Data(rowDict)
         Next
+        Me.Close()
     End Sub
 End Class
