@@ -1,6 +1,6 @@
 ﻿Imports System.Windows.Forms
 
-Public Class AddDeal
+Public Class ImportDeal
     Private Sub CommandButton1_Click() Handles OKButton.Click
         CustomerName.Text = Trim(CustomerName.Text)
         DealID.Text = Trim(DealID.Text)
@@ -70,7 +70,5 @@ Public Class AddDeal
         End If
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles tCancelButton.Click
 
-    End Sub
 End Class

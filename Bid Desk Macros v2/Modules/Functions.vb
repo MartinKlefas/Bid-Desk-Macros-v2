@@ -63,7 +63,7 @@ Partial Class ThisAddIn
 
 
     Function CreateDealRecord(Mail As Outlook.MailItem) As Dictionary(Of String, String)
-        Dim NewDealForm As New newDeal
+        Dim NewDealForm As New AddDeal
         Dim requestorName As String, Vendor As String, ccNames As String
         Dim ReplyMail As MailItem = Mail.ReplyAll
         Dim tCreateDealRecord As Dictionary(Of String, String)

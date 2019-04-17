@@ -24,7 +24,7 @@ Public Class NewMailForm
             Me.entryIDCollection.Append(email.EntryID)
         Next
         Me.NumberOfEmails = entryIDCollection.CountCharacter(",") + 1
-        Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails + 1 & " new emails."
+        Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails & " new emails."
 
         BackgroundWorker1.RunWorkerAsync()
     End Sub
@@ -64,6 +64,8 @@ Public Class NewMailForm
             Return True
         ElseIf msg.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", searchType) And msg.Subject.StartsWith("Deal", searchType) And msg.Subject.ToLower.Contains("for reseller insight direct") Then
             Return True
+        ElseIf msg.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", searchType) And msg.Subject.StartsWith("OPG", searchType) And msg.Subject.ToLower.Contains("for reseller insight direct") Then
+            Return True
 
         Else
             Return False
@@ -85,7 +87,7 @@ Public Class NewMailForm
 
     Private Function IsExpiryNotice(newMail As Outlook.MailItem) As Boolean
 
-        If newMail.Subject.StartsWith("Deal Registration", searchType) And newMail.Subject.EndsWith("Expiring", searchType) Then
+        If newMail.Subject.StartsWith("Deal Registration", searchType) And newMail.Subject.ToLower.Contains("expiring") Then
             Return True
         ElseIf newMail.Subject.Equals("A Reminder that your Approved Deal is about to Expire", searchType) Then
             Return True
@@ -122,7 +124,7 @@ Public Class NewMailForm
             Me.Invoke(d, New Object() {[MailsRemaining]})
         Else
 
-            Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails & " new emails."
+           Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails & " new emails."
 
         End If
     End Sub

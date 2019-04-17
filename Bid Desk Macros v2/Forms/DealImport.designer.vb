@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class AddDeal
+Partial Class ImportDeal
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -36,6 +36,11 @@ Partial Class AddDeal
         Me.cWestcoast = New System.Windows.Forms.CheckBox()
         Me.cTechData = New System.Windows.Forms.CheckBox()
         Me.cIngram = New System.Windows.Forms.CheckBox()
+        Me.NDTNumber = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.AMMail = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -43,7 +48,7 @@ Partial Class AddDeal
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 9)
+        Me.Label1.Location = New System.Drawing.Point(10, 50)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(85, 13)
         Me.Label1.TabIndex = 0
@@ -51,7 +56,7 @@ Partial Class AddDeal
         '
         'CustomerName
         '
-        Me.CustomerName.Location = New System.Drawing.Point(15, 25)
+        Me.CustomerName.Location = New System.Drawing.Point(13, 66)
         Me.CustomerName.Name = "CustomerName"
         Me.CustomerName.Size = New System.Drawing.Size(290, 20)
         Me.CustomerName.TabIndex = 1
@@ -61,7 +66,7 @@ Partial Class AddDeal
         Me.GroupBox1.Controls.Add(Me.HPEOption)
         Me.GroupBox1.Controls.Add(Me.DellOption)
         Me.GroupBox1.Controls.Add(Me.HPIOption)
-        Me.GroupBox1.Location = New System.Drawing.Point(15, 52)
+        Me.GroupBox1.Location = New System.Drawing.Point(13, 92)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(290, 47)
         Me.GroupBox1.TabIndex = 2
@@ -105,7 +110,7 @@ Partial Class AddDeal
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 169)
+        Me.Label2.Location = New System.Drawing.Point(10, 210)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(182, 13)
         Me.Label2.TabIndex = 4
@@ -113,14 +118,14 @@ Partial Class AddDeal
         '
         'DealID
         '
-        Me.DealID.Location = New System.Drawing.Point(15, 185)
+        Me.DealID.Location = New System.Drawing.Point(13, 226)
         Me.DealID.Name = "DealID"
         Me.DealID.Size = New System.Drawing.Size(287, 20)
         Me.DealID.TabIndex = 5
         '
         'OKButton
         '
-        Me.OKButton.Location = New System.Drawing.Point(15, 211)
+        Me.OKButton.Location = New System.Drawing.Point(10, 321)
         Me.OKButton.Name = "OKButton"
         Me.OKButton.Size = New System.Drawing.Size(138, 29)
         Me.OKButton.TabIndex = 6
@@ -129,7 +134,7 @@ Partial Class AddDeal
         '
         'tCancelButton
         '
-        Me.tCancelButton.Location = New System.Drawing.Point(167, 211)
+        Me.tCancelButton.Location = New System.Drawing.Point(162, 321)
         Me.tCancelButton.Name = "tCancelButton"
         Me.tCancelButton.Size = New System.Drawing.Size(138, 29)
         Me.tCancelButton.TabIndex = 7
@@ -141,7 +146,7 @@ Partial Class AddDeal
         Me.GroupBox2.Controls.Add(Me.cWestcoast)
         Me.GroupBox2.Controls.Add(Me.cTechData)
         Me.GroupBox2.Controls.Add(Me.cIngram)
-        Me.GroupBox2.Location = New System.Drawing.Point(13, 106)
+        Me.GroupBox2.Location = New System.Drawing.Point(13, 147)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(288, 60)
         Me.GroupBox2.TabIndex = 9
@@ -178,11 +183,58 @@ Partial Class AddDeal
         Me.cIngram.Text = "Ingram"
         Me.cIngram.UseVisualStyleBackColor = True
         '
-        'AddDeal
+        'NDTNumber
+        '
+        Me.NDTNumber.Location = New System.Drawing.Point(13, 265)
+        Me.NDTNumber.Name = "NDTNumber"
+        Me.NDTNumber.Size = New System.Drawing.Size(287, 20)
+        Me.NDTNumber.TabIndex = 11
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(10, 249)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(127, 13)
+        Me.Label3.TabIndex = 10
+        Me.Label3.Text = "NextDesk Ticket Number"
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(13, 292)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(121, 17)
+        Me.CheckBox1.TabIndex = 12
+        Me.CheckBox1.Text = "Add Details to ticket"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'AMMail
+        '
+        Me.AMMail.Location = New System.Drawing.Point(13, 25)
+        Me.AMMail.Name = "AMMail"
+        Me.AMMail.Size = New System.Drawing.Size(290, 20)
+        Me.AMMail.TabIndex = 14
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(12, 9)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(160, 13)
+        Me.Label4.TabIndex = 13
+        Me.Label4.Text = "Account Manager Email or Alias:"
+        '
+        'ImportDeal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(317, 254)
+        Me.ClientSize = New System.Drawing.Size(317, 356)
+        Me.Controls.Add(Me.AMMail)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.NDTNumber)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.tCancelButton)
         Me.Controls.Add(Me.OKButton)
@@ -191,7 +243,7 @@ Partial Class AddDeal
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.CustomerName)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "AddDeal"
+        Me.Name = "ImportDeal"
         Me.Text = "Deal Information"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -215,4 +267,9 @@ Partial Class AddDeal
     Friend WithEvents cTechData As Windows.Forms.CheckBox
     Friend WithEvents cIngram As Windows.Forms.CheckBox
     Friend WithEvents HPEOption As Windows.Forms.RadioButton
+    Friend WithEvents NDTNumber As Windows.Forms.TextBox
+    Friend WithEvents Label3 As Windows.Forms.Label
+    Friend WithEvents CheckBox1 As Windows.Forms.CheckBox
+    Friend WithEvents AMMail As Windows.Forms.TextBox
+    Friend WithEvents Label4 As Windows.Forms.Label
 End Class
