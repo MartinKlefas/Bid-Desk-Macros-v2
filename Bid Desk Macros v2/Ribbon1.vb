@@ -113,7 +113,5 @@ Public Class Ribbon1
         End If
     End Sub
 
-    Private Sub btnOnOff_Click(sender As Object, e As RibbonControlEventArgs) Handles btnOnOff.Click
 
-    End Sub
 End Class

@@ -36,7 +36,9 @@ Partial Class ThisAddIn
                                     Optional SuppressWarnings As Boolean = False) As String
 
         Try
-            Return sqlInterface.SelectData("CC", "DealID = '" & dealID & "'")
+            Dim tmp As String = sqlInterface.SelectData("CC", "DealID = '" & dealID & "'")
+            If Trim(tmp) = "0" Then tmp = ""
+            Return tmp
         Catch
             ShoutError("there was an error getting the CC details", SuppressWarnings)
 
@@ -90,8 +92,9 @@ Partial Class ThisAddIn
         End Try
     End Function
 
-    Public Function GetFact(DealID As String) As String
+    Public Function GetFact(ByVal DealID As String) As String
         Dim i As Integer = 1, number As Integer
+        DealID = Trim(DealID)
 
         While Not RegularExpressions.Regex.IsMatch(Mid(DealID, i), "^[0-9]+$")
             i = i + 1
