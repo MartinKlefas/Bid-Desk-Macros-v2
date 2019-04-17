@@ -242,6 +242,9 @@
     <Compile Include="ThisAddIn.vb">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="Forms\BulkImport.resx">
+      <DependentUpon>BulkImport.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DealID.resx">
       <DependentUpon>DealID.vb</DependentUpon>
     </EmbeddedResource>

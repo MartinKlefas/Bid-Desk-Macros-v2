@@ -97,8 +97,8 @@ Public Class Ribbon1
 
     Private Sub ImprtLots_Click(sender As Object, e As RibbonControlEventArgs) Handles ImprtLots.Click
 
-        Dim Columns As List(Of String) = Globals.ThisAddIn.sqlInterface.FindColumns()
-        'Dim frmBulkImport As New BulkImport
-        'frmBulkImport.Show()
+
+        Dim frmBulkImport As New BulkImport
+        frmBulkImport.Show()
     End Sub
 End Class

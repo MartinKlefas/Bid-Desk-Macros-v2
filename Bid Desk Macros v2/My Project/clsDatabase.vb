@@ -129,6 +129,7 @@ Public Class ClsDatabase
                 End If
             Next
         End While
+        reader.Close()
 
     End Function
 
