@@ -43,11 +43,8 @@
     Private Sub InitializeComponent()
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
-        Me.Button1 = Me.Factory.CreateRibbonButton
-        Me.WonBtn = Me.Factory.CreateRibbonButton
-        Me.DeadBtn = Me.Factory.CreateRibbonButton
-        Me.chkNewMailEx = Me.Factory.CreateRibbonCheckBox
         Me.Group2 = Me.Factory.CreateRibbonGroup
+        Me.Button1 = Me.Factory.CreateRibbonButton
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
@@ -56,6 +53,9 @@
         Me.FwdDecision = Me.Factory.CreateRibbonButton
         Me.ExpireButton = Me.Factory.CreateRibbonButton
         Me.ExtensionBtn = Me.Factory.CreateRibbonButton
+        Me.WonBtn = Me.Factory.CreateRibbonButton
+        Me.DeadBtn = Me.Factory.CreateRibbonButton
+        Me.btnOnOff = Me.Factory.CreateRibbonButton
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.ImprtLots = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
@@ -83,29 +83,9 @@
         Me.Group1.Items.Add(Me.ExtensionBtn)
         Me.Group1.Items.Add(Me.WonBtn)
         Me.Group1.Items.Add(Me.DeadBtn)
-        Me.Group1.Items.Add(Me.chkNewMailEx)
+        Me.Group1.Items.Add(Me.btnOnOff)
         Me.Group1.Label = "Processing Actions"
         Me.Group1.Name = "Group1"
-        '
-        'Button1
-        '
-        Me.Button1.Label = "Button1"
-        Me.Button1.Name = "Button1"
-        '
-        'WonBtn
-        '
-        Me.WonBtn.Label = "Mark Won"
-        Me.WonBtn.Name = "WonBtn"
-        '
-        'DeadBtn
-        '
-        Me.DeadBtn.Label = "Mark Dead"
-        Me.DeadBtn.Name = "DeadBtn"
-        '
-        'chkNewMailEx
-        '
-        Me.chkNewMailEx.Label = "Process Incoming Emails"
-        Me.chkNewMailEx.Name = "chkNewMailEx"
         '
         'Group2
         '
@@ -113,6 +93,11 @@
         Me.Group2.Items.Add(Me.ImprtLots)
         Me.Group2.Label = "Database Actions"
         Me.Group2.Name = "Group2"
+        '
+        'Button1
+        '
+        Me.Button1.Label = "Button1"
+        Me.Button1.Name = "Button1"
         '
         'btnAutoAll
         '
@@ -178,6 +163,24 @@
         Me.ExtensionBtn.Name = "ExtensionBtn"
         Me.ExtensionBtn.ShowImage = True
         '
+        'WonBtn
+        '
+        Me.WonBtn.Label = "Mark Won"
+        Me.WonBtn.Name = "WonBtn"
+        '
+        'DeadBtn
+        '
+        Me.DeadBtn.Label = "Mark Dead"
+        Me.DeadBtn.Name = "DeadBtn"
+        '
+        'btnOnOff
+        '
+        Me.btnOnOff.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnOnOff.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.off
+        Me.btnOnOff.Label = "Process Incoming Emails"
+        Me.btnOnOff.Name = "btnOnOff"
+        Me.btnOnOff.ShowImage = True
+        '
         'BtnAddtoDB
         '
         Me.BtnAddtoDB.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -221,11 +224,11 @@
     Friend WithEvents ExtensionBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents WonBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents DeadBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
-    Friend WithEvents chkNewMailEx As Microsoft.Office.Tools.Ribbon.RibbonCheckBox
     Friend WithEvents btnAutoAll As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Group2 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents BtnAddtoDB As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents ImprtLots As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents btnOnOff As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

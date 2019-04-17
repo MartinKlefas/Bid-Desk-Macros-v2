@@ -2,9 +2,10 @@
 Imports Microsoft.Office.Tools.Ribbon
 
 Public Class Ribbon1
+    Public AutoInbound As Boolean
 
     Private Sub Ribbon1_Load(ByVal sender As System.Object, ByVal e As RibbonUIEventArgs) Handles MyBase.Load
-
+        AutoInbound = False
     End Sub
 
     Public Sub DisableRibbon()
@@ -35,7 +36,7 @@ Public Class Ribbon1
     End Sub
 
     Private Sub FwdDecision_Click(sender As Object, e As RibbonControlEventArgs) Handles FwdDecision.Click
-        Globals.ThisAddIn.fwdDRDecision()
+        Globals.ThisAddIn.FwdDRDecision()
     End Sub
 
     Private Sub FwdPrice_Click(sender As Object, e As RibbonControlEventArgs) Handles FwdPrice.Click
@@ -63,9 +64,9 @@ Public Class Ribbon1
         Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
         Dim MessageList As New List(Of Outlook.MailItem)
 
-        For Each item In selection
+        For Each item In Selection
             If TypeName(item) = "MailItem" Then
-                messagelist.Add(item)
+                MessageList.Add(item)
             End If
         Next
 
@@ -81,7 +82,7 @@ Public Class Ribbon1
         If Selection.Count = 1 AndAlso TypeName(Selection.Item(1)) = "MailItem" Then
             Dim msg As Outlook.MailItem = Selection.Item(1)
             Dim senderEmail As String
-            If msg.SenderEmailAddress.ToLower.Contains("insight") Then
+            If Not msg.SenderEmailAddress.ToLower.Contains("@") AndAlso msg.SenderEmailAddress.ToLower.Contains("/") AndAlso msg.SenderEmailAddress.ToLower.Contains("recipients") Then
                 senderEmail = msg.Sender.GetExchangeUser.PrimarySmtpAddress
             Else
                 senderEmail = msg.SenderEmailAddress
@@ -89,7 +90,7 @@ Public Class Ribbon1
             End If
             frmAddtoSql = New ImportDeal(senderEmail)
         Else
-                frmAddtoSql = New ImportDeal()
+            frmAddtoSql = New ImportDeal()
         End If
         frmAddtoSql.Show()
 
@@ -100,5 +101,19 @@ Public Class Ribbon1
 
         Dim frmBulkImport As New BulkImport
         frmBulkImport.Show()
+    End Sub
+
+    Private Sub BtnOnOff_Click(sender As Object, e As RibbonControlEventArgs) Handles btnOnOff.Click
+        If AutoInbound Then
+            AutoInbound = False
+            btnOnOff.Image = My.Resources.off
+        Else
+            AutoInbound = True
+            btnOnOff.Image = My.Resources._on
+        End If
+    End Sub
+
+    Private Sub btnOnOff_Click(sender As Object, e As RibbonControlEventArgs) Handles btnOnOff.Click
+
     End Sub
 End Class

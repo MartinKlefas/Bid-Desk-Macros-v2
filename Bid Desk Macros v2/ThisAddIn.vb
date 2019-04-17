@@ -237,7 +237,7 @@ Public Class ThisAddIn
     End Sub
 
     Private Sub Application_NewMailEx(EntryIDCollection As String) Handles Application.NewMailEx
-        If Globals.Ribbons.Ribbon1.chkNewMailEx.Checked Then
+        If Globals.Ribbons.Ribbon1.AutoInbound Then
             Dim frm As New NewMailForm(EntryIDCollection)
             frm.Show()
         Else

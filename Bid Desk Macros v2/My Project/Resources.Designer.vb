@@ -103,6 +103,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property _on() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("on", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property actions_view_calendar_tasks() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("actions_view_calendar_tasks", resourceCulture)
@@ -176,6 +186,16 @@ Namespace My.Resources
         Friend ReadOnly Property money_dollar_coins_cash_piggy_bank_finance_business() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("money_dollar_coins_cash_piggy_bank_finance_business", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property off() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("off", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
