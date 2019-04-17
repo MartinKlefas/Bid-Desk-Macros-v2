@@ -47,6 +47,7 @@
         Me.WonBtn = Me.Factory.CreateRibbonButton
         Me.DeadBtn = Me.Factory.CreateRibbonButton
         Me.chkNewMailEx = Me.Factory.CreateRibbonCheckBox
+        Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
@@ -55,13 +56,16 @@
         Me.FwdDecision = Me.Factory.CreateRibbonButton
         Me.ExpireButton = Me.Factory.CreateRibbonButton
         Me.ExtensionBtn = Me.Factory.CreateRibbonButton
+        Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
+        Me.Group2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Tab1
         '
         Me.Tab1.Groups.Add(Me.Group1)
+        Me.Tab1.Groups.Add(Me.Group2)
         Me.Tab1.Label = "Bid Tools"
         Me.Tab1.Name = "Tab1"
         '
@@ -79,7 +83,7 @@
         Me.Group1.Items.Add(Me.WonBtn)
         Me.Group1.Items.Add(Me.DeadBtn)
         Me.Group1.Items.Add(Me.chkNewMailEx)
-        Me.Group1.Label = "Group1"
+        Me.Group1.Label = "Processing Actions"
         Me.Group1.Name = "Group1"
         '
         'Button1
@@ -101,6 +105,12 @@
         '
         Me.chkNewMailEx.Label = "Process Incoming Emails"
         Me.chkNewMailEx.Name = "chkNewMailEx"
+        '
+        'Group2
+        '
+        Me.Group2.Items.Add(Me.BtnAddtoDB)
+        Me.Group2.Label = "Database Actions"
+        Me.Group2.Name = "Group2"
         '
         'btnAutoAll
         '
@@ -166,6 +176,14 @@
         Me.ExtensionBtn.Name = "ExtensionBtn"
         Me.ExtensionBtn.ShowImage = True
         '
+        'BtnAddtoDB
+        '
+        Me.BtnAddtoDB.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.BtnAddtoDB.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.database_add_insert_21836
+        Me.BtnAddtoDB.Label = "Add Single Deal"
+        Me.BtnAddtoDB.Name = "BtnAddtoDB"
+        Me.BtnAddtoDB.ShowImage = True
+        '
         'Ribbon1
         '
         Me.Name = "Ribbon1"
@@ -175,6 +193,8 @@
         Me.Tab1.PerformLayout()
         Me.Group1.ResumeLayout(False)
         Me.Group1.PerformLayout()
+        Me.Group2.ResumeLayout(False)
+        Me.Group2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -193,6 +213,8 @@
     Friend WithEvents DeadBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents chkNewMailEx As Microsoft.Office.Tools.Ribbon.RibbonCheckBox
     Friend WithEvents btnAutoAll As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents Group2 As Microsoft.Office.Tools.Ribbon.RibbonGroup
+    Friend WithEvents BtnAddtoDB As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

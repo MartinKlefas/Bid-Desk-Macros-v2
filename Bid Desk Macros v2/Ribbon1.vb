@@ -73,4 +73,18 @@ Public Class Ribbon1
         autoForm.Show()
 
     End Sub
+
+    Private Sub BtnAddtoDB_Click(sender As Object, e As RibbonControlEventArgs) Handles BtnAddtoDB.Click
+        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
+        Dim frmAddtoSql As ImportDeal
+
+        If Selection.Count = 1 AndAlso TypeName(Selection.Item(1)) = "MailItem" Then
+            Dim msg As Outlook.MailItem = Selection.Item(1)
+            frmAddtoSql = New ImportDeal(msg.SenderEmailAddress)
+        Else
+            frmAddtoSql = New ImportDeal()
+        End If
+        frmAddtoSql.Show()
+
+    End Sub
 End Class

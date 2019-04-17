@@ -220,6 +220,7 @@
     <Compile Include="Forms\ProgressBarFrm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modules\ClipBoard Reader.vb" />
     <Compile Include="Modules\Functions.vb" />
     <Compile Include="Modules\MessageTexts.vb" />
     <Compile Include="Modules\Lookup Functions.vb" />
@@ -315,6 +316,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\robot-pngrepo-com.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\database_add_insert_21836.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

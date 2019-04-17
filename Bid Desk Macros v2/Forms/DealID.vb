@@ -178,4 +178,6 @@ Public Class DealIdent
         OKButton.Enabled = True
         Button2.Enabled = True
     End Sub
+
+
 End Class

@@ -24,7 +24,7 @@ Partial Class AddDeal
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.CustomerName = New System.Windows.Forms.TextBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.VendorGroupBox = New System.Windows.Forms.GroupBox()
         Me.HPEOption = New System.Windows.Forms.RadioButton()
         Me.DellOption = New System.Windows.Forms.RadioButton()
         Me.HPIOption = New System.Windows.Forms.RadioButton()
@@ -36,7 +36,7 @@ Partial Class AddDeal
         Me.cWestcoast = New System.Windows.Forms.CheckBox()
         Me.cTechData = New System.Windows.Forms.CheckBox()
         Me.cIngram = New System.Windows.Forms.CheckBox()
-        Me.GroupBox1.SuspendLayout()
+        Me.VendorGroupBox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -56,17 +56,17 @@ Partial Class AddDeal
         Me.CustomerName.Size = New System.Drawing.Size(290, 20)
         Me.CustomerName.TabIndex = 1
         '
-        'GroupBox1
+        'VendorGroupBox
         '
-        Me.GroupBox1.Controls.Add(Me.HPEOption)
-        Me.GroupBox1.Controls.Add(Me.DellOption)
-        Me.GroupBox1.Controls.Add(Me.HPIOption)
-        Me.GroupBox1.Location = New System.Drawing.Point(15, 52)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(290, 47)
-        Me.GroupBox1.TabIndex = 2
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Vendor"
+        Me.VendorGroupBox.Controls.Add(Me.HPEOption)
+        Me.VendorGroupBox.Controls.Add(Me.DellOption)
+        Me.VendorGroupBox.Controls.Add(Me.HPIOption)
+        Me.VendorGroupBox.Location = New System.Drawing.Point(15, 52)
+        Me.VendorGroupBox.Name = "VendorGroupBox"
+        Me.VendorGroupBox.Size = New System.Drawing.Size(290, 47)
+        Me.VendorGroupBox.TabIndex = 2
+        Me.VendorGroupBox.TabStop = False
+        Me.VendorGroupBox.Text = "Vendor"
         '
         'HPEOption
         '
@@ -188,13 +188,13 @@ Partial Class AddDeal
         Me.Controls.Add(Me.OKButton)
         Me.Controls.Add(Me.DealID)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.VendorGroupBox)
         Me.Controls.Add(Me.CustomerName)
         Me.Controls.Add(Me.Label1)
         Me.Name = "AddDeal"
         Me.Text = "Deal Information"
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.VendorGroupBox.ResumeLayout(False)
+        Me.VendorGroupBox.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
@@ -203,7 +203,7 @@ Partial Class AddDeal
     End Sub
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents CustomerName As System.Windows.Forms.TextBox
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents VendorGroupBox As System.Windows.Forms.GroupBox
     Friend WithEvents DellOption As System.Windows.Forms.RadioButton
     Friend WithEvents HPIOption As System.Windows.Forms.RadioButton
     Friend WithEvents Label2 As System.Windows.Forms.Label

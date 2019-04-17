@@ -17,42 +17,34 @@ Public Class AddDeal
     Private Sub UserForm_Activate() Handles Me.Activated
 
 
-        Dim strClip As String, strArry As Object
+        Dim strClip As String
 
 
         strClip = My.Computer.Clipboard.GetText
 
-        If InStr(1, strClip, "SQ-") > 0 Then
-            DealID.Text = Mid(strClip, InStr(1, strClip, "SQ-"), 10)
-            DellOption.Checked = False
-            HPIOption.Checked = True
-        End If
+        Me.DealID.Text = FindDealID(strClip)
+        Me.CustomerName.Text = FindCustomer(strClip)
+        Select Case FindVendor(strClip)
+            Case "HPI"
+                Call CheckOnly(HPIOption)
+            Case "HPE"
+                Call CheckOnly(HPEOption)
+            Case "Dell"
+                Call CheckOnly(DellOption)
 
-        If InStr(1, strClip, "Full Legal Name") > 0 Then
-            strArry = Split(Mid(strClip, InStr(1, strClip, "Full Legal Name")), vbCrLf)
-            CustomerName.Text = StrConv(strArry(2), vbProperCase)
-        End If
 
-        If InStr(1, strClip, "End User Account Name") > 0 Then
-            strArry = Split(Mid(strClip, InStr(1, strClip, "End User Account Name")), vbTab)
-            CustomerName.Text = strArry(1)
-        End If
-
-        If InStr(1, strClip, "Deal ID") > 0 Then
-            strArry = Split(Mid(strClip, InStr(1, strClip, "Deal ID")), vbTab)
-            DealID.Text = strArry(1)
-        End If
-
-        If InStr(1, strClip, "HP Opportunity ID") > 0 Then
-            strArry = Split(Mid(strClip, InStr(1, strClip, "HP Opportunity ID")), vbCrLf)
-            DealID.Text = strArry(5)
-            CustomerName.Text = strArry(13)
-            DellOption.Checked = False
-            HPIOption.Checked = True
-        End If
+        End Select
 
     End Sub
-
+    Private Sub CheckOnly(toCheck As RadioButton)
+        For Each tControl As Control In VendorGroupBox.Controls
+            If TypeName(tControl) = "RadioButton" Then
+                Dim rButton As RadioButton = tControl
+                rButton.Checked = False
+            End If
+        Next
+        toCheck.Checked = True
+    End Sub
     Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
         Me.DialogResult = DialogResult.Cancel
         Me.Hide()
