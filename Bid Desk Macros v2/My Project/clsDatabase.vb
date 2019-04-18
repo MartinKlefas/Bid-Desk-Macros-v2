@@ -54,10 +54,17 @@ Public Class ClsDatabase
             .CommandText = "SELECT TOP 1 " & column & " FROM " & table & " WHERE " & column & " = '" & value & "'"
         }
 
-        Dim reader As SqlDataReader
-        reader = cmd.ExecuteReader
-        result = reader.HasRows
-        reader.Close()
+        Try
+            Dim reader As SqlDataReader
+            reader = cmd.ExecuteReader
+            result = reader.HasRows
+            reader.Close()
+        Catch
+            'some kind of overlap in sql reader usage!
+            Debug.WriteLine("SQL Error in ValueExists")
+            Return False
+        End Try
+
 
         Return result
     End Function
@@ -74,42 +81,46 @@ Public Class ClsDatabase
         End If
 
         SelectData = ""
+        Try
+            Dim reader As SqlDataReader
+            reader = cmd.ExecuteReader
 
-        Dim reader As SqlDataReader
-        reader = cmd.ExecuteReader
-
-        Dim j As Integer
+            Dim j As Integer
 
 
-        While reader.Read
-            If SelectData <> "" Then SelectData.Append(vbCrLf)
-            For j = 0 To reader.FieldCount - 1
-                If j > 0 Then
-                    SelectData.Append(", ")
-                End If
+            While reader.Read
+                If SelectData <> "" Then SelectData.Append(vbCrLf)
+                For j = 0 To reader.FieldCount - 1
+                    If j > 0 Then
+                        SelectData.Append(", ")
+                    End If
 
-                Dim value As String
-                Select Case reader.GetDataTypeName(j)
-                    Case "varchar", "text"
-                        value = reader.GetString(j)
-                    Case "int"
-                        value = CStr(reader.GetSqlInt32(j))
-                    Case "bit"
-                        value = CStr(reader.GetSqlBoolean(j))
-                    Case "datetime"
-                        value = reader.GetDateTime(j).ToString
-                    Case Else
-                        Debug.WriteLine(reader.GetDataTypeName(j))
-                        value = ""
-                End Select
+                    Dim value As String
+                    Select Case reader.GetDataTypeName(j)
+                        Case "varchar", "text"
+                            value = reader.GetString(j)
+                        Case "int"
+                            value = CStr(reader.GetSqlInt32(j))
+                        Case "bit"
+                            value = CStr(reader.GetSqlBoolean(j))
+                        Case "datetime"
+                            value = reader.GetDateTime(j).ToString
+                        Case Else
+                            Debug.WriteLine(reader.GetDataTypeName(j))
+                            value = ""
+                    End Select
 
-                SelectData.Append(value)
+                    SelectData.Append(value)
 
-            Next
+                Next
 
-        End While
+            End While
+            reader.Close()
+        Catch
+            Debug.WriteLine("SQL Error in SelectData")
 
-        reader.Close()
+        End Try
+
     End Function
 
     Friend Function FindColumns() As List(Of String)
@@ -118,18 +129,22 @@ Public Class ClsDatabase
             .Connection = conn,
             .CommandText = "exec sp_columns all_bids"
         }
-        Dim reader As SqlDataReader
-        reader = cmd.ExecuteReader
+        Try
+            Dim reader As SqlDataReader
+            reader = cmd.ExecuteReader
 
-        While reader.Read
-            For j = 0 To reader.FieldCount - 1
-                If reader.GetName(j) = "COLUMN_NAME" Then
-                    FindColumns.Add(reader.GetString(j))
-                    Exit For
-                End If
-            Next
-        End While
-        reader.Close()
+            While reader.Read
+                For j = 0 To reader.FieldCount - 1
+                    If reader.GetName(j) = "COLUMN_NAME" Then
+                        FindColumns.Add(reader.GetString(j))
+                        Exit For
+                    End If
+                Next
+            End While
+            reader.Close()
+        Catch
+
+        End Try
 
     End Function
 
@@ -146,20 +161,24 @@ Public Class ClsDatabase
 
         SelectData_Date = Nothing
 
-        Dim reader As SqlDataReader
-        reader = cmd.ExecuteReader
+        Try
+            Dim reader As SqlDataReader
+            reader = cmd.ExecuteReader
 
 
-        While reader.Read
-            If reader.FieldCount > 1 Then
-                Exit While
-            End If
+            While reader.Read
+                If reader.FieldCount > 1 Then
+                    Exit While
+                End If
 
-            SelectData_Date = reader.GetDateTime(0)
+                SelectData_Date = reader.GetDateTime(0)
 
-        End While
+            End While
 
-        reader.Close()
+            reader.Close()
+        Catch
+            Debug.WriteLine("SQL Error in SelectData_Date")
+        End Try
     End Function
 
     Public Function SelectData_Dict(Optional what As String = "*", Optional where As String = "",
@@ -176,48 +195,50 @@ Public Class ClsDatabase
         If where <> "" Then
             cmd.CommandText.Append(" where " & where)
         End If
+        Try
+            Dim reader As SqlDataReader
+            reader = cmd.ExecuteReader
 
-        Dim reader As SqlDataReader
-        reader = cmd.ExecuteReader
+            Dim j As Integer
+            Dim tmp As Dictionary(Of String, String)
+            Dim key As String, value As String
 
-        Dim j As Integer
-        Dim tmp As Dictionary(Of String, String)
-        Dim key As String, value As String
+            While reader.Read
+                tmp = New Dictionary(Of String, String)
 
-        While reader.Read
-            tmp = New Dictionary(Of String, String)
+                For j = 0 To reader.FieldCount - 1
+                    key = reader.GetName(j)
+                    Try
+                        Select Case reader.GetDataTypeName(j)
+                            Case "varchar", "text"
+                                value = reader.GetString(j)
+                            Case "int"
+                                value = CStr(reader.GetSqlInt32(j))
+                            Case "bit"
+                                value = CStr(reader.GetSqlBoolean(j))
+                            Case "datetime"
+                                value = reader.GetDateTime(j).ToString
+                            Case Else
+                                Debug.WriteLine(reader.GetDataTypeName(j))
+                                value = ""
+                        End Select
+                    Catch
+                        Debug.WriteLine(reader.GetDataTypeName(j))
+                        value = ""
+                    End Try
 
-            For j = 0 To reader.FieldCount - 1
-                key = reader.GetName(j)
-                Try
-                    Select Case reader.GetDataTypeName(j)
-                        Case "varchar", "text"
-                            value = reader.GetString(j)
-                        Case "int"
-                            value = CStr(reader.GetSqlInt32(j))
-                        Case "bit"
-                            value = CStr(reader.GetSqlBoolean(j))
-                        Case "datetime"
-                            value = reader.GetDateTime(j).ToString
-                        Case Else
-                            Debug.WriteLine(reader.GetDataTypeName(j))
-                            value = ""
-                    End Select
-                Catch
-                    Debug.WriteLine(reader.GetDataTypeName(j))
-                    value = ""
-                End Try
-
-                tmp.Add(key, value)
+                    tmp.Add(key, value)
 
 
-            Next
-            SelectData_Dict.Add(tmp)
+                Next
+                SelectData_Dict.Add(tmp)
 
-        End While
+            End While
 
-        reader.Close()
-
+            reader.Close()
+        Catch
+            Debug.WriteLine("SQL Error in SelectData_Dict")
+        End Try
     End Function
 
     Public Function Add_Data(what As Dictionary(Of String, String), Optional table As String = ThisAddIn.defaultTable) As Boolean
