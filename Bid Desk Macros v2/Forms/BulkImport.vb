@@ -56,7 +56,7 @@ Public Class BulkImport
             Dim lines As String() = Split(Clipboard.GetText, vbCrLf)
 
             If startRow + lines.Count > DataGridView1.RowCount Then
-                DataGridView1.Rows.Add(startCol + lines.Count - DataGridView1.RowCount)
+                DataGridView1.Rows.Add(startRow + lines.Count - DataGridView1.RowCount)
             End If
 
             Dim curRow As Integer = startRow
