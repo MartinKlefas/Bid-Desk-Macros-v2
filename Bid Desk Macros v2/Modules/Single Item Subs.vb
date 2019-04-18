@@ -100,7 +100,7 @@
             End Try
 
             .CC = GetCCbyDeal(DealID)
-            .HTMLBody = myGreeting & messageBodyAddition & GetFact(DealID) & drloglink & .HTMLBody
+            .HTMLBody = myGreeting & messageBodyAddition & "<br>" & GetFact(DealID) & drloglink & .HTMLBody
             Try
                 .Send()  'or .Display
             Catch
