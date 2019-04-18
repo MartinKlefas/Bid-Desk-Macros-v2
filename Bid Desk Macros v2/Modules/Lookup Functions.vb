@@ -102,30 +102,34 @@ Partial Class ThisAddIn
 
         While Not RegularExpressions.Regex.IsMatch(Mid(DealID, i), "^[0-9]+$")
             i = i + 1
-
+            If DealID = "" Or i >= Len(DealID) - 1 Then Exit While
         End While
 
-        number = CInt(Mid(DealID, i))
+        Try
+            number = CInt(Mid(DealID, i))
 
-        Dim myURL, a As String, shortnumber As Long
-        myURL = "http://numbersapi.com/" & number & "/trivia?fragment"
+            Dim myURL, a As String, shortnumber As Long
+            myURL = "http://numbersapi.com/" & number & "/trivia?fragment"
 
-        a = LoadSiteContents(myURL)
+            a = LoadSiteContents(myURL)
 
-        If a = "" Then
-            GetFact = "the interesting number facts service is currently broken!"
-        ElseIf a = "a boring number" Or a = "an uninteresting number" Or a = "an unremarkable number" Or a = "a number for which we're missing a fact (submit one to numbersapi at google mail!)" Then
-            If number > 99 Then
-                shortnumber = CLng(Right(CStr(number), 2)) ' get the last 2 digits of the number
-                GetFact = "Sadly " & number & " is unremarkable. " & GetFact(shortnumber)
+            If a = "" Then
+                GetFact = "the interesting number facts service is currently broken!"
+            ElseIf a = "a boring number" Or a = "an uninteresting number" Or a = "an unremarkable number" Or a = "a number for which we're missing a fact (submit one to numbersapi at google mail!)" Then
+                If number > 99 Then
+                    shortnumber = CLng(Right(CStr(number), 2)) ' get the last 2 digits of the number
+                    GetFact = "Sadly " & number & " is unremarkable. " & GetFact(shortnumber)
+                Else
+                    GetFact = "Unfortunately " & number & " is too!"
+                End If
             Else
-                GetFact = "Unfortunately " & number & " is too!"
+
+                GetFact = "Interestingly " & number & " is " & a
+
             End If
-        Else
-
-            GetFact = "Interestingly " & number & " is " & a
-
-        End If
+        Catch
+            GetFact = "the interesting number facts service is currently broken!"
+        End Try
 
     End Function
 
