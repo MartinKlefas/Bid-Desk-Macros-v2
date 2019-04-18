@@ -292,7 +292,7 @@ Partial Class ThisAddIn
         newLookupName = lookupName
 
         Dim noChangeNamesStr As String
-        noChangeNamesStr = "LGN.Enquiries;Lorrae.Tomlinson@insight.com;NHSSupport;TeamWhite.UK;Insight ACPO TAM Team;Insight Met Police Team;Mel Wardle;Insight Capgemini Team;Insight Police Team;ipt@insight.com;_iuk-72-2-brianboys@insight.com"
+        noChangeNamesStr = "lgn.enquiries;lorrae.tomlinson@insight.com;nhssupport;teamwhite.uk;insight acpo tam team;insight met police team;mel wardle;insight capgemini team;ipt@insight.com;_iuk-72-2-brianboys@insight.com"
 
         Dim nameArry = Split(lookupName, " ")
         If UBound(nameArry) > 0 Then
@@ -300,9 +300,10 @@ Partial Class ThisAddIn
         End If
         oNS = Application.GetNamespace("MAPI")
 
-        If lookupName = "Not Defined" Or lookupName = "TP2 Enquiries" Then newLookupName = "Klefas, Martin"
-        If lookupName = "Andy Walsh" Then newLookupName = "Walsh, Andrew"
-        If lookupName = "NHS Solutions" Then newLookupName = "NHSSolutions@Insight.com"
+        If lookupName.ToLower = "not defined" Or lookupName = "TP2 Enquiries" Then newLookupName = "Klefas, Martin"
+        If lookupName.ToLower = "andy walsh" Then newLookupName = "Walsh, Andrew"
+        If lookupName.ToLower = "nhs solutions" Then newLookupName = "NHSSolutions@Insight.com"
+        If lookupName.ToLower = "insight police team" Then newLookupName = "ipt@insight.com"
 
         If noChangeNamesStr.ToLower.Contains(lookupName.ToLower) Then newLookupName = lookupName
 

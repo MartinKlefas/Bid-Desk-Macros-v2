@@ -47,4 +47,31 @@ Public Class BulkImport
         Next
         Me.Close()
     End Sub
+
+    Private Sub DataGridView1_KeyDown(sender As Object, e As KeyEventArgs) Handles DataGridView1.KeyDown
+        If e.Modifiers = Keys.Control AndAlso e.KeyCode = Keys.V Then
+            Dim startCol As Integer = DataGridView1.CurrentCell.ColumnIndex
+            Dim startRow As Integer = DataGridView1.CurrentCell.RowIndex
+
+            Dim lines As String() = Split(Clipboard.GetText, vbCrLf)
+
+            If startRow + lines.Count > DataGridView1.RowCount Then
+                DataGridView1.Rows.Add(startCol + lines.Count - DataGridView1.RowCount)
+            End If
+
+            Dim curRow As Integer = startRow
+            For Each line As String In lines
+                Dim hOffset As Integer = 0
+                Dim cellsDataArr As String() = Split(line, vbTab)
+
+                For Each cellData As String In cellsDataArr
+
+                    DataGridView1.Item(startCol + hOffset, curRow).Value = cellData
+
+                    hOffset += 1
+                Next
+                curRow += 1
+            Next
+        End If
+    End Sub
 End Class

@@ -93,7 +93,12 @@
         myGreeting = WriteGreeting(Now(), CStr(fNames(0)))
 
         With msgFwdOne
-            .To = MyResolveName(TargetFolder).PrimarySmtpAddress
+            Try
+                .To = MyResolveName(TargetFolder).PrimarySmtpAddress
+            Catch
+                .To = TargetFolder
+            End Try
+
             .CC = GetCCbyDeal(DealID)
             .HTMLBody = myGreeting & messageBodyAddition & GetFact(DealID) & drloglink & .HTMLBody
             Try
@@ -185,10 +190,19 @@
 
 
         With msgFwdOne
-            .To = MyResolveName(targetFolder).PrimarySmtpAddress
+            Try
+                .To = MyResolveName(TargetFolder).PrimarySmtpAddress
+            Catch
+                .To = TargetFolder
+            End Try
             .CC = GetCCbyDeal(DealID)
-            .HTMLBody = WriteGreeting(Now(), CStr(Split(targetFolder)(0))) & WonMessage & drloglink & .HTMLBody
-            .Send()
+            .HTMLBody = WriteGreeting(Now(), CStr(Split(TargetFolder)(0))) & WonMessage & drloglink & .HTMLBody
+            Try
+                .Send()
+            Catch
+                .Display()
+            End Try
+
         End With
         UpdateStatus(DealID, "Marked as Won in the Portal")
         MoveToFolder(TargetFolder, message)
