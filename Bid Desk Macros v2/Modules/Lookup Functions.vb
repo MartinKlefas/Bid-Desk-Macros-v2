@@ -73,6 +73,10 @@ Partial Class ThisAddIn
         Return sqlInterface.Update_Data("NDT = '" & newNDT & "'", "DealID = '" & DealID & "'")
     End Function
 
+    Public Function AddOPG(DealID As String, OPG As String) As Boolean
+        Return sqlInterface.Update_Data("OPGID = '" & OPG & "'", "DealID = '" & DealID & "'")
+    End Function
+
     Public Function GetSubmitTime(DealID As String, Optional SuppressWarnings As Boolean = True) As Date
         Try
             Return sqlInterface.SelectData_Date("Date", "DealID = '" & DealID & "'")

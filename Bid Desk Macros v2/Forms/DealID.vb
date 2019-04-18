@@ -1,4 +1,6 @@
 ﻿Imports System.ComponentModel
+Imports System.Data.OleDb
+Imports System.IO
 Imports System.Windows.Forms
 Imports Microsoft.Office.Interop.Outlook
 
@@ -159,14 +161,45 @@ Public Class DealIdent
                 tempResult = subjAr(2)
 
 
-            ElseIf message.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", ThisAddIn.searchType) And MsgSubject.StartsWith("Deal", ThisAddIn.searchType) And msgSubject.ToLower.Contains("for reseller insight direct") Then
+            ElseIf message.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", ThisAddIn.searchType) And MsgSubject.StartsWith("Deal", ThisAddIn.searchType) And MsgSubject.ToLower.Contains("for reseller insight direct") Then
                 tempResult = subjAr(1)
 
             End If
 
         End If
 
+        If CompleteAutonomy AndAlso tempResult <> "" AndAlso Not Globals.ThisAddIn.DealExists(tempResult) Then
+            For Each tAttachment As Attachment In message.Attachments
+                If tAttachment.FileName.ToLower = "quote.csv" Then
+                    Dim fName As String = Path.GetTempPath() & "quote.csv"
+                    tAttachment.SaveAsFile(fName)
+                    Dim quoteCsvString As String = File.ReadAllText(fName)
+                    quoteCsvString = Replace(quoteCsvString, vbNullChar, "")
+                    Dim quoteArry As String() = Split(quoteCsvString, "-")
+                    For Each fragment As String In quoteArry
+                        If fragment.ToLower.StartsWith("p0") Then
 
+                            Dim OPG As String = tempResult
+
+                            Globals.ThisAddIn.AddOPG(fragment, OPG)
+
+                            tempResult = fragment
+
+                            Exit For
+                        End If
+                    Next
+                    File.Delete(fName)
+                ElseIf tAttachment.FileName.ToLower.EndsWith("xlsx") Then
+                    Dim fName As String = Path.GetTempPath() & tAttachment.FileName
+                    tAttachment.SaveAsFile(fName)
+                    Dim tmpDealID As String = ReadExcel(fName, "Sheet1", 2, 2)
+                    tmpDealID = Strings.Left(tmpDealID, Len(tmpDealID) - 3)
+                    Globals.ThisAddIn.AddOPG(tmpDealID, tempResult)
+
+                    tempResult = tmpDealID
+                End If
+            Next
+        End If
 
         FindDealID = tempResult
     End Function
@@ -178,6 +211,41 @@ Public Class DealIdent
         OKButton.Enabled = True
         Button2.Enabled = True
     End Sub
+    Public Function ReadExcel(file As String, sheet As String, row As Integer, column As Integer) As String
 
+        row -= 1 'db access is 0 based, excel references are 1 based
+        column -= 1
+
+        Dim conStr As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & file & ";Extended Properties='Excel 12.0 Xml;HDR=No;'"
+        ' HDR=Yes skips first row which contains headers for the columns
+        Dim conn As System.Data.OleDb.OleDbConnection ' Notice: I used a fully qualified name 
+        ' because Microsoft.Office.Interop.Excel contains also a class named OleDbConnection
+        Dim cmd As OleDbCommand
+        Dim dataReader As OleDbDataReader
+        Dim tempStr As String = ""
+
+        ' Create a new connection object and open it
+        conn = New System.Data.OleDb.OleDbConnection(conStr)
+        conn.Open()
+        ' Create command text with SQL-style syntax
+        ' Notice: First sheet is named Sheet1. In the command, sheet's name is followed with dollar sign!
+        cmd = New OleDbCommand("select * from [" & sheet & "$]", conn)
+        ' Get data from Excel's sheet to OleDb datareader object
+        dataReader = cmd.ExecuteReader()
+        Dim curRow As Integer = 0
+        ' Read rows until an empty row is found
+        While (dataReader.Read())
+            ' Index of column B is 0 because it is range's first column
+            tempStr = dataReader.GetValue(column).ToString()
+            If curRow = row Then Exit While
+            curRow += 1
+        End While
+
+        If curRow = row Then
+            Return tempStr
+        Else
+            Return ""
+        End If
+    End Function
 
 End Class
