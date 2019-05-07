@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports System.Data.OleDb
+Imports System.Diagnostics
 Imports System.IO
 Imports System.Windows.Forms
 Imports Microsoft.Office.Interop.Outlook
@@ -172,29 +173,52 @@ Public Class DealIdent
             For Each tAttachment As Attachment In message.Attachments
                 If tAttachment.FileName.ToLower = "quote.csv" Then
                     Dim fName As String = Path.GetTempPath() & "quote.csv"
-                    tAttachment.SaveAsFile(fName)
-                    Dim quoteCsvString As String = File.ReadAllText(fName)
-                    quoteCsvString = Replace(quoteCsvString, vbNullChar, "")
-                    Dim quoteArry As String() = Split(quoteCsvString, "-")
-                    For Each fragment As String In quoteArry
-                        If fragment.ToLower.StartsWith("p0") Then
+                    Try
+                        tAttachment.SaveAsFile(fName)
+                        Dim quoteCsvString As String = File.ReadAllText(fName)
+                        quoteCsvString = Replace(quoteCsvString, vbNullChar, "")
+                        Dim quoteArry As String() = Split(quoteCsvString, "-")
+                        For Each fragment As String In quoteArry
+                            If fragment.ToLower.StartsWith("p0") Then
 
-                            Dim OPG As String = tempResult
+                                Dim OPG As String = tempResult
 
-                            Globals.ThisAddIn.AddOPG(fragment, OPG)
+                                Globals.ThisAddIn.AddOPG(fragment, OPG)
 
-                            tempResult = fragment
+                                tempResult = fragment
 
-                            Exit For
-                        End If
-                    Next
-                    File.Delete(fName)
+                                Exit For
+                            End If
+                        Next
+                        File.Delete(fName)
+                    Catch
+                        Debug.WriteLine("Error while saving/processing CSV file")
+                    End Try
+
                 ElseIf tAttachment.FileName.ToLower.EndsWith("xlsx") Then
                     Dim fName As String = Path.GetTempPath() & tAttachment.FileName
-                    tAttachment.SaveAsFile(fName)
-                    Dim tmpDealID As String = ReadExcel(fName, "Sheet1", 2, 2)
-                    tmpDealID = Strings.Left(tmpDealID, Len(tmpDealID) - 3)
+                    Try
+                        tAttachment.SaveAsFile(fName)
+                    Catch
+                        Debug.WriteLine("Error while saving xlsx file")
+                    End Try
+                    Dim tmpDealID As String = ""
+
+                    Try
+                        tmpDealID = ReadExcel(fName, "Sheet1", 2, 2)
+                        tmpDealID = Strings.Left(tmpDealID, Len(tmpDealID) - 3)
+                    Catch
+                        Debug.WriteLine("Error processing xlsx file")
+                    End Try
+
                     Globals.ThisAddIn.AddOPG(tmpDealID, tempResult)
+
+                    Try
+                        File.Delete(fName)
+                    Catch
+                        Debug.WriteLine("Error deleting xlsx file")
+                    End Try
+
 
                     tempResult = tmpDealID
                 End If

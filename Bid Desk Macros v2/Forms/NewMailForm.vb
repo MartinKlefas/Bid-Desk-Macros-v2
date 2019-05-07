@@ -6,8 +6,10 @@ Public Class NewMailForm
     Private entryIDCollection As String
     Private searchType As StringComparison = ThisAddIn.searchType
     Private NumberOfEmails As Integer
+    Public myContinue As Boolean
 
     Public Sub New(entryIDCollection As String)
+        myContinue = True
         InitializeComponent()
         Me.entryIDCollection = entryIDCollection
         Me.NumberOfEmails = entryIDCollection.CountCharacter(",") + 1
@@ -17,6 +19,7 @@ Public Class NewMailForm
     End Sub
 
     Public Sub New(EmailMessages As List(Of Outlook.MailItem))
+        myContinue = True
         InitializeComponent()
         Me.entryIDCollection = ""
         For Each email As Outlook.MailItem In EmailMessages
@@ -35,25 +38,27 @@ Public Class NewMailForm
         Dim msg As Outlook.MailItem
 
         For Each itemID In Split(entryIDCollection, ",")
-            Try
-                Dim item = Globals.ThisAddIn.Application.Session.GetItemFromID(itemID)
-                If TypeName(item) = "MailItem" Then
-                    msg = item
-                    If IsExpiryNotice(msg) Then
-                        Globals.ThisAddIn.ExpiryMessages(msg, True)
+            If myContinue Then
+                Try
+                    Dim item = Globals.ThisAddIn.Application.Session.GetItemFromID(itemID)
+                    If TypeName(item) = "MailItem" Then
+                        msg = item
+                        If IsExpiryNotice(msg) Then
+                            Globals.ThisAddIn.ExpiryMessages(msg, True)
+                        End If
+                        If IsDRDecision(msg) Then
+                            Globals.ThisAddIn.FwdDRDecision(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
+                        End If
+                        If IsPricing(msg) Then
+                            Globals.ThisAddIn.FwdPricing(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
+                        End If
                     End If
-                    If IsDRDecision(msg) Then
-                        Globals.ThisAddIn.FwdDRDecision(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
-                    End If
-                    If IsPricing(msg) Then
-                        Globals.ThisAddIn.FwdPricing(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
-                    End If
-                End If
-            Catch
-                Debug.WriteLine("Could not find item for some reason")
-            End Try
-            Me.NumberOfEmails -= 1
-            Call UpdateLabel(Me.NumberOfEmails)
+                Catch
+                    Debug.WriteLine("Could not find item for some reason")
+                End Try
+                Me.NumberOfEmails -= 1
+                Call UpdateLabel(Me.NumberOfEmails)
+            End If
         Next
 
         Call CloseMe()
@@ -128,5 +133,12 @@ Public Class NewMailForm
 
         End If
     End Sub
+
+    Private Sub NewMailForm_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+        myContinue = False
+    End Sub
+
     Delegate Sub UpdateLabelCallback(ByVal [MailsRemaining] As Integer)
+
+
 End Class
