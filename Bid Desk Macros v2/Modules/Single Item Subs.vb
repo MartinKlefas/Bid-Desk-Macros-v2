@@ -22,7 +22,7 @@
                 End Try
             End With
 
-            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False)
+            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
             Dim TicketNum As Integer
             Try
                 Dim DealData As Dictionary(Of String, String) = MakeTicketData(DealID)
@@ -108,7 +108,7 @@
             End Try
         End With
 
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False) With {
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile) With {
             .TicketNumber = GetNDTbyDeal(DealID)
         }
         Dim browser As OpenQA.Selenium.Chrome.ChromeDriver = ndt.GiveMeChrome(False)
@@ -244,7 +244,7 @@
 
         End If
 
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile) With {
             .TicketNumber = GetNDTbyDeal(DealID)
         }
 

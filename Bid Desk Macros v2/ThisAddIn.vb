@@ -10,7 +10,7 @@ Public Class ThisAddIn
     Public Const defaultTable As String = "all_bids"
     Public Const port As Integer = 1433
     Public Const searchType As StringComparison = vbTextCompare
-
+    Public Const timingFile As String = "\\insight.com\root\shared\Sales\public sector\Martin Klefas\Data\NextDesk Metrics\internaltimingfile.csv"
 
 
 

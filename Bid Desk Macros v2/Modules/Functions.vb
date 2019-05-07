@@ -113,7 +113,7 @@ Partial Class ThisAddIn
                 {"Date", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")}
             }
 
-            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
+            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
             tCreateDealRecord.Add("NDT", ndt.CreateTicket(1, MakeTicketData(tCreateDealRecord, ReplyMail)).ToString)
             ndt.Move("Public Sector")
