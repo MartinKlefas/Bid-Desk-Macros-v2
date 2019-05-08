@@ -65,11 +65,12 @@ Public Class NewMailForm
     End Sub
 
     Private Function IsPricing(msg As MailItem) As Boolean
-        If msg.SenderEmailAddress.Equals("smart.quotes@techdata.com", searchType) And msg.Subject.StartsWith("QUOTE Deal", searchType) Then
+        Dim tSubj As String = msg.Subject.ReplaceSpaces()
+        If msg.SenderEmailAddress.Equals("smart.quotes@techdata.com", searchType) And tSubj.StartsWith("QUOTE Deal", searchType) Then
             Return True
-        ElseIf msg.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", searchType) And msg.Subject.StartsWith("Deal", searchType) And msg.Subject.ToLower.Contains("for reseller insight direct") Then
+        ElseIf msg.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", searchType) And tSubj.StartsWith("Deal", searchType) And tSubj.ToLower.Contains("for reseller insight direct") Then
             Return True
-        ElseIf msg.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", searchType) And msg.Subject.StartsWith("OPG", searchType) And msg.Subject.ToLower.Contains("for reseller insight direct") Then
+        ElseIf msg.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", searchType) And tSubj.StartsWith("OPG", searchType) And tSubj.ToLower.Contains("for reseller insight direct") Then
             Return True
 
         Else
@@ -79,11 +80,12 @@ Public Class NewMailForm
     End Function
 
     Private Function IsDRDecision(msg As MailItem) As Boolean
-        If msg.SenderEmailAddress.Equals("no_reply@dell.com", searchType) And msg.Subject.StartsWith("Opportunity", searchType) Then
+        Dim tSubj As String = msg.Subject.ReplaceSpaces()
+        If msg.SenderEmailAddress.Equals("no_reply@dell.com", searchType) And tSubj.StartsWith("Opportunity", searchType) Then
             Return True
-        ElseIf msg.Subject.StartsWith("Deal Registration REGE", searchType) And msg.Subject.EndsWith("review complete", searchType) Then
+        ElseIf tSubj.StartsWith("Deal Registration REGE", searchType) And tSubj.EndsWith("review complete", searchType) Then
             Return True
-        ElseIf msg.Subject.StartsWith("Deal Registration REGI", searchType) AndAlso msg.Body.ToLower.Contains("the review for the deal registration") Then
+        ElseIf tSubj.StartsWith("Deal Registration REGI", searchType) AndAlso msg.Body.ToLower.Contains("the review for the deal registration") Then
             Return True
         Else
             Return False
