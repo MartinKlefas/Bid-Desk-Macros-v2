@@ -51,7 +51,7 @@ Partial Class ThisAddIn
             Dim allData As String = sqlInterface.SelectData("NDT", "DealID = '" & DealID & "'")
 
             If AllTickets Or Not allData.Contains(";") Then
-                Return allData
+                Return Trim(allData)
             Else
                 Return Split(allData, ";").Last
             End If

@@ -261,8 +261,11 @@ Public Class ClsDatabase
 
         cmd.CommandText = "INSERT INTO " & table & columns & " VALUES " & values
 
-        Add_Data = (cmd.ExecuteNonQuery = 1)
-
+        Try
+            Add_Data = (cmd.ExecuteNonQuery = 1)
+        Catch
+            Add_Data = False
+        End Try
     End Function
 
     Public Function Update_Data(what As String, Optional where As String = "",

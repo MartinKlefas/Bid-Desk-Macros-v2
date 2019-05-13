@@ -132,6 +132,8 @@ Partial Class ThisAddIn
             'update ticket with bid number & original email
             ndt.AttachMail(Mail, "Deal ID  " & tCreateDealRecord("DealID") & "was submitted to " & tCreateDealRecord("Vendor") & " based on the information in the attached email")
 
+            tCreateDealRecord.Remove("AMEmailAddress")
+
             If sqlInterface.Add_Data(tCreateDealRecord) Then
                 tCreateDealRecord.Add("Result", "Success")
             Else
@@ -161,7 +163,7 @@ Partial Class ThisAddIn
     Private Function MakeTicketData(DealDict As Dictionary(Of String, String), email As Outlook.MailItem) As Dictionary(Of String, String)
 
         Dim requestor As Outlook.ExchangeUser
-        requestor = email.Recipients(0).AddressEntry.GetExchangeUser
+        requestor = email.Recipients(1).AddressEntry.GetExchangeUser
 
 
 

@@ -33,15 +33,15 @@ Public Class BulkImport
         End Try
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btnComplete.Click
         For Each row As DataGridViewRow In DataGridView1.Rows
             Dim rowDict As New Dictionary(Of String, String)
             For Each cell As DataGridViewCell In row.Cells
-                rowDict.Add(cell.OwningColumn.HeaderText, cell.Value)
+                rowDict.Add(cell.OwningColumn.HeaderText, Trim(cell.Value))
             Next
             Globals.ThisAddIn.sqlInterface.Add_Data(rowDict)
         Next

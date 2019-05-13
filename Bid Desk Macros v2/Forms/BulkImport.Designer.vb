@@ -24,8 +24,8 @@ Partial Class BulkImport
     Private Sub InitializeComponent()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btnCancel = New System.Windows.Forms.Button()
+        Me.btnComplete = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -48,23 +48,23 @@ Partial Class BulkImport
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Open Template File..."
         '
-        'Button1
+        'btnCancel
         '
-        Me.Button1.Location = New System.Drawing.Point(546, 401)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(242, 30)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Cancel"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnCancel.Location = New System.Drawing.Point(546, 401)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(242, 30)
+        Me.btnCancel.TabIndex = 2
+        Me.btnCancel.Text = "Cancel"
+        Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'Button2
+        'btnComplete
         '
-        Me.Button2.Location = New System.Drawing.Point(298, 401)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(242, 30)
-        Me.Button2.TabIndex = 3
-        Me.Button2.Text = "Complete Import"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnComplete.Location = New System.Drawing.Point(298, 401)
+        Me.btnComplete.Name = "btnComplete"
+        Me.btnComplete.Size = New System.Drawing.Size(242, 30)
+        Me.btnComplete.TabIndex = 3
+        Me.btnComplete.Text = "Complete Import"
+        Me.btnComplete.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -81,8 +81,8 @@ Partial Class BulkImport
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 442)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnComplete)
+        Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.DataGridView1)
         Me.Name = "BulkImport"
@@ -95,7 +95,7 @@ Partial Class BulkImport
 
     Friend WithEvents DataGridView1 As Windows.Forms.DataGridView
     Friend WithEvents LinkLabel1 As Windows.Forms.LinkLabel
-    Friend WithEvents Button1 As Windows.Forms.Button
-    Friend WithEvents Button2 As Windows.Forms.Button
+    Friend WithEvents btnCancel As Windows.Forms.Button
+    Friend WithEvents btnComplete As Windows.Forms.Button
     Friend WithEvents Label1 As Windows.Forms.Label
 End Class
