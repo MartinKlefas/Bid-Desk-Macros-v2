@@ -36,7 +36,7 @@ Public Class DealIdent
         If MessageNumber < MessagesList.Count Then
             DisableButtons()
             Dim tDealID As String = TrimExtended(Me.DealID.Text)
-            If Not Globals.ThisAddIn.DealExists(tDealID) Then Mode = "Move"
+            If Not Globals.ThisAddIn.DealExists(tDealID) AndAlso Mode <> "FindOPG" Then Mode = "Move"
             Dim tMsg As Outlook.MailItem = MessagesList(MessageNumber)
             Select Case Mode
                 Case "Move"
@@ -174,62 +174,69 @@ Public Class DealIdent
 
         If CompleteAutonomy AndAlso tempResult <> "" AndAlso Not Globals.ThisAddIn.DealExists(tempResult) Then
             For Each tAttachment As Attachment In message.Attachments
-                If tAttachment.FileName.ToLower = "quote.csv" Then
-                    Dim fName As String = Path.GetTempPath() & "quote.csv"
-                    Try
-                        tAttachment.SaveAsFile(fName)
-                        Dim quoteCsvString As String = File.ReadAllText(fName)
-                        quoteCsvString = Replace(quoteCsvString, vbNullChar, "")
-                        Dim quoteArry As String() = Split(quoteCsvString, "-")
-                        For Each fragment As String In quoteArry
-                            If fragment.ToLower.StartsWith("p0") Then
-
-                                Dim OPG As String = tempResult
-
-                                Globals.ThisAddIn.AddOPG(fragment, OPG)
-
-                                tempResult = fragment
-
-                                Exit For
-                            End If
-                        Next
-                        File.Delete(fName)
-                    Catch
-                        Debug.WriteLine("Error while saving/processing CSV file")
-                    End Try
-
-                ElseIf tAttachment.FileName.ToLower.EndsWith("xlsx") Then
-                    Dim fName As String = Path.GetTempPath() & tAttachment.FileName
-                    Try
-                        tAttachment.SaveAsFile(fName)
-                    Catch
-                        Debug.WriteLine("Error while saving xlsx file")
-                    End Try
-                    Dim tmpDealID As String = ""
-
-                    Try
-                        tmpDealID = ReadExcel(fName, "Sheet1", 2, 2)
-                        tmpDealID = Strings.Left(tmpDealID, Len(tmpDealID) - 3)
-                    Catch
-                        Debug.WriteLine("Error processing xlsx file")
-                    End Try
-
-                    Globals.ThisAddIn.AddOPG(tmpDealID, tempResult)
-
-                    Try
-                        File.Delete(fName)
-                    Catch
-                        Debug.WriteLine("Error deleting xlsx file")
-                    End Try
-
-
-                    tempResult = tmpDealID
-                End If
+                tempResult = RipFromFile(tAttachment, tempResult)
             Next
         End If
 
         FindDealID = tempResult
     End Function
+
+    Private Function RipFromFile(tAttachment As Attachment, CurrentGuess As String) As String
+        If tAttachment.FileName.ToLower = "quote.csv" Then
+            Dim fName As String = Path.GetTempPath() & "quote.csv"
+            Try
+                tAttachment.SaveAsFile(fName)
+                Dim quoteCsvString As String = File.ReadAllText(fName)
+                quoteCsvString = Replace(quoteCsvString, vbNullChar, "")
+                Dim quoteArry As String() = Split(quoteCsvString, "-")
+                For Each fragment As String In quoteArry
+                    If fragment.ToLower.StartsWith("p0") Then
+
+                        Dim OPG As String = CurrentGuess
+
+                        Globals.ThisAddIn.AddOPG(fragment, OPG)
+
+                        CurrentGuess = fragment
+
+                        Exit For
+                    End If
+                Next
+                File.Delete(fName)
+            Catch
+                Debug.WriteLine("Error while saving/processing CSV file")
+            End Try
+
+        ElseIf tAttachment.FileName.ToLower.EndsWith("xlsx") Then
+            Dim fName As String = Path.GetTempPath() & tAttachment.FileName
+            Try
+                tAttachment.SaveAsFile(fName)
+            Catch
+                Debug.WriteLine("Error while saving xlsx file")
+            End Try
+            Dim tmpDealID As String = ""
+
+            Try
+                tmpDealID = ReadExcel(fName, "Sheet1", 2, 2)
+                tmpDealID = Strings.Left(tmpDealID, Len(tmpDealID) - 3)
+            Catch
+                Debug.WriteLine("Error processing xlsx file")
+            End Try
+
+            Globals.ThisAddIn.AddOPG(tmpDealID, CurrentGuess)
+
+            Try
+                File.Delete(fName)
+            Catch
+                Debug.WriteLine("Error deleting xlsx file")
+            End Try
+
+
+            CurrentGuess = tmpDealID
+        End If
+
+        Return CurrentGuess
+    End Function
+
     Sub DisableButtons()
         OKButton.Enabled = False
         Button2.Enabled = False
