@@ -41,7 +41,7 @@ Public Class BulkImport
         For Each row As DataGridViewRow In DataGridView1.Rows
             Dim rowDict As New Dictionary(Of String, String)
             For Each cell As DataGridViewCell In row.Cells
-                rowDict.Add(cell.OwningColumn.HeaderText, Trim(cell.Value))
+                rowDict.Add(cell.OwningColumn.HeaderText, TrimExtended(cell.Value))
             Next
             Globals.ThisAddIn.sqlInterface.Add_Data(rowDict)
         Next

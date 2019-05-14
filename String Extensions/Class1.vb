@@ -42,4 +42,12 @@ Public Module StringExtensions
 
         Return aString
     End Function
+
+    <Extension()>
+    Public Function TrimExtended(ByVal aString As String) As String
+        aString = ReplaceSpaces(aString)
+        aString = Trim(aString)
+        Return aString
+    End Function
 End Module
+

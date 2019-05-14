@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Net
+Imports String_Extensions.StringExtensions
 
 Partial Class ThisAddIn
     Public Function GetAMbyDeal(dealID As String,
@@ -51,9 +52,9 @@ Partial Class ThisAddIn
             Dim allData As String = sqlInterface.SelectData("NDT", "DealID = '" & DealID & "'")
 
             If AllTickets Or Not allData.Contains(";") Then
-                Return Trim(allData)
+                Return allData.TrimExtended
             Else
-                Return Split(allData, ";").Last
+                Return Split(allData, ";").Last.TrimExtended
             End If
 
         Catch
