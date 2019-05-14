@@ -2,6 +2,7 @@
 
 
     Public Sub New(foundDealID As String)
+        InitializeComponent()
         OPGBox.Text = foundDealID
 
     End Sub

@@ -74,7 +74,7 @@ Partial Class ThisAddIn
         Return sqlInterface.Update_Data("NDT = '" & newNDT & "'", "DealID = '" & DealID & "'")
     End Function
 
-    Public Function AddOPG(DealID As String, OPG As String) As Boolean
+    Public Function AddOPG(DealID As String, OPG As String) As Integer
         Return sqlInterface.Update_Data("OPGID = '" & OPG & "'", "DealID = '" & DealID & "'")
     End Function
 
