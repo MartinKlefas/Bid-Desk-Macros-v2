@@ -15,7 +15,7 @@ Public Class Ribbon1
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs) 
         Dim dealForm As New DealIdent(Nothing, "")
         Debug.WriteLine(dealForm.ReadExcel("C:\Users\mklefass\Downloads\P001373741-01.xlsx", "Sheet1", 1, 1))
     End Sub

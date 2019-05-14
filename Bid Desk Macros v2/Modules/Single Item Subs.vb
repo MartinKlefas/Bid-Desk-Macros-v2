@@ -92,6 +92,10 @@
         fNames = Split(TargetFolder, " ")
         myGreeting = WriteGreeting(Now(), CStr(fNames(0)))
 
+        If msg.Subject.Contains("declined") Then
+            messageBodyAddition = messageBodyAddition & dellDecline
+        End If
+
         With msgFwdOne
             Try
                 .To = MyResolveName(TargetFolder).PrimarySmtpAddress

@@ -43,8 +43,6 @@
     Private Sub InitializeComponent()
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
-        Me.Group2 = Me.Factory.CreateRibbonGroup
-        Me.Button1 = Me.Factory.CreateRibbonButton
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
@@ -56,6 +54,7 @@
         Me.WonBtn = Me.Factory.CreateRibbonButton
         Me.DeadBtn = Me.Factory.CreateRibbonButton
         Me.btnOnOff = Me.Factory.CreateRibbonButton
+        Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.ImprtLots = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
@@ -72,7 +71,6 @@
         '
         'Group1
         '
-        Me.Group1.Items.Add(Me.Button1)
         Me.Group1.Items.Add(Me.btnAutoAll)
         Me.Group1.Items.Add(Me.ReplyToBidBtn)
         Me.Group1.Items.Add(Me.MoveBtn)
@@ -86,18 +84,6 @@
         Me.Group1.Items.Add(Me.btnOnOff)
         Me.Group1.Label = "Processing Actions"
         Me.Group1.Name = "Group1"
-        '
-        'Group2
-        '
-        Me.Group2.Items.Add(Me.BtnAddtoDB)
-        Me.Group2.Items.Add(Me.ImprtLots)
-        Me.Group2.Label = "Database Actions"
-        Me.Group2.Name = "Group2"
-        '
-        'Button1
-        '
-        Me.Button1.Label = "Button1"
-        Me.Button1.Name = "Button1"
         '
         'btnAutoAll
         '
@@ -159,7 +145,7 @@
         '
         Me.ExtensionBtn.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
         Me.ExtensionBtn.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.actions_view_calendar_tasks
-        Me.ExtensionBtn.Label = "Send Extension Message"
+        Me.ExtensionBtn.Label = "Extension Requested"
         Me.ExtensionBtn.Name = "ExtensionBtn"
         Me.ExtensionBtn.ShowImage = True
         '
@@ -180,6 +166,13 @@
         Me.btnOnOff.Label = "Process Incoming Emails"
         Me.btnOnOff.Name = "btnOnOff"
         Me.btnOnOff.ShowImage = True
+        '
+        'Group2
+        '
+        Me.Group2.Items.Add(Me.BtnAddtoDB)
+        Me.Group2.Items.Add(Me.ImprtLots)
+        Me.Group2.Label = "Database Actions"
+        Me.Group2.Name = "Group2"
         '
         'BtnAddtoDB
         '
@@ -214,7 +207,6 @@
 
     Friend WithEvents Tab1 As Microsoft.Office.Tools.Ribbon.RibbonTab
     Friend WithEvents Group1 As Microsoft.Office.Tools.Ribbon.RibbonGroup
-    Friend WithEvents Button1 As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents MoveBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents ReplyToBidBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents ExpireButton As Microsoft.Office.Tools.Ribbon.RibbonButton
