@@ -15,24 +15,30 @@ Public Class ThisAddIn
 
 
 
-    Sub MoveBasedOnDealID(Optional suppressWarnings As Boolean = False)
-
-        Dim obj As Object
-        Dim msg As Outlook.MailItem
-
-        '  Dim olApp As New Outlook.Application 'new throws security error
+    Sub MoveBasedOnDealID(Optional passedMessage As Outlook.MailItem = Nothing, Optional suppressWarnings As Boolean = False)
         Dim MessagesList As New List(Of Outlook.MailItem)
 
+        If passedMessage IsNot Nothing Then
+            Dim obj As Object
+            Dim msg As Outlook.MailItem
 
-        For m = 1 To GetSelection().Count
-            obj = GetSelection().Item(m)
-            If TypeName(obj) = "MailItem" Then
-                msg = obj
-                MessagesList.Add(msg)
-            End If
-        Next m
+            '  Dim olApp As New Outlook.Application 'new throws security error
+
+
+
+            For m = 1 To GetSelection().Count
+                obj = GetSelection().Item(m)
+                If TypeName(obj) = "MailItem" Then
+                    msg = obj
+                    MessagesList.Add(msg)
+                End If
+            Next m
+        Else
+            MessagesList.Add(passedMessage)
+        End If
+
         Dim DealIDForm As New DealIdent(MessagesList, "Move")
-        DealIDForm.Show()
+            DealIDForm.Show()
     End Sub
 
     Friend Sub FwdHPResponse(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)

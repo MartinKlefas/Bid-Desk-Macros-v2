@@ -52,6 +52,9 @@ Public Class NewMailForm
                         If IsPricing(msg) Then
                             Globals.ThisAddIn.FwdPricing(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
                         End If
+                        If IsDRSubmission(msg) Then
+                            Globals.ThisAddIn.MoveBasedOnDealID(msg, suppressWarnings:=False)
+                        End If
                     End If
                 Catch
                     Debug.WriteLine("Could not find item for some reason")
@@ -81,7 +84,7 @@ Public Class NewMailForm
 
     Private Function IsDRDecision(msg As MailItem) As Boolean
         Dim tSubj As String = msg.Subject.ReplaceSpaces()
-        If msg.SenderEmailAddress.Equals("no_reply@dell.com", searchType) And tSubj.StartsWith("Opportunity", searchType) Then
+        If msg.SenderEmailAddress.Equals("no_reply@dell.com", searchType) And tSubj.StartsWith("Opportunity", searchType) AndAlso Not tSubj.StartsWith("Opportunity Submitted", searchType) Then
             Return True
         ElseIf tSubj.StartsWith("Deal Registration REGE", searchType) And tSubj.EndsWith("review complete", searchType) Then
             Return True
@@ -90,6 +93,16 @@ Public Class NewMailForm
         Else
             Return False
         End If
+    End Function
+
+    Private Function IsDRSubmission(msg As MailItem) As Boolean
+        Dim tSubj As String = msg.Subject.ReplaceSpaces()
+        If msg.SenderEmailAddress.Equals("no_reply@dell.com", searchType) And tSubj.StartsWith("Opportunity Submitted", searchType) Then
+            Return True
+        Else
+            Return False
+        End If
+
     End Function
 
     Private Function IsExpiryNotice(newMail As Outlook.MailItem) As Boolean
