@@ -15,7 +15,7 @@ Public Class ThisAddIn
 
 
 
-    Sub MoveBasedOnDealID(Optional passedMessage As Outlook.MailItem = Nothing, Optional suppressWarnings As Boolean = False)
+    Sub MoveBasedOnDealID(Optional passedMessage As Outlook.MailItem = Nothing, Optional suppressWarnings As Boolean = False, Optional CompleteAutonomy As Boolean = False)
         Dim MessagesList As New List(Of Outlook.MailItem)
 
         If passedMessage IsNot Nothing Then
@@ -37,8 +37,8 @@ Public Class ThisAddIn
             MessagesList.Add(passedMessage)
         End If
 
-        Dim DealIDForm As New DealIdent(MessagesList, "Move")
-            DealIDForm.Show()
+        Dim DealIDForm As New DealIdent(MessagesList, "Move", CompleteAutonomy)
+        DealIDForm.Show()
     End Sub
 
     Friend Sub FwdHPResponse(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)

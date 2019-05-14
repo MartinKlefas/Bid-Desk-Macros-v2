@@ -53,7 +53,7 @@ Public Class NewMailForm
                             Globals.ThisAddIn.FwdPricing(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
                         End If
                         If IsDRSubmission(msg) Then
-                            Globals.ThisAddIn.MoveBasedOnDealID(msg, suppressWarnings:=False)
+                            Globals.ThisAddIn.MoveBasedOnDealID(msg, suppressWarnings:=False, CompleteAutonomy:=True)
                         End If
                     End If
                 Catch
