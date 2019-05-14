@@ -38,14 +38,16 @@ Public Class BulkImport
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btnComplete.Click
+        Dim lines_added As Integer
         For Each row As DataGridViewRow In DataGridView1.Rows
             Dim rowDict As New Dictionary(Of String, String)
             For Each cell As DataGridViewCell In row.Cells
                 rowDict.Add(cell.OwningColumn.HeaderText, TrimExtended(cell.Value))
             Next
-            Globals.ThisAddIn.sqlInterface.Add_Data(rowDict)
+            lines_added = Globals.ThisAddIn.sqlInterface.Add_Data(rowDict)
         Next
         Me.Close()
+        MsgBox(lines_added & " lines were added to the database.")
     End Sub
 
     Private Sub DataGridView1_KeyDown(sender As Object, e As KeyEventArgs) Handles DataGridView1.KeyDown

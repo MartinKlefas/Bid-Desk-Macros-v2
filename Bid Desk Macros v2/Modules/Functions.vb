@@ -53,7 +53,7 @@ Partial Class ThisAddIn
         }
 
 
-        If sqlInterface.Add_Data(tmpDict, "wait_times") Then
+        If sqlInterface.Add_Data(tmpDict, "wait_times") > 0 Then
             Return PrettyString(completedTime - receivedTime)
         Else
             Return "Adding the wait time failed"
@@ -135,7 +135,7 @@ Partial Class ThisAddIn
 
             tCreateDealRecord.Remove("AMEmailAddress")
 
-            If sqlInterface.Add_Data(tCreateDealRecord) Then
+            If sqlInterface.Add_Data(tCreateDealRecord) > 0 Then
                 tCreateDealRecord.Add("Result", "Success")
             Else
                 tCreateDealRecord.Add("Result", "Failed")

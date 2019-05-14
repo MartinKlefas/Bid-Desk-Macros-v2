@@ -114,7 +114,7 @@
         Dim browser As OpenQA.Selenium.Chrome.ChromeDriver = ndt.GiveMeChrome(False)
 
         If ndt.TicketNumber <> 0 AndAlso Not ndt.IsClosed(browser) Then
-            ndt.AttachMail(msg, "The attached pricing has been received from distritbution", browser)
+            ndt.AttachMail(msg, messageBodyAddition, browser)
         End If
 
         If Not CompleteAutonomy AndAlso MsgBox("Would you like to close the ticket", vbYesNo) = vbYes Then

@@ -241,7 +241,7 @@ Public Class ClsDatabase
         End Try
     End Function
 
-    Public Function Add_Data(what As Dictionary(Of String, String), Optional table As String = ThisAddIn.defaultTable) As Boolean
+    Public Function Add_Data(what As Dictionary(Of String, String), Optional table As String = ThisAddIn.defaultTable) As Integer
 
         Dim cmd As New SqlCommand With {
            .Connection = conn
@@ -262,9 +262,9 @@ Public Class ClsDatabase
         cmd.CommandText = "INSERT INTO " & table & columns & " VALUES " & values
 
         Try
-            Add_Data = (cmd.ExecuteNonQuery = 1)
+            Add_Data = cmd.ExecuteNonQuery
         Catch
-            Add_Data = False
+            Add_Data = 0
         End Try
     End Function
 
