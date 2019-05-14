@@ -15,10 +15,7 @@ Public Class Ribbon1
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs)
-        Dim dealForm As New DealIdent(Nothing, "")
-        Debug.WriteLine(dealForm.ReadExcel("C:\Users\mklefass\Downloads\P001373741-01.xlsx", "Sheet1", 1, 1))
-    End Sub
+
 
     Private Sub Button2_Click(sender As Object, e As RibbonControlEventArgs) Handles MoveBtn.Click
         Globals.ThisAddIn.MoveBasedOnDealID()
@@ -112,5 +109,9 @@ Public Class Ribbon1
         End If
     End Sub
 
+    Private Sub AddOPG_Click(sender As Object, e As RibbonControlEventArgs) Handles addOPG.Click
 
+
+        Call Globals.ThisAddIn.FindOPG()
+    End Sub
 End Class

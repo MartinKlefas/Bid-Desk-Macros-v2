@@ -1,0 +1,16 @@
+﻿Public Class NewOPGForm
+
+
+    Public Sub New(foundDealID As String)
+        OPGBox.Text = foundDealID
+
+    End Sub
+
+    Private Sub OKButton_Click(sender As Object, e As EventArgs) Handles OKButton.Click
+        If Globals.ThisAddIn.AddOPG(DealID.Text, OPGBox.Text) > 0 Then
+            MsgBox("Successfully Updated")
+        Else
+            MsgBox("Some kind of error occurred")
+        End If
+    End Sub
+End Class

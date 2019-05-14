@@ -32,7 +32,7 @@ Partial Class ThisAddIn
                 thisMailItem.Move(olDestFolder)
                 MoveToFolder = True
             Catch
-                If Not suppressWarnings Then Debug.WriteLine("Couldn't move the mail for some reason...")
+                Debug.WriteLine("Couldn't move the mail for some reason...")
                 MoveToFolder = False
             End Try
         End Try

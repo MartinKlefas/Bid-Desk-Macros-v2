@@ -220,6 +220,12 @@
     <Compile Include="Forms\NewMailForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\NewOPGForm.Designer.vb">
+      <DependentUpon>NewOPGForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewOPGForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\ProgressBarFrm.Designer.vb">
       <DependentUpon>ProgressBarFrm.vb</DependentUpon>
     </Compile>
@@ -261,6 +267,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewMailForm.resx">
       <DependentUpon>NewMailForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewOPGForm.resx">
+      <DependentUpon>NewOPGForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProgressBarFrm.resx">
       <DependentUpon>ProgressBarFrm.vb</DependentUpon>

@@ -58,6 +58,7 @@
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.ImprtLots = Me.Factory.CreateRibbonButton
         Me.Group3 = Me.Factory.CreateRibbonGroup
+        Me.addOPG = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.Group2.SuspendLayout()
@@ -91,6 +92,7 @@
         '
         Me.Group2.Items.Add(Me.BtnAddtoDB)
         Me.Group2.Items.Add(Me.ImprtLots)
+        Me.Group2.Items.Add(Me.addOPG)
         Me.Group2.Label = "Database Actions"
         Me.Group2.Name = "Group2"
         '
@@ -204,6 +206,13 @@
         Me.Group3.Label = "Automation"
         Me.Group3.Name = "Group3"
         '
+        'addOPG
+        '
+        Me.addOPG.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.database_add_insert_21836
+        Me.addOPG.Label = "Add OPG"
+        Me.addOPG.Name = "addOPG"
+        Me.addOPG.ShowImage = True
+        '
         'Ribbon1
         '
         Me.Name = "Ribbon1"
@@ -238,6 +247,7 @@
     Friend WithEvents ImprtLots As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents btnOnOff As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Group3 As Microsoft.Office.Tools.Ribbon.RibbonGroup
+    Friend WithEvents addOPG As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

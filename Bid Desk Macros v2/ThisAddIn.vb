@@ -175,6 +175,25 @@ Public Class ThisAddIn
         DealIDForm.Show()
     End Sub
 
+    Public Sub FindOPG()
+        Dim obj As Object
+        Dim msg As Outlook.MailItem
+        Dim MessagesList As New List(Of Outlook.MailItem)
+
+
+        For Each obj In GetSelection()
+            If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
+                msg = obj
+                MessagesList.Add(msg)
+            End If
+
+        Next
+        Dim DealIDForm As New DealIdent(MessagesList, "FindOPG", True)
+        DealIDForm.Show()
+
+    End Sub
+
+
     Sub ReplyToBidRequest()
 
         Dim obj As Object
@@ -189,7 +208,7 @@ Public Class ThisAddIn
         If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
             msg = obj
 
-            Debug.Write(RecordWaitTime(msg.ReceivedTime, Now(), "Me"))
+            RecordWaitTime(msg.ReceivedTime, Now(), "Me")
 
             CreateDealRecord(msg)
 
