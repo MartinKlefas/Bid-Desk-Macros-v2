@@ -177,14 +177,8 @@ Public Class ThisAddIn
 
     Sub ReplyToBidRequest()
 
-
-
         Dim obj As Object
-        Dim msg As Outlook.MailItem, myGreeting As String, success As Boolean
-        Dim msgReply As Outlook.MailItem
-        Dim Result As Dictionary(Of String, String),
-
-
+        Dim msg As Outlook.MailItem
 
         If GetSelection().Count > 1 Then
             ShoutError("This can only be used with one bid request at a time", False)
@@ -194,14 +188,10 @@ Public Class ThisAddIn
         obj = GetCurrentItem()
         If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
             msg = obj
-            msgReply = msg.ReplyAll
 
             Debug.Write(RecordWaitTime(msg.ReceivedTime, Now(), "Me"))
 
-
-
             CreateDealRecord(msg)
-
 
         End If
     End Sub

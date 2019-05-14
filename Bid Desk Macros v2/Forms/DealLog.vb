@@ -217,7 +217,7 @@ Public Class AddDeal
         ' calling thread to the thread ID of the creating thread.'
         ' If these threads are different, it returns true.'
         If Me.Label1.InvokeRequired Then
-            Dim d As New UpdateTitleCallback(AddressOf CloseMe)
+            Dim d As New UpdateTitleCallback(AddressOf UpdateTitle)
             Me.Invoke(d, New Object() {[NewTitle]})
         Else
 
