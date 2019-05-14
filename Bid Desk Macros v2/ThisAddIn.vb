@@ -18,7 +18,7 @@ Public Class ThisAddIn
     Sub MoveBasedOnDealID(Optional passedMessage As Outlook.MailItem = Nothing, Optional suppressWarnings As Boolean = False, Optional CompleteAutonomy As Boolean = False)
         Dim MessagesList As New List(Of Outlook.MailItem)
 
-        If passedMessage IsNot Nothing Then
+        If passedMessage Is Nothing Then
             Dim obj As Object
             Dim msg As Outlook.MailItem
 
