@@ -227,7 +227,7 @@ Public Class ThisAddIn
             Dim frm As New NewMailForm(EntryIDCollection)
             frm.Show()
         Else
-            Debug.WriteLine("New Mail - Ignoring")
+            'Debug.WriteLine("New Mail - Ignoring")
         End If
     End Sub
 End Class

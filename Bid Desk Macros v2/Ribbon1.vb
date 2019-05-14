@@ -15,7 +15,7 @@ Public Class Ribbon1
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs) 
+    Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs)
         Dim dealForm As New DealIdent(Nothing, "")
         Debug.WriteLine(dealForm.ReadExcel("C:\Users\mklefass\Downloads\P001373741-01.xlsx", "Sheet1", 1, 1))
     End Sub
@@ -104,8 +104,10 @@ Public Class Ribbon1
         If AutoInbound Then
             AutoInbound = False
             btnOnOff.Image = My.Resources.off
+            btnOnOff.Label = "Automation Off"
         Else
             AutoInbound = True
+            btnOnOff.Label = "Automation On"
             btnOnOff.Image = My.Resources._on
         End If
     End Sub

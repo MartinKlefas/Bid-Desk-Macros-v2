@@ -143,7 +143,7 @@ Public Class ClsDatabase
             End While
             reader.Close()
         Catch
-
+            Debug.WriteLine("SQL Error in FindColumns")
         End Try
 
     End Function
@@ -265,22 +265,28 @@ Public Class ClsDatabase
             Add_Data = cmd.ExecuteNonQuery
         Catch
             Add_Data = 0
+            Debug.WriteLine("Error in adding lines to the database")
         End Try
     End Function
 
     Public Function Update_Data(what As String, Optional where As String = "",
                                Optional table As String = ThisAddIn.defaultTable) As Integer
-        Dim cmd As New SqlCommand With {
+        Try
+            Dim cmd As New SqlCommand With {
            .Connection = conn
         }
 
-        cmd.CommandText = "UPDATE " & table & " SET " & what
+            cmd.CommandText = "UPDATE " & table & " SET " & what
 
-        If where <> "" Then
-            cmd.CommandText &= " WHERE " & where
-        End If
+            If where <> "" Then
+                cmd.CommandText &= " WHERE " & where
+            End If
 
-        Update_Data = cmd.ExecuteNonQuery
+            Update_Data = cmd.ExecuteNonQuery
+        Catch
+            Update_Data = 0
+            Debug.WriteLine("SQL Error updating data")
+        End Try
     End Function
 
 
