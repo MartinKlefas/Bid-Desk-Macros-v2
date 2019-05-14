@@ -1,4 +1,5 @@
 ﻿Imports System.Windows.Forms
+Imports String_Extensions
 
 Public Class ImportDeal
     Public Sub New(Optional AMEmailAddress As String = "")
@@ -13,8 +14,8 @@ Public Class ImportDeal
     End Sub
 
     Private Sub CommandButton1_Click() Handles OKButton.Click
-        CustomerName.Text = Trim(CustomerName.Text)
-        DealID.Text = Trim(DealID.Text)
+        CustomerName.Text = TrimExtended(CustomerName.Text)
+        DealID.Text = TrimExtended(DealID.Text)
         Me.DialogResult = DialogResult.OK
         'do the actual work!
 
@@ -23,9 +24,9 @@ Public Class ImportDeal
         Dim AmName, Vendor, bIngram, bWestCoast, bTechData As String
 
         Vendor = "Unknown"
-        If HPIOption.Checked Then vendor = "HPI"
-        If HPEOption.Checked Then vendor = "HPE"
-        If DellOption.Checked Then vendor = "Dell"
+        If HPIOption.Checked Then Vendor = "HPI"
+        If HPEOption.Checked Then Vendor = "HPE"
+        If DellOption.Checked Then Vendor = "Dell"
 
         AmName = Globals.ThisAddIn.MyResolveName(AMMail.Text).Name
 
@@ -123,25 +124,25 @@ Public Class ImportDeal
     Private Sub AMMail_MouseDown1(sender As Object, e As MouseEventArgs) Handles AMMail.MouseDown
         If e.Button = MouseButtons.Right Then
 
-            AMMail.Text = Trim(My.Computer.Clipboard.GetText)
+            AMMail.Text = TrimExtended(My.Computer.Clipboard.GetText)
         End If
     End Sub
     Private Sub CustomerName_MouseDown1(sender As Object, e As MouseEventArgs) Handles CustomerName.MouseDown
         If e.Button = MouseButtons.Right Then
 
-            CustomerName.Text = Trim(My.Computer.Clipboard.GetText)
+            CustomerName.Text = TrimExtended(My.Computer.Clipboard.GetText)
         End If
     End Sub
     Private Sub DealID_MouseDown1(sender As Object, e As MouseEventArgs) Handles DealID.MouseDown
         If e.Button = MouseButtons.Right Then
 
-            DealID.Text = Trim(My.Computer.Clipboard.GetText)
+            DealID.Text = TrimExtended(My.Computer.Clipboard.GetText)
         End If
     End Sub
     Private Sub NDTNumber_MouseDown1(sender As Object, e As MouseEventArgs) Handles NDTNumber.MouseDown
         If e.Button = MouseButtons.Right Then
 
-            NDTNumber.Text = Trim(My.Computer.Clipboard.GetText)
+            NDTNumber.Text = TrimExtended(My.Computer.Clipboard.GetText)
         End If
     End Sub
 

@@ -4,6 +4,7 @@ Imports System.Diagnostics
 Imports System.IO
 Imports System.Windows.Forms
 Imports Microsoft.Office.Interop.Outlook
+Imports String_Extensions
 
 Public Class DealIdent
     Private MessagesList As List(Of MailItem)
@@ -34,7 +35,7 @@ Public Class DealIdent
         Me.DialogResult = DialogResult.OK
         If MessageNumber < MessagesList.Count Then
             DisableButtons()
-            Dim tDealID As String = Trim(Me.DealID.Text)
+            Dim tDealID As String = TrimExtended(Me.DealID.Text)
             If Not Globals.ThisAddIn.DealExists(tDealID) Then Mode = "Move"
             Dim tMsg As Outlook.MailItem = MessagesList(MessageNumber)
             Select Case Mode
@@ -86,7 +87,7 @@ Public Class DealIdent
     Private Sub DealID_MouseDown1(sender As Object, e As MouseEventArgs) Handles DealID.MouseDown
         If e.Button = MouseButtons.Right Then
 
-            DealID.Text = Trim(My.Computer.Clipboard.GetText)
+            DealID.Text = TrimExtended(My.Computer.Clipboard.GetText)
         End If
     End Sub
 
@@ -117,18 +118,18 @@ Public Class DealIdent
         For i = LBound(subjAr) To UBound(subjAr)
             '~~> This will give you the contents of your email
             '~~> on separate lines
-            subjAr(i) = Trim(subjAr(i))
+            subjAr(i) = TrimExtended(subjAr(i))
 
             If Len(subjAr(i)) > 4 Then
                 If subjAr(i).StartsWith("P00", ThisAddIn.searchType) Or
                     subjAr(i).StartsWith("E00", ThisAddIn.searchType) Or
                     subjAr(i).StartsWith("NQ", ThisAddIn.searchType) Then
                     If Mid(LCase(subjAr(i)), Len(subjAr(i)) - 2, 2) = "-v" Then subjAr(i) = Strings.Left(subjAr(i), Len(subjAr(i)) - 3)
-                    tempResult = Trim(subjAr(i))
+                    tempResult = TrimExtended(subjAr(i))
                 End If
                 If subjAr(i).StartsWith("REGI-", ThisAddIn.searchType) Or
                     subjAr(i).StartsWith("REGE-", ThisAddIn.searchType) Then
-                    tempResult = Trim(subjAr(i))
+                    tempResult = TrimExtended(subjAr(i))
                 End If
             End If
         Next i
@@ -140,7 +141,7 @@ Public Class DealIdent
                 '~~> on separate lines
                 If Len(bodyAr(i)) > 8 AndAlso bodyAr(i).StartsWith("Deal ID:", ThisAddIn.searchType) Then
                     bodyLineAr = Split(bodyAr(i))
-                    tempResult = Trim(bodyLineAr(2))
+                    tempResult = TrimExtended(bodyLineAr(2))
 
                 End If
             Next
@@ -149,10 +150,10 @@ Public Class DealIdent
         i = 0
         If tempResult = "" AndAlso i + 3 < UBound(subjAr) Then
             If subjAr(i) = "Quote" And subjAr(i + 1) = "Review" And subjAr(i + 2) = "Quote" Then
-                tempResult = Trim(subjAr(i + 4))
+                tempResult = TrimExtended(subjAr(i + 4))
             End If
             If subjAr(i) = "QUOTE" And subjAr(i + 1) = "Deal" And subjAr(i + 3) = "Version" Then
-                tempResult = Trim(subjAr(i + 2))
+                tempResult = TrimExtended(subjAr(i + 2))
             End If
 
         End If

@@ -1,9 +1,10 @@
 ﻿Imports System.Windows.Forms
+Imports String_Extensions
 
 Public Class AddDeal
     Private Sub CommandButton1_Click() Handles OKButton.Click
-        CustomerName.Text = Trim(CustomerName.Text)
-        DealID.Text = Trim(DealID.Text)
+        CustomerName.Text = TrimExtended(CustomerName.Text)
+        DealID.Text = TrimExtended(DealID.Text)
         Me.DialogResult = DialogResult.OK
         Me.Hide()
     End Sub

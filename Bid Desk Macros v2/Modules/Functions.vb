@@ -1,6 +1,7 @@
 ﻿Imports System.Diagnostics
 Imports System.Threading
 Imports Microsoft.Office.Interop.Outlook
+Imports String_Extensions
 
 Partial Class ThisAddIn
     Public sqlInterface As New ClsDatabase(ThisAddIn.server, ThisAddIn.user,
@@ -76,9 +77,9 @@ Partial Class ThisAddIn
             If InStr(toNames(0), ",") > 1 Then ' Some email names are "fName, lName" others aren't
 
                 rName = Split(toNames(0), ",")
-                requestorName = Trim(rName(1)) & " " & Trim(rName(0))
+                requestorName = TrimExtended(rName(1)) & " " & TrimExtended(rName(0))
             Else
-                requestorName = Trim(toNames(0))
+                requestorName = TrimExtended(toNames(0))
             End If
 
             If NewDealForm.DellOption.Checked Then

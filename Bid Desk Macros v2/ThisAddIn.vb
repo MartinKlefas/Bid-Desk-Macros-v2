@@ -1,6 +1,7 @@
 ﻿Imports System.Diagnostics
 Imports Microsoft.Office.Interop.Outlook
 Imports MySql.Data.MySqlClient
+Imports String_Extensions
 
 Public Class ThisAddIn
     Public Const server As String = "GBMNCDT12830\SQLEXPRESS"
@@ -205,7 +206,7 @@ Public Class ThisAddIn
                     .Subject = .Subject & " - " & Result("DealID")
                     .Display() ' or .Send
                 End With
-                success = MoveToFolder(Trim(Result("AM")), msg)
+                success = MoveToFolder(TrimExtended(Result("AM")), msg)
             End If
         End If
     End Sub
