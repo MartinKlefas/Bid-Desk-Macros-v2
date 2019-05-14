@@ -99,6 +99,8 @@ Public Class NewMailForm
         Dim tSubj As String = msg.Subject.ReplaceSpaces()
         If msg.SenderEmailAddress.Equals("no_reply@dell.com", searchType) And tSubj.StartsWith("Opportunity Submitted", searchType) Then
             Return True
+        ElseIf tSubj.StartsWith("Deal Registration REGE", searchType) And tSubj.EndsWith("submitted", searchType) Then
+            Return True
         Else
             Return False
         End If

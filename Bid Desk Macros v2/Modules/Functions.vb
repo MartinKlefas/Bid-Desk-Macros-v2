@@ -63,105 +63,20 @@ Partial Class ThisAddIn
     End Function
 
 
-    Function CreateDealRecord(Mail As Outlook.MailItem) As Dictionary(Of String, String)
-        Dim NewDealForm As New AddDeal
-        Dim requestorName As String, Vendor As String, ccNames As String
-        Dim ReplyMail As MailItem = Mail.ReplyAll
-        Dim tCreateDealRecord As Dictionary(Of String, String)
+    Sub CreateDealRecord(Mail As Outlook.MailItem)
+        Dim NewDealForm As New AddDeal(Mail)
 
-        If NewDealForm.ShowDialog() = Windows.Forms.DialogResult.OK Then ' Show and wait
-            Dim toNames As String(), rName() As String
-
-            toNames = Split(ReplyMail.To, ";") ' Split out each recipient
-
-            If InStr(toNames(0), ",") > 1 Then ' Some email names are "fName, lName" others aren't
-
-                rName = Split(toNames(0), ",")
-                requestorName = TrimExtended(rName(1)) & " " & TrimExtended(rName(0))
-            Else
-                requestorName = TrimExtended(toNames(0))
-            End If
-
-            If NewDealForm.DellOption.Checked Then
-                Vendor = "Dell"
-            ElseIf NewDealForm.HPIOption.Checked Then
-                Vendor = "HPI"
-            Else
-                Vendor = "HPE"
-            End If
-
-            ccNames = ReplyMail.CC
-            For i = 1 To UBound(toNames) ' append the second and later "to" names to the CC list
-                ccNames = ccNames & "; " & toNames(i)
-            Next
-
-            Dim bIngram As Byte = BooltoByte(NewDealForm.cIngram.Checked)
-            Dim bTechData As Byte = BooltoByte(NewDealForm.cTechData.Checked)
-            Dim bWestcoast As Byte = BooltoByte(NewDealForm.cWestcoast.Checked)
-
-            tCreateDealRecord = New Dictionary(Of String, String) From {
-                {"AMEmailAddress", Mail.SenderEmailAddress},
-                {"AM", requestorName},
-                {"Customer", NewDealForm.CustomerName.Text},
-                {"Vendor", Vendor},
-                {"DealID", NewDealForm.DealID.Text},
-                {"Ingram", bIngram},
-                {"Techdata", bTechData},
-                {"Westcoast", bWestcoast},
-                {"CC", ccNames},
-                {"Status", "Submitted to Vendor"},
-                {"StatusDate", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")},
-                {"Date", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")}
-            }
-
-            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
-
-            tCreateDealRecord.Add("NDT", ndt.CreateTicket(1, MakeTicketData(tCreateDealRecord, ReplyMail)).ToString)
-            ndt.Move("Public Sector")
-
-            Dim aliases As String = ""
-            'add people to notify
-            For Each recipient As Outlook.Recipient In ReplyMail.Recipients
-                Try
-                    aliases &= recipient.AddressEntry.GetExchangeUser.Alias & ";"
-                Catch
-                    ShoutError("Could not find alias for: " & recipient.ToString)
-                End Try
-            Next
-            ndt.AddToNotify(aliases)
-
-            'update ticket with bid number & original email
-            ndt.AttachMail(Mail, "Deal ID  " & tCreateDealRecord("DealID") & "was submitted to " & tCreateDealRecord("Vendor") & " based on the information in the attached email")
-
-            tCreateDealRecord.Remove("AMEmailAddress")
-
-            If sqlInterface.Add_Data(tCreateDealRecord) > 0 Then
-                tCreateDealRecord.Add("Result", "Success")
-            Else
-                tCreateDealRecord.Add("Result", "Failed")
-            End If
-
-            Return tCreateDealRecord
-
-        Else
-            Return New Dictionary(Of String, String) From {
-                {"Result", "Cancelled"}
-            }
-
-
-
-        End If
+        NewDealForm.Show()
 
 
 
 
 
-
-    End Function
-
+    End Sub
 
 
-    Private Function MakeTicketData(DealDict As Dictionary(Of String, String), email As Outlook.MailItem) As Dictionary(Of String, String)
+
+    Public Function MakeTicketData(DealDict As Dictionary(Of String, String), email As Outlook.MailItem) As Dictionary(Of String, String)
 
         Dim requestor As Outlook.ExchangeUser
         requestor = email.Recipients(1).AddressEntry.GetExchangeUser
@@ -265,7 +180,7 @@ Partial Class ThisAddIn
         IsInspector = (TypeName(itm) = "Inspector")
     End Function
 
-    Function WriteGreeting(myTime As Date, Optional toName As String = "") As String
+    Public Function WriteGreeting(myTime As Date, Optional toName As String = "") As String
         Dim currenthour As Integer
 
         currenthour = Microsoft.VisualBasic.DateAndTime.Hour(myTime)
@@ -314,7 +229,7 @@ Partial Class ThisAddIn
 
     End Function
 
-    Function BooltoByte(ByVal tBoolean As Boolean) As Byte
+    Public Function BooltoByte(ByVal tBoolean As Boolean) As Byte
         If tBoolean Then
             BooltoByte = 1
         Else

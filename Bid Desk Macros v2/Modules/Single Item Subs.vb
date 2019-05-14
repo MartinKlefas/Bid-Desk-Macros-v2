@@ -108,9 +108,16 @@
             End Try
         End With
 
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile) With {
-            .TicketNumber = GetNDTbyDeal(DealID)
-        }
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+
+        Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
+        Try
+            ndt.TicketNumber = CInt(tmpTicketNumber)
+        Catch
+            ndt.TicketNumber = 0
+        End Try
+
+
         Dim browser As OpenQA.Selenium.Chrome.ChromeDriver = ndt.GiveMeChrome(False)
 
         If ndt.TicketNumber <> 0 AndAlso Not ndt.IsClosed(browser) Then
@@ -244,9 +251,15 @@
 
         End If
 
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile) With {
-            .TicketNumber = GetNDTbyDeal(DealID)
-        }
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+
+        Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
+        Try
+            ndt.TicketNumber = CInt(tmpTicketNumber)
+        Catch
+            ndt.TicketNumber = 0
+        End Try
+
 
         ndt.AttachMail(msg, "Request to extend the DR")
         ndt.CloseTicket("As requested, an extension has been requested on the vendor portal.")

@@ -36,6 +36,7 @@ Partial Class AddDeal
         Me.cWestcoast = New System.Windows.Forms.CheckBox()
         Me.cTechData = New System.Windows.Forms.CheckBox()
         Me.cIngram = New System.Windows.Forms.CheckBox()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.VendorGroupBox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -178,6 +179,9 @@ Partial Class AddDeal
         Me.cIngram.Text = "Ingram"
         Me.cIngram.UseVisualStyleBackColor = True
         '
+        'BackgroundWorker1
+        '
+        '
         'AddDeal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -215,4 +219,5 @@ Partial Class AddDeal
     Friend WithEvents cTechData As Windows.Forms.CheckBox
     Friend WithEvents cIngram As Windows.Forms.CheckBox
     Friend WithEvents HPEOption As Windows.Forms.RadioButton
+    Friend WithEvents BackgroundWorker1 As ComponentModel.BackgroundWorker
 End Class

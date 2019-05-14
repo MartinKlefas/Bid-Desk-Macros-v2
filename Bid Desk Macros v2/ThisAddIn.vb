@@ -182,7 +182,7 @@ Public Class ThisAddIn
         Dim obj As Object
         Dim msg As Outlook.MailItem, myGreeting As String, success As Boolean
         Dim msgReply As Outlook.MailItem
-        Dim Result As Dictionary(Of String, String), rFName As String()
+        Dim Result As Dictionary(Of String, String),
 
 
 
@@ -197,23 +197,12 @@ Public Class ThisAddIn
             msgReply = msg.ReplyAll
 
             Debug.Write(RecordWaitTime(msg.ReceivedTime, Now(), "Me"))
-            Result = CreateDealRecord(msg)
-
-            If Result("Result").Equals("Success", searchType) Then
-
-                rFName = Split(Result("AM"))
-
-                myGreeting = WriteGreeting(Now(), CStr(rFName(0)))
 
 
 
-                With msgReply
-                    .HTMLBody = myGreeting & WriteSubmitMessage(Result) & .HTMLBody
-                    .Subject = .Subject & " - " & Result("DealID")
-                    .Display() ' or .Send
-                End With
-                success = MoveToFolder(TrimExtended(Result("AM")), msg)
-            End If
+            CreateDealRecord(msg)
+
+
         End If
     End Sub
 
