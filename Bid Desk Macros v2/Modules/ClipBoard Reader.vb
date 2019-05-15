@@ -19,8 +19,8 @@
             End Try
         End If
 
-        If InStr(1, ClipBoardText, "Deal Registration id") > 0 Then
-            strArry = Split(Mid(ClipBoardText, InStr(1, ClipBoardText, "Deal Registration id")), vbCrLf)
+        If InStr(1, ClipBoardText.ToLower, "deal registration id") > 0 Then
+            strArry = Split(Mid(ClipBoardText, InStr(1, ClipBoardText.ToLower, "deal registration id")), vbCrLf)
             Try
                 FindDealID = strArry(1)
             Catch
@@ -80,7 +80,14 @@
                 FindCustomer = ""
             End Try
         End If
-
+        If InStr(1, ClipboardText, "Opportunity ID") > 0 Then
+            strArry = Split(Mid(ClipboardText, InStr(1, ClipboardText, "Opportunity ID")), vbCrLf)
+            Try
+                FindCustomer = Left(strArry(7), InStr(strArry(7), vbTab) - 1)
+            Catch
+                FindCustomer = ""
+            End Try
+        End If
 
     End Function
 End Module

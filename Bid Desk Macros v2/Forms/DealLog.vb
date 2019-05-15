@@ -30,22 +30,22 @@ Public Class AddDeal
 
         Dim strClip As String
 
+        If Me.DealID.Text = "" And Me.CustomerName.Text = "" Then ' Only read clipboard if nothing has been typed into the boxes already
+            strClip = My.Computer.Clipboard.GetText
 
-        strClip = My.Computer.Clipboard.GetText
-
-        Me.DealID.Text = FindDealID(strClip)
-        Me.CustomerName.Text = FindCustomer(strClip)
-        Select Case FindVendor(strClip)
-            Case "HPI"
-                Call CheckOnly(HPIOption)
-            Case "HPE"
-                Call CheckOnly(HPEOption)
-            Case "Dell"
-                Call CheckOnly(DellOption)
+            Me.DealID.Text = FindDealID(strClip)
+            Me.CustomerName.Text = FindCustomer(strClip)
+            Select Case FindVendor(strClip)
+                Case "HPI"
+                    Call CheckOnly(HPIOption)
+                Case "HPE"
+                    Call CheckOnly(HPEOption)
+                Case "Dell"
+                    Call CheckOnly(DellOption)
 
 
-        End Select
-
+            End Select
+        End If
     End Sub
     Private Sub CheckOnly(toCheck As RadioButton)
         For Each tControl As Control In VendorGroupBox.Controls
