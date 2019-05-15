@@ -6,16 +6,26 @@
             FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "SQ-"), 10)
 
         End If
+        If InStr(1, ClipBoardText, "Quote Number: ") > 0 Then
+            FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "Quote Number: ") + 14, 10)
 
+        End If
         If InStr(1, ClipBoardText, "Deal ID") > 0 Then
             strArry = Split(Mid(ClipBoardText, InStr(1, ClipBoardText, "Deal ID")), vbTab)
-            FindDealID = strArry(1)
+            Try
+                FindDealID = strArry(1)
+            Catch
+                FindDealID = ""
+            End Try
         End If
 
-        If InStr(1, ClipBoardText, "HP Opportunity ID") > 0 Then
-            strArry = Split(Mid(ClipBoardText, InStr(1, ClipBoardText, "HP Opportunity ID")), vbCrLf)
-            FindDealID = strArry(5)
-
+        If InStr(1, ClipBoardText, "Deal Registration id") > 0 Then
+            strArry = Split(Mid(ClipBoardText, InStr(1, ClipBoardText, "Deal Registration id")), vbCrLf)
+            Try
+                FindDealID = strArry(1)
+            Catch
+                FindDealID = ""
+            End Try
         End If
 
 
@@ -24,13 +34,15 @@
     Function FindVendor(ClipBoardText As String) As String
         FindVendor = ""
 
-        If InStr(1, ClipBoardText, "SQ-") > 0 Then
+        
+        If InStr(1, ClipBoardText, "E00") > 0 Then
+            FindVendor = "HPE"
+        End If
+        If InStr(1, ClipBoardText, "P00") > 0 Then
             FindVendor = "HPI"
         End If
 
-
-
-        If InStr(1, ClipBoardText, "HP Opportunity ID") > 0 Then
+        If InStr(1, ClipBoardText, "Deal Registration id") > 0 Then
             FindVendor = "HPI"
         End If
     End Function
@@ -44,18 +56,29 @@
             FindCustomer = StrConv(strArry(2), vbProperCase)
         End If
 
+        If InStr(1, ClipboardText, "Customer: ") > 0 Then
+            strArry = Split(Mid(ClipboardText, InStr(1, ClipboardText, "Customer: ") + 10), vbCrLf)
+            FindCustomer = StrConv(strArry(0), vbProperCase)
+        End If
+
         If InStr(1, ClipboardText, "End User Account Name") > 0 Then
             strArry = Split(Mid(ClipboardText, InStr(1, ClipboardText, "End User Account Name")), vbTab)
-            FindCustomer = strArry(1)
+            Try
+                FindCustomer = strArry(1)
+            Catch
+                FindCustomer = ""
+            End Try
         End If
 
 
 
-        If InStr(1, ClipboardText, "HP Opportunity ID") > 0 Then
-            strArry = Split(Mid(ClipboardText, InStr(1, ClipboardText, "HP Opportunity ID")), vbCrLf)
-
-            FindCustomer = strArry(13)
-
+        If InStr(1, ClipboardText, "Deal Registration id") > 0 Then
+            strArry = Split(Mid(ClipboardText, InStr(1, ClipboardText, "Deal Registration id")), vbCrLf)
+            Try
+                FindCustomer = strArry(3)
+            Catch
+                FindCustomer = ""
+            End Try
         End If
 
 
