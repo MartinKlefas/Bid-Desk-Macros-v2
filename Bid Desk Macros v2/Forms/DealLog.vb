@@ -132,29 +132,40 @@ Public Class AddDeal
         Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
         UpdateTitle("Creating Ticket...")
-        tCreateDealRecord.Add("NDT", ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(tCreateDealRecord, ReplyMail)).ToString)
-        ndt.Move("Public Sector")
 
-        Dim aliases As String = ""
-        'add people to notify
-        For Each recipient As Outlook.Recipient In ReplyMail.Recipients
-            Try
-                aliases &= recipient.AddressEntry.GetExchangeUser.Alias & ";"
-            Catch
-                Globals.ThisAddIn.ShoutError("Could not find alias for: " & recipient.ToString)
-            End Try
-        Next
+        Dim newNDT As Integer
+        newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(tCreateDealRecord, ReplyMail))
 
-        UpdateTitle("Adding Notify...")
+        If newNDT = 0 Or newNDT = 404 Then ' retry on first fail
+            newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(tCreateDealRecord, ReplyMail))
+        End If
 
-        ndt.AddToNotify(aliases)
+        If newNDT <> 0 And newNDT <> 404 Then ' continue on second
 
-        UpdateTitle("Attaching Info...")
+            tCreateDealRecord.Add("NDT", newNDT)
+            ndt.Move("Public Sector")
 
-        'update ticket with bid number & original email
-        ndt.AttachMail(Mail, "Deal ID  " & tCreateDealRecord("DealID") & "was submitted to " & tCreateDealRecord("Vendor") & " based on the information in the attached email")
+            Dim aliases As String = ""
+            'add people to notify
+            For Each recipient As Outlook.Recipient In ReplyMail.Recipients
+                Try
+                    aliases &= recipient.AddressEntry.GetExchangeUser.Alias & ";"
+                Catch
+                    Globals.ThisAddIn.ShoutError("Could not find alias for: " & recipient.ToString)
+                End Try
+            Next
 
-        tCreateDealRecord.Remove("AMEmailAddress")
+            UpdateTitle("Adding Notify...")
+
+            ndt.AddToNotify(aliases)
+
+            UpdateTitle("Attaching Info...")
+
+            'update ticket with bid number & original email
+            ndt.AttachMail(Mail, "Deal ID  " & tCreateDealRecord("DealID") & "was submitted to " & tCreateDealRecord("Vendor") & " based on the information in the attached email")
+
+            tCreateDealRecord.Remove("AMEmailAddress")
+        End If
 
         If Globals.ThisAddIn.sqlInterface.Add_Data(tCreateDealRecord) > 0 Then
             Dim rFName As String() = Split(tCreateDealRecord("AM"))
