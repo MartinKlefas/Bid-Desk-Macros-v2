@@ -234,6 +234,7 @@
     </Compile>
     <Compile Include="Modules\ClipBoard Reader.vb" />
     <Compile Include="Modules\Functions.vb" />
+    <Compile Include="Modules\HP Quote Reader.vb" />
     <Compile Include="Modules\MessageTexts.vb" />
     <Compile Include="Modules\Lookup Functions.vb" />
     <Compile Include="Modules\Single Item Subs.vb" />
