@@ -11,7 +11,7 @@ Module HP_Quote_Reader
         If tAttachment.FileName.ToLower = "quote.csv" Then
             Dim fName As String = Path.GetTempPath() & "quote.csv"
             Try
-                tAttachment.SaveAsFile(fName)
+                tAttachment.SaveAsFile(fName.WinSafeFileName)
                 Dim quoteCsvString As String = File.ReadAllText(fName)
                 quoteCsvString = Replace(quoteCsvString, vbNullChar, "")
                 Dim quoteArry As String() = Split(quoteCsvString, "-")
@@ -35,7 +35,7 @@ Module HP_Quote_Reader
         ElseIf tAttachment.FileName.ToLower.EndsWith("xlsx") Then
             Dim fName As String = Path.GetTempPath() & tAttachment.FileName
             Try
-                tAttachment.SaveAsFile(fName)
+                tAttachment.SaveAsFile(fName.WinSafeFileName)
             Catch
                 Debug.WriteLine("Error while saving xlsx file")
             End Try

@@ -1,5 +1,6 @@
 ﻿Imports System.Diagnostics
 Imports Microsoft.Office.Tools.Ribbon
+Imports String_Extensions
 
 Public Class Ribbon1
     Public AutoInbound As Boolean
@@ -114,4 +115,6 @@ Public Class Ribbon1
 
         Call Globals.ThisAddIn.FindOPG()
     End Sub
+
+
 End Class

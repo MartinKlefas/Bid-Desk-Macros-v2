@@ -1,7 +1,7 @@
 ﻿Partial Class Ribbon1
     Inherits Microsoft.Office.Tools.Ribbon.RibbonBase
 
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Public Sub New(ByVal container As System.ComponentModel.IContainer)
         MyClass.New()
 
@@ -12,7 +12,7 @@
 
     End Sub
 
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Public Sub New()
         MyBase.New(Globals.Factory.GetRibbonFactory())
 
@@ -22,7 +22,7 @@
     End Sub
 
     'Component overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -39,11 +39,10 @@
     'NOTE: The following procedure is required by the Component Designer
     'It can be modified using the Component Designer.
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
-        Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
@@ -54,15 +53,16 @@
         Me.ExtensionBtn = Me.Factory.CreateRibbonButton
         Me.WonBtn = Me.Factory.CreateRibbonButton
         Me.DeadBtn = Me.Factory.CreateRibbonButton
+        Me.Group3 = Me.Factory.CreateRibbonGroup
         Me.btnOnOff = Me.Factory.CreateRibbonButton
+        Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.ImprtLots = Me.Factory.CreateRibbonButton
-        Me.Group3 = Me.Factory.CreateRibbonGroup
         Me.addOPG = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
-        Me.Group2.SuspendLayout()
         Me.Group3.SuspendLayout()
+        Me.Group2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Tab1
@@ -87,14 +87,6 @@
         Me.Group1.Items.Add(Me.DeadBtn)
         Me.Group1.Label = "Processing Actions"
         Me.Group1.Name = "Group1"
-        '
-        'Group2
-        '
-        Me.Group2.Items.Add(Me.BtnAddtoDB)
-        Me.Group2.Items.Add(Me.ImprtLots)
-        Me.Group2.Items.Add(Me.addOPG)
-        Me.Group2.Label = "Database Actions"
-        Me.Group2.Name = "Group2"
         '
         'btnAutoAll
         '
@@ -176,6 +168,12 @@
         Me.DeadBtn.Name = "DeadBtn"
         Me.DeadBtn.ShowImage = True
         '
+        'Group3
+        '
+        Me.Group3.Items.Add(Me.btnOnOff)
+        Me.Group3.Label = "Automation"
+        Me.Group3.Name = "Group3"
+        '
         'btnOnOff
         '
         Me.btnOnOff.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -183,6 +181,14 @@
         Me.btnOnOff.Label = "Automation Off"
         Me.btnOnOff.Name = "btnOnOff"
         Me.btnOnOff.ShowImage = True
+        '
+        'Group2
+        '
+        Me.Group2.Items.Add(Me.BtnAddtoDB)
+        Me.Group2.Items.Add(Me.ImprtLots)
+        Me.Group2.Items.Add(Me.addOPG)
+        Me.Group2.Label = "Database Actions"
+        Me.Group2.Name = "Group2"
         '
         'BtnAddtoDB
         '
@@ -200,12 +206,6 @@
         Me.ImprtLots.Name = "ImprtLots"
         Me.ImprtLots.ShowImage = True
         '
-        'Group3
-        '
-        Me.Group3.Items.Add(Me.btnOnOff)
-        Me.Group3.Label = "Automation"
-        Me.Group3.Name = "Group3"
-        '
         'addOPG
         '
         Me.addOPG.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.database_add_insert_21836
@@ -222,10 +222,10 @@
         Me.Tab1.PerformLayout()
         Me.Group1.ResumeLayout(False)
         Me.Group1.PerformLayout()
-        Me.Group2.ResumeLayout(False)
-        Me.Group2.PerformLayout()
         Me.Group3.ResumeLayout(False)
         Me.Group3.PerformLayout()
+        Me.Group2.ResumeLayout(False)
+        Me.Group2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub

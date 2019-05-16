@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.CompilerServices
+Imports System.Text.RegularExpressions
 
 Public Module StringExtensions
 
@@ -48,6 +49,23 @@ Public Module StringExtensions
         aString = ReplaceSpaces(aString)
         aString = Trim(aString)
         Return aString
+    End Function
+
+    <Extension()>
+    Public Function WinSafeFileName(ByVal aString As String) As String
+
+        Dim pattern As New Regex("[0-9a-zA-Z-._]")
+        Dim replacement As String = ""
+        Dim result As String = ""
+
+        For Each tChar As Char In aString
+            Dim letter = tChar.ToString
+            If pattern.IsMatch(letter) Then
+                result = result & letter
+            End If
+        Next
+
+        Return result
     End Function
 End Module
 
