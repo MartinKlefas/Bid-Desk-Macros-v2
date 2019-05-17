@@ -43,6 +43,8 @@
     Private Sub InitializeComponent()
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
+        Me.Group3 = Me.Factory.CreateRibbonGroup
+        Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
@@ -53,9 +55,8 @@
         Me.ExtensionBtn = Me.Factory.CreateRibbonButton
         Me.WonBtn = Me.Factory.CreateRibbonButton
         Me.DeadBtn = Me.Factory.CreateRibbonButton
-        Me.Group3 = Me.Factory.CreateRibbonGroup
+        Me.BtnLater = Me.Factory.CreateRibbonButton
         Me.btnOnOff = Me.Factory.CreateRibbonButton
-        Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.ImprtLots = Me.Factory.CreateRibbonButton
         Me.addOPG = Me.Factory.CreateRibbonButton
@@ -86,8 +87,24 @@
         Me.Group1.Items.Add(Me.ExtensionBtn)
         Me.Group1.Items.Add(Me.WonBtn)
         Me.Group1.Items.Add(Me.DeadBtn)
+        Me.Group1.Items.Add(Me.BtnLater)
         Me.Group1.Label = "Processing Actions"
         Me.Group1.Name = "Group1"
+        '
+        'Group3
+        '
+        Me.Group3.Items.Add(Me.btnOnOff)
+        Me.Group3.Label = "Automation"
+        Me.Group3.Name = "Group3"
+        '
+        'Group2
+        '
+        Me.Group2.Items.Add(Me.BtnAddtoDB)
+        Me.Group2.Items.Add(Me.ImprtLots)
+        Me.Group2.Items.Add(Me.addOPG)
+        Me.Group2.Items.Add(Me.btnLookup)
+        Me.Group2.Label = "Database Actions"
+        Me.Group2.Name = "Group2"
         '
         'btnAutoAll
         '
@@ -169,11 +186,13 @@
         Me.DeadBtn.Name = "DeadBtn"
         Me.DeadBtn.ShowImage = True
         '
-        'Group3
+        'BtnLater
         '
-        Me.Group3.Items.Add(Me.btnOnOff)
-        Me.Group3.Label = "Automation"
-        Me.Group3.Name = "Group3"
+        Me.BtnLater.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.BtnLater.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.kissclipart_calendar_icon_orange_png_clipart_computer_icons_133adbff6cfb7003
+        Me.BtnLater.Label = "Clone Later"
+        Me.BtnLater.Name = "BtnLater"
+        Me.BtnLater.ShowImage = True
         '
         'btnOnOff
         '
@@ -182,15 +201,6 @@
         Me.btnOnOff.Label = "Automation Off"
         Me.btnOnOff.Name = "btnOnOff"
         Me.btnOnOff.ShowImage = True
-        '
-        'Group2
-        '
-        Me.Group2.Items.Add(Me.BtnAddtoDB)
-        Me.Group2.Items.Add(Me.ImprtLots)
-        Me.Group2.Items.Add(Me.addOPG)
-        Me.Group2.Items.Add(Me.btnLookup)
-        Me.Group2.Label = "Database Actions"
-        Me.Group2.Name = "Group2"
         '
         'BtnAddtoDB
         '
@@ -258,6 +268,7 @@
     Friend WithEvents Group3 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents addOPG As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents btnLookup As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents BtnLater As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

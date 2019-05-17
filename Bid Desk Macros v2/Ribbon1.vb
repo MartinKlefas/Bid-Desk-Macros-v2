@@ -120,4 +120,8 @@ Public Class Ribbon1
         Dim frmSearch As New SearchForm
         frmSearch.Show()
     End Sub
+
+    Private Sub BtnLater_Click(sender As Object, e As RibbonControlEventArgs) Handles BtnLater.Click
+        Call Globals.ThisAddIn.CloneLater()
+    End Sub
 End Class

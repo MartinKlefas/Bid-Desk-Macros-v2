@@ -173,6 +173,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property kissclipart_calendar_icon_orange_png_clipart_computer_icons_133adbff6cfb7003() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("kissclipart-calendar-icon-orange-png-clipart-computer-icons-133adbff6cfb7003", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property light_champion_signal() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("light_champion_signal", resourceCulture)

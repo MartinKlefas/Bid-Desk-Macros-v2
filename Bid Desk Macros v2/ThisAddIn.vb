@@ -214,6 +214,30 @@ Public Class ThisAddIn
 
         End If
     End Sub
+    Public Sub CloneLater()
+        Dim msg As Outlook.MailItem, obj As Object
+
+        If GetSelection().Count > 1 Then
+            ShoutError("This can only be used with one bid request at a time", False)
+            Exit Sub
+        End If
+
+        obj = GetCurrentItem()
+        If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
+            msg = obj
+            Dim frmRemind As New CloneLater(ReadDate(msg), Msg)
+            frmRemind.Show()
+
+        End If
+    End Sub
+    Public Function ReadDate(msg As Outlook.MailItem) As Date
+        Dim targetDate As Date = Today().AddDays(1)
+
+        'find the date within the email
+
+
+        Return targetDate
+    End Function
 
     Sub ExpiryMessages(Optional passedMsg As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
 
