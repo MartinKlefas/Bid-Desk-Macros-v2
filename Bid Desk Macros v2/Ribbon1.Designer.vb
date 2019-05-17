@@ -41,7 +41,6 @@
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Ribbon1))
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
@@ -218,7 +217,7 @@
         '
         'btnLookup
         '
-        Me.btnLookup.Image = CType(resources.GetObject("btnLookup.Image"), System.Drawing.Image)
+        Me.btnLookup.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.Magnifying_Glass
         Me.btnLookup.Label = "Lookup Deal"
         Me.btnLookup.Name = "btnLookup"
         Me.btnLookup.ShowImage = True
