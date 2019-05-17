@@ -47,6 +47,8 @@ Public Module StringExtensions
     <Extension()>
     Public Function TrimExtended(ByVal aString As String) As String
         aString = ReplaceSpaces(aString)
+        aString = Replace(aString, vbTab, " ")
+        aString = Replace(aString, vbCrLf, " ")
         aString = Trim(aString)
         Return aString
     End Function

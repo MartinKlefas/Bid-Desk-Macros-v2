@@ -116,5 +116,8 @@ Public Class Ribbon1
         Call Globals.ThisAddIn.FindOPG()
     End Sub
 
-
+    Private Sub BtnLookup_Click(sender As Object, e As RibbonControlEventArgs) Handles btnLookup.Click
+        Dim frmSearch As New SearchForm
+        frmSearch.Show()
+    End Sub
 End Class

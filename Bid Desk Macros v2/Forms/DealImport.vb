@@ -16,8 +16,8 @@ Public Class ImportDeal
     Private Sub CommandButton1_Click() Handles OKButton.Click
         CustomerName.Text = TrimExtended(CustomerName.Text)
         DealID.Text = TrimExtended(DealID.Text)
-        Me.DialogResult = DialogResult.OK
-        'do the actual work!
+
+
 
         Dim DealData As Dictionary(Of String, String)
 
@@ -47,7 +47,6 @@ Public Class ImportDeal
         End If
 
         DealData = New Dictionary(Of String, String) From {
-                {"AMEmailAddress", AMMail.Text},
                 {"AM", AmName},
                 {"Customer", CustomerName.Text},
                 {"Vendor", Vendor},
@@ -61,9 +60,9 @@ Public Class ImportDeal
                 {"Date", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")}
             }
 
-        Globals.ThisAddIn.sqlInterface.Add_Data(DealData)
 
 
+        MsgBox(Globals.ThisAddIn.sqlInterface.Add_Data(DealData) & " lines added")
         Me.Close()
     End Sub
 
@@ -80,8 +79,9 @@ Public Class ImportDeal
 
 
         strClip = My.Computer.Clipboard.GetText
-        Me.DealID.Text = FindDealID(strClip)
-        Me.CustomerName.Text = FindCustomer(strClip)
+        If Me.DealID.Text = "" Then Me.DealID.Text = FindDealID(strClip)
+        If Me.CustomerName.Text = "" Then Me.CustomerName.Text = FindCustomer(strClip)
+
         Select Case FindVendor(strClip)
             Case "HPI"
                 Call CheckOnly(HPIOption)

@@ -41,6 +41,7 @@
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Ribbon1))
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
@@ -59,6 +60,7 @@
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.ImprtLots = Me.Factory.CreateRibbonButton
         Me.addOPG = Me.Factory.CreateRibbonButton
+        Me.btnLookup = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.Group3.SuspendLayout()
@@ -70,7 +72,7 @@
         Me.Tab1.Groups.Add(Me.Group1)
         Me.Tab1.Groups.Add(Me.Group3)
         Me.Tab1.Groups.Add(Me.Group2)
-        Me.Tab1.Label = "Bid Tools"
+        Me.Tab1.Label = "Bid Tools (test)"
         Me.Tab1.Name = "Tab1"
         '
         'Group1
@@ -187,6 +189,7 @@
         Me.Group2.Items.Add(Me.BtnAddtoDB)
         Me.Group2.Items.Add(Me.ImprtLots)
         Me.Group2.Items.Add(Me.addOPG)
+        Me.Group2.Items.Add(Me.btnLookup)
         Me.Group2.Label = "Database Actions"
         Me.Group2.Name = "Group2"
         '
@@ -212,6 +215,13 @@
         Me.addOPG.Label = "Add OPG"
         Me.addOPG.Name = "addOPG"
         Me.addOPG.ShowImage = True
+        '
+        'btnLookup
+        '
+        Me.btnLookup.Image = CType(resources.GetObject("btnLookup.Image"), System.Drawing.Image)
+        Me.btnLookup.Label = "Lookup Deal"
+        Me.btnLookup.Name = "btnLookup"
+        Me.btnLookup.ShowImage = True
         '
         'Ribbon1
         '
@@ -248,6 +258,7 @@
     Friend WithEvents btnOnOff As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Group3 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents addOPG As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents btnLookup As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

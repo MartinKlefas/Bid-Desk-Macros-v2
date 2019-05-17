@@ -101,6 +101,8 @@ Public Class NewMailForm
             Return True
         ElseIf tSubj.StartsWith("Deal Registration REGE", searchType) And tSubj.EndsWith("submitted", searchType) Then
             Return True
+        ElseIf tSubj.StartsWith("Deal Registration REGI", searchType) And tSubj.tolower.contains("submitted") Then
+            Return True
         Else
             Return False
         End If
