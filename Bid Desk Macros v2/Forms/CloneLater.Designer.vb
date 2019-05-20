@@ -23,7 +23,7 @@ Partial Class CloneLater
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.targetDate = New System.Windows.Forms.MonthCalendar()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnSetReminder = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
@@ -35,14 +35,14 @@ Partial Class CloneLater
         Me.targetDate.Name = "targetDate"
         Me.targetDate.TabIndex = 1
         '
-        'Button1
+        'btnSetReminder
         '
-        Me.Button1.Location = New System.Drawing.Point(9, 176)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(111, 23)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Set Reminder"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnSetReminder.Location = New System.Drawing.Point(9, 176)
+        Me.btnSetReminder.Name = "btnSetReminder"
+        Me.btnSetReminder.Size = New System.Drawing.Size(111, 23)
+        Me.btnSetReminder.TabIndex = 2
+        Me.btnSetReminder.Text = "Set Reminder"
+        Me.btnSetReminder.UseVisualStyleBackColor = True
         '
         'Button2
         '
@@ -59,7 +59,7 @@ Partial Class CloneLater
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(247, 211)
         Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnSetReminder)
         Me.Controls.Add(Me.targetDate)
         Me.Name = "CloneLater"
         Me.Text = "CloneLater"
@@ -68,6 +68,6 @@ Partial Class CloneLater
     End Sub
 
     Friend WithEvents targetDate As Windows.Forms.MonthCalendar
-    Friend WithEvents Button1 As Windows.Forms.Button
+    Friend WithEvents btnSetReminder As Windows.Forms.Button
     Friend WithEvents Button2 As Windows.Forms.Button
 End Class

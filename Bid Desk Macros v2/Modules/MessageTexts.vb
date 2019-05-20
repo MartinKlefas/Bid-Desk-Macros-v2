@@ -15,4 +15,6 @@
 
     Public Const NoNDTMessage As String = "No NextDesk ticket was created for this action."
 
+    Public Const CloneLaterMessage As String = "Due to the age of this deal registration, it can no longer be extended. In order for our protection to continue, we must now clone it onto a fresh deal registration.<br> If this cloning takes place before our existing deal registration ends, the new one will be automatically rejected as a duplicate of the old, and so this will be cloned for you on %CLONEDATE%. I have set myself a reminder to perform this clone, and so no further action is required from you.<br><br>"
+
 End Module

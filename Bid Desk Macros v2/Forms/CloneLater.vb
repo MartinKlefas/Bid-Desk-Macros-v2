@@ -9,17 +9,39 @@
         Me.CurrentItem = email
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnSetReminder.Click
 
         'set reminder flag
+        With CurrentItem
+            .MarkAsTask(Microsoft.Office.Interop.Outlook.OlMarkInterval.olMarkNoDate)
+            .TaskDueDate = Me.targetDate.SelectionEnd
+            .ReminderSet = True
+            .ReminderTime = Me.targetDate.SelectionStart
+            .Save()
+        End With
 
         'reply
+        Dim msgReply As Outlook.MailItem = CurrentItem.ReplyAll
 
-        'move
+        msgReply.HTMLBody = CloneLaterMessage.Replace("%CLONEDATE%", Me.targetDate.SelectionEnd.ToShortDateString) & msgReply.HTMLBody
+
+        msgReply.Display()
+
+        'set do not remind again flag
+        Dim MessagesList As New List(Of Outlook.MailItem)
+
+
+
+        MessagesList.Add(CurrentItem)
+
+        Dim DealIDForm As New DealIdent(MessagesList, "CloneLater", True)
+        DealIDForm.Show()
 
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Me.Close()
     End Sub
+
+
 End Class

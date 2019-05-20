@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Net
+Imports OpenQA.Selenium.Chrome
 Imports String_Extensions.StringExtensions
 
 Partial Class ThisAddIn
@@ -45,6 +46,44 @@ Partial Class ThisAddIn
 
             Return ""
         End Try
+    End Function
+
+    Public Function NoOpenTickets(DealID As String) As Boolean
+        Dim allTickets As String() = GetNDTbyDeal(DealID, True).Split(";")
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
+
+        Dim wd As ChromeDriver = ndt.GiveMeChrome(False)
+
+        For Each ticket As String In allTickets
+            ndt.TicketNumber = ticket
+            If Not ndt.IsClosed(wd) Then
+                wd.Close()
+                Return False
+            End If
+        Next
+
+        wd.Close()
+        Return True
+
+    End Function
+
+    Public Function GetOpenTicket(DealID As String) As String
+        Dim allTickets As String() = GetNDTbyDeal(DealID, True).Split(";")
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
+
+        Dim wd As ChromeDriver = ndt.GiveMeChrome(False)
+
+        For Each ticket As String In allTickets
+            ndt.TicketNumber = ticket
+            If Not ndt.IsClosed(wd) Then
+                wd.Close()
+                Return ticket
+            End If
+        Next
+
+        wd.Close()
+        Return ""
+
     End Function
 
     Public Function GetNDTbyDeal(DealID As String, Optional AllTickets As Boolean = False, Optional SuppressWarnings As Boolean = True) As String

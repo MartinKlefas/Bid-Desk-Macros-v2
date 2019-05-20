@@ -142,7 +142,9 @@ Partial Class ThisAddIn
         Dim tmp As String
         tmp = sqlInterface.SelectData("Status", "DealID = '" & DealID & "'")
 
-        Return tmp.ToLower.Contains("deal lost")
+        'if it's set not to be reminded again - then it can temporarily be "dead" such that no reminders are sent.
+
+        Return (tmp.ToLower.Contains("deal lost") Or tmp.ToLower.Contains("clone pending"))
 
 
     End Function

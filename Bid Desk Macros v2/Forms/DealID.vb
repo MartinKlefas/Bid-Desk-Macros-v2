@@ -63,6 +63,11 @@ Public Class DealIdent
                 Case "FindOPG"
                     Dim newOPGForm As New NewOPGForm(tDealID)
                     newOPGForm.Show()
+
+                Case "CloneLater"
+                    Globals.ThisAddIn.UpdateStatus(tDealID, "Clone requested on deal expiry")
+                    Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
+
                 Case Else
 
 

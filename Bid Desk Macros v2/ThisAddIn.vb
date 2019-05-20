@@ -234,7 +234,24 @@ Public Class ThisAddIn
         Dim targetDate As Date = Today().AddDays(1)
 
         'find the date within the email
+        Dim bodyArr As String() = msg.Body.Split(vbCrLf)
 
+        For Each line As String In bodyArr
+            If line.ToLower.Contains("deal expiration date:") Then
+                Dim tDateString As String = Trim(line.Substring(InStr(line.ToLower, "deal expiration date:") + 20))
+
+                Dim format() = {"MM/dd/yyyy", "M/d/yyyy"}
+                Dim ParsedDate As Date
+                If Date.TryParseExact(tDateString, format,
+                    System.Globalization.DateTimeFormatInfo.InvariantInfo,
+                    Globalization.DateTimeStyles.None, ParsedDate) Then
+                    Return ParsedDate
+                Else
+                    Return targetDate
+                End If
+
+            End If
+        Next
 
         Return targetDate
     End Function
