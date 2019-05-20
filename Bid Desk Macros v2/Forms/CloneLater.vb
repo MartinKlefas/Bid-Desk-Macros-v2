@@ -27,12 +27,12 @@
 
         msgReply.Display()
 
+        Me.Close()
+
         'set do not remind again flag
-        Dim MessagesList As New List(Of Outlook.MailItem)
-
-
-
-        MessagesList.Add(CurrentItem)
+        Dim MessagesList As New List(Of Outlook.MailItem) From {
+            CurrentItem
+        }
 
         Dim DealIDForm As New DealIdent(MessagesList, "CloneLater", True)
         DealIDForm.Show()
