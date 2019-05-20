@@ -124,4 +124,18 @@ Public Class Ribbon1
     Private Sub BtnLater_Click(sender As Object, e As RibbonControlEventArgs) Handles BtnLater.Click
         Call Globals.ThisAddIn.CloneLater()
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs) 
+        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
+
+        For Each item In Selection
+            If TypeName(item) = "MailItem" Then
+                Dim msg As Outlook.MailItem = item
+                Dim tempresult As String = "12345"
+                For Each tattachment In msg.Attachments
+                    tempresult = RipFromFile(tattachment, tempresult)
+                Next
+            End If
+        Next
+    End Sub
 End Class
