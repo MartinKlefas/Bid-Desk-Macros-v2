@@ -62,7 +62,7 @@ Partial Class ThisAddIn
             End If
         Next
 
-        wd.Close()
+        wd.Quit()
         Return True
 
     End Function
@@ -81,7 +81,7 @@ Partial Class ThisAddIn
             End If
         Next
 
-        wd.Close()
+        wd.Quit()
         Return ""
 
     End Function

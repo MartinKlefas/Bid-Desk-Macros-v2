@@ -114,6 +114,9 @@
             End Try
 
             .CC = GetCCbyDeal(DealID)
+            If GetVendor(DealID, True) = "Dell" Then
+                .CC = .CC & "; mike.parker@insight.com; rajesh.pindoria@insight.com"
+            End If
             .HTMLBody = myGreeting & messageBodyAddition & "<br>" & GetFact(DealID) & drloglink & .HTMLBody
             Try
                 .Send()  'or .Display
@@ -141,6 +144,8 @@
         If Not CompleteAutonomy AndAlso MsgBox("Would you like to close the ticket", vbYesNo) = vbYes Then
             ndt.CloseTicket(browser:=browser)
         End If
+
+        browser.Quit()
 
         Return MoveToFolder(TargetFolder, msg, SuppressWarnings)
     End Function
