@@ -239,7 +239,7 @@ Partial Class ThisAddIn
         End If
     End Function
 
-    Function WriteSubmitMessage(ByVal DealDetails As Dictionary(Of String, String)) As String
+    Public Function WriteSubmitMessage(ByVal DealDetails As Dictionary(Of String, String)) As String
         WriteSubmitMessage = Replace(SubmitMessage, "%DEALID%", DealDetails("DealID"))
         WriteSubmitMessage = Replace(WriteSubmitMessage, "%VENDOR%", DealDetails("Vendor"))
 
@@ -249,7 +249,7 @@ Partial Class ThisAddIn
             WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", NoNDTMessage)
         End If
 
-        WriteSubmitMessage = WriteSubmitMessage & drloglink
+        WriteSubmitMessage = WriteSubmitMessage ' & drloglink
     End Function
 End Class
 

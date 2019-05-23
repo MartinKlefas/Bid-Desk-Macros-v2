@@ -38,7 +38,7 @@ Partial Class ImportDeal
         Me.cIngram = New System.Windows.Forms.CheckBox()
         Me.NDTNumber = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.ChkTicket = New System.Windows.Forms.CheckBox()
         Me.AMMail = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.ccList = New System.Windows.Forms.TextBox()
@@ -201,15 +201,15 @@ Partial Class ImportDeal
         Me.Label3.TabIndex = 10
         Me.Label3.Text = "NextDesk Ticket Number"
         '
-        'CheckBox1
+        'ChkTicket
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(13, 328)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(121, 17)
-        Me.CheckBox1.TabIndex = 12
-        Me.CheckBox1.Text = "Add Details to ticket"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.ChkTicket.AutoSize = True
+        Me.ChkTicket.Location = New System.Drawing.Point(13, 328)
+        Me.ChkTicket.Name = "ChkTicket"
+        Me.ChkTicket.Size = New System.Drawing.Size(121, 17)
+        Me.ChkTicket.TabIndex = 12
+        Me.ChkTicket.Text = "Add Details to ticket"
+        Me.ChkTicket.UseVisualStyleBackColor = True
         '
         'AMMail
         '
@@ -252,7 +252,7 @@ Partial Class ImportDeal
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.AMMail)
         Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.ChkTicket)
         Me.Controls.Add(Me.NDTNumber)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.GroupBox2)
@@ -289,7 +289,7 @@ Partial Class ImportDeal
     Friend WithEvents HPEOption As Windows.Forms.RadioButton
     Friend WithEvents NDTNumber As Windows.Forms.TextBox
     Friend WithEvents Label3 As Windows.Forms.Label
-    Friend WithEvents CheckBox1 As Windows.Forms.CheckBox
+    Friend WithEvents ChkTicket As Windows.Forms.CheckBox
     Friend WithEvents AMMail As Windows.Forms.TextBox
     Friend WithEvents Label4 As Windows.Forms.Label
     Friend WithEvents ccList As Windows.Forms.TextBox

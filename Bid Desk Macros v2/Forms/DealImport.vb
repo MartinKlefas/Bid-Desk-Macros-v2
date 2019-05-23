@@ -54,6 +54,7 @@ Public Class ImportDeal
                 {"Ingram", bIngram},
                 {"Techdata", bTechData},
                 {"Westcoast", bWestCoast},
+                {"NDT", NDTNumber.Text},
                 {"CC", ccList.Text},
                 {"Status", "Submitted to Vendor"},
                 {"StatusDate", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")},
@@ -63,6 +64,16 @@ Public Class ImportDeal
 
 
         MsgBox(Globals.ThisAddIn.sqlInterface.Add_Data(DealData) & " lines added")
+
+        If Me.ChkTicket.Checked AndAlso NDTNumber.Text <> "" AndAlso IsNumeric(NDTNumber.Text) Then
+
+            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile) With {
+                .TicketNumber = NDTNumber.Text
+            }
+
+            ndt.UpdateNextDesk(Globals.ThisAddIn.WriteSubmitMessage(DealData))
+        End If
+
         Me.Close()
     End Sub
 
