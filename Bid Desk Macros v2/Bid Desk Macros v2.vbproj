@@ -402,7 +402,7 @@
     </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>AB19C141860AC713EEE30EB33507A84FC1E493D0</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>AE81A5B649A7DC196B122D48E7563B3E062172CF</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a Visual Basic project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

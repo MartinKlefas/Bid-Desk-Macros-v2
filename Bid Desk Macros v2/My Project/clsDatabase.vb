@@ -11,7 +11,7 @@ Public Class ClsDatabase
             Dim connectionString As String
 
 
-            connectionString = "Data Source=GBMNCDT12830\SQLEXPRESS;Initial Catalog=bids;Integrated Security=SSPI"
+            connectionString = "Data Source=" & server & ";Initial Catalog=" & database & ";Integrated Security=SSPI"
             conn = New SqlConnection(connectionString)
             conn.Open()
         Catch
@@ -33,7 +33,7 @@ Public Class ClsDatabase
             'conn.Open()
 
             Debug.WriteLine("Could not authenticate to server")
-            Call Globals.Ribbons.Ribbon1.DisableRibbon()
+            ' Call Globals.Ribbons.Ribbon1.DisableRibbon()
 
         End Try
 

@@ -4,7 +4,7 @@ Imports MySql.Data.MySqlClient
 Imports String_Extensions
 
 Public Class ThisAddIn
-    Public Const server As String = "GBMNCDT12830\SQLEXPRESS"
+    Public Const server As String = "GBMNCDT12889\SQLEXPRESS"
     Public Const user As String = "mklefass"
     Public Const password As String = "nuNDCb4MqmU66j58"
     Public Const database As String = "bids"
