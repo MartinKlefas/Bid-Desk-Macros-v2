@@ -152,7 +152,10 @@ Public Class NewMailForm
     End Function
 
     Private Function IsPricingApproval(newmail As MailItem) As Boolean
-        If newmail.SenderEmailAddress.ToLower.Contains("noreply.hpintegratedquoting@hp.com") AndAlso newmail.Body.ToLower.Contains("quote request is now ready for viewing") Then
+        If (newmail.SenderEmailAddress.ToLower.Contains("noreply.hpintegratedquoting@hp.com") Or
+              newmail.SenderEmailAddress.ToLower.Contains("noreply.hpeintegratedquoting@hpe.com")) AndAlso
+              newmail.Body.ToLower.Contains("quote request is now ready for viewing") Then
+
             Return True
         Else
             Return False
