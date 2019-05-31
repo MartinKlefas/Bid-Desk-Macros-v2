@@ -1,5 +1,5 @@
 ﻿Public Class ProgressBarFrm
-    Private lblSnippet As String
+    Private ReadOnly lblSnippet As String
     Public taskNum As Integer
 
     ''' <summary>

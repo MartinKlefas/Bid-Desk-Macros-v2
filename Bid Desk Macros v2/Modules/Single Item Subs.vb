@@ -103,7 +103,7 @@
         myGreeting = WriteGreeting(Now(), CStr(fNames(0)))
 
         If msg.Subject.Contains("declined") Then
-            messageBodyAddition = messageBodyAddition & dellDecline
+            messageBodyAddition &= dellDecline
         End If
 
         With msgFwdOne
@@ -150,7 +150,7 @@
         Return MoveToFolder(TargetFolder, msg, SuppressWarnings)
     End Function
 
-    Public Function DoOneDistiReminder(DealID As String, msg As Outlook.MailItem, Optional SuppressWarnings As Boolean = True) As Boolean
+    Public Function DoOneDistiReminder(DealID As String, msg As Outlook.MailItem) As Boolean
 
         Dim msgFwdOne As Outlook.MailItem
 

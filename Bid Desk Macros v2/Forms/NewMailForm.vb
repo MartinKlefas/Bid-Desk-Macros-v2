@@ -3,8 +3,8 @@ Imports Microsoft.Office.Interop.Outlook
 Imports String_Extensions.StringExtensions
 
 Public Class NewMailForm
-    Private entryIDCollection As String
-    Private searchType As StringComparison = ThisAddIn.searchType
+    Private ReadOnly entryIDCollection As String
+    Private ReadOnly searchType As StringComparison = ThisAddIn.searchType
     Private NumberOfEmails As Integer
     Public myContinue As Boolean
 
@@ -44,16 +44,16 @@ Public Class NewMailForm
                     If TypeName(item) = "MailItem" Then
                         msg = item
                         If IsExpiryNotice(msg) Then
-                            Globals.ThisAddIn.ExpiryMessages(msg, True)
+                            Globals.ThisAddIn.ExpiryMessages(msg)
                         End If
                         If IsDRDecision(msg) Then
-                            Globals.ThisAddIn.FwdDRDecision(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
+                            Globals.ThisAddIn.FwdDRDecision(msg, CompleteAutonomy:=True)
                         End If
                         If IsPricing(msg) Then
-                            Globals.ThisAddIn.FwdPricing(msg, SuppressWarnings:=True, CompleteAutonomy:=True)
+                            Globals.ThisAddIn.FwdPricing(msg, CompleteAutonomy:=True)
                         End If
                         If IsDRSubmission(msg) Then
-                            Globals.ThisAddIn.MoveBasedOnDealID(msg, suppressWarnings:=False, CompleteAutonomy:=True)
+                            Globals.ThisAddIn.MoveBasedOnDealID(msg, CompleteAutonomy:=True)
                         End If
                     End If
                 Catch

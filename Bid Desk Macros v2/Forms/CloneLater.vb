@@ -1,5 +1,5 @@
 ﻿Public Class CloneLater
-    Private CurrentItem As Outlook.MailItem
+    Private ReadOnly CurrentItem As Outlook.MailItem
 
     Public Sub New(targetDate As Date, email As Outlook.MailItem)
         Me.InitializeComponent()

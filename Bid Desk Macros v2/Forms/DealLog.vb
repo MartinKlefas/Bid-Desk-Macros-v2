@@ -3,7 +3,7 @@ Imports Microsoft.Office.Interop.Outlook
 Imports String_Extensions
 
 Public Class AddDeal
-    Private mail As MailItem
+    Private ReadOnly mail As MailItem
 
     Public Sub New(mail As MailItem)
         InitializeComponent()
@@ -55,10 +55,6 @@ Public Class AddDeal
             End If
         Next
         toCheck.Checked = True
-    End Sub
-    Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
-
-        Me.Hide()
     End Sub
 
 

@@ -11,7 +11,7 @@ Public Module StringExtensions
     <Extension()>
     Public Sub Append(ByRef aString As String,
                       ByVal bString As String)
-        aString = aString & bString
+        aString &= bString
     End Sub
 
     <Extension()>
@@ -57,13 +57,13 @@ Public Module StringExtensions
     Public Function WinSafeFileName(ByVal aString As String) As String
 
         Dim pattern As New Regex("[0-9a-zA-Z-._]")
-        Dim replacement As String = ""
+
         Dim result As String = ""
 
         For Each tChar As Char In aString
             Dim letter = tChar.ToString
             If pattern.IsMatch(letter) Then
-                result = result & letter
+                result &= letter
             End If
         Next
 

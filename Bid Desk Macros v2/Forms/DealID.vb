@@ -6,10 +6,10 @@ Imports Microsoft.Office.Interop.Outlook
 Imports String_Extensions
 
 Public Class DealIdent
-    Private MessagesList As List(Of MailItem)
+    Private ReadOnly MessagesList As List(Of MailItem)
     Private Mode As String
     Private MessageNumber As Integer
-    Private CompleteAutonomy As Boolean
+    Private ReadOnly CompleteAutonomy As Boolean
 
     Public Sub New(messagesList As List(Of MailItem), OpMode As String, Optional Autonomy As Boolean = False)
         Me.MessagesList = messagesList
@@ -26,9 +26,6 @@ Public Class DealIdent
         End If
     End Sub
 
-    Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
-        Call Button2_Click()
-    End Sub
 
     Private Sub Button1_Click() Handles OKButton.Click
         Me.DialogResult = DialogResult.OK

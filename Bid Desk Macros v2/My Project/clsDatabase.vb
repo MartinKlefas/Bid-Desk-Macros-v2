@@ -5,8 +5,7 @@ Imports String_Extensions.StringExtensions
 
 Public Class ClsDatabase
     Dim conn As SqlConnection
-    Public Sub Make_connection(server As String, user As String,
-                                    database As String, password As String)
+    Public Sub Make_connection(server As String, database As String)
         Try
             Dim connectionString As String
 
@@ -39,10 +38,9 @@ Public Class ClsDatabase
 
     End Sub
 
-    Sub New(server As String, user As String,
-                                    database As String, password As String)
+    Sub New(server As String, database As String)
 
-        Call Make_connection(server, user, database, password)
+        Call Make_connection(server, database)
 
     End Sub
 

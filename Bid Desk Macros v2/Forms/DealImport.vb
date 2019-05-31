@@ -28,7 +28,9 @@ Public Class ImportDeal
         If HPEOption.Checked Then Vendor = "HPE"
         If DellOption.Checked Then Vendor = "Dell"
 
-        AmName = Globals.ThisAddIn.MyResolveName(AMMail.Text).Name
+        Dim AmExUser = Globals.ThisAddIn.MyResolveName(AMMail.Text)
+
+        AmName = AmExUser.FirstName & " " & AmExUser.LastName
 
         If cIngram.Checked Then
             bIngram = 1
@@ -115,10 +117,7 @@ Public Class ImportDeal
         toCheck.Checked = True
     End Sub
 
-    Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
-        Me.DialogResult = DialogResult.Cancel
-        Me.Close()
-    End Sub
+
 
 
     Private Sub TextBox1_KeyDown(sender As Object, e As Windows.Forms.KeyEventArgs) Handles CustomerName.KeyDown

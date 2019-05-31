@@ -1,12 +1,12 @@
 ﻿Public Class SearchResults
-    Private SearchIn As New Dictionary(Of String, Boolean) From {
+    Private ReadOnly SearchIn As New Dictionary(Of String, Boolean) From {
         {"AM", False},
         {"Customer", False},
         {"DealID", False},
         {"OPGID", False},
         {"NDT", False}
         }
-    Private SearchTerm As String
+    Private ReadOnly SearchTerm As String
 
     Public Sub New(SearchTerm As String, AM As Boolean, Customer As Boolean, Deal As Boolean, OPG As Boolean, NDT As Boolean)
         InitializeComponent()

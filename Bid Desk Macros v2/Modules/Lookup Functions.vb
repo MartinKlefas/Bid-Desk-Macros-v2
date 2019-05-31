@@ -141,7 +141,7 @@ Partial Class ThisAddIn
         DealID = TrimExtended(DealID)
 
         While Not RegularExpressions.Regex.IsMatch(Mid(DealID, i), "^[0-9]+$")
-            i = i + 1
+            i += 1
             If DealID = "" Or i >= Len(DealID) - 1 Then Exit While
         End While
 

@@ -1,6 +1,5 @@
 ﻿Imports System.Diagnostics
 Imports Microsoft.Office.Interop.Outlook
-Imports MySql.Data.MySqlClient
 Imports String_Extensions
 
 Public Class ThisAddIn
@@ -15,7 +14,7 @@ Public Class ThisAddIn
 
 
 
-    Sub MoveBasedOnDealID(Optional passedMessage As Outlook.MailItem = Nothing, Optional suppressWarnings As Boolean = False, Optional CompleteAutonomy As Boolean = False)
+    Sub MoveBasedOnDealID(Optional passedMessage As Outlook.MailItem = Nothing, Optional CompleteAutonomy As Boolean = False)
         Dim MessagesList As New List(Of Outlook.MailItem)
 
         If passedMessage Is Nothing Then
@@ -41,7 +40,7 @@ Public Class ThisAddIn
         DealIDForm.Show()
     End Sub
 
-    Friend Sub FwdHPResponse(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
+    Friend Sub FwdHPResponse(Optional passedMessage As Outlook.MailItem = Nothing)
         Dim MessagesList As New List(Of Outlook.MailItem)
         Dim Autonomy As Boolean
 
@@ -121,7 +120,7 @@ Public Class ThisAddIn
 
     End Sub
 
-    Sub FwdPricing(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True, Optional CompleteAutonomy As Boolean = False)
+    Sub FwdPricing(Optional passedMessage As Outlook.MailItem = Nothing, Optional CompleteAutonomy As Boolean = False)
 
         Dim MessagesList As New List(Of Outlook.MailItem)
         Dim Autonomy As Boolean
@@ -137,7 +136,7 @@ Public Class ThisAddIn
                 End If
 
             Next
-            Autonomy = False
+            Autonomy = CompleteAutonomy
         Else
             MessagesList.Add(passedMessage)
             Autonomy = True
@@ -150,7 +149,7 @@ Public Class ThisAddIn
 
 
 
-    Sub FwdDRDecision(Optional passedMessage As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True, Optional CompleteAutonomy As Boolean = False)
+    Sub FwdDRDecision(Optional passedMessage As Outlook.MailItem = Nothing, Optional CompleteAutonomy As Boolean = False)
         Dim MessagesList As New List(Of Outlook.MailItem)
         Dim Autonomy As Boolean
 
@@ -165,7 +164,7 @@ Public Class ThisAddIn
                 End If
 
             Next
-            Autonomy = False
+            Autonomy = CompleteAutonomy
         Else
             MessagesList.Add(passedMessage)
             Autonomy = True
@@ -256,7 +255,7 @@ Public Class ThisAddIn
         Return targetDate
     End Function
 
-    Sub ExpiryMessages(Optional passedMsg As Outlook.MailItem = Nothing, Optional SuppressWarnings As Boolean = True)
+    Sub ExpiryMessages(Optional passedMsg As Outlook.MailItem = Nothing)
 
         Dim MessagesList As New List(Of Outlook.MailItem)
         Dim Autonomy As Boolean

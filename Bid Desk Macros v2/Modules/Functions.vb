@@ -4,8 +4,7 @@ Imports Microsoft.Office.Interop.Outlook
 Imports String_Extensions
 
 Partial Class ThisAddIn
-    Public sqlInterface As New ClsDatabase(ThisAddIn.server, ThisAddIn.user,
-                                   ThisAddIn.database, ThisAddIn.port)
+    Public sqlInterface As New ClsDatabase(ThisAddIn.server, ThisAddIn.database)
 
 
     Public Function MoveToFolder(folderName As String, thisMailItem As MailItem, Optional suppressWarnings As Boolean = False) As Boolean
@@ -32,7 +31,9 @@ Partial Class ThisAddIn
                 thisMailItem.Move(olDestFolder)
                 MoveToFolder = True
             Catch
-                Debug.WriteLine("Couldn't move the mail for some reason...")
+
+                ShoutError("Couldn't move the mail for some reason...", suppressWarnings)
+
                 MoveToFolder = False
             End Try
         End Try
