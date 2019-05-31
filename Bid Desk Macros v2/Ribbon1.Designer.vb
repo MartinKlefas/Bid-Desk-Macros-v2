@@ -73,7 +73,7 @@
         Me.Tab1.Groups.Add(Me.Group1)
         Me.Tab1.Groups.Add(Me.Group3)
         Me.Tab1.Groups.Add(Me.Group2)
-        Me.Tab1.Label = "Bid Tools"
+        Me.Tab1.Label = "Bid Tools (test)"
         Me.Tab1.Name = "Tab1"
         '
         'Group1

@@ -43,19 +43,21 @@ Public Class NewMailForm
                     Dim item = Globals.ThisAddIn.Application.Session.GetItemFromID(itemID)
                     If TypeName(item) = "MailItem" Then
                         msg = item
-                        If IsExpiryNotice(msg) Then
-                            Globals.ThisAddIn.ExpiryMessages(msg)
-                        End If
-                        If IsDRDecision(msg) Then
-                            Globals.ThisAddIn.FwdDRDecision(msg, CompleteAutonomy:=True)
-                        End If
-                        If IsPricing(msg) Then
-                            Globals.ThisAddIn.FwdPricing(msg, CompleteAutonomy:=True)
-                        End If
-                        If IsDRSubmission(msg) Then
-                            Globals.ThisAddIn.MoveBasedOnDealID(msg, CompleteAutonomy:=True)
-                        End If
+                        Select Case FindMessageType(msg)
+                            Case "Expiry"
+                                Globals.ThisAddIn.ExpiryMessages(msg)
+                            Case "Decision"
+                                Globals.ThisAddIn.FwdDRDecision(msg, CompleteAutonomy:=True)
+                            Case "Pricing"
+                                Globals.ThisAddIn.FwdPricing(msg, CompleteAutonomy:=True)
+                            Case "Submission"
+                                Globals.ThisAddIn.MoveBasedOnDealID(msg, CompleteAutonomy:=True)
+
+
+                        End Select
+
                     End If
+
                 Catch
                     Debug.WriteLine("Could not find item for some reason")
                 End Try
@@ -66,6 +68,24 @@ Public Class NewMailForm
 
         Call CloseMe()
     End Sub
+
+    Private Function FindMessageType(msg As MailItem) As String
+        If IsExpiryNotice(msg) Then
+            Return "Expiry"
+        End If
+        If IsDRDecision(msg) Then
+            Return "Decision"
+        End If
+        If IsPricing(msg) Then
+            Return "Pricing"
+        End If
+        If IsDRSubmission(msg) OrElse IsEscalation(msg) OrElse IsPricingApproval(msg) Then
+            Return "Submission"
+        End If
+
+
+        Return "Nothing"
+    End Function
 
     Private Function IsPricing(msg As MailItem) As Boolean
         Dim tSubj As String = msg.Subject.ReplaceSpaces()
@@ -121,6 +141,22 @@ Public Class NewMailForm
             Return False
         End If
 
+    End Function
+
+    Private Function IsEscalation(newMail As Outlook.MailItem) As Boolean
+        If newMail.SenderEmailAddress.ToLower.Contains("dynamics.hpisupport@hp.com") AndAlso newMail.Subject.ToLower.Contains("escalation") Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Private Function IsPricingApproval(newmail As MailItem) As Boolean
+        If newmail.SenderEmailAddress.ToLower.Contains("noreply.hpintegratedquoting@hp.com") AndAlso newmail.Body.ToLower.Contains("quote request is now ready for viewing") Then
+            Return True
+        Else
+            Return False
+        End If
     End Function
 
     Private Sub CloseMe()
