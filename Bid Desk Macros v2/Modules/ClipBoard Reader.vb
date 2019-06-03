@@ -6,11 +6,15 @@
             FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "SQ-"), 10)
 
         End If
-        If InStr(1, ClipBoardText, "Quote Number: ") > 0 Then
-            FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "Quote Number: ") + 14, 10)
+        If InStr(1, ClipBoardText, "Quote Number") > 0 AndAlso FindDealID = "" Then
+            If InStr(1, ClipBoardText, "Quote Number: ") > 0 Then
+                FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "Quote Number: ") + 14, 10)
+            Else
+                FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "Quote Number") + 13, 10)
+            End If
 
         End If
-        If InStr(1, ClipBoardText, "Deal ID") > 0 Then
+        If InStr(1, ClipBoardText, "Deal ID") > 0 AndAlso FindDealID = "" Then
             strArry = Split(Mid(ClipBoardText, InStr(1, ClipBoardText, "Deal ID")), vbTab)
             Try
                 FindDealID = strArry(1)
@@ -19,7 +23,7 @@
             End Try
         End If
 
-        If InStr(1, ClipBoardText.ToLower, "deal registration id") > 0 Then
+        If InStr(1, ClipBoardText.ToLower, "deal registration id") > 0 AndAlso FindDealID = "" Then
             strArry = Split(Mid(ClipBoardText, InStr(1, ClipBoardText.ToLower, "deal registration id")), vbCrLf)
             Try
                 FindDealID = strArry(1)

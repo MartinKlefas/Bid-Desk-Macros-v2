@@ -35,6 +35,9 @@ Partial Class BrowserController
         Me.LblStatus.TabIndex = 0
         Me.LblStatus.Text = "Status Message"
         '
+        'BackgroundWorker1
+        '
+        '
         'BrowserController
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
