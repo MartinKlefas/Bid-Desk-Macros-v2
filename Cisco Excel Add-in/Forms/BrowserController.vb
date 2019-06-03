@@ -34,11 +34,11 @@ Public Class BrowserController
 
             DoLogin(browser)
 
-            UpdateLabel(LabelMessages("Login"))
+            UpdateLabel(LabelMessages("NewDeal"))
 
             browser.Navigate.GoToUrl("https://apps.cisco.com/ICW/PDR/deal#/createdeal")
 
-            Dim i As Integer = 0
+
             Dim elements = browser.FindElementsByClassName("form-control")
             Dim kdfid As String
             For Each elemnt In elements
@@ -48,15 +48,13 @@ Public Class BrowserController
                     kdfid = ""
                 End Try
                 Try
-                    If kdfid <> "" Then
-                        elemnt.SendKeys(kdfid)
-                    Else
-                        elemnt.SendKeys(i)
-                    End If
+                    Select Case kdfid
+                        Case ""
+                    End Select
 
                 Catch
                 End Try
-                i += 1
+
             Next
 
 

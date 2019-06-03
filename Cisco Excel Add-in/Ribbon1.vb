@@ -10,4 +10,9 @@ Public Class Ribbon1
         Dim frm As New BrowserController("Login")
         frm.Show()
     End Sub
+
+    Private Sub NewDeal_Click(sender As Object, e As RibbonControlEventArgs) Handles NewDeal.Click
+        Dim frm As New BrowserController("NewDeal")
+        frm.Show()
+    End Sub
 End Class
