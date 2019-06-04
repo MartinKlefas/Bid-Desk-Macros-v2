@@ -165,50 +165,51 @@ WaitForSubmit:
 
     Private Sub ND_PageThree(Browser As ChromeDriver)
 WaitForSubmit:
-        Dim elements As New Collections.ObjectModel.ReadOnlyCollection(Of OpenQA.Selenium.IWebElement)
+
         Try
             Threading.Thread.Sleep(20)
-            elements = Browser.FindElementsByClassName("incentive-child")
+            Dim elements = Browser.FindElementsByClassName("incentive-child")
+
+
+
+            If elements.Count < 1 Then GoTo waitforsubmit
+
+            Dim kdfid As String
+            For Each elemnt In elements
+
+                For Each tChild In elemnt.FindElements(OpenQA.Selenium.By.TagName("label"))
+                    If tChild.GetAttribute("for") = "check-BR - PSPP - 160729 - 31128" Then
+                        Try
+                            tChild.Click()
+                            Exit For
+                        Catch
+                        End Try
+                    End If
+                Next
+            Next
+
+
+            elements = Browser.FindElementsByClassName("btn")
+
+            For Each elemnt In elements
+                Try
+                    kdfid = elemnt.GetAttribute("kdfid")
+                Catch ex As Exception
+                    kdfid = ""
+                End Try
+                Try
+                    Select Case kdfid
+                        Case "saveAndContinueGDRAction"
+                            elemnt.Click()
+                            Exit For
+                        Case Else
+                    End Select
+                Catch
+                End Try
+
+            Next
         Catch
         End Try
-
-
-        If elements.Count < 1 Then GoTo waitforsubmit
-
-        Dim kdfid As String
-        For Each elemnt In elements
-
-            For Each tChild In elemnt.FindElements(OpenQA.Selenium.By.TagName("label"))
-                If tChild.GetAttribute("for") = "check-BR - PSPP - 160729 - 31128" Then
-                    Try
-                        tChild.Click()
-                        Exit For
-                    Catch
-                    End Try
-                End If
-            Next
-        Next
-
-
-        elements = Browser.FindElementsByClassName("btn")
-
-        For Each elemnt In elements
-            Try
-                kdfid = elemnt.GetAttribute("kdfid")
-            Catch ex As Exception
-                kdfid = ""
-            End Try
-            Try
-                Select Case kdfid
-                    Case "saveAndContinueGDRAction"
-                        elemnt.Click()
-                        Exit For
-                    Case Else
-                End Select
-            Catch
-            End Try
-
-        Next
 
     End Sub
 

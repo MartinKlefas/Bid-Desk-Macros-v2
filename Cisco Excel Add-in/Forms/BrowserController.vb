@@ -42,6 +42,7 @@ Public Class BrowserController
 
             ND_PageThree(browser)
 
+            ND_PageFour(browser)
         End If
     End Sub
 
