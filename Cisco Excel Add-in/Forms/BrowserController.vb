@@ -49,9 +49,83 @@ Public Class BrowserController
                 End Try
                 Try
                     Select Case kdfid
+                        Case "dealName"
+                            elemnt.SendKeys("Test Deal / Martin Klefas / IMA")
+                        Case "customerContactFirstName"
+                            elemnt.SendKeys("customer firstname")
+                        Case "customerContactLastName"
+                            elemnt.SendKeys("customer lastname")
+                        Case "customerContactJobTitle"
+                            elemnt.SendKeys("Job Title")
+                        Case "customerContactPhoneNumber"
+                            elemnt.SendKeys("Phone Number")
+                        Case "customerContactEmailAddress"
+                            elemnt.SendKeys("Email Address")
+                        Case "customerContactCompanyUrl"
+                            elemnt.SendKeys("WebSite")
+                        Case "selectedCAMId"
+                            elemnt.SendKeys("mc")
                         Case ""
                     End Select
 
+                Catch
+                End Try
+
+            Next
+
+            browser.FindElementByPartialLinkText("Partner ").Click()
+            elements = browser.FindElementsByClassName("check")
+            For Each elemnt In elements
+                For Each tChild In elemnt.FindElements(OpenQA.Selenium.By.TagName("label"))
+                    If tChild.GetAttribute("for") = "bUseContactDetails" Then
+                        tChild.Click()
+                    End If
+                Next
+
+            Next
+            browser.FindElementByName("camId").SendKeys("MC")
+
+
+
+
+            browser.FindElementByPartialLinkText("Faster Search").Click()
+
+            elements = browser.FindElementsByClassName("form-control")
+
+            For Each elemnt In elements
+                Try
+                    kdfid = elemnt.GetAttribute("kdfid")
+                Catch ex As Exception
+                    kdfid = ""
+                End Try
+                Try
+                    Select Case kdfid
+                        Case "addEC"
+                            elemnt.SendKeys("test customer")
+                            Exit For
+                    End Select
+                Catch
+                End Try
+
+            Next
+
+            MsgBox("Please select your customer from the list, and click OK once you've clicked ""Use Selected Address""")
+
+            elements = browser.FindElementsByClassName("btn")
+
+            For Each elemnt In elements
+                Try
+                    kdfid = elemnt.GetAttribute("kdfid")
+                Catch ex As Exception
+                    kdfid = ""
+                End Try
+                Try
+                    Select Case kdfid
+                        Case "createDealBtn"
+                            elemnt.Click()
+                            Exit For
+                        Case Else
+                    End Select
                 Catch
                 End Try
 
