@@ -38,8 +38,9 @@ Public Class BrowserController
 
             ND_PageOne(browser)
 
+            ND_PageTwo(browser)
 
-
+            ND_PageThree(browser)
 
         End If
     End Sub
@@ -61,102 +62,9 @@ Public Class BrowserController
         WithBrowser.FindElementByName("login-button").Click()
     End Sub
 
-    Private Sub ND_PageOne(Browser As ChromeDriver)
-        Browser.Navigate.GoToUrl("https://apps.cisco.com/ICW/PDR/deal#/createdeal")
-
-
-        Dim elements = Browser.FindElementsByClassName("form-control")
-        Dim kdfid As String
-        For Each elemnt In elements
-            Try
-                kdfid = elemnt.GetAttribute("kdfid")
-            Catch ex As Exception
-                kdfid = ""
-            End Try
-            Try
-                Select Case kdfid
-                    Case "dealName"
-                        elemnt.SendKeys("Test Deal / Martin Klefas / IMA")
-                    Case "customerContactFirstName"
-                        elemnt.SendKeys("customer firstname")
-                    Case "customerContactLastName"
-                        elemnt.SendKeys("customer lastname")
-                    Case "customerContactJobTitle"
-                        elemnt.SendKeys("Job Title")
-                    Case "customerContactPhoneNumber"
-                        elemnt.SendKeys("Phone Number")
-                    Case "customerContactEmailAddress"
-                        elemnt.SendKeys("Email Address")
-                    Case "customerContactCompanyUrl"
-                        elemnt.SendKeys("WebSite")
-                    Case "selectedCAMId"
-                        elemnt.SendKeys("mc")
-                    Case ""
-                End Select
-
-            Catch
-            End Try
-
-        Next
-
-        Browser.FindElementByPartialLinkText("Partner ").Click()
-        elements = Browser.FindElementsByClassName("check")
-        For Each elemnt In elements
-            For Each tChild In elemnt.FindElements(OpenQA.Selenium.By.TagName("label"))
-                If tChild.GetAttribute("for") = "bUseContactDetails" Then
-                    tChild.Click()
-                End If
-            Next
-
-        Next
-        Browser.FindElementByName("camId").SendKeys("MC")
 
 
 
-
-        Browser.FindElementByPartialLinkText("Faster Search").Click()
-
-        elements = Browser.FindElementsByClassName("form-control")
-
-        For Each elemnt In elements
-            Try
-                kdfid = elemnt.GetAttribute("kdfid")
-            Catch ex As Exception
-                kdfid = ""
-            End Try
-            Try
-                Select Case kdfid
-                    Case "addEC"
-                        elemnt.SendKeys("test customer")
-                        Exit For
-                End Select
-            Catch
-            End Try
-
-        Next
-
-        MsgBox("Please select your customer from the list, and click OK once you've clicked ""Use Selected Address""")
-
-        elements = Browser.FindElementsByClassName("btn")
-
-        For Each elemnt In elements
-            Try
-                kdfid = elemnt.GetAttribute("kdfid")
-            Catch ex As Exception
-                kdfid = ""
-            End Try
-            Try
-                Select Case kdfid
-                    Case "createDealBtn"
-                        elemnt.Click()
-                        Exit For
-                    Case Else
-                End Select
-            Catch
-            End Try
-
-        Next
-    End Sub
     Private Sub CloseMe()
 
         ' InvokeRequired required compares the thread ID of the'
