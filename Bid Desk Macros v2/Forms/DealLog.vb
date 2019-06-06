@@ -4,6 +4,7 @@ Imports String_Extensions
 
 Public Class AddDeal
     Private ReadOnly mail As MailItem
+    Private myContinue As Boolean
 
     Public Sub New(mail As MailItem)
         InitializeComponent()
@@ -16,6 +17,7 @@ Public Class AddDeal
 
         DisableButtons()
 
+        myContinue = True
         BackgroundWorker1.RunWorkerAsync()
     End Sub
 
@@ -70,7 +72,7 @@ Public Class AddDeal
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles tCancelButton.Click
-        Me.Hide()
+        Me.Close()
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
@@ -127,10 +129,20 @@ Public Class AddDeal
 
         Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
+        If Not myContinue Then
+            Call ExitEarly()
+            Exit Sub
+        End If
+
         UpdateTitle("Creating Ticket...")
 
         Dim newNDT As Integer
         newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(tCreateDealRecord, ReplyMail))
+
+        If Not myContinue Then
+            Call ExitEarly()
+            Exit Sub
+        End If
 
         If newNDT = 0 Or newNDT = 404 Then ' retry on first fail
             newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(tCreateDealRecord, ReplyMail))
@@ -140,6 +152,11 @@ Public Class AddDeal
 
             tCreateDealRecord.Add("NDT", newNDT)
             ndt.Move("Public Sector")
+
+            If Not myContinue Then
+                Call ExitEarly()
+                Exit Sub
+            End If
 
             Dim aliases As String = ""
             'add people to notify
@@ -154,11 +171,20 @@ Public Class AddDeal
             UpdateTitle("Adding Notify...")
 
             ndt.AddToNotify(aliases)
+            If Not myContinue Then
+                Call ExitEarly()
+                Exit Sub
+            End If
 
             UpdateTitle("Attaching Info...")
 
             'update ticket with bid number & original email
             ndt.AttachMail(Mail, "Deal ID  " & tCreateDealRecord("DealID") & "was submitted to " & tCreateDealRecord("Vendor") & " based on the information in the attached email")
+
+            If Not myContinue Then
+                Call ExitEarly()
+                Exit Sub
+            End If
 
             tCreateDealRecord.Remove("AMEmailAddress")
         End If
@@ -190,7 +216,7 @@ Public Class AddDeal
     Sub DisableButtons()
 
         OKButton.Enabled = False
-        tCancelButton.Enabled = False
+        tCancelButton.Text = "Cancel Logging"
         CustomerName.Enabled = False
         HPIOption.Enabled = False
         HPEOption.Enabled = False
@@ -202,6 +228,13 @@ Public Class AddDeal
 
 
     End Sub
+
+    Private Sub ExitEarly()
+
+        CloseMe()
+        MsgBox("Process terminated before completion")
+    End Sub
+
 
     Private Sub CloseMe()
 
@@ -233,4 +266,10 @@ Public Class AddDeal
         End If
     End Sub
     Delegate Sub UpdateTitleCallback(ByVal [NewTitle] As String)
+
+
+
+    Private Sub AddDeal_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+        myContinue = False
+    End Sub
 End Class
