@@ -72,7 +72,7 @@ Public Class AddDeal
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles tCancelButton.Click
-        Me.Close()
+        CloseMe()
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
