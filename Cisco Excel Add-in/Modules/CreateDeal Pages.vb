@@ -47,7 +47,13 @@ Partial Class BrowserController
 
         Browser.FindElementByPartialLinkText("Faster Search").Click()
 
-        Threading.Thread.Sleep(150) ' wait for the box to pop-up
+WaitForEndUserBox:
+        Try
+            Threading.Thread.Sleep(20)
+            Dim testElem = Browser.FindElementByClassName("end-customer-panel")
+        Catch
+            GoTo WaitForEndUserBox
+        End Try
 
         elements = Browser.FindElementsByClassName("form-control")
 
@@ -60,7 +66,7 @@ Partial Class BrowserController
             Try
                 Select Case kdfid
                     Case "addEC"
-                        elemnt.SendKeys("test customer")
+                        elemnt.SendKeys("test customer") ' replace with customer name
                         Exit For
                 End Select
             Catch

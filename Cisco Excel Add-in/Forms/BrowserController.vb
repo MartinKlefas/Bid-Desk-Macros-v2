@@ -12,28 +12,26 @@ Public Class BrowserController
 
     Private Sub BrowserController_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UpdateLabel("Getting Everything Ready...")
+        Me.TopMost = True
         BackgroundWorker1.RunWorkerAsync()
 
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        If Mode = "Login" Then
+
+        Dim browser As ChromeDriver = Nothing
+
+        If Mode = "Login" Or Mode = "NewDeal" Then
             UpdateLabel(LabelMessages("Login"))
             Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
 
-            Dim browser As ChromeDriver = ndt.GiveMeChrome(True, True)
+            browser = ndt.GiveMeChrome(True, True)
 
             DoLogin(browser)
         End If
 
+
         If Mode = "NewDeal" Then
-            UpdateLabel(LabelMessages("Login"))
-            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
-
-            Dim browser As ChromeDriver = ndt.GiveMeChrome(True, True)
-
-            DoLogin(browser)
-
             UpdateLabel(LabelMessages("NewDeal1"))
 
             ND_PageOne(browser)
