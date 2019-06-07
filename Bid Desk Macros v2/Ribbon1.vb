@@ -125,14 +125,8 @@ Public Class Ribbon1
         Call Globals.ThisAddIn.CloneLater()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs) Handles Button1.Click
-        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
-
-        For Each item In Selection
-            If TypeName(item) = "MailItem" Then
-                Dim msg As Outlook.MailItem = item
-                MsgBox(Globals.ThisAddIn.ReadDate(msg))
-            End If
-        Next
+    Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs) Handles btnChangeAM.Click
+        Dim frmNewAm As New ChangeAM
+        frmNewAm.Show()
     End Sub
 End Class

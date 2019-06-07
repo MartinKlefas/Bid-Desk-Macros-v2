@@ -43,6 +43,9 @@
     Private Sub InitializeComponent()
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
+        Me.Group3 = Me.Factory.CreateRibbonGroup
+        Me.Group2 = Me.Factory.CreateRibbonGroup
+        Me.btnChangeAM = Me.Factory.CreateRibbonButton
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
@@ -54,14 +57,11 @@
         Me.WonBtn = Me.Factory.CreateRibbonButton
         Me.DeadBtn = Me.Factory.CreateRibbonButton
         Me.BtnLater = Me.Factory.CreateRibbonButton
-        Me.Group3 = Me.Factory.CreateRibbonGroup
         Me.btnOnOff = Me.Factory.CreateRibbonButton
-        Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.ImprtLots = Me.Factory.CreateRibbonButton
         Me.addOPG = Me.Factory.CreateRibbonButton
         Me.btnLookup = Me.Factory.CreateRibbonButton
-        Me.Button1 = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.Group3.SuspendLayout()
@@ -91,6 +91,29 @@
         Me.Group1.Items.Add(Me.BtnLater)
         Me.Group1.Label = "Processing Actions"
         Me.Group1.Name = "Group1"
+        '
+        'Group3
+        '
+        Me.Group3.Items.Add(Me.btnOnOff)
+        Me.Group3.Label = "Automation"
+        Me.Group3.Name = "Group3"
+        '
+        'Group2
+        '
+        Me.Group2.Items.Add(Me.BtnAddtoDB)
+        Me.Group2.Items.Add(Me.ImprtLots)
+        Me.Group2.Items.Add(Me.addOPG)
+        Me.Group2.Items.Add(Me.btnLookup)
+        Me.Group2.Items.Add(Me.btnChangeAM)
+        Me.Group2.Label = "Database Actions"
+        Me.Group2.Name = "Group2"
+        '
+        'btnChangeAM
+        '
+        Me.btnChangeAM.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.shift_change_pngrepo_com
+        Me.btnChangeAM.Label = "Replace AM"
+        Me.btnChangeAM.Name = "btnChangeAM"
+        Me.btnChangeAM.ShowImage = True
         '
         'btnAutoAll
         '
@@ -180,12 +203,6 @@
         Me.BtnLater.Name = "BtnLater"
         Me.BtnLater.ShowImage = True
         '
-        'Group3
-        '
-        Me.Group3.Items.Add(Me.btnOnOff)
-        Me.Group3.Label = "Automation"
-        Me.Group3.Name = "Group3"
-        '
         'btnOnOff
         '
         Me.btnOnOff.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -193,16 +210,6 @@
         Me.btnOnOff.Label = "Automation Off"
         Me.btnOnOff.Name = "btnOnOff"
         Me.btnOnOff.ShowImage = True
-        '
-        'Group2
-        '
-        Me.Group2.Items.Add(Me.BtnAddtoDB)
-        Me.Group2.Items.Add(Me.ImprtLots)
-        Me.Group2.Items.Add(Me.addOPG)
-        Me.Group2.Items.Add(Me.btnLookup)
-        Me.Group2.Items.Add(Me.Button1)
-        Me.Group2.Label = "Database Actions"
-        Me.Group2.Name = "Group2"
         '
         'BtnAddtoDB
         '
@@ -233,11 +240,6 @@
         Me.btnLookup.Label = "Lookup Deal"
         Me.btnLookup.Name = "btnLookup"
         Me.btnLookup.ShowImage = True
-        '
-        'Button1
-        '
-        Me.Button1.Label = "Button1"
-        Me.Button1.Name = "Button1"
         '
         'Ribbon1
         '
@@ -276,7 +278,7 @@
     Friend WithEvents addOPG As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents btnLookup As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents BtnLater As Microsoft.Office.Tools.Ribbon.RibbonButton
-    Friend WithEvents Button1 As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents btnChangeAM As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

@@ -117,6 +117,10 @@ Partial Class ThisAddIn
         Return sqlInterface.Update_Data("OPGID = '" & OPG & "'", "DealID = '" & DealID & "'")
     End Function
 
+    Public Function ChangeAM(OldAM As String, NewAM As String) As Integer
+        Return sqlInterface.Update_Data("AM = '" & OldAM & "'", "AM = '" & NewAM & "'")
+    End Function
+
     Public Function GetSubmitTime(DealID As String, Optional SuppressWarnings As Boolean = True) As Date
         Try
             Return sqlInterface.SelectData_Date("Date", "DealID = '" & DealID & "'")

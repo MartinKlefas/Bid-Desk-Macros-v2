@@ -194,6 +194,12 @@
     <Compile Include="Forms\BulkImport.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\ChangeAM.Designer.vb">
+      <DependentUpon>ChangeAM.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ChangeAM.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\CloneLater.Designer.vb">
       <DependentUpon>CloneLater.vb</DependentUpon>
     </Compile>
@@ -272,6 +278,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\BulkImport.resx">
       <DependentUpon>BulkImport.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChangeAM.resx">
+      <DependentUpon>ChangeAM.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CloneLater.resx">
       <DependentUpon>CloneLater.vb</DependentUpon>
@@ -378,6 +387,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\kissclipart-calendar-icon-orange-png-clipart-computer-icons-133adbff6cfb7003.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shift-change-pngrepo-com.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
