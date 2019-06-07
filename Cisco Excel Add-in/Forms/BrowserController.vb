@@ -33,13 +33,15 @@ Public Class BrowserController
 
         If Mode = "NewDeal" Then
             UpdateLabel(LabelMessages("NewDeal1"))
-
             ND_PageOne(browser)
 
+            UpdateLabel(LabelMessages("NewDeal2"))
             ND_PageTwo(browser)
 
+            UpdateLabel(LabelMessages("NewDeal3"))
             ND_PageThree(browser)
 
+            UpdateLabel(LabelMessages("NewDeal4"))
             ND_PageFour(browser)
         End If
     End Sub

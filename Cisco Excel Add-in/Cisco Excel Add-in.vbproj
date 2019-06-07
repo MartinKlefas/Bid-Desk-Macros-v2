@@ -186,6 +186,7 @@
   -->
   <ItemGroup>
     <AppDesigner Include="My Project\" />
+    <Compile Include="CiscoDiscounts.vb" />
     <Compile Include="Forms\BrowserController.Designer.vb">
       <DependentUpon>BrowserController.vb</DependentUpon>
     </Compile>
