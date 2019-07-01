@@ -1,6 +1,6 @@
 ﻿Public Class CiscoDiscounts
 
-    Private AllDiscounts As New Dictionary(Of String, String) From { 'Friendly name, KDFID'
+    Private ReadOnly AllDiscounts As New Dictionary(Of String, String) From { 'Friendly name, KDFID'
         {"Hunting", "check-BR-OIPU-150725-10481"},
         {"Teaming", "check-BR-Team-150725-10662"},
         {"Migration", "check-BR-MIPE-180910-02363"},

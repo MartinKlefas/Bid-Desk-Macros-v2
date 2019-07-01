@@ -38,8 +38,8 @@
     Function FindVendor(ClipBoardText As String) As String
         FindVendor = ""
 
-        
-        If InStr(1, ClipBoardText, "E00") > 0 Then
+
+        If InStr(1, ClipBoardText, "E00") > 0 Or InStr(1, ClipBoardText, "NQ0") > 0 Then
             FindVendor = "HPE"
         End If
         If InStr(1, ClipBoardText, "P00") > 0 Then

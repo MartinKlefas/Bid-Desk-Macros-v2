@@ -179,7 +179,7 @@ Public Class AddDeal
             UpdateTitle("Attaching Info...")
 
             'update ticket with bid number & original email
-            ndt.AttachMail(Mail, "Deal ID  " & tCreateDealRecord("DealID") & "was submitted to " & tCreateDealRecord("Vendor") & " based on the information in the attached email")
+            ndt.AttachMail(mail, "Deal ID  " & tCreateDealRecord("DealID") & " was submitted to " & tCreateDealRecord("Vendor") & " based on the information in the attached email")
 
             If Not myContinue Then
                 Call ExitEarly()

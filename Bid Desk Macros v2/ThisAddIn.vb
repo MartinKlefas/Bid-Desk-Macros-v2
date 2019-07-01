@@ -289,4 +289,6 @@ Public Class ThisAddIn
             'Debug.WriteLine("New Mail - Ignoring")
         End If
     End Sub
+
+
 End Class
