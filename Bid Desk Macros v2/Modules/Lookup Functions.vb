@@ -131,6 +131,12 @@ Partial Class ThisAddIn
         Return sqlInterface.Update_Data("OPGID = '" & OPG & "'", "DealID = '" & DealID & "'")
     End Function
 
+    Public Function AddQuoteReceived(DealID As String) As Boolean
+        Dim currentRecieved As Integer
+        currentRecieved = QuotesReceived(DealID)
+        Return sqlInterface.Update_Data("QuotesReceived = " & currentRecieved + 1, "DealID = '" & DealID & "'") = 1
+    End Function
+
     Public Function ChangeAM(OldAM As String, NewAM As String) As Integer
         Return sqlInterface.Update_Data("AM = '" & OldAM & "'", "AM = '" & NewAM & "'")
     End Function

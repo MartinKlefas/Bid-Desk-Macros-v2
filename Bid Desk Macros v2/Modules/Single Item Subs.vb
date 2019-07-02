@@ -138,16 +138,23 @@
         Dim browser As OpenQA.Selenium.Chrome.ChromeDriver = ndt.GiveMeChrome(False)
 
         If ndt.TicketNumber <> 0 AndAlso Not ndt.IsClosed(browser) Then
+
+            If messageBodyAddition <> drDecision Then
+                If Not AddQuoteReceived(DealID) Then ShoutError("Error adding to the number of quotes received", SuppressWarnings)
+            End If
+
             ndt.AttachMail(msg, messageBodyAddition, browser)
-        End If
 
-        If CompleteAutonomy Then
-            If messageBodyAddition = drDecision Or QuotesReceived(DealID) > 2 Then
 
+            If CompleteAutonomy Then
+                If messageBodyAddition = drDecision OrElse QuotesReceived(DealID) > 2 Then
+
+                    ndt.CloseTicket(browser:=browser)
+                End If
+            ElseIf Not CompleteAutonomy AndAlso MsgBox("Would you like to close the ticket", vbYesNo) = vbYes Then
                 ndt.CloseTicket(browser:=browser)
             End If
-        ElseIf Not CompleteAutonomy AndAlso MsgBox("Would you like to close the ticket", vbYesNo) = vbYes Then
-                ndt.CloseTicket(browser:=browser)
+
         End If
 
         browser.Quit()
