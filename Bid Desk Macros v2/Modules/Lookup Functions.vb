@@ -22,6 +22,20 @@ Partial Class ThisAddIn
         End Try
     End Function
 
+    Public Function QuotesReceived(dealID As String,
+                                    Optional SuppressWarnings As Boolean = True) As Integer
+        Try
+            Return sqlInterface.SelectData("QuotesReceived", "DealID = '" & dealID & "'")
+
+        Catch
+            ShoutError("there was an error there was an error looking up the Number of quotes received", SuppressWarnings)
+
+            Return 0
+        End Try
+
+    End Function
+
+
     Public Function GetCustomerbyDeal(dealID As String,
                                     Optional SuppressWarnings As Boolean = False) As String
 

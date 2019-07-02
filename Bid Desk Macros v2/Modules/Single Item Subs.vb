@@ -141,8 +141,13 @@
             ndt.AttachMail(msg, messageBodyAddition, browser)
         End If
 
-        If Not CompleteAutonomy AndAlso MsgBox("Would you like to close the ticket", vbYesNo) = vbYes Then
-            ndt.CloseTicket(browser:=browser)
+        If CompleteAutonomy Then
+            If messageBodyAddition = drDecision Or QuotesReceived(DealID) > 2 Then
+
+                ndt.CloseTicket(browser:=browser)
+            End If
+        ElseIf Not CompleteAutonomy AndAlso MsgBox("Would you like to close the ticket", vbYesNo) = vbYes Then
+                ndt.CloseTicket(browser:=browser)
         End If
 
         browser.Quit()

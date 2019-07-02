@@ -1,4 +1,5 @@
-﻿Module ClipBoard_Reader
+﻿Imports String_Extensions
+Module ClipBoard_Reader
     Public Function FindDealID(ClipBoardText As String) As String
         Dim strArry As String()
         FindDealID = ""
@@ -32,7 +33,7 @@
             End Try
         End If
 
-
+        FindDealID = TrimExtended(FindDealID)
     End Function
 
     Function FindVendor(ClipBoardText As String) As String
@@ -92,6 +93,8 @@
                 FindCustomer = ""
             End Try
         End If
+
+        FindCustomer = TrimExtended(FindCustomer)
 
     End Function
 End Module
