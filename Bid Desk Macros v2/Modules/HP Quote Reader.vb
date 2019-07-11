@@ -73,36 +73,43 @@ Module HP_Quote_Reader
 
         Dim conStr As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & file & ";Extended Properties='Excel 12.0 Xml;HDR=No;'"
         ' HDR=Yes skips first row which contains headers for the columns
-        Dim conn As System.Data.OleDb.OleDbConnection ' Notice: I used a fully qualified name 
-        ' because Microsoft.Office.Interop.Excel contains also a class named OleDbConnection
-        Dim cmd As OleDbCommand
-        Dim dataReader As OleDbDataReader
-        Dim tempStr As String = ""
+        Using conn As System.Data.OleDb.OleDbConnection = New System.Data.OleDb.OleDbConnection(conStr)
 
-        ' Create a new connection object and open it
-        conn = New System.Data.OleDb.OleDbConnection(conStr)
-        conn.Open()
-        ' Create command text with SQL-style syntax
-        ' Notice: First sheet is named Sheet1. In the command, sheet's name is followed with dollar sign!
-        cmd = New OleDbCommand("select * from [" & sheet & "$]", conn)
-        ' Get data from Excel's sheet to OleDb datareader object
-        dataReader = cmd.ExecuteReader()
-        Dim curRow As Integer = 0
-        ' Read rows until an empty row is found
-        While (dataReader.Read())
-            ' Index of column B is 0 because it is range's first column
-            tempStr = dataReader.GetValue(column).ToString()
-            If curRow = row Then Exit While
-            curRow += 1
-        End While
+            ' Notice: I used a fully qualified name 
+            ' because Microsoft.Office.Interop.Excel contains also a class named OleDbConnection
 
-        conn.Close()
-        dataReader.Close()
+            conn.Open()
+            Using cmd As OleDbCommand = New OleDbCommand("select * from [" & sheet & "$]", conn)
 
-        If curRow = row Then
-            Return tempStr
-        Else
-            Return ""
-        End If
+                Using dataReader As OleDbDataReader = cmd.ExecuteReader()
+                    Dim tempStr As String = ""
+
+                    ' Create a new connection object and open it
+
+
+                    ' Create command text with SQL-style syntax
+                    ' Notice: First sheet is named Sheet1. In the command, sheet's name is followed with dollar sign!
+
+                    ' Get data from Excel's sheet to OleDb datareader object
+
+                    Dim curRow As Integer = 0
+                    ' Read rows until an empty row is found
+                    While (dataReader.Read())
+                        ' Index of column B is 0 because it is range's first column
+                        tempStr = dataReader.GetValue(column).ToString()
+                        If curRow = row Then Exit While
+                        curRow += 1
+                    End While
+
+
+
+                    If curRow = row Then
+                        Return tempStr
+                    Else
+                        Return ""
+                    End If
+                End Using
+            End Using
+        End Using
     End Function
 End Module
