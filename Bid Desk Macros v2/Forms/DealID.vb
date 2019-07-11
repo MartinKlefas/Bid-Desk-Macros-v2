@@ -37,6 +37,9 @@ Public Class DealIdent
             Select Case Mode
                 Case "Move"
                     Call Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
+                Case "MoveAttach"
+                    Call Globals.ThisAddIn.DoOneAttach(tMsg, tDealID)
+                    Call Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
                 Case "FwdHP"
                     Call Globals.ThisAddIn.DoOneDistiReminder(tDealID, tMsg)
                     Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, HPPublishMessage)

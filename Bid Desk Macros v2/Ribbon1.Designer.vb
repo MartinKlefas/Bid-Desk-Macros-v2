@@ -45,10 +45,10 @@
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.Group3 = Me.Factory.CreateRibbonGroup
         Me.Group2 = Me.Factory.CreateRibbonGroup
-        Me.btnChangeAM = Me.Factory.CreateRibbonButton
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
+        Me.MvAttach = Me.Factory.CreateRibbonButton
         Me.FwdPrice = Me.Factory.CreateRibbonButton
         Me.HPFwd = Me.Factory.CreateRibbonButton
         Me.FwdDecision = Me.Factory.CreateRibbonButton
@@ -62,6 +62,7 @@
         Me.ImprtLots = Me.Factory.CreateRibbonButton
         Me.addOPG = Me.Factory.CreateRibbonButton
         Me.btnLookup = Me.Factory.CreateRibbonButton
+        Me.btnChangeAM = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.Group3.SuspendLayout()
@@ -81,6 +82,7 @@
         Me.Group1.Items.Add(Me.btnAutoAll)
         Me.Group1.Items.Add(Me.ReplyToBidBtn)
         Me.Group1.Items.Add(Me.MoveBtn)
+        Me.Group1.Items.Add(Me.MvAttach)
         Me.Group1.Items.Add(Me.FwdPrice)
         Me.Group1.Items.Add(Me.HPFwd)
         Me.Group1.Items.Add(Me.FwdDecision)
@@ -108,13 +110,6 @@
         Me.Group2.Label = "Database Actions"
         Me.Group2.Name = "Group2"
         '
-        'btnChangeAM
-        '
-        Me.btnChangeAM.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.shift_change_pngrepo_com
-        Me.btnChangeAM.Label = "Replace AM"
-        Me.btnChangeAM.Name = "btnChangeAM"
-        Me.btnChangeAM.ShowImage = True
-        '
         'btnAutoAll
         '
         Me.btnAutoAll.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -138,6 +133,14 @@
         Me.MoveBtn.Label = "Move by Deal ID"
         Me.MoveBtn.Name = "MoveBtn"
         Me.MoveBtn.ShowImage = True
+        '
+        'MvAttach
+        '
+        Me.MvAttach.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.MvAttach.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.output_onlinepngtools
+        Me.MvAttach.Label = "Move && Attach"
+        Me.MvAttach.Name = "MvAttach"
+        Me.MvAttach.ShowImage = True
         '
         'FwdPrice
         '
@@ -241,6 +244,13 @@
         Me.btnLookup.Name = "btnLookup"
         Me.btnLookup.ShowImage = True
         '
+        'btnChangeAM
+        '
+        Me.btnChangeAM.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.shift_change_pngrepo_com
+        Me.btnChangeAM.Label = "Replace AM"
+        Me.btnChangeAM.Name = "btnChangeAM"
+        Me.btnChangeAM.ShowImage = True
+        '
         'Ribbon1
         '
         Me.Name = "Ribbon1"
@@ -279,6 +289,7 @@
     Friend WithEvents btnLookup As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents BtnLater As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents btnChangeAM As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents MvAttach As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

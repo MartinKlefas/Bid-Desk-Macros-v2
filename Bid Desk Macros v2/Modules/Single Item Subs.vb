@@ -116,6 +116,8 @@
             .CC = GetCCbyDeal(DealID)
             If GetVendor(DealID, True) = "Dell" Then
                 .CC = .CC & "; mike.parker@insight.com; rajesh.pindoria@insight.com"
+            ElseIf GetVendor(DealID, True) = "HPE" Then
+                .CC = .CC & "; Simon.Hill@insight.com; Hussam.Haq@insight.com"
             End If
             .HTMLBody = myGreeting & messageBodyAddition & "<br>" & GetFact(DealID) & drloglink & .HTMLBody
             Try
@@ -305,5 +307,17 @@
 
         MoveToFolder(AM, msg)
     End Sub
+    Sub DoOneAttach(msg As Outlook.MailItem, DealID As String)
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
+        Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
+        Try
+            ndt.TicketNumber = CInt(tmpTicketNumber)
+        Catch
+            ndt.TicketNumber = 0
+        End Try
+
+
+        ndt.AttachMail(msg, "")
+    End Sub
 End Class

@@ -129,4 +129,8 @@ Public Class Ribbon1
         Dim frmNewAm As New ChangeAM
         frmNewAm.Show()
     End Sub
+
+    Private Sub MvAttach_Click(sender As Object, e As RibbonControlEventArgs) Handles MvAttach.Click
+        Globals.ThisAddIn.MoveBasedOnDealID(attach:=True)
+    End Sub
 End Class

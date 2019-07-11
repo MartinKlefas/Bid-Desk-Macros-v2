@@ -261,6 +261,7 @@ Public Class ClsDatabase
 
         Try
             Add_Data = cmd.ExecuteNonQuery
+            cmd.Dispose()
         Catch
             Add_Data = 0
             Debug.WriteLine("Error in adding lines to the database")
@@ -271,8 +272,8 @@ Public Class ClsDatabase
                                Optional table As String = ThisAddIn.defaultTable) As Integer
         Try
             Dim cmd As New SqlCommand With {
-           .Connection = conn
-        }
+                .Connection = conn
+            }
 
             cmd.CommandText = "UPDATE " & table & " SET " & what
 
@@ -281,9 +282,10 @@ Public Class ClsDatabase
             End If
 
             Update_Data = cmd.ExecuteNonQuery
-        Catch
+            cmd.Dispose()
+        Catch ex As Exception
             Update_Data = 0
-            Debug.WriteLine("SQL Error updating data")
+            Debug.WriteLine("SQL Error updating data:" & vbCrLf & ex.Message)
         End Try
     End Function
 

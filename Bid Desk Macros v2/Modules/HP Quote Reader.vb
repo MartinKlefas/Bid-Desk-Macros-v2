@@ -97,6 +97,7 @@ Module HP_Quote_Reader
         End While
 
         conn.Close()
+        dataReader.Close()
 
         If curRow = row Then
             Return tempStr
