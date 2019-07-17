@@ -47,8 +47,11 @@
                             End If
                         Next
 
-                        'attach the notification with an explanation
-                        ndt.AttachMail(msg, "This is the vendor's original expiration notification")
+                        Try
+                            'attach the notification with an explanation
+                            ndt.AttachMail(msg, "This is the vendor's original expiration notification")
+                        Catch
+                        End Try
 
                         'Ask the CC List what to do.
                         ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
@@ -57,7 +60,10 @@
                     AddNewTicketToDeal(DealID, TicketNum)
                 Else
                     ndt.TicketNumber = GetOpenTicket(DealID)
-                    ndt.AttachMail(msg, "This is the vendor's original expiration notification")
+                    Try
+                        ndt.AttachMail(msg, "This is the vendor's original expiration notification")
+                    Catch
+                    End Try
 
                     'Ask the CC List what to do.
                     ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
@@ -144,9 +150,10 @@
             If messageBodyAddition <> drDecision Then
                 If Not AddQuoteReceived(DealID) Then ShoutError("Error adding to the number of quotes received", SuppressWarnings)
             End If
-
-            ndt.AttachMail(msg, messageBodyAddition, browser)
-
+            Try
+                ndt.AttachMail(msg, messageBodyAddition, browser)
+            Catch
+            End Try
 
             If CompleteAutonomy Then
                 If messageBodyAddition = drDecision OrElse QuotesReceived(DealID) > 2 Then
@@ -294,8 +301,11 @@
         End Try
 
 
-        ndt.AttachMail(msg, "Request to extend the DR")
-        ndt.CloseTicket("As requested, an extension has been requested on the vendor portal.")
+        Try
+            ndt.AttachMail(msg, "Request to extend the DR")
+            ndt.CloseTicket("As requested, an extension has been requested on the vendor portal.")
+        Catch
+        End Try
 
         myGreeting = WriteGreeting(Now(), AM.Split(" ")(0))
 
@@ -317,7 +327,9 @@
             ndt.TicketNumber = 0
         End Try
 
-
-        ndt.AttachMail(msg, "")
+        Try
+            ndt.AttachMail(msg, "")
+        Catch
+        End Try
     End Sub
 End Class
