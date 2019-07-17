@@ -17,4 +17,6 @@
 
     Public Const CloneLaterMessage As String = "Due to the age of this deal registration, it can no longer be extended. In order for our protection to continue, we must now clone it onto a fresh deal registration.<br> If this cloning takes place before our existing deal registration ends, the new one will be automatically rejected as a duplicate of the old, and so this will be cloned for you on %CLONEDATE%. I have set myself a reminder to perform this clone, and so no further action is required from you.<br><br>"
 
+    Public Const HolidayMessage As String = "<p><span style=""color: #ff0000;""><strong>Please Note:&nbsp;</strong>This email has been sent automatically while I am out of the office. </span>Replying to it will not elicit a response or any action on my return - please follow the instructions in my out of office message to ensure that your request is processed.</p><p>It should be noted that any emails received in reply to this message will be deleted on my return, and no action will be taken. Your email has not been forwarded, and has not been attached to the relevant nextdesk ticket.&nbsp;</p><p>If you need to get hold of me while I am away, your line manager has been left with instructions on how and when doing so is more appropriate than escalating your request through the normal channels.</p>"
+
 End Module

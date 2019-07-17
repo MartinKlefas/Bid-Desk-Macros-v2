@@ -51,7 +51,7 @@ Public Class NewMailForm
                             Case "Pricing"
                                 Globals.ThisAddIn.FwdPricing(msg, CompleteAutonomy:=True)
                             Case "Submission"
-                                Globals.ThisAddIn.MoveBasedOnDealID(True, msg, CompleteAutonomy:=True)
+                                Globals.ThisAddIn.MoveBasedOnDealID(False, msg, CompleteAutonomy:=True)
 
 
                         End Select

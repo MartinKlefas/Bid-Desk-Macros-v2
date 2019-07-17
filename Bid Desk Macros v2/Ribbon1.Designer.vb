@@ -58,6 +58,7 @@
         Me.DeadBtn = Me.Factory.CreateRibbonButton
         Me.BtnLater = Me.Factory.CreateRibbonButton
         Me.btnOnOff = Me.Factory.CreateRibbonButton
+        Me.btnHoliday = Me.Factory.CreateRibbonButton
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.ImprtLots = Me.Factory.CreateRibbonButton
         Me.addOPG = Me.Factory.CreateRibbonButton
@@ -97,6 +98,7 @@
         'Group3
         '
         Me.Group3.Items.Add(Me.btnOnOff)
+        Me.Group3.Items.Add(Me.btnHoliday)
         Me.Group3.Label = "Automation"
         Me.Group3.Name = "Group3"
         '
@@ -214,6 +216,14 @@
         Me.btnOnOff.Name = "btnOnOff"
         Me.btnOnOff.ShowImage = True
         '
+        'btnHoliday
+        '
+        Me.btnHoliday.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnHoliday.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.OfficeWork_Icon
+        Me.btnHoliday.Label = "At Work"
+        Me.btnHoliday.Name = "btnHoliday"
+        Me.btnHoliday.ShowImage = True
+        '
         'BtnAddtoDB
         '
         Me.BtnAddtoDB.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -290,6 +300,7 @@
     Friend WithEvents BtnLater As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents btnChangeAM As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents MvAttach As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents btnHoliday As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

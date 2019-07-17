@@ -69,5 +69,13 @@ Public Module StringExtensions
 
         Return result
     End Function
+
+    Public Function RemoveSpaces(ByVal aString As String) As String
+        aString = ReplaceSpaces(aString)
+        aString = Replace(aString, vbTab, " ")
+        aString = Replace(aString, vbCrLf, " ")
+        aString = Replace(aString, " ", "")
+        Return aString
+    End Function
 End Module
 

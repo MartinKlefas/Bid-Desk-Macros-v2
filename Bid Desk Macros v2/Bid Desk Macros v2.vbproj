@@ -394,6 +394,12 @@
   <ItemGroup>
     <None Include="Resources\output-onlinepngtools.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Vacation Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OfficeWork Icon.png" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

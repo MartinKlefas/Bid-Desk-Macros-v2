@@ -197,7 +197,7 @@ Public Class AddDeal
 
 
             With ReplyMail
-                .HTMLBody = mygreeting & Globals.ThisAddIn.WriteSubmitMessage(tCreateDealRecord) & .HTMLBody
+                .HTMLBody = mygreeting & Globals.ThisAddIn.WriteSubmitMessage(tCreateDealRecord) & Ribbon1.WriteHolidayMessage() & .HTMLBody
                 .Subject = .Subject & " - " & tCreateDealRecord("DealID")
                 .Display() ' or .Send
             End With

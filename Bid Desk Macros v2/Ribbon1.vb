@@ -4,10 +4,20 @@ Imports String_Extensions
 
 Public Class Ribbon1
     Public AutoInbound As Boolean
+    Public OnHoliday As Boolean
 
     Private Sub Ribbon1_Load(ByVal sender As System.Object, ByVal e As RibbonUIEventArgs) Handles MyBase.Load
         AutoInbound = False
+        OnHoliday = False
     End Sub
+
+    Public Shared Function WriteHolidayMessage() As String
+        If OnHoliday Then
+            Return HolidayMessage
+        Else
+            Return ""
+        End If
+    End Function
 
     Public Sub DisableRibbon()
         For Each control In Me.Group1.Items
@@ -110,6 +120,19 @@ Public Class Ribbon1
         End If
     End Sub
 
+    Private Sub BtnHoliday_Click(sender As Object, e As RibbonControlEventArgs) Handles btnHoliday.Click
+        If OnHoliday Then
+            OnHoliday = False
+            btnHoliday.Image = My.Resources.OfficeWork_Icon
+            btnHoliday.Label = "At Work"
+        Else
+            OnHoliday = True
+            btnHoliday.Label = "On Holiday"
+            btnHoliday.Image = My.Resources.Vacation_Icon
+        End If
+    End Sub
+
+
     Private Sub AddOPG_Click(sender As Object, e As RibbonControlEventArgs) Handles addOPG.Click
 
 
@@ -133,4 +156,6 @@ Public Class Ribbon1
     Private Sub MvAttach_Click(sender As Object, e As RibbonControlEventArgs) Handles MvAttach.Click
         Globals.ThisAddIn.MoveBasedOnDealID(attach:=True)
     End Sub
+
+
 End Class
