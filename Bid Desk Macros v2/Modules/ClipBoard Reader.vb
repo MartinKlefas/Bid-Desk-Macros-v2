@@ -11,7 +11,7 @@ Module ClipBoard_Reader
             If InStr(1, ClipBoardText, "Quote Number: ") > 0 Then
                 FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "Quote Number: ") + 14, 10)
             Else
-                FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "Quote Number") + 13, 10)
+                FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "Quote Number") + 14, 10)
             End If
 
         End If

@@ -4,7 +4,7 @@ Imports String_Extensions
 
 Public Class Ribbon1
     Public AutoInbound As Boolean
-    Public OnHoliday As Boolean
+    Public Shared OnHoliday As Boolean
 
     Private Sub Ribbon1_Load(ByVal sender As System.Object, ByVal e As RibbonUIEventArgs) Handles MyBase.Load
         AutoInbound = False
