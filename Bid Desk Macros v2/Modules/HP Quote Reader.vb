@@ -16,7 +16,7 @@ Module HP_Quote_Reader
                 quoteCsvString = Replace(quoteCsvString, vbNullChar, "")
                 Dim quoteArry As String() = Split(quoteCsvString, "-")
                 For Each fragment As String In quoteArry
-                    If fragment.ToLower.StartsWith("p0") Or fragment.ToLower.StartsWith("e0") Then
+                    If fragment.ToLower.StartsWith("p0") Or fragment.ToLower.StartsWith("e0") Or fragment.ToLower.StartsWith("nq0") Then
 
                         Dim OPG As String = CurrentGuess
 
