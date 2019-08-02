@@ -252,6 +252,9 @@
 
         End With
         UpdateStatus(DealID, "Marked as Won in the Portal")
+
+        CloseAllTickets(DealID)
+
         MoveToFolder(TargetFolder, message)
     End Sub
     Public Sub OneMarkedDead(msg As Outlook.MailItem, DealID As String)
@@ -272,20 +275,28 @@
         End With
 
         UpdateStatus(DealID, "Marked as Dead by AM")
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
-        Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
-        Try
-            ndt.TicketNumber = CInt(tmpTicketNumber)
-        Catch
-            ndt.TicketNumber = 0
-        End Try
-        If ndt.TicketNumber <> 0 Then
-            ndt.CloseTicket()
-        End If
+        CloseAllTickets(DealID)
 
         MoveToFolder(targetFolder, msg)
 
+
+    End Sub
+
+    Sub CloseAllTickets(DealID As String)
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+
+        Dim tmpTicketNumber As String = GetNDTbyDeal(DealID, True)
+        For Each ticketNumber In tmpTicketNumber.Split(";")
+            Try
+                ndt.TicketNumber = CInt(ticketNumber)
+            Catch
+                ndt.TicketNumber = 0
+            End Try
+            If ndt.TicketNumber <> 0 Then
+                ndt.CloseTicket()
+            End If
+        Next
 
     End Sub
 

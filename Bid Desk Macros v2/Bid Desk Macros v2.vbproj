@@ -254,6 +254,7 @@
     <Compile Include="Forms\SearchResults.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="Modules\ClipBoard Reader.vb" />
     <Compile Include="Modules\Functions.vb" />
     <Compile Include="Modules\HP Quote Reader.vb" />
