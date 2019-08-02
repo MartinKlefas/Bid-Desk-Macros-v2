@@ -272,6 +272,17 @@
         End With
 
         UpdateStatus(DealID, "Marked as Dead by AM")
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+
+        Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
+        Try
+            ndt.TicketNumber = CInt(tmpTicketNumber)
+        Catch
+            ndt.TicketNumber = 0
+        End Try
+        If ndt.TicketNumber <> 0 Then
+            ndt.CloseTicket()
+        End If
 
         MoveToFolder(targetFolder, msg)
 
