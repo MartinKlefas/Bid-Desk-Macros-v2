@@ -45,6 +45,8 @@ Public Class DealIdent
                     Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, HPPublishMessage)
                 Case "MarkedWon"
                     Call Globals.ThisAddIn.OneMarkedWon(tMsg, tDealID)
+                Case "MarkedDead"
+                    Call Globals.ThisAddIn.OneMarkedDead(tMsg, tDealID)
                 Case "ExtensionMessage"
                     Call Globals.ThisAddIn.DoOneExtensionMessage(tMsg, tDealID)
                 Case "ForwardPricing"

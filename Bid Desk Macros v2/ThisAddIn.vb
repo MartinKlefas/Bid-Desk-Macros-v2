@@ -106,7 +106,7 @@ Public Class ThisAddIn
             End If
 
         Next
-        Dim DealIDForm As New DealIdent(MessagesList, "MarkedWon")
+        Dim DealIDForm As New DealIdent(MessagesList, "MarkedDead")
         DealIDForm.Show()
     End Sub
 

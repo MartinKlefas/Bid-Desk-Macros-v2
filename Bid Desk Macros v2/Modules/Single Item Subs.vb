@@ -271,6 +271,8 @@
             .Send()
         End With
 
+        UpdateStatus(DealID, "Marked as Dead by AM")
+
         MoveToFolder(targetFolder, msg)
 
 

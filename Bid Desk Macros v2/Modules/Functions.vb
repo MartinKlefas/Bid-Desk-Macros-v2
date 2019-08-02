@@ -145,7 +145,7 @@ Partial Class ThisAddIn
 
         'if it's set not to be reminded again - then it can temporarily be "dead" such that no reminders are sent.
 
-        Return (tmp.ToLower.Contains("deal lost") Or tmp.ToLower.Contains("clone pending"))
+        Return (tmp.ToLower.Contains("deal lost") Or tmp.ToLower.Contains("clone pending")) Or tmp.ToLower.Contains("dead")
 
 
     End Function
