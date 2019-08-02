@@ -19,4 +19,6 @@
 
     Public Const HolidayMessage As String = "<p><span style=""color: #ff0000;""><strong>Please Note:&nbsp;</strong>This email has been sent automatically while I am out of the office. </span>Replying to it will not elicit a response or any action on my return - please follow the instructions in my out of office message to ensure that your request is processed.</p><p>It should be noted that any emails received in reply to this message will be deleted on my return, and no action will be taken. Your email has not been forwarded, and has not been attached to the relevant nextdesk ticket.&nbsp;</p><p>If you need to get hold of me while I am away, your line manager has been left with instructions on how and when doing so is more appropriate than escalating your request through the normal channels.</p>"
 
+    Public Const CloneTicketMessage As String = "This deal will be cloned at a later date, at which point a new ticket will be raised"
+
 End Module

@@ -68,7 +68,7 @@ Public Class DealIdent
 
                 Case "CloneLater"
                     Globals.ThisAddIn.UpdateStatus(tDealID, "Clone requested on deal expiry")
-                    Globals.ThisAddIn.CloseAllTickets(tDealID)
+                    Globals.ThisAddIn.CloseAllTickets(tDealID, CloneTicketMessage)
                     Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
 
                 Case Else

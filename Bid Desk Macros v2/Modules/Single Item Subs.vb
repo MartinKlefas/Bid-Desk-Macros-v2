@@ -283,7 +283,7 @@
 
     End Sub
 
-    Sub CloseAllTickets(DealID As String)
+    Sub CloseAllTickets(DealID As String, Optional CloseReason As String = "Completed as requested")
         Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
         Dim tmpTicketNumber As String = GetNDTbyDeal(DealID, True)
@@ -294,7 +294,7 @@
                 ndt.TicketNumber = 0
             End Try
             If ndt.TicketNumber <> 0 Then
-                ndt.CloseTicket()
+                ndt.CloseTicket(CloseReason)
             End If
         Next
 
