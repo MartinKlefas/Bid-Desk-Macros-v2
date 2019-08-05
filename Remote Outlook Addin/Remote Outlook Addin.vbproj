@@ -1,4 +1,4 @@
-﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="16.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--
     This section defines project-level properties.
@@ -21,19 +21,17 @@
     <ProjectTypeGuids>{BAA0C2D2-18E2-41B9-852F-F413020CAA33};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F2A75A2C-BBF3-4968-997C-55A63740BB02}</ProjectGuid>
+    <ProjectGuid>{2C07BC96-974C-431D-8BBB-91AAF5E381C6}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Bid_Desk_Macros_v2</RootNamespace>
-    <AssemblyName>Bid Desk Macros v2</AssemblyName>
+    <RootNamespace>Remote_Outlook_Addin</RootNamespace>
+    <AssemblyName>Remote Outlook Addin</AssemblyName>
     <LoadBehavior>3</LoadBehavior>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <DefineConstants>VSTO40</DefineConstants>
     <StartupObject>
     </StartupObject>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <BootstrapperComponentsLocation>HomeSite</BootstrapperComponentsLocation>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.VSTORuntime.4.0">
@@ -76,7 +74,7 @@
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>Bid Desk Macros v2.xml</DocumentationFile>
+    <DocumentationFile>Remote Outlook Addin.xml</DocumentationFile>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
@@ -105,7 +103,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>Bid Desk Macros v2.xml</DocumentationFile>
+    <DocumentationFile>Remote Outlook Addin.xml</DocumentationFile>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
@@ -123,9 +121,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="WebDriver, Version=3.141.0.0, Culture=neutral, PublicKeyToken=1c2bd1631853048f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.WebDriver.StrongNamed.3.141.0\lib\net45\WebDriver.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Office.Tools.v4.0.Framework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -188,86 +183,17 @@
   -->
   <ItemGroup>
     <AppDesigner Include="My Project\" />
-    <Compile Include="Forms\BulkImport.Designer.vb">
-      <DependentUpon>BulkImport.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\BulkImport.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ChangeAM.Designer.vb">
-      <DependentUpon>ChangeAM.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ChangeAM.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\CloneLater.Designer.vb">
-      <DependentUpon>CloneLater.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\CloneLater.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DealID.designer.vb">
-      <DependentUpon>DealID.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\DealID.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DealImport.designer.vb">
-      <DependentUpon>DealImport.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\DealImport.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\DealLog.designer.vb">
       <DependentUpon>DealLog.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\DealLog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\NewMailForm.Designer.vb">
-      <DependentUpon>NewMailForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\NewMailForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\NewOPGForm.Designer.vb">
-      <DependentUpon>NewOPGForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\NewOPGForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ProgressBarFrm.Designer.vb">
-      <DependentUpon>ProgressBarFrm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ProgressBarFrm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SearchForm.Designer.vb">
-      <DependentUpon>SearchForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\SearchForm.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SearchResults.Designer.vb">
-      <DependentUpon>SearchResults.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\SearchResults.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="Modules\ClipBoard Reader.vb" />
     <Compile Include="Modules\Functions.vb" />
-    <Compile Include="Modules\HP Quote Reader.vb" />
     <Compile Include="Modules\MessageTexts.vb" />
-    <Compile Include="Modules\Lookup Functions.vb" />
-    <Compile Include="Modules\RemoteDBAddition.vb" />
-    <Compile Include="Modules\Single Item Subs.vb" />
-    <Compile Include="Modules\TimeSpanPrettyString.vb" />
-    <Compile Include="My Project\clsDatabase.vb" />
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+    <Compile Include="Modules\XmlWriter.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ribbon1.Designer.vb">
       <DependentUpon>Ribbon1.vb</DependentUpon>
@@ -278,43 +204,12 @@
     <Compile Include="ThisAddIn.vb">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="Forms\BulkImport.resx">
-      <DependentUpon>BulkImport.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ChangeAM.resx">
-      <DependentUpon>ChangeAM.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CloneLater.resx">
-      <DependentUpon>CloneLater.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DealID.resx">
-      <DependentUpon>DealID.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DealImport.resx">
-      <DependentUpon>DealImport.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DealLog.resx">
       <DependentUpon>DealLog.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\NewMailForm.resx">
-      <DependentUpon>NewMailForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\NewOPGForm.resx">
-      <DependentUpon>NewOPGForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProgressBarFrm.resx">
-      <DependentUpon>ProgressBarFrm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SearchForm.resx">
-      <DependentUpon>SearchForm.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SearchResults.resx">
-      <DependentUpon>SearchResults.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ribbon1.resx">
       <DependentUpon>Ribbon1.vb</DependentUpon>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.vb</DependentUpon>
     </None>
@@ -324,10 +219,15 @@
     <Compile Include="My Project\AssemblyInfo.vb" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
@@ -339,68 +239,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MartinKlefas\clsNextDeskTicket\clsNextDeskTicket\clsNextDeskTicket.vbproj">
-      <Project>{d346ba40-e4d7-47fd-b4c0-daf313ddaa13}</Project>
-      <Name>clsNextDeskTicket</Name>
-    </ProjectReference>
+    <None Include="Resources\128 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\String Extensions\String Extensions.vbproj">
       <Project>{b020b362-9b91-40b2-a97f-a01e57f8fd62}</Project>
       <Name>String Extensions</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\smiley_devilish_face.png" />
-    <None Include="Resources\right_arrow.png" />
-    <None Include="Resources\repeat_alt_media.png" />
-    <None Include="Resources\money_dollar_coins_cash_piggy_bank_finance_business.png" />
-    <None Include="Resources\light_champion_signal.png" />
-    <None Include="Resources\folder_download_down_decrease_arrow.png" />
-    <None Include="Resources\face_sad_smiley.png" />
-    <None Include="Resources\exclamation_mark_red.png" />
-    <None Include="Resources\copy_cut_clipboard.png" />
-    <None Include="Resources\actions_view_calendar_tasks.png" />
-    <None Include="Resources\128.png" />
-    <None Include="Resources\128 %282%29.png" />
-    <None Include="Resources\128 %281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\technical_pen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\robot-pngrepo-com.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\database_add_insert_21836.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\0074af6a9c.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\off.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\on.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Magnifying Glass.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\kissclipart-calendar-icon-orange-png-clipart-computer-icons-133adbff6cfb7003.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\shift-change-pngrepo-com.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\output-onlinepngtools.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Vacation Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\OfficeWork Icon.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -414,16 +259,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <OptionStrict>Off</OptionStrict>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>
-    </ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>AE81A5B649A7DC196B122D48E7563B3E062172CF</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a Visual Basic project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
@@ -440,11 +275,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.74.0.3729.6\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.74.0.3729.6\build\Selenium.WebDriver.ChromeDriver.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.74.0.3729.6\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.74.0.3729.6\build\Selenium.WebDriver.ChromeDriver.targets'))" />
-  </Target>
 </Project>

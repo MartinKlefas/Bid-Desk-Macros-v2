@@ -52,7 +52,8 @@ Public Class NewMailForm
                                 Globals.ThisAddIn.FwdPricing(msg, CompleteAutonomy:=True)
                             Case "Submission"
                                 Globals.ThisAddIn.MoveBasedOnDealID(False, msg, CompleteAutonomy:=True)
-
+                            Case "DBADD"
+                                Globals.ThisAddIn.RemoteDBAddition(msg)
 
                         End Select
 
@@ -70,6 +71,11 @@ Public Class NewMailForm
     End Sub
 
     Private Function FindMessageType(msg As MailItem) As String
+        If IsDatabaseAdd(msg) Then
+            Return "DBADD"
+        End If
+
+
         If IsExpiryNotice(msg) Then
             Return "Expiry"
         End If
@@ -85,6 +91,10 @@ Public Class NewMailForm
 
 
         Return "Nothing"
+    End Function
+
+    Private Function IsDatabaseAdd(msg As MailItem) As Boolean
+        Return msg.Subject.ToLower.StartsWith("[dbaddition]")
     End Function
 
     Private Function IsPricing(msg As MailItem) As Boolean
