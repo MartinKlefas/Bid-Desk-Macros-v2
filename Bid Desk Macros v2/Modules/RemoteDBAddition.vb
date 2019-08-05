@@ -4,14 +4,18 @@ Imports System.Xml
 Partial Class ThisAddIn
 
     Public Sub RemoteDBAddition(inboundMail As Outlook.MailItem)
+        Dim dealsRead As New List(Of Dictionary(Of String, String))
+        Dim replyMail As Outlook.MailItem
+        replyMail = Nothing
         For Each tAttachment As Outlook.Attachment In inboundMail.Attachments
-            If tAttachment.FileName.ToLower.Contains("xml") Then
-                Dim fileName As String = tAttachment.GetTemporaryFilePath()
+            If tAttachment.FileName.ToLower.Contains(".xml") Then
+                Dim fileName As String = IO.Path.GetTempPath & tAttachment.FileName
+                tAttachment.SaveAsFile(fileName)
                 Dim doc As XmlDocument = New XmlDocument
                 Dim nodeList As XmlNodeList
                 doc.PreserveWhitespace = True
 
-                Dim dealsRead As New List(Of Dictionary(Of String, String))
+
                 Try
                     doc.Load(fileName)
                     nodeList = doc.SelectNodes("Deal")
@@ -35,14 +39,31 @@ Partial Class ThisAddIn
 
                         dealsRead.Add(tCreateDealRecord)
                     Next
-
-                Catch ex As Exception
-                    Debug.WriteLine("error, " & ex.Message)
+                    My.Computer.FileSystem.DeleteFile(fileName)
+                Catch
                 End Try
-
-
+            ElseIf tAttachment.FileName.ToLower.Contains(".msg") Then
+                Dim fileName As String = IO.Path.GetTempPath & tAttachment.FileName
+                tAttachment.SaveAsFile(fileName)
+                Dim Mail As Outlook.MailItem = Globals.ThisAddIn.Application.GetNamespace("MAPI").OpenSharedItem(fileName)
+                replyMail = Mail.ReplyAll
+                My.Computer.FileSystem.DeleteFile(fileName)
             End If
         Next
+
+
+
+        For Each deal As Dictionary(Of String, String) In dealsRead
+
+            If Not IsNothing(replyMail) Then
+                Dim tAddDeal As New AddDeal(replyMail)
+                If Not tAddDeal.DoNewCreation(deal, replyMail) Then
+
+                End If
+            End If
+
+        Next
+
     End Sub
 
 

@@ -73,7 +73,7 @@
         'Ribbon1
         '
         Me.Name = "Ribbon1"
-        Me.RibbonType = "Microsoft.Outlook.Mail.Read"
+        Me.RibbonType = "Microsoft.Outlook.Explorer"
         Me.Tabs.Add(Me.Tab1)
         Me.Tab1.ResumeLayout(False)
         Me.Tab1.PerformLayout()

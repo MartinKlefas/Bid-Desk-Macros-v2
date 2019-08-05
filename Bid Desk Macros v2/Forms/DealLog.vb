@@ -127,40 +127,55 @@ Public Class AddDeal
                 {"Date", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")}
             }
 
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+
 
         If Not myContinue Then
             Call ExitEarly()
             Exit Sub
         End If
+
+        If Not DoNewCreation(tCreateDealRecord, ReplyMail) Then
+
+            Call ExitEarly()
+            Exit Sub
+        End If
+
+        CloseMe()
+
+    End Sub
+
+
+    Public Function DoNewCreation(DealData As Dictionary(Of String, String), replyMail As Outlook.MailItem) As Boolean
 
         UpdateTitle("Creating Ticket...")
 
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+
         Dim newNDT As Integer
-        newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(tCreateDealRecord, ReplyMail))
+        newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(DealData, replyMail))
 
         If Not myContinue Then
-            Call ExitEarly()
-            Exit Sub
+            Return False
+            Exit Function
         End If
 
         If newNDT = 0 Or newNDT = 404 Then ' retry on first fail
-            newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(tCreateDealRecord, ReplyMail))
+            newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(DealData, replyMail))
         End If
 
         If newNDT <> 0 And newNDT <> 404 Then ' continue on second
 
-            tCreateDealRecord.Add("NDT", newNDT)
+            DealData.Add("NDT", newNDT)
             ndt.Move("Public Sector")
 
             If Not myContinue Then
-                Call ExitEarly()
-                Exit Sub
+                Return False
+                Exit Function
             End If
 
             Dim aliases As String = ""
             'add people to notify
-            For Each recipient As Outlook.Recipient In ReplyMail.Recipients
+            For Each recipient As Outlook.Recipient In replyMail.Recipients
                 Try
                     aliases &= recipient.AddressEntry.GetExchangeUser.Alias & ";"
                 Catch
@@ -172,46 +187,46 @@ Public Class AddDeal
 
             ndt.AddToNotify(aliases)
             If Not myContinue Then
-                Call ExitEarly()
-                Exit Sub
+                Return False
+                Exit Function
             End If
 
             UpdateTitle("Attaching Info...")
 
             'update ticket with bid number & original email
-            ndt.AttachMail(mail, "Deal ID  " & tCreateDealRecord("DealID") & " was submitted to " & tCreateDealRecord("Vendor") & " based on the information in the attached email")
+            ndt.AttachMail(mail, "Deal ID  " & DealData("DealID") & " was submitted to " & DealData("Vendor") & " based on the information in the attached email")
 
             If Not myContinue Then
-                Call ExitEarly()
-                Exit Sub
+                Return False
+                Exit Function
             End If
 
-            tCreateDealRecord.Remove("AMEmailAddress")
+            DealData.Remove("AMEmailAddress")
         End If
 
-        If Globals.ThisAddIn.sqlInterface.Add_Data(tCreateDealRecord) > 0 Then
-            Dim rFName As String() = Split(tCreateDealRecord("AM"))
+        If Globals.ThisAddIn.sqlInterface.Add_Data(DealData) > 0 Then
+            Dim rFName As String() = Split(DealData("AM"))
             Dim mygreeting As String
             mygreeting = Globals.ThisAddIn.WriteGreeting(Now(), CStr(rFName(0)))
 
 
 
-            With ReplyMail
-                .HTMLBody = mygreeting & Globals.ThisAddIn.WriteSubmitMessage(tCreateDealRecord) & Ribbon1.WriteHolidayMessage() & .HTMLBody
-                .Subject = .Subject & " - " & tCreateDealRecord("DealID")
+            With replyMail
+                .HTMLBody = mygreeting & Globals.ThisAddIn.WriteSubmitMessage(DealData) & Ribbon1.WriteHolidayMessage() & .HTMLBody
+                .Subject = .Subject & " - " & DealData("DealID")
                 .Display() ' or .Send
             End With
-            Globals.ThisAddIn.MoveToFolder(TrimExtended(tCreateDealRecord("AM")), mail)
+            Globals.ThisAddIn.MoveToFolder(TrimExtended(DealData("AM")), mail)
         Else
-            tCreateDealRecord.Add("Result", "Failed")
+            DealData.Add("Result", "Failed")
         End If
 
 
         UpdateTitle("All Done!")
+        Return True
 
-        CloseMe()
+    End Function
 
-    End Sub
 
     Sub DisableButtons()
 

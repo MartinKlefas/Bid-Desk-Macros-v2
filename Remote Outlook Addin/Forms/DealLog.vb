@@ -141,15 +141,20 @@ Public Class AddDeal
             .Subject = .Subject & " - " & tCreateDealRecord("DealID")
             .Display() ' or .Send
         End With
-        Globals.ThisAddIn.MoveToFolder(TrimExtended(tCreateDealRecord("AM")), mail)
+        'Globals.ThisAddIn.MoveToFolder(TrimExtended(tCreateDealRecord("AM")), mail)
 
-        Dim remoteAddMail As New Outlook.MailItem With {
-            .To = "martin.klefas@insight.com",
-            .Subject = "[dbaddition] Deal to be added to the deal log database",
-            .Body = "If this is still in the inbox, the deal needs to be added manually"
-        }
+        Dim remoteAddMail As Outlook.MailItem
+
+        remoteAddMail = Globals.ThisAddIn.Application.CreateItem(Outlook.OlItemType.olMailItem)
+
+        remoteAddMail.To = "martin.klefas@insight.com"
+        remoteAddMail.Subject = "[dbaddition] Deal to be added to the deal log database"
+        remoteAddMail.Body = "If this is still in the inbox, the deal needs to be added manually"
+
 
         remoteAddMail.Attachments.Add(xmlFileName)
+
+        remoteAddMail.Attachments.Add(mail)
 
         remoteAddMail.Send()
 
