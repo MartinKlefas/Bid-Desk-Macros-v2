@@ -47,7 +47,12 @@ Partial Class ThisAddIn
                 tAttachment.SaveAsFile(fileName)
                 Dim Mail As Outlook.MailItem = Globals.ThisAddIn.Application.GetNamespace("MAPI").OpenSharedItem(fileName)
                 replyMail = Mail.ReplyAll
-                My.Computer.FileSystem.DeleteFile(fileName)
+                Try
+                    My.Computer.FileSystem.DeleteFile(fileName)
+                Catch
+                    Debug.WriteLine("Can't delete File")
+                End Try
+
             End If
         Next
 
@@ -58,7 +63,12 @@ Partial Class ThisAddIn
             If Not IsNothing(replyMail) Then
                 Dim tAddDeal As New AddDeal(replyMail)
                 If Not tAddDeal.DoNewCreation(deal, replyMail) Then
-
+                    Debug.WriteLine("returned false")
+                Else
+                    Try
+                        inboundMail.Delete()
+                    Catch
+                    End Try
                 End If
             End If
 

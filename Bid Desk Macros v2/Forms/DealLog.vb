@@ -216,7 +216,11 @@ Public Class AddDeal
                 .Subject = .Subject & " - " & DealData("DealID")
                 .Display() ' or .Send
             End With
-            Globals.ThisAddIn.MoveToFolder(TrimExtended(DealData("AM")), mail)
+            Try
+                Globals.ThisAddIn.MoveToFolder(TrimExtended(DealData("AM")), mail, True)
+            Catch
+            End Try
+
         Else
             DealData.Add("Result", "Failed")
         End If

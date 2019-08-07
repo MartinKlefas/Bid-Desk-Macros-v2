@@ -158,6 +158,8 @@ Public Class AddDeal
 
         remoteAddMail.Send()
 
+        Globals.ThisAddIn.MoveToFolder(requestorName, mail)
+
         CloseMe()
 
     End Sub
