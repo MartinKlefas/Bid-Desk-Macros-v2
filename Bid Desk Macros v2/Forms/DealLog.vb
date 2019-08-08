@@ -147,6 +147,8 @@ Public Class AddDeal
 
     Public Function DoNewCreation(DealData As Dictionary(Of String, String), replyMail As Outlook.MailItem) As Boolean
 
+        myContinue = True
+
         UpdateTitle("Creating Ticket...")
 
         Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
