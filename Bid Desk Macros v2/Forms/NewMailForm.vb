@@ -120,6 +120,8 @@ Public Class NewMailForm
             Return True
         ElseIf tSubj.StartsWith("Deal Registration REGI", searchType) AndAlso msg.Body.ToLower.Contains("the review for the deal registration") Then
             Return True
+        ElseIf tSubj.StartsWith("Case Processed", searchType) AndAlso msg.SenderEmailAddress.tolower.Contains("hbd-int@microsoft.com") Then
+            Return True
         Else
             Return False
         End If
@@ -133,9 +135,15 @@ Public Class NewMailForm
             Return True
         ElseIf tSubj.StartsWith("Deal Registration REGI", searchType) And tSubj.tolower.contains("submitted") Then
             Return True
+
+        ElseIf msg.SenderEmailAddress.Equals("hbd-int@microsoft.com", searchType) And tSubj.StartsWith("Submission Confirmation", searchType) Then
+
+            Return True
         Else
             Return False
         End If
+
+
 
     End Function
 

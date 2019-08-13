@@ -13,6 +13,8 @@
     Public Const SubmitMessage As String = "<br>&nbsp;I've created the below for you with %VENDOR% (ref: %DEALID%). %NDT%<br>&nbsp;Please check that everything is correct and let me know asap if there are any errors.<br> Regards, Martin."
     Public Const NDTCreateMessage As String = "For internal tracking purposes only, I have also created NextDesk ticket #%NDT%"
 
+    Public Const NDTUseMessage As String = "I have also updated NextDesk Ticket #%NDT% with this information for consistency of internal messaging, and easier tracking."
+
     Public Const NoNDTMessage As String = "No NextDesk ticket was created for this action."
 
     Public Const CloneLaterMessage As String = "Due to the age of this deal registration, it can no longer be extended. In order for our protection to continue, we must now clone it onto a fresh deal registration.<br> If this cloning takes place before our existing deal registration ends, the new one will be automatically rejected as a duplicate of the old, and so this will be cloned for you on %CLONEDATE%. I have set myself a reminder to perform this clone, and so no further action is required from you.<br><br>"

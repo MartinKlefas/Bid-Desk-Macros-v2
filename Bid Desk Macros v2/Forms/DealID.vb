@@ -179,11 +179,20 @@ Public Class DealIdent
 
         End If
 
+        If tempResult = "" Then
+            If message.SenderEmailAddress.Contains("microsoft.com") Then
+                tempResult = Mid(message.Subject, InStr(1, message.Subject, "CAS-"), 18)
+            End If
+        End If
+
+
         If CompleteAutonomy AndAlso tempResult <> "" AndAlso Not Globals.ThisAddIn.DealExists(tempResult) Then
             For Each tAttachment As Attachment In message.Attachments
                 tempResult = RipFromFile(tAttachment, tempResult)
             Next
         End If
+
+
 
         FindDealID = tempResult
     End Function

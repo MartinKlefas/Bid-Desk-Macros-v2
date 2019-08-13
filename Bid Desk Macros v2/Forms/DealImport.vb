@@ -27,6 +27,7 @@ Public Class ImportDeal
         If HPIOption.Checked Then Vendor = "HPI"
         If HPEOption.Checked Then Vendor = "HPE"
         If DellOption.Checked Then Vendor = "Dell"
+        If MSOption.Checked Then Vendor = "Microsoft"
 
         Dim AmExUser = Globals.ThisAddIn.MyResolveName(AMMail.Text)
 
@@ -73,7 +74,7 @@ Public Class ImportDeal
                 .TicketNumber = NDTNumber.Text
             }
 
-            ndt.UpdateNextDesk(Globals.ThisAddIn.WriteSubmitMessage(DealData))
+            ndt.UpdateNextDesk(Globals.ThisAddIn.WriteSubmitMessage(DealData, True))
         End If
 
         Me.Close()
@@ -102,7 +103,8 @@ Public Class ImportDeal
                 Call CheckOnly(HPEOption)
             Case "Dell"
                 Call CheckOnly(DellOption)
-
+            Case "Microsoft"
+                Call CheckOnly(MSOption)
 
         End Select
     End Sub
@@ -159,4 +161,6 @@ Public Class ImportDeal
     Private Sub Button1_Click(sender As Object, e As EventArgs)
         CheckOnly(HPIOption)
     End Sub
+
+
 End Class

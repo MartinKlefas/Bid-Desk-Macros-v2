@@ -25,6 +25,7 @@ Partial Class ImportDeal
         Me.Label1 = New System.Windows.Forms.Label()
         Me.CustomerName = New System.Windows.Forms.TextBox()
         Me.VendorGroupBox = New System.Windows.Forms.GroupBox()
+        Me.MSOption = New System.Windows.Forms.RadioButton()
         Me.HPEOption = New System.Windows.Forms.RadioButton()
         Me.DellOption = New System.Windows.Forms.RadioButton()
         Me.HPIOption = New System.Windows.Forms.RadioButton()
@@ -65,15 +66,28 @@ Partial Class ImportDeal
         '
         'VendorGroupBox
         '
+        Me.VendorGroupBox.Controls.Add(Me.MSOption)
         Me.VendorGroupBox.Controls.Add(Me.HPEOption)
         Me.VendorGroupBox.Controls.Add(Me.DellOption)
         Me.VendorGroupBox.Controls.Add(Me.HPIOption)
         Me.VendorGroupBox.Location = New System.Drawing.Point(13, 128)
         Me.VendorGroupBox.Name = "VendorGroupBox"
-        Me.VendorGroupBox.Size = New System.Drawing.Size(290, 47)
+        Me.VendorGroupBox.Size = New System.Drawing.Size(290, 76)
         Me.VendorGroupBox.TabIndex = 2
         Me.VendorGroupBox.TabStop = False
         Me.VendorGroupBox.Text = "Vendor"
+        '
+        'MSOption
+        '
+        Me.MSOption.AutoSize = True
+        Me.MSOption.Checked = True
+        Me.MSOption.Location = New System.Drawing.Point(24, 42)
+        Me.MSOption.Name = "MSOption"
+        Me.MSOption.Size = New System.Drawing.Size(68, 17)
+        Me.MSOption.TabIndex = 3
+        Me.MSOption.TabStop = True
+        Me.MSOption.Text = "Microsoft"
+        Me.MSOption.UseVisualStyleBackColor = True
         '
         'HPEOption
         '
@@ -112,7 +126,7 @@ Partial Class ImportDeal
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(10, 246)
+        Me.Label2.Location = New System.Drawing.Point(11, 273)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(182, 13)
         Me.Label2.TabIndex = 4
@@ -120,14 +134,14 @@ Partial Class ImportDeal
         '
         'DealID
         '
-        Me.DealID.Location = New System.Drawing.Point(13, 262)
+        Me.DealID.Location = New System.Drawing.Point(14, 289)
         Me.DealID.Name = "DealID"
         Me.DealID.Size = New System.Drawing.Size(287, 20)
         Me.DealID.TabIndex = 5
         '
         'OKButton
         '
-        Me.OKButton.Location = New System.Drawing.Point(10, 357)
+        Me.OKButton.Location = New System.Drawing.Point(11, 384)
         Me.OKButton.Name = "OKButton"
         Me.OKButton.Size = New System.Drawing.Size(138, 29)
         Me.OKButton.TabIndex = 6
@@ -136,7 +150,7 @@ Partial Class ImportDeal
         '
         'tCancelButton
         '
-        Me.tCancelButton.Location = New System.Drawing.Point(162, 357)
+        Me.tCancelButton.Location = New System.Drawing.Point(163, 384)
         Me.tCancelButton.Name = "tCancelButton"
         Me.tCancelButton.Size = New System.Drawing.Size(138, 29)
         Me.tCancelButton.TabIndex = 7
@@ -148,7 +162,7 @@ Partial Class ImportDeal
         Me.GroupBox2.Controls.Add(Me.cWestcoast)
         Me.GroupBox2.Controls.Add(Me.cTechData)
         Me.GroupBox2.Controls.Add(Me.cIngram)
-        Me.GroupBox2.Location = New System.Drawing.Point(13, 183)
+        Me.GroupBox2.Location = New System.Drawing.Point(14, 210)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(288, 60)
         Me.GroupBox2.TabIndex = 9
@@ -187,7 +201,7 @@ Partial Class ImportDeal
         '
         'NDTNumber
         '
-        Me.NDTNumber.Location = New System.Drawing.Point(13, 301)
+        Me.NDTNumber.Location = New System.Drawing.Point(14, 328)
         Me.NDTNumber.Name = "NDTNumber"
         Me.NDTNumber.Size = New System.Drawing.Size(287, 20)
         Me.NDTNumber.TabIndex = 11
@@ -195,7 +209,7 @@ Partial Class ImportDeal
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(10, 285)
+        Me.Label3.Location = New System.Drawing.Point(11, 312)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(127, 13)
         Me.Label3.TabIndex = 10
@@ -204,7 +218,7 @@ Partial Class ImportDeal
         'ChkTicket
         '
         Me.ChkTicket.AutoSize = True
-        Me.ChkTicket.Location = New System.Drawing.Point(13, 328)
+        Me.ChkTicket.Location = New System.Drawing.Point(14, 355)
         Me.ChkTicket.Name = "ChkTicket"
         Me.ChkTicket.Size = New System.Drawing.Size(121, 17)
         Me.ChkTicket.TabIndex = 12
@@ -294,4 +308,5 @@ Partial Class ImportDeal
     Friend WithEvents Label4 As Windows.Forms.Label
     Friend WithEvents ccList As Windows.Forms.TextBox
     Friend WithEvents Label5 As Windows.Forms.Label
+    Friend WithEvents MSOption As Windows.Forms.RadioButton
 End Class

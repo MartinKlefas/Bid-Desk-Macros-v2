@@ -37,6 +37,7 @@ Partial Class AddDeal
         Me.cTechData = New System.Windows.Forms.CheckBox()
         Me.cIngram = New System.Windows.Forms.CheckBox()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.btnMS = New System.Windows.Forms.RadioButton()
         Me.VendorGroupBox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -59,12 +60,13 @@ Partial Class AddDeal
         '
         'VendorGroupBox
         '
+        Me.VendorGroupBox.Controls.Add(Me.btnMS)
         Me.VendorGroupBox.Controls.Add(Me.HPEOption)
         Me.VendorGroupBox.Controls.Add(Me.DellOption)
         Me.VendorGroupBox.Controls.Add(Me.HPIOption)
         Me.VendorGroupBox.Location = New System.Drawing.Point(15, 52)
         Me.VendorGroupBox.Name = "VendorGroupBox"
-        Me.VendorGroupBox.Size = New System.Drawing.Size(290, 47)
+        Me.VendorGroupBox.Size = New System.Drawing.Size(290, 66)
         Me.VendorGroupBox.TabIndex = 2
         Me.VendorGroupBox.TabStop = False
         Me.VendorGroupBox.Text = "Vendor"
@@ -106,7 +108,7 @@ Partial Class AddDeal
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 169)
+        Me.Label2.Location = New System.Drawing.Point(12, 192)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(182, 13)
         Me.Label2.TabIndex = 4
@@ -114,14 +116,14 @@ Partial Class AddDeal
         '
         'DealID
         '
-        Me.DealID.Location = New System.Drawing.Point(15, 185)
+        Me.DealID.Location = New System.Drawing.Point(15, 208)
         Me.DealID.Name = "DealID"
         Me.DealID.Size = New System.Drawing.Size(287, 20)
         Me.DealID.TabIndex = 5
         '
         'OKButton
         '
-        Me.OKButton.Location = New System.Drawing.Point(15, 211)
+        Me.OKButton.Location = New System.Drawing.Point(15, 234)
         Me.OKButton.Name = "OKButton"
         Me.OKButton.Size = New System.Drawing.Size(138, 29)
         Me.OKButton.TabIndex = 6
@@ -130,7 +132,7 @@ Partial Class AddDeal
         '
         'tCancelButton
         '
-        Me.tCancelButton.Location = New System.Drawing.Point(167, 211)
+        Me.tCancelButton.Location = New System.Drawing.Point(167, 234)
         Me.tCancelButton.Name = "tCancelButton"
         Me.tCancelButton.Size = New System.Drawing.Size(138, 29)
         Me.tCancelButton.TabIndex = 7
@@ -142,7 +144,7 @@ Partial Class AddDeal
         Me.GroupBox2.Controls.Add(Me.cWestcoast)
         Me.GroupBox2.Controls.Add(Me.cTechData)
         Me.GroupBox2.Controls.Add(Me.cIngram)
-        Me.GroupBox2.Location = New System.Drawing.Point(13, 106)
+        Me.GroupBox2.Location = New System.Drawing.Point(13, 129)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(288, 60)
         Me.GroupBox2.TabIndex = 9
@@ -182,11 +184,22 @@ Partial Class AddDeal
         'BackgroundWorker1
         '
         '
+        'btnMS
+        '
+        Me.btnMS.AutoSize = True
+        Me.btnMS.Location = New System.Drawing.Point(25, 42)
+        Me.btnMS.Name = "btnMS"
+        Me.btnMS.Size = New System.Drawing.Size(96, 17)
+        Me.btnMS.TabIndex = 3
+        Me.btnMS.TabStop = True
+        Me.btnMS.Text = "Microsoft (HW)"
+        Me.btnMS.UseVisualStyleBackColor = True
+        '
         'AddDeal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(317, 254)
+        Me.ClientSize = New System.Drawing.Size(317, 301)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.tCancelButton)
         Me.Controls.Add(Me.OKButton)
@@ -220,4 +233,5 @@ Partial Class AddDeal
     Friend WithEvents cIngram As Windows.Forms.CheckBox
     Friend WithEvents HPEOption As Windows.Forms.RadioButton
     Friend WithEvents BackgroundWorker1 As ComponentModel.BackgroundWorker
+    Friend WithEvents btnMS As Windows.Forms.RadioButton
 End Class

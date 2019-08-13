@@ -36,6 +36,8 @@ Public Class AddDeal
             strClip = My.Computer.Clipboard.GetText
 
             Me.DealID.Text = FindDealID(strClip)
+            Me.DealID.Text = FindDealID(strClip)
+            Me.DealID.Text = FindDealID(strClip)
             Me.CustomerName.Text = FindCustomer(strClip)
             Select Case FindVendor(strClip)
                 Case "HPI"
@@ -44,6 +46,8 @@ Public Class AddDeal
                     Call CheckOnly(HPEOption)
                 Case "Dell"
                     Call CheckOnly(DellOption)
+                Case "Microsoft"
+                    Call CheckOnly(btnMS)
 
 
             End Select
@@ -99,8 +103,10 @@ Public Class AddDeal
             Vendor = "Dell"
         ElseIf Me.HPIOption.Checked Then
             Vendor = "HPI"
-        Else
+        ElseIf Me.HPEOption.Checked Then
             Vendor = "HPE"
+        Else
+            Vendor = "Microsoft"
         End If
 
         ccNames = ReplyMail.CC

@@ -240,14 +240,19 @@ Partial Class ThisAddIn
         End If
     End Function
 
-    Public Function WriteSubmitMessage(ByVal DealDetails As Dictionary(Of String, String)) As String
+    Public Function WriteSubmitMessage(ByVal DealDetails As Dictionary(Of String, String), Optional fromTicket As Boolean = False) As String
+
         WriteSubmitMessage = Replace(SubmitMessage, "%DEALID%", DealDetails("DealID"))
         WriteSubmitMessage = Replace(WriteSubmitMessage, "%VENDOR%", DealDetails("Vendor"))
 
-        If DealDetails.ContainsKey("NDT") Then
-            WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", Replace(NDTCreateMessage, "%NDT%", DealDetails("NDT")))
+        If Not fromTicket Then
+            If DealDetails.ContainsKey("NDT") Then
+                WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", Replace(NDTCreateMessage, "%NDT%", DealDetails("NDT")))
+            Else
+                WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", NoNDTMessage)
+            End If
         Else
-            WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", NoNDTMessage)
+            WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", Replace(NDTUseMessage, "%NDT%", DealDetails("NDT")))
         End If
 
         WriteSubmitMessage = WriteSubmitMessage ' & drloglink
