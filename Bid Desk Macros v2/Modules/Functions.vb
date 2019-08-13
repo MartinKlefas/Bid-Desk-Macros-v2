@@ -257,6 +257,21 @@ Partial Class ThisAddIn
 
         WriteSubmitMessage = WriteSubmitMessage ' & drloglink
     End Function
+
+
+    Public Function WriteReqMessage(DealID As String, AttBelow As String) As String
+
+        WriteReqMessage = Replace(MoreInfoRequested, "%DealID%", DealID)
+        WriteReqMessage = Replace(WriteReqMessage, "%BELOW%", AttBelow)
+
+        WriteReqMessage = Replace(WriteReqMessage, "%NDT%", GetNDTbyDeal(DealID))
+
+        WriteReqMessage = Replace(WriteReqMessage, "%Vendor%", GetVendor(DealID))
+
+
+
+
+    End Function
 End Class
 
 

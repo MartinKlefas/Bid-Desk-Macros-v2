@@ -2,7 +2,7 @@
 Imports String_Extensions
 
 Public Class ImportDeal
-    Public Sub New(Optional AMEmailAddress As String = "")
+    Public Sub New(Optional AMEmailAddress As String = "", Optional ndt As String = "")
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -10,7 +10,7 @@ Public Class ImportDeal
 
         ' Add any initialization after the InitializeComponent() call.
         Me.AMMail.Text = AMEmailAddress
-
+        Me.NDTNumber.Text = ndt
     End Sub
 
     Private Sub CommandButton1_Click() Handles OKButton.Click

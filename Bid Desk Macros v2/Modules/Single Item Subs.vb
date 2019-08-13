@@ -341,7 +341,7 @@
 
         MoveToFolder(AM, msg)
     End Sub
-    Sub DoOneAttach(msg As Outlook.MailItem, DealID As String)
+    Sub DoOneAttach(msg As Outlook.MailItem, DealID As String, Optional LogText As String = "")
         Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
         Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
@@ -352,7 +352,7 @@
         End Try
 
         Try
-            ndt.AttachMail(msg, "")
+            ndt.AttachMail(msg, LogText)
         Catch
         End Try
     End Sub

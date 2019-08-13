@@ -86,16 +86,23 @@ Public Class Ribbon1
 
         If Selection.Count = 1 AndAlso TypeName(Selection.Item(1)) = "MailItem" Then
             Dim msg As Outlook.MailItem = Selection.Item(1)
-            Dim senderEmail As String
+            Dim senderEmail As String, ndt As String
             If Not msg.SenderEmailAddress.ToLower.Contains("@") AndAlso msg.SenderEmailAddress.ToLower.Contains("/") AndAlso msg.SenderEmailAddress.ToLower.Contains("recipients") Then
                 senderEmail = msg.Sender.GetExchangeUser.PrimarySmtpAddress
             Else
                 senderEmail = msg.SenderEmailAddress
 
             End If
-            frmAddtoSql = New ImportDeal(senderEmail)
+
+            If msg.Subject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
+                ndt = msg.Subject.Substring(InStr(msg.Subject, "#"), 7)
+            Else
+                ndt = ""
+            End If
+
+            frmAddtoSql = New ImportDeal(senderEmail, ndt)
         Else
-            frmAddtoSql = New ImportDeal()
+                frmAddtoSql = New ImportDeal()
         End If
         frmAddtoSql.Show()
 

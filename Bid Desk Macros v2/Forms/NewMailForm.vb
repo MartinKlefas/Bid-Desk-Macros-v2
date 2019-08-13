@@ -54,6 +54,8 @@ Public Class NewMailForm
                                 Globals.ThisAddIn.MoveBasedOnDealID(False, msg, CompleteAutonomy:=True)
                             Case "DBADD"
                                 Globals.ThisAddIn.RemoteDBAddition(msg)
+                            Case "MoreInfo"
+                                Globals.ThisAddIn.ReqMoreInfo(msg, CompleteAutonomy:=True)
 
                         End Select
 
@@ -89,6 +91,10 @@ Public Class NewMailForm
             Return "Submission"
         End If
 
+        If IsMoreInfo(msg) Then
+            Return "MoreInfo"
+        End If
+
 
         Return "Nothing"
     End Function
@@ -96,7 +102,9 @@ Public Class NewMailForm
     Private Function IsDatabaseAdd(msg As MailItem) As Boolean
         Return msg.Subject.ToLower.StartsWith("[dbaddition]")
     End Function
-
+    Private Function IsMoreInfo(msg As MailItem) As Boolean
+        Return msg.Subject.ToLower.StartsWith("request incomplete")
+    End Function
     Private Function IsPricing(msg As MailItem) As Boolean
         Dim tSubj As String = msg.Subject.ReplaceSpaces()
         If msg.SenderEmailAddress.Equals("smart.quotes@techdata.com", searchType) And tSubj.StartsWith("QUOTE Deal", searchType) Then

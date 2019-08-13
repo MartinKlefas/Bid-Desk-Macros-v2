@@ -71,6 +71,12 @@ Public Class DealIdent
                     Globals.ThisAddIn.CloseAllTickets(tDealID, CloneTicketMessage)
                     Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
 
+                Case "ReqMoreInfo"
+                    Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, Globals.ThisAddIn.WriteReqMessage(tDealID, "Below"))
+                    Call Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
+                    Globals.ThisAddIn.UpdateStatus(tDealID, "More Info Requested")
+
+
                 Case Else
 
 

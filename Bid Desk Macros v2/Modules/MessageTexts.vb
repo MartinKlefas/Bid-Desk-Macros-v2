@@ -23,4 +23,6 @@
 
     Public Const CloneTicketMessage As String = "This deal will be cloned at a later date, at which point a new ticket will be raised"
 
+    Public Const MoreInfoRequested As String = "Please see %BELOW% a request for more information from %VENDOR% Regarding deal ref: %DEALID% / NDT#: %NDT%. As outlined in the request, %VENDOR% requires this information within 4 business days or request will be denied.<br><br>If you decide not to proceed with this request before this deadline passes, please could you let me know by email as soon as possible."
+
 End Module
