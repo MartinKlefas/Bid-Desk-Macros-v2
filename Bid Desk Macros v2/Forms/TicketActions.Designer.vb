@@ -22,21 +22,21 @@ Partial Class TicketActions
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.CancelButton = New System.Windows.Forms.Button()
         Me.OKButton = New System.Windows.Forms.Button()
         Me.NDTNum = New System.Windows.Forms.TextBox()
         Me.SpecialMsg = New System.Windows.Forms.Label()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
-        'Button2
+        'CancelButton
         '
-        Me.Button2.Location = New System.Drawing.Point(172, 51)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(131, 25)
-        Me.Button2.TabIndex = 7
-        Me.Button2.Text = "Cancel"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.CancelButton.Location = New System.Drawing.Point(172, 51)
+        Me.CancelButton.Name = "CancelButton"
+        Me.CancelButton.Size = New System.Drawing.Size(131, 25)
+        Me.CancelButton.TabIndex = 7
+        Me.CancelButton.Text = "Cancel"
+        Me.CancelButton.UseVisualStyleBackColor = True
         '
         'OKButton
         '
@@ -71,7 +71,7 @@ Partial Class TicketActions
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(312, 85)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.CancelButton)
         Me.Controls.Add(Me.OKButton)
         Me.Controls.Add(Me.NDTNum)
         Me.Controls.Add(Me.SpecialMsg)
@@ -82,7 +82,7 @@ Partial Class TicketActions
 
     End Sub
 
-    Friend WithEvents Button2 As Windows.Forms.Button
+    Friend WithEvents CancelButton As Windows.Forms.Button
     Friend WithEvents OKButton As Windows.Forms.Button
     Friend WithEvents NDTNum As Windows.Forms.TextBox
     Friend WithEvents SpecialMsg As Windows.Forms.Label
