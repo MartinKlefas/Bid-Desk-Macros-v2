@@ -254,6 +254,12 @@
     <Compile Include="Forms\SearchResults.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\TicketActions.Designer.vb">
+      <DependentUpon>TicketActions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TicketActions.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="Modules\ClipBoard Reader.vb" />
     <Compile Include="Modules\Functions.vb" />
@@ -310,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SearchResults.resx">
       <DependentUpon>SearchResults.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TicketActions.resx">
+      <DependentUpon>TicketActions.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ribbon1.resx">
       <DependentUpon>Ribbon1.vb</DependentUpon>
@@ -401,6 +410,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\OfficeWork Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\question-mark.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

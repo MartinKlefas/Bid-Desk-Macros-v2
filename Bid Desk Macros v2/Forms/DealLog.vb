@@ -36,8 +36,7 @@ Public Class AddDeal
             strClip = My.Computer.Clipboard.GetText
 
             Me.DealID.Text = FindDealID(strClip)
-            Me.DealID.Text = FindDealID(strClip)
-            Me.DealID.Text = FindDealID(strClip)
+
             Me.CustomerName.Text = FindCustomer(strClip)
             Select Case FindVendor(strClip)
                 Case "HPI"

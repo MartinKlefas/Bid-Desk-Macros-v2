@@ -72,8 +72,8 @@ Public Class DealIdent
                     Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
 
                 Case "ReqMoreInfo"
-                    Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, Globals.ThisAddIn.WriteReqMessage(tDealID, "Below"))
-                    Call Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
+                    Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, Globals.ThisAddIn.WriteReqMessage(tDealID, "Below"), SuppressWarnings:=True, CompleteAutonomy:=True)
+
                     Globals.ThisAddIn.UpdateStatus(tDealID, "More Info Requested")
 
 

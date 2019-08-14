@@ -45,6 +45,7 @@
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.Group3 = Me.Factory.CreateRibbonGroup
         Me.Group2 = Me.Factory.CreateRibbonGroup
+        Me.Group4 = Me.Factory.CreateRibbonGroup
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
@@ -64,10 +65,12 @@
         Me.addOPG = Me.Factory.CreateRibbonButton
         Me.btnLookup = Me.Factory.CreateRibbonButton
         Me.btnChangeAM = Me.Factory.CreateRibbonButton
+        Me.Button1 = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.Group3.SuspendLayout()
         Me.Group2.SuspendLayout()
+        Me.Group4.SuspendLayout()
         Me.SuspendLayout()
         '
         'Tab1
@@ -75,6 +78,7 @@
         Me.Tab1.Groups.Add(Me.Group1)
         Me.Tab1.Groups.Add(Me.Group3)
         Me.Tab1.Groups.Add(Me.Group2)
+        Me.Tab1.Groups.Add(Me.Group4)
         Me.Tab1.Label = "Bid Tools (test)"
         Me.Tab1.Name = "Tab1"
         '
@@ -111,6 +115,12 @@
         Me.Group2.Items.Add(Me.btnChangeAM)
         Me.Group2.Label = "Database Actions"
         Me.Group2.Name = "Group2"
+        '
+        'Group4
+        '
+        Me.Group4.Items.Add(Me.Button1)
+        Me.Group4.Label = "Ticket Tools"
+        Me.Group4.Name = "Group4"
         '
         'btnAutoAll
         '
@@ -261,6 +271,14 @@
         Me.btnChangeAM.Name = "btnChangeAM"
         Me.btnChangeAM.ShowImage = True
         '
+        'Button1
+        '
+        Me.Button1.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.Button1.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.question_mark
+        Me.Button1.Label = "More Info (MS)"
+        Me.Button1.Name = "Button1"
+        Me.Button1.ShowImage = True
+        '
         'Ribbon1
         '
         Me.Name = "Ribbon1"
@@ -274,6 +292,8 @@
         Me.Group3.PerformLayout()
         Me.Group2.ResumeLayout(False)
         Me.Group2.PerformLayout()
+        Me.Group4.ResumeLayout(False)
+        Me.Group4.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -301,6 +321,8 @@
     Friend WithEvents btnChangeAM As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents MvAttach As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents btnHoliday As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents Group4 As Microsoft.Office.Tools.Ribbon.RibbonGroup
+    Friend WithEvents Button1 As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

@@ -164,5 +164,23 @@ Public Class Ribbon1
         Globals.ThisAddIn.MoveBasedOnDealID(attach:=True)
     End Sub
 
+    Private Sub Button1_Click_1(sender As Object, e As RibbonControlEventArgs) Handles Button1.Click
+        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
+        Dim ndt As String = ""
 
+        If Selection.Count = 1 AndAlso TypeName(Selection.Item(1)) = "MailItem" Then
+            Dim msg As Outlook.MailItem = Selection.Item(1)
+
+            If msg.Subject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
+                ndt = msg.Subject.Substring(InStr(msg.Subject, "#"), 7)
+
+            End If
+
+        End If
+
+
+
+        Dim ticketform As New TicketActions("MS-More-Info", ndt)
+        ticketform.Show()
+    End Sub
 End Class
