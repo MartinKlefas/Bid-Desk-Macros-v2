@@ -196,6 +196,9 @@
     <Compile Include="Modules\CreateDeal Pages.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Modules\DownloadQuote Pages.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modules\Message Texts.vb" />
     <Compile Include="Ribbon1.Designer.vb">
       <DependentUpon>Ribbon1.vb</DependentUpon>

@@ -26,6 +26,7 @@ Partial Class DealIdent
         Me.DealID = New System.Windows.Forms.TextBox()
         Me.OKButton = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'SpecialMsg
@@ -62,6 +63,9 @@ Partial Class DealIdent
         Me.Button2.Text = "Cancel"
         Me.Button2.UseVisualStyleBackColor = True
         '
+        'BackgroundWorker1
+        '
+        '
         'DealIdent
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -81,4 +85,5 @@ Partial Class DealIdent
     Friend WithEvents DealID As System.Windows.Forms.TextBox
     Friend WithEvents OKButton As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents BackgroundWorker1 As ComponentModel.BackgroundWorker
 End Class

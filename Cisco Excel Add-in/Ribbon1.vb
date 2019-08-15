@@ -17,4 +17,8 @@ Public Class Ribbon1
         frm.Show()
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As RibbonControlEventArgs) Handles BtnDLDeal.Click
+        Dim frm As New BrowserController("DownloadQuote")
+        frm.Show()
+    End Sub
 End Class

@@ -21,7 +21,7 @@ Public Class BrowserController
 
         Dim browser As ChromeDriver = Nothing
 
-        If Mode = "Login" Or Mode = "NewDeal" Then
+        If Mode = "Login" Or Mode = "NewDeal" Or Mode = "DownloadQuote" Then
             UpdateLabel(LabelMessages("Login"))
             Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
 
@@ -43,6 +43,16 @@ Public Class BrowserController
 
             UpdateLabel(LabelMessages("NewDeal4"))
             ND_PageFour(browser)
+        End If
+
+        If Mode = "DownloadQuote" Then
+            UpdateLabel(LabelMessages("DL1"))
+            DL_PageOne(browser, "40193064")
+
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
+
+            UpdateLabel(LabelMessages("DL2"))
+            DL_pageTwo(browser, "40193064")
         End If
     End Sub
 

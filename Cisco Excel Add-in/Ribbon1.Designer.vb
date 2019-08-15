@@ -45,6 +45,7 @@
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.BtnLogin = Me.Factory.CreateRibbonButton
         Me.NewDeal = Me.Factory.CreateRibbonButton
+        Me.BtnDLDeal = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.SuspendLayout()
@@ -59,6 +60,7 @@
         '
         Me.Group1.Items.Add(Me.BtnLogin)
         Me.Group1.Items.Add(Me.NewDeal)
+        Me.Group1.Items.Add(Me.BtnDLDeal)
         Me.Group1.Label = "Group1"
         Me.Group1.Name = "Group1"
         '
@@ -71,6 +73,11 @@
         '
         Me.NewDeal.Label = "CreateDeal"
         Me.NewDeal.Name = "NewDeal"
+        '
+        'BtnDLDeal
+        '
+        Me.BtnDLDeal.Label = "Download Quote"
+        Me.BtnDLDeal.Name = "BtnDLDeal"
         '
         'Ribbon1
         '
@@ -89,6 +96,7 @@
     Friend WithEvents Group1 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents BtnLogin As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents NewDeal As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents BtnDLDeal As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

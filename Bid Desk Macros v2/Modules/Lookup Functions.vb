@@ -163,7 +163,9 @@ Partial Class ThisAddIn
     Public Function GetFact(ByVal DealID As String) As String
         Dim i As Integer = 1, number As Integer
         DealID = TrimExtended(DealID)
-
+        If DealID.ToLower.Contains("cas") Then
+            DealID = Mid(DealID, 4, 6)
+        End If
         While Not RegularExpressions.Regex.IsMatch(Mid(DealID, i), "^[0-9]+$")
             i += 1
             If DealID = "" Or i >= Len(DealID) - 1 Then Exit While

@@ -28,75 +28,12 @@ Public Class DealIdent
 
 
     Private Sub Button1_Click() Handles OKButton.Click
-        Me.DialogResult = DialogResult.OK
-        If MessageNumber < MessagesList.Count Then
-            DisableButtons()
-            Dim tDealID As String = TrimExtended(Me.DealID.Text)
-            If Not Globals.ThisAddIn.DealExists(tDealID) AndAlso Mode <> "FindOPG" Then Mode = "Move"
-            Dim tMsg As Outlook.MailItem = MessagesList(MessageNumber)
-            Select Case Mode
-                Case "Move"
-                    Call Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
-                Case "MoveAttach"
-                    Call Globals.ThisAddIn.DoOneAttach(tMsg, tDealID)
-                    Call Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
-                Case "FwdHP"
-                    Call Globals.ThisAddIn.DoOneDistiReminder(tDealID, tMsg)
-                    Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, HPPublishMessage)
-                Case "MarkedWon"
-                    Call Globals.ThisAddIn.OneMarkedWon(tMsg, tDealID)
-                Case "MarkedDead"
-                    Call Globals.ThisAddIn.OneMarkedDead(tMsg, tDealID)
-                Case "ExtensionMessage"
-                    Call Globals.ThisAddIn.DoOneExtensionMessage(tMsg, tDealID)
-                Case "ForwardPricing"
-                    If tMsg.Subject.ToLower.Contains("opg") Then
-                        Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, opgFwdMessage, True, CompleteAutonomy)
-                        Globals.ThisAddIn.UpdateStatus(tDealID, "OPG pricing with AM")
-                    Else
-                        Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, sqFwdMessage, True, CompleteAutonomy)
-                        Globals.ThisAddIn.UpdateStatus(tDealID, "Disti pricing with AM")
-                    End If
-                Case "DRDecision"
-                    Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, drDecision, True, CompleteAutonomy)
-                    Globals.ThisAddIn.UpdateStatus(tDealID, "DR Decision with AM")
-                Case "Expiry"
-                    Globals.ThisAddIn.DoOneExpiry(tDealID, tMsg, CompleteAutonomy)
-                Case "FindOPG"
-                    Dim newOPGForm As New NewOPGForm(tDealID)
-                    newOPGForm.Show()
-
-                Case "CloneLater"
-                    Globals.ThisAddIn.UpdateStatus(tDealID, "Clone requested on deal expiry")
-                    Globals.ThisAddIn.CloseAllTickets(tDealID, CloneTicketMessage)
-                    Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
-
-                Case "ReqMoreInfo"
-                    Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, Globals.ThisAddIn.WriteReqMessage(tDealID, "Below"), SuppressWarnings:=True, CompleteAutonomy:=True)
-
-                    Globals.ThisAddIn.UpdateStatus(tDealID, "More Info Requested")
-
-
-                Case Else
-
-
-            End Select
-            EnableButtons()
-            MessageNumber += 1
-            If MessageNumber < MessagesList.Count Then
-                Me.DealID.Text = FindDealID(MessagesList(MessageNumber))
-                If CompleteAutonomy Then Call Button1_Click()
-            Else
-                Me.Close()
-            End If
-        Else
-            Me.Close()
-        End If
+        BackgroundWorker1.RunWorkerAsync()
 
     End Sub
 
     Private Sub Button2_Click() Handles Button2.Click
-        Me.Close()
+        CloseMe()
     End Sub
 
     Private Sub DealID_MouseDown1(sender As Object, e As MouseEventArgs) Handles DealID.MouseDown
@@ -214,5 +151,86 @@ Public Class DealIdent
         Button2.Enabled = True
     End Sub
 
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+        Me.DialogResult = DialogResult.OK
+        If MessageNumber < MessagesList.Count Then
+            DisableButtons()
+            Dim tDealID As String = TrimExtended(Me.DealID.Text)
+            If Not Globals.ThisAddIn.DealExists(tDealID) AndAlso Mode <> "FindOPG" Then Mode = "Move"
+            Dim tMsg As Outlook.MailItem = MessagesList(MessageNumber)
+            Select Case Mode
+                Case "Move"
+                    Call Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
+                Case "MoveAttach"
+                    Call Globals.ThisAddIn.DoOneAttach(tMsg, tDealID)
+                    Call Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
+                Case "FwdHP"
+                    Call Globals.ThisAddIn.DoOneDistiReminder(tDealID, tMsg)
+                    Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, HPPublishMessage)
+                Case "MarkedWon"
+                    Call Globals.ThisAddIn.OneMarkedWon(tMsg, tDealID)
+                Case "MarkedDead"
+                    Call Globals.ThisAddIn.OneMarkedDead(tMsg, tDealID)
+                Case "ExtensionMessage"
+                    Call Globals.ThisAddIn.DoOneExtensionMessage(tMsg, tDealID)
+                Case "ForwardPricing"
+                    If tMsg.Subject.ToLower.Contains("opg") Then
+                        Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, opgFwdMessage, True, CompleteAutonomy)
+                        Globals.ThisAddIn.UpdateStatus(tDealID, "OPG pricing with AM")
+                    Else
+                        Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, sqFwdMessage, True, CompleteAutonomy)
+                        Globals.ThisAddIn.UpdateStatus(tDealID, "Disti pricing with AM")
+                    End If
+                Case "DRDecision"
+                    Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, drDecision, True, CompleteAutonomy)
+                    Globals.ThisAddIn.UpdateStatus(tDealID, "DR Decision with AM")
+                Case "Expiry"
+                    Globals.ThisAddIn.DoOneExpiry(tDealID, tMsg, CompleteAutonomy)
+                Case "FindOPG"
+                    Dim newOPGForm As New NewOPGForm(tDealID)
+                    newOPGForm.Show()
 
+                Case "CloneLater"
+                    Globals.ThisAddIn.UpdateStatus(tDealID, "Clone requested on deal expiry")
+                    Globals.ThisAddIn.CloseAllTickets(tDealID, CloneTicketMessage)
+                    Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
+
+                Case "ReqMoreInfo"
+                    Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, Globals.ThisAddIn.WriteReqMessage(tDealID, "Below"), SuppressWarnings:=True, CompleteAutonomy:=True)
+
+                    Globals.ThisAddIn.UpdateStatus(tDealID, "More Info Requested")
+
+
+                Case Else
+
+
+            End Select
+            EnableButtons()
+            MessageNumber += 1
+            If MessageNumber < MessagesList.Count Then
+                Me.DealID.Text = FindDealID(MessagesList(MessageNumber))
+                If CompleteAutonomy Then Call Button1_Click()
+            Else
+                CloseMe()
+            End If
+        Else
+            CloseMe()
+        End If
+    End Sub
+
+    Private Sub CloseMe()
+
+        ' InvokeRequired required compares the thread ID of the'
+        ' calling thread to the thread ID of the creating thread.'
+        ' If these threads are different, it returns true.'
+        If Me.Label1.InvokeRequired Then
+            Dim d As New CloseMeCallback(AddressOf CloseMe)
+            Me.Invoke(d, New Object() {})
+        Else
+
+            Me.Close()
+
+        End If
+    End Sub
+    Delegate Sub CloseMeCallback()
 End Class
