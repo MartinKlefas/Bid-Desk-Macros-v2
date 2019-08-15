@@ -57,8 +57,7 @@ Public Class NewMailForm
                             Case "MoreInfo"
                                 Globals.ThisAddIn.ReqMoreInfo(msg, CompleteAutonomy:=True)
                             Case "CiscoApproved"
-                                Dim frm As New BrowserController("DownloadQuote", CiscoQuoteNumber(msg.Subject), msg)
-                                frm.Show()
+                                Globals.ThisAddIn.DoCiscoDownload(msg)
                         End Select
 
                     End If
@@ -236,8 +235,5 @@ Public Class NewMailForm
 
     Delegate Sub UpdateLabelCallback(ByVal [MailsRemaining] As Integer)
 
-    Function CiscoQuoteNumber(MessageSubject As String) As String
-        Return MessageSubject.Split(" ")(2)
 
-    End Function
 End Class

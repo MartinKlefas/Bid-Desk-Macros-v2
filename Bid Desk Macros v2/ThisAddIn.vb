@@ -324,5 +324,13 @@ Public Class ThisAddIn
         End If
     End Sub
 
+    Sub DoCiscoDownload(msg As MailItem)
+        Dim frm As New BrowserController("DownloadQuote", CiscoQuoteNumber(msg.Subject), msg)
+        frm.RunCode()
+        frm.Dispose()
+    End Sub
+    Function CiscoQuoteNumber(MessageSubject As String) As String
+        Return Strings.Left(MessageSubject.Split(" ")(2), 8)
 
+    End Function
 End Class

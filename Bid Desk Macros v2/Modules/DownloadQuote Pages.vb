@@ -151,15 +151,15 @@ Partial Class BrowserController
         If IsApproved(Browser) Then
             oldfile = Directory.GetFiles(Downloads).OrderByDescending(Function(f) New FileInfo(f).LastWriteTime).First()
 
-            UpdateLabel(LabelMessages("DL2"))
+            'UpdateLabel(LabelMessages("DL2"))
             DL_pageTwo(Browser)
 
-            UpdateLabel(LabelMessages("DL3"))
+            'UpdateLabel(LabelMessages("DL3"))
 
             Do While Directory.GetFiles(Downloads).OrderByDescending(Function(f) New FileInfo(f).LastWriteTime).First() = oldfile
                 Threading.Thread.Sleep(100)
             Loop
-
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
             Return Directory.GetFiles(Downloads).OrderByDescending(Function(f) New FileInfo(f).LastWriteTime).First()
         Else
             Return "Not Approved"

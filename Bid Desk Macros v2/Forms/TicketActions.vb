@@ -5,12 +5,13 @@
     Private ReadOnly Comment As String
 
     Public Sub New(Action As String, Optional Ticket As String = "", Optional Comment As String = "", Optional CompleteAutonomy As Boolean = False)
+        InitializeComponent()
         Me.Action = Action
         Me.Ticket = Ticket
         Me.NDTNum.Text = Ticket
         Me.Autonomy = CompleteAutonomy
         Me.Comment = Comment
-        InitializeComponent()
+
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles CnclButton.Click
@@ -22,7 +23,14 @@
         Me.CnclButton.enabled = False
         Ticket = NDTNum.Text
 
-        If Ticket <> "" Then BackgroundWorker1.RunWorkerAsync()
+        If Ticket <> "" Then
+            If Autonomy Then
+                BackgroundWorker1_DoWork(Nothing, Nothing)
+            Else
+                BackgroundWorker1.RunWorkerAsync()
+            End If
+
+        End If
     End Sub
 
     Private Sub TicketActions_Load(sender As Object, e As EventArgs) Handles MyBase.Load
