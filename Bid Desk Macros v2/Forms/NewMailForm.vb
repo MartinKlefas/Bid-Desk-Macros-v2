@@ -56,7 +56,9 @@ Public Class NewMailForm
                                 Globals.ThisAddIn.RemoteDBAddition(msg)
                             Case "MoreInfo"
                                 Globals.ThisAddIn.ReqMoreInfo(msg, CompleteAutonomy:=True)
-
+                            Case "CiscoApproved"
+                                Dim frm As New BrowserController("DownloadQuote", CiscoQuoteNumber(msg.Subject), msg)
+                                frm.Show()
                         End Select
 
                     End If
@@ -73,6 +75,12 @@ Public Class NewMailForm
     End Sub
 
     Private Function FindMessageType(msg As MailItem) As String
+
+        If IsCiscoApproval(msg) Then
+            Return "CiscoApproved"
+        End If
+
+
         If IsDatabaseAdd(msg) Then
             Return "DBADD"
         End If
@@ -97,6 +105,10 @@ Public Class NewMailForm
 
 
         Return "Nothing"
+    End Function
+
+    Private Function IsCiscoApproval(msg As MailItem) As Boolean
+        Return msg.Subject.ToLower.StartsWith("deal id:") AndAlso msg.Subject.ToUpper.Contains("INSIGHT NETWORKING SOLUTIONS LIMITED HAS BEEN PROCESSED")
     End Function
 
     Private Function IsDatabaseAdd(msg As MailItem) As Boolean
@@ -224,5 +236,8 @@ Public Class NewMailForm
 
     Delegate Sub UpdateLabelCallback(ByVal [MailsRemaining] As Integer)
 
+    Function CiscoQuoteNumber(MessageSubject As String) As String
+        Return MessageSubject.Split(" ")(2)
 
+    End Function
 End Class

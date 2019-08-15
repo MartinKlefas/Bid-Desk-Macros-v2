@@ -188,6 +188,12 @@
   -->
   <ItemGroup>
     <AppDesigner Include="My Project\" />
+    <Compile Include="Forms\BrowserController.Designer.vb">
+      <DependentUpon>BrowserController.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BrowserController.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\BulkImport.Designer.vb">
       <DependentUpon>BulkImport.vb</DependentUpon>
     </Compile>
@@ -262,8 +268,15 @@
     </Compile>
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="Modules\ClipBoard Reader.vb" />
+    <Compile Include="Modules\CreateDeal Pages.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modules\DownloadQuote Pages.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modules\Functions.vb" />
     <Compile Include="Modules\HP Quote Reader.vb" />
+    <Compile Include="Modules\Message Texts.vb" />
     <Compile Include="Modules\MessageTexts.vb" />
     <Compile Include="Modules\Lookup Functions.vb" />
     <Compile Include="Modules\RemoteDBAddition.vb" />
@@ -284,6 +297,9 @@
     <Compile Include="ThisAddIn.vb">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="Forms\BrowserController.resx">
+      <DependentUpon>BrowserController.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BulkImport.resx">
       <DependentUpon>BulkImport.vb</DependentUpon>
     </EmbeddedResource>

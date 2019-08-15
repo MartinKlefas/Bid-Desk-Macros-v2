@@ -41,6 +41,11 @@
                 ndt.UpdateNextDesk(PreSubMoreInfo)
             Case "Close"
                 ndt.CloseTicket(Comment)
+            Case "AttachCisco"
+                'in this instance, the Cisco Deal ID is stored as the ticket number, and the filename of the quote is in the comment field.
+                ndt.TicketNumber = ndt.FindTicket(0, Ticket)
+                ndt.UpdateNextDeskAttach(Comment, "Please See attached the vendor quote in dollars")
+                ndt.Move("Pre-sales triage")
 
         End Select
     End Sub
