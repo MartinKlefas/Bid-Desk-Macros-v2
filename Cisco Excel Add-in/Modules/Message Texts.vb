@@ -7,7 +7,8 @@
         {"NewDeal3", "Creating Deal (page 3) ..."},
         {"NewDeal4", "Creating Deal (page 4) ..."},
         {"DL1", "Finding the deal..."},
-        {"DL2", "Exporting Quote..."}
+        {"DL2", "Exporting Quote..."},
+        {"DL3", "Waiting for file download..."}
         }
 
 

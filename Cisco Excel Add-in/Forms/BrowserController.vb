@@ -1,13 +1,17 @@
 ﻿
+Imports System.Diagnostics
+Imports System.IO
 Imports clsNextDeskTicket
 Imports OpenQA.Selenium.Chrome
 Public Class BrowserController
 
     Private ReadOnly Mode As String
+    Private ReadOnly QuoteNum As String
 
-    Public Sub New(thisMode As String)
+    Public Sub New(thisMode As String, Optional thisQuoteNum As String = "")
         InitializeComponent()
         Me.Mode = thisMode
+        Me.QuoteNum = thisQuoteNum
     End Sub
 
     Private Sub BrowserController_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -20,6 +24,7 @@ Public Class BrowserController
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
 
         Dim browser As ChromeDriver = Nothing
+
 
         If Mode = "Login" Or Mode = "NewDeal" Or Mode = "DownloadQuote" Then
             UpdateLabel(LabelMessages("Login"))
@@ -46,13 +51,21 @@ Public Class BrowserController
         End If
 
         If Mode = "DownloadQuote" Then
+
+
+
             UpdateLabel(LabelMessages("DL1"))
-            DL_PageOne(browser, "40193064")
+            DL_PageOne(browser, "QuoteNum")
 
-            Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(5))
 
-            UpdateLabel(LabelMessages("DL2"))
-            DL_pageTwo(browser, "40193064")
+            Dim result As String = GetQuote(browser)
+
+            If result.Equals("Not Approved", StringComparison.CurrentCultureIgnoreCase) Then
+                Debug.WriteLine("This quote is not yet approved.")
+            Else
+                Debug.WriteLine(result)
+            End If
         End If
     End Sub
 
