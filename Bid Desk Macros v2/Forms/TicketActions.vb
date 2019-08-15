@@ -13,13 +13,13 @@
         InitializeComponent()
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles CancelButton.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles CnclButton.Click
         Me.Close()
     End Sub
 
     Private Sub OKButton_Click(sender As Object, e As EventArgs) Handles OKButton.Click
         Me.OKButton.Enabled = False
-        Me.CancelButton.enabled = False
+        Me.CnclButton.enabled = False
         Ticket = NDTNum.Text
 
         If Ticket <> "" Then BackgroundWorker1.RunWorkerAsync()

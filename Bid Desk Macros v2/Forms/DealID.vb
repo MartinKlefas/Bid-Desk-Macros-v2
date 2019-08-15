@@ -223,7 +223,7 @@ Public Class DealIdent
         ' InvokeRequired required compares the thread ID of the'
         ' calling thread to the thread ID of the creating thread.'
         ' If these threads are different, it returns true.'
-        If Me.Label1.InvokeRequired Then
+        If Me.SpecialMsg.InvokeRequired Then
             Dim d As New CloseMeCallback(AddressOf CloseMe)
             Me.Invoke(d, New Object() {})
         Else

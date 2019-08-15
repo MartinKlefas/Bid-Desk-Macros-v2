@@ -27,5 +27,14 @@
 
     Public Const PreSubMoreInfo As String = "Microsoft have asked that we ensure that we are submitting deal registrations with more detailed information on than that which has been submitted on this ticket. This reduces the number of rejections that we will receive, and decreases the overall time to an approval. It also lessens both your workload and that of our valued partner account managers at Microsoft." & vbCrLf & vbCrLf & vbCrLf & "Please could you ensure that you have included ALL of the following information in your ticket, and if not add it as a log so that it can be included in the initial submission: " & vbCrLf & "How will the end customer use these units?" & vbCrLf & "How did you come accross this opportunity?" & vbCrLf & "Please also provide information regarding the pre-sales activity you have performed within the past 3 months to cultivate this opportunity for Surface. Pre-sales activity is any communication between the reseller and the customer that show Surface is being discussed." & vbCrLf & "• Please provide copies or descriptions of communication between you and the customer, this could include: meetings, phone calls, emails, and/or demos that were performed/provided." & vbCrLf & "• Copies of emails showing Pre-Sales Activity can be attached to the deal registration" & vbCrLf & "• Descriptions of Pre-Sales Activity must include dates of meetings/phone calls, etc."
 
-
+    Public LabelMessages As New Dictionary(Of String, String) From {
+        {"Login", "Logging into CCW..."},
+        {"NewDeal1", "Creating Deal (page 1) ..."},
+        {"NewDeal2", "Creating Deal (page 2) ..."},
+        {"NewDeal3", "Creating Deal (page 3) ..."},
+        {"NewDeal4", "Creating Deal (page 4) ..."},
+        {"DL1", "Finding the deal..."},
+        {"DL2", "Exporting Quote..."},
+        {"DL3", "Waiting for file download..."}
+        }
 End Module
