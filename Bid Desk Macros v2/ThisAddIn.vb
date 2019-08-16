@@ -289,7 +289,7 @@ Public Class ThisAddIn
         Return targetDate
     End Function
 
-    Sub ExpiryMessages(Optional passedMsg As Outlook.MailItem = Nothing)
+    Sub ExpiryMessages(Optional passedMsg As Outlook.MailItem = Nothing, Optional CreateTicket As Boolean = True)
 
         Dim MessagesList As New List(Of Outlook.MailItem)
         Dim Autonomy As Boolean
@@ -311,8 +311,15 @@ Public Class ThisAddIn
             Autonomy = True
         End If
 
-        Dim DealIDForm As New DealIdent(MessagesList, "Expiry", Autonomy)
-        DealIDForm.Show()
+        If CreateTicket Then
+            Dim DealIDForm As New DealIdent(MessagesList, "Expiry", Autonomy)
+            DealIDForm.Show()
+        Else
+            Dim DealIDForm As New DealIdent(MessagesList, "ExpiryQuote", Autonomy)
+            DealIDForm.Show()
+        End If
+
+
     End Sub
 
     Private Sub Application_NewMailEx(EntryIDCollection As String) Handles Application.NewMailEx

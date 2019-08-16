@@ -1,6 +1,6 @@
 ﻿Partial Class ThisAddIn
 
-    Public Function DoOneExpiry(DealID As String, msg As Outlook.MailItem, Optional SuppressWarnings As Boolean = True) As Boolean
+    Public Function DoOneExpiry(DealID As String, msg As Outlook.MailItem, Optional SuppressWarnings As Boolean = True, Optional CreateTicket As Boolean = True) As Boolean
 
         Dim msgReply As Outlook.MailItem, success As Boolean = True
         Dim TargetFolder As String
@@ -22,67 +22,74 @@
                 End Try
             End With
 
-            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
-            Dim TicketNum As Integer
-            Try
-                Dim DealData As Dictionary(Of String, String) = MakeTicketData(DealID)
+            If CreateTicket Then
+                Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+                Dim TicketNum As Integer
+                Try
+                    Dim DealData As Dictionary(Of String, String) = MakeTicketData(DealID)
 
-                If NoOpenTickets(DealID) Then ' check if there's already open tickets for this deal
-                    TicketNum = ndt.CreateTicket(1, DealData)
+                    If NoOpenTickets(DealID) Then ' check if there's already open tickets for this deal
+                        TicketNum = ndt.CreateTicket(1, DealData)
 
-                    If TicketNum = 0 Then
-                        ShoutError("Adding the new ticketID failed", SuppressWarnings)
-                        success = False
+                        If TicketNum = 0 Then
+                            ShoutError("Adding the new ticketID failed", SuppressWarnings)
+                            success = False
+                        Else
+                            ndt.Move("Public Sector")
+                            'update notify to include everyone.
+                            Dim aliases As String = DealData("Sales Alias")
+                            For Each ccPerson In Split(CCList, ";")
+                                If ccPerson <> "" Then
+                                    Try
+                                        aliases &= ";" & MyResolveName(ccPerson).Alias
+                                    Catch
+                                        ShoutError("Could not find alias for: " & ccPerson, SuppressWarnings)
+                                    End Try
+                                End If
+                            Next
+
+                            Try
+                                'attach the notification with an explanation
+                                ndt.AttachMail(msg, "This is the vendor's original expiration notification")
+                            Catch
+                            End Try
+
+                            'Ask the CC List what to do.
+                            ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
+                        End If
+
+                        AddNewTicketToDeal(DealID, TicketNum)
                     Else
-                        ndt.Move("Public Sector")
-                        'update notify to include everyone.
-                        Dim aliases As String = DealData("Sales Alias")
-                        For Each ccPerson In Split(CCList, ";")
-                            If ccPerson <> "" Then
-                                Try
-                                    aliases &= ";" & MyResolveName(ccPerson).Alias
-                                Catch
-                                    ShoutError("Could not find alias for: " & ccPerson, SuppressWarnings)
-                                End Try
-                            End If
-                        Next
-
+                        ndt.TicketNumber = GetOpenTicket(DealID)
                         Try
-                            'attach the notification with an explanation
                             ndt.AttachMail(msg, "This is the vendor's original expiration notification")
                         Catch
                         End Try
 
                         'Ask the CC List what to do.
                         ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
+
                     End If
 
-                    AddNewTicketToDeal(DealID, TicketNum)
-                Else
-                    ndt.TicketNumber = GetOpenTicket(DealID)
-                    Try
-                        ndt.AttachMail(msg, "This is the vendor's original expiration notification")
-                    Catch
-                    End Try
 
-                    'Ask the CC List what to do.
-                    ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
-
-                End If
-                UpdateStatus(DealID, "Expiration notice with AM")
-
-                Try
-                    Globals.ThisAddIn.MoveToFolder(TargetFolder, msg, SuppressWarnings)
-                Catch ex As Exception
-                    ShoutError("Could not move to folder: " & TargetFolder, SuppressWarnings)
+                Catch
+                    Return False
                 End Try
-            Catch
-                Return False
+            End If
+
+
+            UpdateStatus(DealID, "Expiration notice with AM")
+
+            Try
+                Globals.ThisAddIn.MoveToFolder(TargetFolder, msg, SuppressWarnings)
+            Catch ex As Exception
+                ShoutError("Could not move to folder: " & TargetFolder, SuppressWarnings)
             End Try
+
         ElseIf TargetFolder = "" Then
-            Globals.ThisAddIn.MoveToFolder("Not Defined", msg, SuppressWarnings)
-        Else
-            msg.Delete()
+                Globals.ThisAddIn.MoveToFolder("Not Defined", msg, SuppressWarnings)
+            Else
+                msg.Delete()
         End If
 
         Return success

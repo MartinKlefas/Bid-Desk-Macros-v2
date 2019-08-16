@@ -45,7 +45,9 @@ Public Class NewMailForm
                         msg = item
                         Select Case FindMessageType(msg)
                             Case "Expiry"
-                                Globals.ThisAddIn.ExpiryMessages(msg)
+                                Globals.ThisAddIn.ExpiryMessages(msg, True)
+                            Case "ExpiryQuote"
+                                Globals.ThisAddIn.ExpiryMessages(msg, False)
                             Case "Decision"
                                 Globals.ThisAddIn.FwdDRDecision(msg, CompleteAutonomy:=True)
                             Case "Pricing"
@@ -88,6 +90,10 @@ Public Class NewMailForm
         If IsExpiryNotice(msg) Then
             Return "Expiry"
         End If
+        If IsQuoteExpiryNotice(msg) Then
+            Return "ExpiryQuote"
+        End If
+
         If IsDRDecision(msg) Then
             Return "Decision"
         End If
@@ -179,6 +185,10 @@ Public Class NewMailForm
         End If
 
     End Function
+    Private Function IsQuoteExpiryNotice(newMail As Outlook.MailItem) As Boolean
+        Return newMail.SenderEmailAddress.ToLower.Equals("sfdc.support@hpe.com") AndAlso newMail.Subject.StartsWith("your action required", searchType)
+    End Function
+
 
     Private Function IsEscalation(newMail As Outlook.MailItem) As Boolean
         If newMail.SenderEmailAddress.ToLower.Contains("dynamics.hpisupport@hp.com") AndAlso newMail.Subject.ToLower.Contains("escalation") Then

@@ -61,7 +61,9 @@ Public Class DealIdent
                     Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, drDecision, True, CompleteAutonomy)
                     Globals.ThisAddIn.UpdateStatus(tDealID, "DR Decision with AM")
                 Case "Expiry"
-                    Globals.ThisAddIn.DoOneExpiry(tDealID, tMsg, CompleteAutonomy)
+                    Globals.ThisAddIn.DoOneExpiry(tDealID, tMsg, CompleteAutonomy, True)
+                Case "ExpiryQuote"
+                    Globals.ThisAddIn.DoOneExpiry(tDealID, tMsg, CompleteAutonomy, False)
                 Case "FindOPG"
                     Dim newOPGForm As New NewOPGForm(tDealID)
                     newOPGForm.Show()
