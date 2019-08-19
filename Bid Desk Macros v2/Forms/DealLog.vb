@@ -247,6 +247,7 @@ Public Class AddDeal
         HPIOption.Enabled = False
         HPEOption.Enabled = False
         DellOption.Enabled = False
+        btnMS.Enabled = False
         cIngram.Enabled = False
         cTechData.Enabled = False
         cWestcoast.Enabled = False

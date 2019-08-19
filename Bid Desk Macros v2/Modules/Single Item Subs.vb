@@ -13,6 +13,7 @@
             Dim CCList As String = GetCCbyDeal(DealID)
             With msgReply
                 .HTMLBody = WriteGreeting(Now(), Split(TargetFolder)(0)) & Replace(Replace(DRExpire, "%dealID%", DealID), "%customer%", GetCustomerbyDeal(DealID)) & Ribbon1.WriteHolidayMessage() & .HTMLBody
+                .HTMLBody = Replace(.HTMLBody, "Deal Registration", "Your Quote")
                 .To = TargetFolder
                 .CC = CCList
                 Try

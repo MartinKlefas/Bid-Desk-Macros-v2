@@ -32,6 +32,12 @@ Public Class DealIdent
         If MessageNumber < MessagesList.Count Then
             DisableButtons()
             Dim tDealID As String = TrimExtended(Me.DealID.Text)
+
+            If tDealID = "" Then
+                CloseMe()
+                Exit Sub
+            End If
+
             If Not Globals.ThisAddIn.DealExists(tDealID) AndAlso Mode <> "FindOPG" Then Mode = "Move"
             Dim tMsg As Outlook.MailItem = MessagesList(MessageNumber)
             Select Case Mode
@@ -161,6 +167,11 @@ Public Class DealIdent
                     tempResult = TrimExtended(bodyLineAr(2))
 
                 End If
+                If Len(bodyAr(i)) > 8 AndAlso bodyAr(i).StartsWith("Quote ID :", ThisAddIn.searchType) Then
+                    tempResult = Mid(bodyAr(i), 11, 10)
+
+                End If
+
             Next
         End If
 
