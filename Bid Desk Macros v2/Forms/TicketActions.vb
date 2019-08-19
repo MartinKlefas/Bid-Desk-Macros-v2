@@ -42,7 +42,10 @@
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
-            .TicketNumber = Ticket
+            .TicketNumber = Ticket,
+            .VisibleBrowser = False,
+            .TimeOperations = True,
+            .TimingOutputFile = ThisAddIn.timingFile
         }
         Select Case Action
             Case "MS-More-Info"
@@ -65,5 +68,23 @@
 
 
         End Select
+
+        closeme()
     End Sub
+
+    Private Sub CloseMe()
+
+        ' InvokeRequired required compares the thread ID of the'
+        ' calling thread to the thread ID of the creating thread.'
+        ' If these threads are different, it returns true.'
+        If Me.SpecialMsg.InvokeRequired Then
+            Dim d As New CloseMeCallback(AddressOf CloseMe)
+            Me.Invoke(d, New Object() {})
+        Else
+
+            Me.Close()
+
+        End If
+    End Sub
+    Delegate Sub CloseMeCallback()
 End Class
