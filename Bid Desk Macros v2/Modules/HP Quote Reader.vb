@@ -9,7 +9,7 @@ Imports String_Extensions
 Module HP_Quote_Reader
     Public Function RipFromFile(tAttachment As Attachment, CurrentGuess As String) As String
         If tAttachment.FileName.ToLower = "quote.csv" Then
-            Dim fName As String = Path.GetTempPath() & "quote.csv"
+            Dim fName As String = Path.GetTempPath() & RandomString(6) & "quote.csv"
             Try
                 tAttachment.SaveAsFile(fName)
                 Dim quoteCsvString As String = File.ReadAllText(fName)
@@ -33,7 +33,7 @@ Module HP_Quote_Reader
             End Try
 
         ElseIf tAttachment.FileName.ToLower.EndsWith("xlsx") Then
-            Dim fName As String = Path.GetTempPath() & tAttachment.FileName.WinSafeFileName
+            Dim fName As String = Path.GetTempPath() & RandomString(6) & tAttachment.FileName.WinSafeFileName
             Try
                 tAttachment.SaveAsFile(fName)
             Catch

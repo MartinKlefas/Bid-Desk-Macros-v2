@@ -1,15 +1,16 @@
 ﻿Imports System.Diagnostics
 Imports System.Xml
+Imports String_Extensions
 
 Partial Class ThisAddIn
 
-    Public Sub RemoteDBAddition(inboundMail As Outlook.MailItem)
+    Public Sub RemoteDBAddition(ByRef inboundMail As Outlook.MailItem)
         Dim dealsRead As New List(Of Dictionary(Of String, String))
         Dim replyMail As Outlook.MailItem
         replyMail = Nothing
         For Each tAttachment As Outlook.Attachment In inboundMail.Attachments
             If tAttachment.FileName.ToLower.Contains(".xml") Then
-                Dim fileName As String = IO.Path.GetTempPath & tAttachment.FileName
+                Dim fileName As String = IO.Path.GetTempPath & RandomString(6) & tAttachment.FileName
                 tAttachment.SaveAsFile(fileName)
                 Dim doc As XmlDocument = New XmlDocument
                 Dim nodeList As XmlNodeList
@@ -43,10 +44,15 @@ Partial Class ThisAddIn
                 Catch
                 End Try
             ElseIf tAttachment.FileName.ToLower.Contains(".msg") Then
-                Dim fileName As String = IO.Path.GetTempPath & tAttachment.FileName
+                Dim fileName As String = IO.Path.GetTempPath & RandomString(6) & tAttachment.FileName
                 tAttachment.SaveAsFile(fileName)
-                Dim Mail As Outlook.MailItem = Globals.ThisAddIn.Application.GetNamespace("MAPI").OpenSharedItem(fileName)
-                replyMail = Mail.ReplyAll
+                Try
+                    Dim Mail As Outlook.MailItem = Globals.ThisAddIn.Application.GetNamespace("MAPI").OpenSharedItem(fileName)
+                    replyMail = Mail.ReplyAll
+                Catch
+                    Debug.WriteLine("Could Not reply To attached mail")
+                End Try
+
                 Try
                     My.Computer.FileSystem.DeleteFile(fileName)
                 Catch

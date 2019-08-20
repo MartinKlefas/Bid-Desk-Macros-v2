@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.CompilerServices
+Imports System.Text
 Imports System.Text.RegularExpressions
 
 Public Module StringExtensions
@@ -76,6 +77,19 @@ Public Module StringExtensions
         aString = Replace(aString, vbCrLf, " ")
         aString = Replace(aString, " ", "")
         Return aString
+    End Function
+
+    Public Function RandomString(ByVal Length As Integer) As String
+        Dim s As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
+        Dim r As New Random
+        Dim sb As New StringBuilder
+
+        For i As Integer = 1 To Length
+            Dim idx As Integer = r.Next(0, 61)
+            sb.Append(s.Substring(idx, 1))
+        Next
+
+        Return sb.ToString
     End Function
 End Module
 

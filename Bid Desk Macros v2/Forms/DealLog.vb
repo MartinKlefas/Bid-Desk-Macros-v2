@@ -150,7 +150,7 @@ Public Class AddDeal
     End Sub
 
 
-    Public Function DoNewCreation(DealData As Dictionary(Of String, String), replyMail As Outlook.MailItem) As Boolean
+    Public Function DoNewCreation(DealData As Dictionary(Of String, String), ByRef replyMail As Outlook.MailItem) As Boolean
 
         myContinue = True
 
