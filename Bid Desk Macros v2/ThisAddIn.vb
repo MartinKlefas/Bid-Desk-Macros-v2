@@ -337,7 +337,17 @@ Public Class ThisAddIn
         frm.Dispose()
     End Sub
     Function CiscoQuoteNumber(MessageSubject As String) As String
-        Return Strings.Left(MessageSubject.Split(" ")(2), 8)
+        Try
+            CiscoQuoteNumber = CInt(Strings.Left(MessageSubject.Split(" ")(2), 8))
+        Catch
+            Try
+                CiscoQuoteNumber = CInt(Strings.Left(MessageSubject.Split(" ")(6), 8))
+            Catch
+                CiscoQuoteNumber = 0
+            End Try
+        End Try
+
+
 
     End Function
 End Class

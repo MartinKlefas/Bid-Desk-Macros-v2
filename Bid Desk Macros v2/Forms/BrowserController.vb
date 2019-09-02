@@ -48,28 +48,30 @@ Public Class BrowserController
 
         If Mode = "DownloadQuote" Then
 
+            If QuoteNum <> "0" Then
 
+                ' UpdateLabel(LabelMessages("DL1"))
+                DL_PageOne(browser, QuoteNum)
 
-            ' UpdateLabel(LabelMessages("DL1"))
-            DL_PageOne(browser, QuoteNum)
+                Threading.Thread.Sleep(TimeSpan.FromSeconds(5))
 
-            Threading.Thread.Sleep(TimeSpan.FromSeconds(5))
+                Dim result As String = GetQuote(browser)
+                browser.Quit()
 
-            Dim result As String = GetQuote(browser)
-            browser.Quit()
+                If result.Equals("Not Approved", StringComparison.CurrentCultureIgnoreCase) Then
+                    Debug.WriteLine("This quote is not yet approved.")
+                    EmailMessage.Categories = "Cisco Not Approved"
+                    Exit Sub
+                Else
 
-            If result.Equals("Not Approved", StringComparison.CurrentCultureIgnoreCase) Then
-                Debug.WriteLine("This quote is not yet approved.")
-                EmailMessage.Categories = "Cisco Not Approved"
-                Exit Sub
-            Else
+                    Dim ticketForm As New TicketActions("AttachCisco", QuoteNum, result, True)
+                    ticketForm.Show()
+                    EmailMessage.Delete()
 
-                Dim ticketForm As New TicketActions("AttachCisco", QuoteNum, result, True)
-                ticketForm.Show()
-                EmailMessage.Delete()
-
+                End If
             End If
         End If
+
     End Sub
 
     Sub DoLogin(Optional WithBrowser As ChromeDriver = Nothing)
@@ -84,7 +86,7 @@ Public Class BrowserController
         WithBrowser.Navigate.GoToUrl("https://apps.cisco.com/ccw/cpc/home")
 
         WithBrowser.FindElementByClassName("username-input").SendKeys("martinklefas")
-        WithBrowser.FindElementByClassName("password-input").SendKeys("Mpintranp23")
+        WithBrowser.FindElementByClassName("password-input").SendKeys("X6Z9s3SWLb5g")
 
         WithBrowser.FindElementByName("login-button").Click()
     End Sub

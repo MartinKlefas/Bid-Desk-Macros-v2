@@ -113,7 +113,14 @@ Public Class NewMailForm
     End Function
 
     Private Function IsCiscoApproval(msg As MailItem) As Boolean
-        Return msg.Subject.ToLower.StartsWith("deal id:") AndAlso msg.Subject.ToUpper.Contains("INSIGHT NETWORKING SOLUTIONS LIMITED HAS BEEN PROCESSED")
+        If msg.Subject.ToLower.StartsWith("deal id:") AndAlso msg.Subject.ToUpper.Contains("INSIGHT NETWORKING SOLUTIONS LIMITED HAS BEEN PROCESSED") Then
+            Return True
+        ElseIf msg.Subject.ToLower.StartsWith("cisco approved quote, deal id") AndAlso msg.Subject.ToUpper.Contains("INSIGHT NETWORKING SOLUTIONS LIMITED HAS BEEN COMPLETELY APPROVED") Then
+            Return True
+        Else
+            Return False
+
+        End If
     End Function
 
     Private Function IsDatabaseAdd(msg As MailItem) As Boolean
