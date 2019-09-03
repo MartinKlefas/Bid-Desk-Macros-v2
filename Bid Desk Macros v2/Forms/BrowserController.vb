@@ -61,6 +61,7 @@ Public Class BrowserController
                 If result.Equals("Not Approved", StringComparison.CurrentCultureIgnoreCase) Then
                     Debug.WriteLine("This quote is not yet approved.")
                     EmailMessage.Categories = "Cisco Not Approved"
+                    EmailMessage.UnRead = False
                     Exit Sub
                 Else
 
