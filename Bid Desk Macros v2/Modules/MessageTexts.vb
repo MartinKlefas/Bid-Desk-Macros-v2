@@ -11,6 +11,13 @@
     Public Const WonMessage As String = "<br>&nbsp; As below, your SQ has been set to won. I'm now getting OPG Pricing from distribution for you to use on your UPR Creation ticket.<br> Thanks,<br> Martin."
     Public Const DeadMessage As String = "<br>&nbsp; Thank you for letting me know, I've updated my records.<br> Thanks,<br> Martin."
     Public Const SubmitMessage As String = "<br>&nbsp;I've created the below for you with %VENDOR% (ref: %DEALID%). %NDT%<br>&nbsp;Please check that everything is correct and let me know asap if there are any errors.<br> Regards, Martin."
+
+
+    Public Const TicketSubmitMessage As String = "I've created %DEALID% for you on the %VENDOR% portal.
+        %VENDOR% will endeavor to turn this around for you as soon as possible, but if there are any unexpected delays then please reach out and we can escalate it after the normal SLA period. Regards, Martin."
+
+
+
     Public Const NDTCreateMessage As String = "For internal tracking purposes only, I have also created NextDesk ticket #%NDT%"
 
     Public Const NDTUseMessage As String = "I have also updated NextDesk Ticket #%NDT% with this information for consistency of internal messaging, and easier tracking."

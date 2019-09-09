@@ -258,6 +258,15 @@ Partial Class ThisAddIn
         WriteSubmitMessage = WriteSubmitMessage ' & drloglink
     End Function
 
+    Public Function WriteTicketMessage(ByVal DealDetails As Dictionary(Of String, String)) As String
+
+        WriteTicketMessage = Replace(TicketSubmitMessage, "%DEALID%", DealDetails("DealID"))
+        WriteTicketMessage = Replace(WriteTicketMessage, "%VENDOR%", DealDetails("Vendor"))
+
+
+
+        WriteTicketMessage = WriteTicketMessage ' & drloglink
+    End Function
 
     Public Function WriteReqMessage(DealID As String, AttBelow As String) As String
 

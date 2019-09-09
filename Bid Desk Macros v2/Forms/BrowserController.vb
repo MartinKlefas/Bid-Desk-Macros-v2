@@ -87,7 +87,7 @@ Public Class BrowserController
         WithBrowser.Navigate.GoToUrl("https://apps.cisco.com/ccw/cpc/home")
 
         WithBrowser.FindElementByClassName("username-input").SendKeys("martinklefas")
-        WithBrowser.FindElementByClassName("password-input").SendKeys("X6Z9s3SWLb5g")
+        WithBrowser.FindElementByClassName("password-input").SendKeys("41831426")
 
         WithBrowser.FindElementByName("login-button").Click()
     End Sub

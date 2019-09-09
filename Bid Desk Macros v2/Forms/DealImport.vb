@@ -64,9 +64,11 @@ Public Class ImportDeal
                 {"Date", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")}
             }
 
+        Dim tmpCountAdded As Integer = Globals.ThisAddIn.sqlInterface.Add_Data(DealData)
+        If tmpCountAdded <> 1 Then
+            MsgBox(tmpCountAdded & " lines added")
+        End If
 
-
-        MsgBox(Globals.ThisAddIn.sqlInterface.Add_Data(DealData) & " lines added")
 
         If Me.ChkTicket.Checked AndAlso NDTNumber.Text <> "" AndAlso IsNumeric(NDTNumber.Text) Then
 
@@ -74,7 +76,7 @@ Public Class ImportDeal
                 .TicketNumber = NDTNumber.Text
             }
 
-            ndt.UpdateNextDesk(Globals.ThisAddIn.WriteSubmitMessage(DealData, True))
+            ndt.UpdateNextDesk(Globals.ThisAddIn.WriteTicketMessage(DealData))
         End If
 
         Me.Close()
