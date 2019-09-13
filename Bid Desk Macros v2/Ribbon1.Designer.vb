@@ -43,9 +43,6 @@
     Private Sub InitializeComponent()
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
-        Me.Group3 = Me.Factory.CreateRibbonGroup
-        Me.Group2 = Me.Factory.CreateRibbonGroup
-        Me.Group4 = Me.Factory.CreateRibbonGroup
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
@@ -58,14 +55,18 @@
         Me.WonBtn = Me.Factory.CreateRibbonButton
         Me.DeadBtn = Me.Factory.CreateRibbonButton
         Me.BtnLater = Me.Factory.CreateRibbonButton
+        Me.Group3 = Me.Factory.CreateRibbonGroup
         Me.btnOnOff = Me.Factory.CreateRibbonButton
         Me.btnHoliday = Me.Factory.CreateRibbonButton
+        Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.ImprtLots = Me.Factory.CreateRibbonButton
         Me.addOPG = Me.Factory.CreateRibbonButton
         Me.btnLookup = Me.Factory.CreateRibbonButton
         Me.btnChangeAM = Me.Factory.CreateRibbonButton
+        Me.Group4 = Me.Factory.CreateRibbonGroup
         Me.Button1 = Me.Factory.CreateRibbonButton
+        Me.Button2 = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.Group3.SuspendLayout()
@@ -98,29 +99,6 @@
         Me.Group1.Items.Add(Me.BtnLater)
         Me.Group1.Label = "Processing Actions"
         Me.Group1.Name = "Group1"
-        '
-        'Group3
-        '
-        Me.Group3.Items.Add(Me.btnOnOff)
-        Me.Group3.Items.Add(Me.btnHoliday)
-        Me.Group3.Label = "Automation"
-        Me.Group3.Name = "Group3"
-        '
-        'Group2
-        '
-        Me.Group2.Items.Add(Me.BtnAddtoDB)
-        Me.Group2.Items.Add(Me.ImprtLots)
-        Me.Group2.Items.Add(Me.addOPG)
-        Me.Group2.Items.Add(Me.btnLookup)
-        Me.Group2.Items.Add(Me.btnChangeAM)
-        Me.Group2.Label = "Database Actions"
-        Me.Group2.Name = "Group2"
-        '
-        'Group4
-        '
-        Me.Group4.Items.Add(Me.Button1)
-        Me.Group4.Label = "Ticket Tools"
-        Me.Group4.Name = "Group4"
         '
         'btnAutoAll
         '
@@ -218,6 +196,13 @@
         Me.BtnLater.Name = "BtnLater"
         Me.BtnLater.ShowImage = True
         '
+        'Group3
+        '
+        Me.Group3.Items.Add(Me.btnOnOff)
+        Me.Group3.Items.Add(Me.btnHoliday)
+        Me.Group3.Label = "Automation"
+        Me.Group3.Name = "Group3"
+        '
         'btnOnOff
         '
         Me.btnOnOff.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -233,6 +218,16 @@
         Me.btnHoliday.Label = "At Work"
         Me.btnHoliday.Name = "btnHoliday"
         Me.btnHoliday.ShowImage = True
+        '
+        'Group2
+        '
+        Me.Group2.Items.Add(Me.BtnAddtoDB)
+        Me.Group2.Items.Add(Me.ImprtLots)
+        Me.Group2.Items.Add(Me.addOPG)
+        Me.Group2.Items.Add(Me.btnLookup)
+        Me.Group2.Items.Add(Me.btnChangeAM)
+        Me.Group2.Label = "Database Actions"
+        Me.Group2.Name = "Group2"
         '
         'BtnAddtoDB
         '
@@ -271,6 +266,13 @@
         Me.btnChangeAM.Name = "btnChangeAM"
         Me.btnChangeAM.ShowImage = True
         '
+        'Group4
+        '
+        Me.Group4.Items.Add(Me.Button1)
+        Me.Group4.Items.Add(Me.Button2)
+        Me.Group4.Label = "Ticket Tools"
+        Me.Group4.Name = "Group4"
+        '
         'Button1
         '
         Me.Button1.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -278,6 +280,11 @@
         Me.Button1.Label = "More Info (MS)"
         Me.Button1.Name = "Button1"
         Me.Button1.ShowImage = True
+        '
+        'Button2
+        '
+        Me.Button2.Label = "Button2"
+        Me.Button2.Name = "Button2"
         '
         'Ribbon1
         '
@@ -323,6 +330,7 @@
     Friend WithEvents btnHoliday As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Group4 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents Button1 As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents Button2 As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

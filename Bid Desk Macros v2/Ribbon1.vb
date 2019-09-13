@@ -183,4 +183,10 @@ Public Class Ribbon1
         Dim ticketform As New TicketActions("MS-More-Info", ndt)
         ticketform.Show()
     End Sub
+
+    Private Sub Button2_Click_2(sender As Object, e As RibbonControlEventArgs) Handles Button2.Click
+        Dim frm As New BrowserController("Login")
+        frm.RunCode()
+        frm.Dispose()
+    End Sub
 End Class
