@@ -23,7 +23,7 @@
         'reply
         Dim msgReply As Outlook.MailItem = CurrentItem.ReplyAll
 
-        msgReply.HTMLBody = CloneLaterMessage.Replace("%CLONEDATE%", Me.targetDate.SelectionEnd.ToShortDateString) & Ribbon1.WriteHolidayMessage() & msgReply.HTMLBody
+        msgReply.HTMLBody = CloneLaterMessage.Replace("%CLONEDATE%", Me.targetDate.SelectionEnd.ToShortDateString) & MainRibbon.WriteHolidayMessage() & msgReply.HTMLBody
 
         msgReply.Display()
 

@@ -12,7 +12,7 @@
             msgReply = msg.Forward
             Dim CCList As String = GetCCbyDeal(DealID)
             With msgReply
-                .HTMLBody = WriteGreeting(Now(), Split(TargetFolder)(0)) & Replace(Replace(DRExpire, "%dealID%", DealID), "%customer%", GetCustomerbyDeal(DealID)) & Ribbon1.WriteHolidayMessage() & .HTMLBody
+                .HTMLBody = WriteGreeting(Now(), Split(TargetFolder)(0)) & Replace(Replace(DRExpire, "%dealID%", DealID), "%customer%", GetCustomerbyDeal(DealID)) & MainRibbon.WriteHolidayMessage() & .HTMLBody
                 .HTMLBody = Replace(.HTMLBody, "Deal Registration", "Your Quote")
                 .To = TargetFolder
                 .CC = CCList
@@ -133,7 +133,7 @@
             ElseIf GetVendor(DealID, True) = "HPE" Then
                 .CC = .CC & "; Simon.Hill@insight.com; Hussam.Haq@insight.com"
             End If
-            .HTMLBody = myGreeting & messageBodyAddition & "<br>" & GetFact(DealID) & Ribbon1.WriteHolidayMessage() & .HTMLBody
+            .HTMLBody = myGreeting & messageBodyAddition & "<br>" & GetFact(DealID) & MainRibbon.WriteHolidayMessage() & .HTMLBody
             Try
                 .Send()  'or .Display
             Catch
@@ -251,7 +251,7 @@
                 .To = TargetFolder
             End Try
             .CC = GetCCbyDeal(DealID)
-            .HTMLBody = WriteGreeting(Now(), CStr(Split(TargetFolder)(0))) & WonMessage & Ribbon1.WriteHolidayMessage() & .HTMLBody
+            .HTMLBody = WriteGreeting(Now(), CStr(Split(TargetFolder)(0))) & WonMessage & MainRibbon.WriteHolidayMessage() & .HTMLBody
             Try
                 .Send()
             Catch
@@ -278,7 +278,7 @@
         With msgReplyOne
 
             .CC = GetCCbyDeal(DealID)
-            .HTMLBody = WriteGreeting(Now(), CStr(Split(TargetFolder)(0))) & DeadMessage & Ribbon1.WriteHolidayMessage() & .HTMLBody
+            .HTMLBody = WriteGreeting(Now(), CStr(Split(TargetFolder)(0))) & DeadMessage & MainRibbon.WriteHolidayMessage() & .HTMLBody
             .Send()
         End With
 
@@ -341,7 +341,7 @@
 
         myGreeting = WriteGreeting(Now(), AM.Split(" ")(0))
 
-        msgReply.HTMLBody = myGreeting & replyText & Ribbon1.WriteHolidayMessage() & msgReply.HTMLBody
+        msgReply.HTMLBody = myGreeting & replyText & MainRibbon.WriteHolidayMessage() & msgReply.HTMLBody
 
         msgReply.Send()
         UpdateStatus(DealID, "Extension requested online")

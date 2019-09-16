@@ -1,4 +1,4 @@
-﻿Partial Class Ribbon1
+﻿Partial Class MainRibbon
     Inherits Microsoft.Office.Tools.Ribbon.RibbonBase
 
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -66,7 +66,6 @@
         Me.btnChangeAM = Me.Factory.CreateRibbonButton
         Me.Group4 = Me.Factory.CreateRibbonGroup
         Me.Button1 = Me.Factory.CreateRibbonButton
-        Me.Button2 = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.Group3.SuspendLayout()
@@ -80,7 +79,7 @@
         Me.Tab1.Groups.Add(Me.Group3)
         Me.Tab1.Groups.Add(Me.Group2)
         Me.Tab1.Groups.Add(Me.Group4)
-        Me.Tab1.Label = "Bid Tools (test)"
+        Me.Tab1.Label = "Bid Tools"
         Me.Tab1.Name = "Tab1"
         '
         'Group1
@@ -269,7 +268,6 @@
         'Group4
         '
         Me.Group4.Items.Add(Me.Button1)
-        Me.Group4.Items.Add(Me.Button2)
         Me.Group4.Label = "Ticket Tools"
         Me.Group4.Name = "Group4"
         '
@@ -280,11 +278,6 @@
         Me.Button1.Label = "More Info (MS)"
         Me.Button1.Name = "Button1"
         Me.Button1.ShowImage = True
-        '
-        'Button2
-        '
-        Me.Button2.Label = "Button2"
-        Me.Button2.Name = "Button2"
         '
         'Ribbon1
         '
@@ -330,15 +323,14 @@
     Friend WithEvents btnHoliday As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Group4 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents Button1 As Microsoft.Office.Tools.Ribbon.RibbonButton
-    Friend WithEvents Button2 As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection
 
     <System.Diagnostics.DebuggerNonUserCode()> _
-    Friend ReadOnly Property Ribbon1() As Ribbon1
+    Friend ReadOnly Property Ribbon1() As MainRibbon
         Get
-            Return Me.GetRibbon(Of Ribbon1)()
+            Return Me.GetRibbon(Of MainRibbon)()
         End Get
     End Property
 End Class

@@ -287,10 +287,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Ribbon1.Designer.vb">
-      <DependentUpon>Ribbon1.vb</DependentUpon>
+    <Compile Include="Ribbons\HomeTabButons.Designer.vb">
+      <DependentUpon>HomeTabButons.vb</DependentUpon>
     </Compile>
-    <Compile Include="Ribbon1.vb">
+    <Compile Include="Ribbons\HomeTabButons.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ribbons\MainRibbon.Designer.vb">
+      <DependentUpon>MainRibbon.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ribbons\MainRibbon.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ThisAddIn.vb">
@@ -335,8 +341,11 @@
     <EmbeddedResource Include="Forms\TicketActions.resx">
       <DependentUpon>TicketActions.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ribbon1.resx">
-      <DependentUpon>Ribbon1.vb</DependentUpon>
+    <EmbeddedResource Include="Ribbons\HomeTabButons.resx">
+      <DependentUpon>HomeTabButons.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ribbons\MainRibbon.resx">
+      <DependentUpon>MainRibbon.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="ThisAddIn.Designer.xml">

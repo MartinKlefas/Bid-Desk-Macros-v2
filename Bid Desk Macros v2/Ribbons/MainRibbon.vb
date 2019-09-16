@@ -2,7 +2,7 @@
 Imports Microsoft.Office.Tools.Ribbon
 Imports String_Extensions
 
-Public Class Ribbon1
+Public Class MainRibbon
     Public AutoInbound As Boolean
     Public Shared OnHoliday As Boolean
 
@@ -102,7 +102,7 @@ Public Class Ribbon1
 
             frmAddtoSql = New ImportDeal(senderEmail, ndt)
         Else
-                frmAddtoSql = New ImportDeal()
+            frmAddtoSql = New ImportDeal()
         End If
         frmAddtoSql.Show()
 
@@ -184,7 +184,7 @@ Public Class Ribbon1
         ticketform.Show()
     End Sub
 
-    Private Sub Button2_Click_2(sender As Object, e As RibbonControlEventArgs) Handles Button2.Click
+    Private Sub Button2_Click_2(sender As Object, e As RibbonControlEventArgs)
         Dim frm As New BrowserController("Login")
         frm.RunCode()
         frm.Dispose()
