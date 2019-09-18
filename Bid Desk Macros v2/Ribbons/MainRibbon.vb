@@ -189,4 +189,19 @@ Public Class MainRibbon
         frm.RunCode()
         frm.Dispose()
     End Sub
+
+    Private Sub Button3_Click_1(sender As Object, e As RibbonControlEventArgs) Handles BtnAutoAll_TabMail.Click
+        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
+        Dim MessageList As New List(Of Outlook.MailItem)
+
+        For Each item In Selection
+            If TypeName(item) = "MailItem" Then
+                MessageList.Add(item)
+            End If
+        Next
+
+        Dim autoForm As New NewMailForm(MessageList)
+        autoForm.Show()
+
+    End Sub
 End Class
