@@ -80,12 +80,10 @@ Partial Class ImportDeal
         'MSOption
         '
         Me.MSOption.AutoSize = True
-        Me.MSOption.Checked = True
         Me.MSOption.Location = New System.Drawing.Point(24, 42)
         Me.MSOption.Name = "MSOption"
         Me.MSOption.Size = New System.Drawing.Size(68, 17)
         Me.MSOption.TabIndex = 3
-        Me.MSOption.TabStop = True
         Me.MSOption.Text = "Microsoft"
         Me.MSOption.UseVisualStyleBackColor = True
         '
@@ -96,7 +94,6 @@ Partial Class ImportDeal
         Me.HPEOption.Name = "HPEOption"
         Me.HPEOption.Size = New System.Drawing.Size(47, 17)
         Me.HPEOption.TabIndex = 2
-        Me.HPEOption.TabStop = True
         Me.HPEOption.Text = "HPE"
         Me.HPEOption.UseVisualStyleBackColor = True
         '
@@ -108,7 +105,6 @@ Partial Class ImportDeal
         Me.DellOption.Name = "DellOption"
         Me.DellOption.Size = New System.Drawing.Size(43, 17)
         Me.DellOption.TabIndex = 1
-        Me.DellOption.TabStop = True
         Me.DellOption.Text = "Dell"
         Me.DellOption.UseVisualStyleBackColor = True
         '
@@ -119,7 +115,6 @@ Partial Class ImportDeal
         Me.HPIOption.Name = "HPIOption"
         Me.HPIOption.Size = New System.Drawing.Size(43, 17)
         Me.HPIOption.TabIndex = 0
-        Me.HPIOption.TabStop = True
         Me.HPIOption.Text = "HPI"
         Me.HPIOption.UseVisualStyleBackColor = True
         '

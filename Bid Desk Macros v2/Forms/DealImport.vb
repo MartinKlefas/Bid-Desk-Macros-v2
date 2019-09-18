@@ -160,9 +160,5 @@ Public Class ImportDeal
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs)
-        CheckOnly(HPIOption)
-    End Sub
-
 
 End Class

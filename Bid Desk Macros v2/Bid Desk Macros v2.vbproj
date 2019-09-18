@@ -287,12 +287,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Ribbons\HomeTabButons.Designer.vb">
-      <DependentUpon>HomeTabButons.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Ribbons\HomeTabButons.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Ribbons\MainRibbon.Designer.vb">
       <DependentUpon>MainRibbon.vb</DependentUpon>
     </Compile>
@@ -340,9 +334,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TicketActions.resx">
       <DependentUpon>TicketActions.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Ribbons\HomeTabButons.resx">
-      <DependentUpon>HomeTabButons.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ribbons\MainRibbon.resx">
       <DependentUpon>MainRibbon.vb</DependentUpon>
