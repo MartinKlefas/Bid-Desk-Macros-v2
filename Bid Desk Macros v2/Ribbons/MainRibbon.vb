@@ -89,9 +89,13 @@ Public Class MainRibbon
             Dim senderEmail As String, ndt As String
             If Not msg.SenderEmailAddress.ToLower.Contains("@") AndAlso msg.SenderEmailAddress.ToLower.Contains("/") AndAlso msg.SenderEmailAddress.ToLower.Contains("recipients") Then
                 senderEmail = msg.Sender.GetExchangeUser.PrimarySmtpAddress
-            Else
-                senderEmail = msg.SenderEmailAddress
 
+
+            Else
+                    senderEmail = msg.SenderEmailAddress
+                If senderEmail.ToLower.Equals("tim.lee@insight.com") OrElse senderEmail.ToLower.Equals("richard.west@insight.com") Then
+                    senderEmail = FindOnBehalfOf(msg.Body)
+                End If
             End If
 
             If msg.Subject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
@@ -184,11 +188,7 @@ Public Class MainRibbon
         ticketform.Show()
     End Sub
 
-    Private Sub Button2_Click_2(sender As Object, e As RibbonControlEventArgs)
-        Dim frm As New BrowserController("Login")
-        frm.RunCode()
-        frm.Dispose()
-    End Sub
+
 
     Private Sub Button3_Click_1(sender As Object, e As RibbonControlEventArgs) Handles BtnAutoAll_TabMail.Click
         Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
@@ -204,4 +204,16 @@ Public Class MainRibbon
         autoForm.Show()
 
     End Sub
+
+    Private Function FindOnBehalfOf(MessageBody As String) As String
+
+        Try
+            Dim startPos As Integer = InStr(MessageBody, "Sales e-mail address")
+            FindOnBehalfOf = Split(Mid(MessageBody, startPos + Len("Sales e-mail address") + 2), vbLf)(0)
+        Catch ex As Exception
+            FindOnBehalfOf = ""
+        End Try
+
+    End Function
+
 End Class

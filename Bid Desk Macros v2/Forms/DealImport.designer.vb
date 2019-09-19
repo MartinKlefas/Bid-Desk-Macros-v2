@@ -105,6 +105,7 @@ Partial Class ImportDeal
         Me.DellOption.Name = "DellOption"
         Me.DellOption.Size = New System.Drawing.Size(43, 17)
         Me.DellOption.TabIndex = 1
+        Me.DellOption.TabStop = True
         Me.DellOption.Text = "Dell"
         Me.DellOption.UseVisualStyleBackColor = True
         '

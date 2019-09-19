@@ -5,8 +5,12 @@
         Dim msgReply As Outlook.MailItem, success As Boolean = True
         Dim TargetFolder As String
 
+        If msg.SenderEmailAddress.ToLower.Contains("cisco") Then
+            TargetFolder = GetTicketOwner(DealID)
+        Else
+            TargetFolder = GetFolderbyDeal(DealID, True)
+        End If
 
-        TargetFolder = GetFolderbyDeal(DealID, True)
 
         If TargetFolder <> "" AndAlso Not IsDealDead(DealID) Then
             msgReply = msg.Forward

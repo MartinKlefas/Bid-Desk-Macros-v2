@@ -38,8 +38,11 @@ Public Class DealIdent
                 Exit Sub
             End If
 
-            If Not Globals.ThisAddIn.DealExists(tDealID) AndAlso Mode <> "FindOPG" Then Mode = "Move"
+
             Dim tMsg As Outlook.MailItem = MessagesList(MessageNumber)
+
+            If Not Globals.ThisAddIn.DealExists(tDealID) AndAlso Mode <> "FindOPG" AndAlso Not tMsg.SenderEmailAddress.ToLower.Contains("cisco.com") Then Mode = "Move"
+
             Select Case Mode
                 Case "Move"
                     Call Globals.ThisAddIn.DoOneMove(tMsg, tDealID)
@@ -211,7 +214,15 @@ Public Class DealIdent
             Next
         End If
 
-
+        If tempResult = "" Then
+            If message.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") AndAlso message.Subject.StartsWith("Cisco:") Then
+                Try
+                    tempResult = CInt(message.Subject.Split(" ")(1))
+                Catch
+                    tempResult = ""
+                End Try
+            End If
+        End If
 
         FindDealID = tempResult
     End Function

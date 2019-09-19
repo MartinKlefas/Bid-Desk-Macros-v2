@@ -50,6 +50,8 @@ Public Module StringExtensions
         aString = ReplaceSpaces(aString)
         aString = Replace(aString, vbTab, " ")
         aString = Replace(aString, vbCrLf, " ")
+        aString = Replace(aString, vbLf, " ")
+        aString = Replace(aString, vbCr, " ")
         aString = Trim(aString)
         Return aString
     End Function

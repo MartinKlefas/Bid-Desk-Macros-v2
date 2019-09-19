@@ -10,6 +10,19 @@ Partial Class ThisAddIn
 
     End Function
 
+    Public Function GetTicketOwner(searchText As String) As String
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
+            .VisibleBrowser = False,
+            .TimeOperations = True,
+            .TimingOutputFile = ThisAddIn.timingFile
+        }
+
+        ndt.TicketNumber = ndt.FindTicket(0, searchText, openOnly:=False)
+        GetTicketOwner = ndt.Creator()
+
+    End Function
+
+
     Public Function GetFolderbyDeal(dealID As String,
                                     Optional SuppressWarnings As Boolean = False) As String
 
@@ -267,9 +280,12 @@ Partial Class ThisAddIn
                 dealID = GetDealfromOPG(dealID)
                 Return True
             Else
+                'If IsNumeric(dealID) AndAlso CInt(dealID) > 40000000 Then
+                ' Return True 'this is a cisco deal and so not in the db
+                ' End If
                 Return False
             End If
-        End If
+            End If
 
     End Function
     Public Function GetDealfromOPG(ByRef dealID As String) As String

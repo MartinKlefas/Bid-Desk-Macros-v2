@@ -193,7 +193,14 @@ Public Class NewMailForm
 
     End Function
     Private Function IsQuoteExpiryNotice(newMail As Outlook.MailItem) As Boolean
-        Return newMail.SenderEmailAddress.ToLower.Equals("sfdc.support@hpe.com") AndAlso newMail.Subject.StartsWith("your action required", searchType)
+        Dim tmpresult As Boolean
+
+        tmpresult = newMail.SenderEmailAddress.ToLower.Equals("sfdc.support@hpe.com") AndAlso newMail.Subject.StartsWith("your action required", searchType)
+
+        If Not tmpresult Then
+            tmpresult = newMail.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") AndAlso newMail.Body.Contains("will expire in") AndAlso newMail.Body.Contains("days unless action is taken")
+        End If
+        Return tmpresult
     End Function
 
 
