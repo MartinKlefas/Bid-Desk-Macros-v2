@@ -47,7 +47,11 @@ Public Class AddDeal
 
 
             End Select
+            If Me.mail.Subject.ToLower.StartsWith("[nextdesk]") Then
+                Me.txtNDTNum.Text = Me.mail.Subject.Substring(InStr(mail.Subject, "#"), 7)
+            End If
         End If
+
     End Sub
     Private Sub CheckOnly(toCheck As RadioButton)
         For Each tControl As Control In VendorGroupBox.Controls
@@ -124,7 +128,8 @@ Public Class AddDeal
                 {"CC", ccNames},
                 {"Status", "Submitted to Vendor"},
                 {"StatusDate", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")},
-                {"Date", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")}
+                {"Date", DateTime.Now().ToString("yyyyMMdd HH:mm:ss")},
+                {"NDT", Me.txtNDTNum.Text}
             }
 
         Dim xmlFileName As String = WriteXMlOutput(tCreateDealRecord)
@@ -225,4 +230,7 @@ Public Class AddDeal
     End Sub
     Delegate Sub UpdateTitleCallback(ByVal [NewTitle] As String)
 
+    Private Sub TxtNDTNum_TextChanged(sender As Object, e As EventArgs) Handles txtNDTNum.TextChanged
+
+    End Sub
 End Class

@@ -153,63 +153,75 @@ Public Class AddDeal
     Public Function DoNewCreation(DealData As Dictionary(Of String, String), ByRef replyMail As Outlook.MailItem) As Boolean
 
         myContinue = True
-
-        UpdateTitle("Creating Ticket...")
-
+        Dim newNDT As Integer
         Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
-        Dim newNDT As Integer
-        newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(DealData, replyMail))
+        If DealData("NDT") = "" Then
+            UpdateTitle("Creating Ticket...")
 
-        If Not myContinue Then
-            Return False
-            Exit Function
-        End If
 
-        If newNDT = 0 Or newNDT = 404 Then ' retry on first fail
+
+
             newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(DealData, replyMail))
+
+            If Not myContinue Then
+                Return False
+                Exit Function
+            End If
+
+            If newNDT = 0 Or newNDT = 404 Then ' retry on first fail
+                newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(DealData, replyMail))
+            End If
+
+
+
+
+            If newNDT <> 0 And newNDT <> 404 Then ' continue on second
+
+                DealData.Add("NDT", newNDT)
+                ndt.Move("Public Sector")
+
+                If Not myContinue Then
+                    Return False
+                    Exit Function
+                End If
+
+                Dim aliases As String = ""
+                'add people to notify
+                For Each recipient As Outlook.Recipient In replyMail.Recipients
+                    Try
+                        aliases &= recipient.AddressEntry.GetExchangeUser.Alias & ";"
+                    Catch
+                        Globals.ThisAddIn.ShoutError("Could not find alias for: " & recipient.ToString)
+                    End Try
+                Next
+
+                UpdateTitle("Adding Notify...")
+
+                ndt.AddToNotify(aliases)
+                If Not myContinue Then
+                    Return False
+                    Exit Function
+                End If
+
+                UpdateTitle("Attaching Info...")
+
+                'update ticket with bid number & original email
+                ndt.AttachMail(mail, "Deal ID  " & DealData("DealID") & " was submitted to " & DealData("Vendor") & " based on the information in the attached email")
+
+                If Not myContinue Then
+                    Return False
+                    Exit Function
+                End If
+
+                DealData.Remove("AMEmailAddress")
+            End If
+        Else
+
+            ndt.TicketNumber = DealData("NDT")
+            ndt.UpdateNextDesk(Globals.ThisAddIn.WriteTicketMessage(DealData))
         End If
 
-        If newNDT <> 0 And newNDT <> 404 Then ' continue on second
-
-            DealData.Add("NDT", newNDT)
-            ndt.Move("Public Sector")
-
-            If Not myContinue Then
-                Return False
-                Exit Function
-            End If
-
-            Dim aliases As String = ""
-            'add people to notify
-            For Each recipient As Outlook.Recipient In replyMail.Recipients
-                Try
-                    aliases &= recipient.AddressEntry.GetExchangeUser.Alias & ";"
-                Catch
-                    Globals.ThisAddIn.ShoutError("Could not find alias for: " & recipient.ToString)
-                End Try
-            Next
-
-            UpdateTitle("Adding Notify...")
-
-            ndt.AddToNotify(aliases)
-            If Not myContinue Then
-                Return False
-                Exit Function
-            End If
-
-            UpdateTitle("Attaching Info...")
-
-            'update ticket with bid number & original email
-            ndt.AttachMail(mail, "Deal ID  " & DealData("DealID") & " was submitted to " & DealData("Vendor") & " based on the information in the attached email")
-
-            If Not myContinue Then
-                Return False
-                Exit Function
-            End If
-
-            DealData.Remove("AMEmailAddress")
-        End If
 
         If Globals.ThisAddIn.sqlInterface.Add_Data(DealData) > 0 Then
             Dim rFName As String() = Split(DealData("AM"))

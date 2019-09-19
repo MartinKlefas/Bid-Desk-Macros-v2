@@ -35,7 +35,8 @@ Partial Class ThisAddIn
                                 {"CC", deal.SelectSingleNode("CC").InnerText},
                                 {"Status", "Submitted to Vendor"},
                                 {"StatusDate", deal.SelectSingleNode("Date").InnerText},
-                                {"Date", deal.SelectSingleNode("Date").InnerText}
+                                {"Date", deal.SelectSingleNode("Date").InnerText},
+                                {"NDT", deal.SelectSingleNode("NDT").InnerText}
                             }
 
                         dealsRead.Add(tCreateDealRecord)

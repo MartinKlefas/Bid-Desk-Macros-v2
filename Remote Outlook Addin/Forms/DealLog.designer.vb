@@ -37,6 +37,8 @@ Partial Class AddDeal
         Me.cTechData = New System.Windows.Forms.CheckBox()
         Me.cIngram = New System.Windows.Forms.CheckBox()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.txtNDTNum = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.VendorGroupBox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -121,7 +123,7 @@ Partial Class AddDeal
         '
         'OKButton
         '
-        Me.OKButton.Location = New System.Drawing.Point(15, 211)
+        Me.OKButton.Location = New System.Drawing.Point(15, 250)
         Me.OKButton.Name = "OKButton"
         Me.OKButton.Size = New System.Drawing.Size(138, 29)
         Me.OKButton.TabIndex = 6
@@ -130,7 +132,7 @@ Partial Class AddDeal
         '
         'tCancelButton
         '
-        Me.tCancelButton.Location = New System.Drawing.Point(167, 211)
+        Me.tCancelButton.Location = New System.Drawing.Point(163, 250)
         Me.tCancelButton.Name = "tCancelButton"
         Me.tCancelButton.Size = New System.Drawing.Size(138, 29)
         Me.tCancelButton.TabIndex = 7
@@ -182,11 +184,29 @@ Partial Class AddDeal
         'BackgroundWorker1
         '
         '
+        'txtNDTNum
+        '
+        Me.txtNDTNum.Location = New System.Drawing.Point(13, 224)
+        Me.txtNDTNum.Name = "txtNDTNum"
+        Me.txtNDTNum.Size = New System.Drawing.Size(287, 20)
+        Me.txtNDTNum.TabIndex = 11
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(10, 208)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(127, 13)
+        Me.Label3.TabIndex = 10
+        Me.Label3.Text = "NextDesk Ticket Number"
+        '
         'AddDeal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(317, 254)
+        Me.ClientSize = New System.Drawing.Size(317, 291)
+        Me.Controls.Add(Me.txtNDTNum)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.tCancelButton)
         Me.Controls.Add(Me.OKButton)
@@ -220,4 +240,6 @@ Partial Class AddDeal
     Friend WithEvents cIngram As Windows.Forms.CheckBox
     Friend WithEvents HPEOption As Windows.Forms.RadioButton
     Friend WithEvents BackgroundWorker1 As ComponentModel.BackgroundWorker
+    Friend WithEvents txtNDTNum As Windows.Forms.TextBox
+    Friend WithEvents Label3 As Windows.Forms.Label
 End Class
