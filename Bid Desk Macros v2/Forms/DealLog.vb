@@ -156,7 +156,7 @@ Public Class AddDeal
         Dim newNDT As Integer
         Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
-        If DealData("NDT") = "" Then
+        If Not DealData.ContainsKey("NDT") OrElse DealData("NDT") = "" Then
             UpdateTitle("Creating Ticket...")
 
 
@@ -178,7 +178,7 @@ Public Class AddDeal
 
             If newNDT <> 0 And newNDT <> 404 Then ' continue on second
 
-                DealData.Add("NDT", newNDT)
+                If Not DealData.ContainsKey("NDT") Then DealData.Add("NDT", newNDT)
                 ndt.Move("Public Sector")
 
                 If Not myContinue Then
@@ -219,6 +219,7 @@ Public Class AddDeal
         Else
 
             ndt.TicketNumber = DealData("NDT")
+            DealData.Remove("AMEmailAddress")
             ndt.UpdateNextDesk(Globals.ThisAddIn.WriteTicketMessage(DealData))
         End If
 

@@ -35,14 +35,21 @@ Partial Class ThisAddIn
                                 {"CC", deal.SelectSingleNode("CC").InnerText},
                                 {"Status", "Submitted to Vendor"},
                                 {"StatusDate", deal.SelectSingleNode("Date").InnerText},
-                                {"Date", deal.SelectSingleNode("Date").InnerText},
-                                {"NDT", deal.SelectSingleNode("NDT").InnerText}
+                                {"Date", deal.SelectSingleNode("Date").InnerText}
                             }
+                        Try
+                            tCreateDealRecord.Add("NDT", deal.SelectSingleNode("NDT").InnerText)
+
+                        Catch ex As Exception
+                            tCreateDealRecord.Add("NDT", "")
+
+                        End Try
 
                         dealsRead.Add(tCreateDealRecord)
                     Next
                     My.Computer.FileSystem.DeleteFile(fileName)
-                Catch
+                Catch ex As Exception
+                    Debug.WriteLine(ex.Message)
                 End Try
             ElseIf tAttachment.FileName.ToLower.Contains(".msg") Then
                 Dim fileName As String = IO.Path.GetTempPath & RandomString(6) & tAttachment.FileName
