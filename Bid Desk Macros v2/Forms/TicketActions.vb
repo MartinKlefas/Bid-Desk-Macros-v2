@@ -57,8 +57,11 @@
                 ndt.TicketNumber = ndt.FindTicket(0, Ticket, openOnly:=False)
                 If ndt.TicketNumber <> 0 Then
                     Try
-                        ndt.UpdateNextDeskAttach(Comment, "Please See attached the vendor quote in dollars")
-                        ndt.Move("Pre-sales triage")
+                        ndt.UpdateNextDeskAttach(Comment, CiscoAttachComment)
+                        If ndt.InBin("Pre-sales triage") Then
+                            ndt.Move("Pre-sales triage")
+                        End If
+
                     Catch
                     End Try
 

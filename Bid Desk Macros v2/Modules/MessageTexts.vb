@@ -12,6 +12,7 @@
     Public Const DeadMessage As String = "<br>&nbsp; Thank you for letting me know, I've updated my records.<br> Thanks,<br> Martin."
     Public Const SubmitMessage As String = "<br>&nbsp;I've created the below for you with %VENDOR% (ref: %DEALID%). %NDT%<br>&nbsp;Please check that everything is correct and let me know asap if there are any errors.<br> Regards, Martin."
 
+    Public Const CiscoAttachComment As String = "Please See attached the vendor quote in dollars. Pre-Sales team: Please move this ticket to Neil or Duncan for an Internal Cost Document and Customer facing quote to be created."
 
     Public Const TicketSubmitMessage As String = "I've created %DEALID% for you on the %VENDOR% portal.
         %VENDOR% will endeavor to turn this around for you as soon as possible, but if there are any unexpected delays then please reach out and we can escalate it after the normal SLA period. Regards, Martin."

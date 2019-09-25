@@ -216,4 +216,10 @@ Public Class MainRibbon
 
     End Function
 
+    Private Sub Button2_Click_2(sender As Object, e As RibbonControlEventArgs) Handles Button2.Click
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
+        ndt.TicketNumber = 6641172
+
+        Debug.WriteLine(ndt.InBin("Pre-sales triage"))
+    End Sub
 End Class
