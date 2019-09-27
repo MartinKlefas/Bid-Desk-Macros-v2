@@ -11,6 +11,7 @@
             TargetFolder = GetFolderbyDeal(DealID, True)
         End If
 
+        If TargetFolder = "Karen Mason" Then TargetFolder = "Karen Merridan"
 
         If TargetFolder <> "" AndAlso Not IsDealDead(DealID) Then
             msgReply = msg.Forward
@@ -92,9 +93,9 @@
             End Try
 
         ElseIf TargetFolder = "" Then
-                Globals.ThisAddIn.MoveToFolder("Not Defined", msg, SuppressWarnings)
-            Else
-                msg.Delete()
+            Globals.ThisAddIn.MoveToFolder("Not Defined", msg, SuppressWarnings)
+        Else
+            msg.Delete()
         End If
 
         Return success
