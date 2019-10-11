@@ -167,7 +167,12 @@ Public Class DealIdent
                 '~~> on separate lines
                 If Len(bodyAr(i)) > 8 AndAlso bodyAr(i).StartsWith("Deal ID:", ThisAddIn.searchType) Then
                     bodyLineAr = Split(bodyAr(i))
-                    tempResult = TrimExtended(bodyLineAr(2))
+                    If TrimExtended(bodyLineAr(2)).Contains("https") Then
+                        tempResult = Split(bodyLineAr(1), ":").Last
+                    Else
+                        tempResult = TrimExtended(bodyLineAr(2))
+                    End If
+
 
                 End If
                 If Len(bodyAr(i)) > 8 AndAlso bodyAr(i).StartsWith("Quote ID :", ThisAddIn.searchType) Then
