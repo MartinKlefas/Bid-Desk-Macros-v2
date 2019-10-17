@@ -37,7 +37,7 @@ Partial Class BrowserController
             Catch
             End Try
         Next
-        Threading.Thread.Sleep(TimeSpan.FromSeconds(1))
+        Threading.Thread.Sleep(TimeSpan.FromSeconds(5))
         Browser.FindElementByLinkText(SearchFor).Click()
 
     End Sub

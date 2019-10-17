@@ -16,62 +16,68 @@ Public Class BrowserController
     End Sub
 
     Public Sub RunCode()
-        'UpdateLabel("Getting Everything Ready...")
-        Me.TopMost = True
-
         Dim browser As ChromeDriver = Nothing
+        Try
+
+            'UpdateLabel("Getting Everything Ready...")
+            Me.TopMost = True
 
 
-        If Mode = "Login" Or Mode = "NewDeal" Or Mode = "DownloadQuote" Then
-            'UpdateLabel(LabelMessages("Login"))
-            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
-
-            browser = ndt.GiveMeChrome(True, True)
-
-            DoLogin(browser)
-        End If
 
 
-        If Mode = "NewDeal" Then
-            'UpdateLabel(LabelMessages("NewDeal1"))
-            ND_PageOne(browser)
+            If Mode = "Login" Or Mode = "NewDeal" Or Mode = "DownloadQuote" Then
+                'UpdateLabel(LabelMessages("Login"))
+                Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
 
-            'UpdateLabel(LabelMessages("NewDeal2"))
-            ND_PageTwo(browser)
+                browser = ndt.GiveMeChrome(True, True)
 
-            ' UpdateLabel(LabelMessages("NewDeal3"))
-            ND_PageThree(browser)
+                DoLogin(browser)
+            End If
 
-            ' UpdateLabel(LabelMessages("NewDeal4"))
-            ND_PageFour(browser)
-        End If
 
-        If Mode = "DownloadQuote" Then
+            If Mode = "NewDeal" Then
+                'UpdateLabel(LabelMessages("NewDeal1"))
+                ND_PageOne(browser)
 
-            If QuoteNum <> "0" Then
+                'UpdateLabel(LabelMessages("NewDeal2"))
+                ND_PageTwo(browser)
 
-                ' UpdateLabel(LabelMessages("DL1"))
-                DL_PageOne(browser, QuoteNum)
+                ' UpdateLabel(LabelMessages("NewDeal3"))
+                ND_PageThree(browser)
 
-                Threading.Thread.Sleep(TimeSpan.FromSeconds(5))
+                ' UpdateLabel(LabelMessages("NewDeal4"))
+                ND_PageFour(browser)
+            End If
 
-                Dim result As String = GetQuote(browser)
-                browser.Quit()
+            If Mode = "DownloadQuote" Then
 
-                If result.Equals("Not Approved", StringComparison.CurrentCultureIgnoreCase) Then
-                    Debug.WriteLine("This quote is not yet approved.")
-                    EmailMessage.Categories = "Cisco Not Approved"
-                    EmailMessage.UnRead = False
-                    Exit Sub
-                Else
+                If QuoteNum <> "0" Then
 
-                    Dim ticketForm As New TicketActions("AttachCisco", QuoteNum, result, True)
-                    ticketForm.Show()
-                    EmailMessage.Delete()
+                    ' UpdateLabel(LabelMessages("DL1"))
+                    DL_PageOne(browser, QuoteNum)
 
+                    Threading.Thread.Sleep(TimeSpan.FromSeconds(5))
+
+                    Dim result As String = GetQuote(browser)
+                    browser.Quit()
+
+                    If result.Equals("Not Approved", StringComparison.CurrentCultureIgnoreCase) Then
+                        Debug.WriteLine("This quote is not yet approved.")
+                        EmailMessage.Categories = "Cisco Not Approved"
+                        EmailMessage.UnRead = False
+                        Exit Sub
+                    Else
+
+                        Dim ticketForm As New TicketActions("AttachCisco", QuoteNum, result, True)
+                        ticketForm.Show()
+                        EmailMessage.Delete()
+
+                    End If
                 End If
             End If
-        End If
+        Catch
+            browser.Quit()
+        End Try
 
     End Sub
 
@@ -87,11 +93,12 @@ Public Class BrowserController
         WithBrowser.Navigate.GoToUrl("https://apps.cisco.com/ccw/cpc/home")
 
         Try
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(1))
             WithBrowser.FindElementByName("pf.username").SendKeys("martinklefas")
 
             WithBrowser.FindElementByName("login-button").Click()
 
-            Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(4))
 
             WithBrowser.FindElementByName("password").SendKeys("sis1898p7aPu")
 

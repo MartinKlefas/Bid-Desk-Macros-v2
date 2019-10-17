@@ -93,7 +93,7 @@ Public Class MainRibbon
 
             Else
                     senderEmail = msg.SenderEmailAddress
-                If senderEmail.ToLower.Equals("tim.lee@insight.com") OrElse senderEmail.ToLower.Equals("richard.west@insight.com") Then
+                If senderEmail.ToLower.Equals("tim.lee@insight.com") OrElse senderEmail.ToLower.Equals("richard.west@insight.com") OrElse senderEmail.ToLower.Equals("alex.jubb@insight.com") Then
                     senderEmail = FindOnBehalfOf(msg.Body)
                 End If
             End If
