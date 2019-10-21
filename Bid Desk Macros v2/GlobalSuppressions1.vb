@@ -1,0 +1,14 @@
+﻿' This file is used by Code Analysis to maintain SuppressMessage
+' attributes that are applied to this project.
+' Project-level suppressions either have no target or are given
+' a specific target and scoped to a namespace, type, member, etc.
+
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0067:Dispose objects before losing scope", Justification:="<Pending>", Scope:="member", Target:="~M:Bid_Desk_Macros_v2.MainRibbon.BtnAddtoDB_Click(System.Object,Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs)")>
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0067:Dispose objects before losing scope", Justification:="<Pending>", Scope:="member", Target:="~M:Bid_Desk_Macros_v2.MainRibbon.BtnLookup_Click(System.Object,Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs)")>
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0067:Dispose objects before losing scope", Justification:="<Pending>", Scope:="member", Target:="~M:Bid_Desk_Macros_v2.MainRibbon.Button1_Click(System.Object,Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs)")>
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0067:Dispose objects before losing scope", Justification:="<Pending>", Scope:="member", Target:="~M:Bid_Desk_Macros_v2.MainRibbon.Button1_Click_1(System.Object,Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs)")>
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0067:Dispose objects before losing scope", Justification:="<Pending>", Scope:="member", Target:="~M:Bid_Desk_Macros_v2.MainRibbon.Button2_Click_1(System.Object,Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs)")>
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0067:Dispose objects before losing scope", Justification:="<Pending>", Scope:="member", Target:="~M:Bid_Desk_Macros_v2.MainRibbon.Button3_Click_1(System.Object,Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs)")>
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0067:Dispose objects before losing scope", Justification:="<Pending>", Scope:="member", Target:="~M:Bid_Desk_Macros_v2.MainRibbon.ImprtLots_Click(System.Object,Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs)")>
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0067:Dispose objects before losing scope", Justification:="<Pending>", Scope:="member", Target:="~M:Bid_Desk_Macros_v2.ThisAddIn.ExpiryMessages(Microsoft.Office.Interop.Outlook.MailItem,System.Boolean)")>
+<Assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0067:Dispose objects before losing scope", Justification:="<Pending>", Scope:="member", Target:="~M:Bid_Desk_Macros_v2.ThisAddIn.ReqMoreInfo(Microsoft.Office.Interop.Outlook.MailItem,System.Boolean)")>

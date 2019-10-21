@@ -24,6 +24,10 @@ Partial Class ThisAddIn
         Try
             olDestFolder = olNameSpace.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderInbox).Folders("Bids").Folders(folderName)
             thisMailItem.Move(olDestFolder)
+
+            Dim ribbon As MainRibbon = Globals.Ribbons.Ribbon1
+            ribbon.UpdateNotDefinedButton()
+
             MoveToFolder = True
         Catch
             Try

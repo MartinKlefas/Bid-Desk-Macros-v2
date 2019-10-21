@@ -13,7 +13,6 @@ Public Class ThisAddIn
     Public Const timingFile As String = "\\insight.com\root\shared\Sales\public sector\Martin Klefas\Data\NextDesk Metrics\internaltimingfile.csv"
 
 
-
     Sub MoveBasedOnDealID(Optional attach As Boolean = False, Optional passedMessage As Outlook.MailItem = Nothing, Optional CompleteAutonomy As Boolean = False)
         Dim MessagesList As New List(Of Outlook.MailItem)
 

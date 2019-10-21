@@ -43,9 +43,12 @@
     Private Sub InitializeComponent()
         Dim Tab2 As Microsoft.Office.Tools.Ribbon.RibbonTab
         Me.Group5 = Me.Factory.CreateRibbonGroup
-        Me.BtnAutoAll_TabMail = Me.Factory.CreateRibbonButton
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
+        Me.Group3 = Me.Factory.CreateRibbonGroup
+        Me.Group2 = Me.Factory.CreateRibbonGroup
+        Me.Group4 = Me.Factory.CreateRibbonGroup
+        Me.Button2 = Me.Factory.CreateRibbonButton
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
@@ -58,18 +61,17 @@
         Me.WonBtn = Me.Factory.CreateRibbonButton
         Me.DeadBtn = Me.Factory.CreateRibbonButton
         Me.BtnLater = Me.Factory.CreateRibbonButton
-        Me.Group3 = Me.Factory.CreateRibbonGroup
         Me.btnOnOff = Me.Factory.CreateRibbonButton
         Me.btnHoliday = Me.Factory.CreateRibbonButton
-        Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.ImprtLots = Me.Factory.CreateRibbonButton
         Me.addOPG = Me.Factory.CreateRibbonButton
         Me.btnLookup = Me.Factory.CreateRibbonButton
         Me.btnChangeAM = Me.Factory.CreateRibbonButton
-        Me.Group4 = Me.Factory.CreateRibbonGroup
         Me.Button1 = Me.Factory.CreateRibbonButton
-        Me.Button2 = Me.Factory.CreateRibbonButton
+        Me.BtnAutoAll_TabMail = Me.Factory.CreateRibbonButton
+        Me.UnSortedMails = Me.Factory.CreateRibbonButton
+        Me.UnsortedMails2 = Me.Factory.CreateRibbonButton
         Tab2 = Me.Factory.CreateRibbonTab
         Tab2.SuspendLayout()
         Me.Group5.SuspendLayout()
@@ -91,16 +93,9 @@
         'Group5
         '
         Me.Group5.Items.Add(Me.BtnAutoAll_TabMail)
+        Me.Group5.Items.Add(Me.UnSortedMails)
         Me.Group5.Label = "Bid Tools"
         Me.Group5.Name = "Group5"
-        '
-        'BtnAutoAll_TabMail
-        '
-        Me.BtnAutoAll_TabMail.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.BtnAutoAll_TabMail.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.robot_pngrepo_com
-        Me.BtnAutoAll_TabMail.Label = "Auto Process"
-        Me.BtnAutoAll_TabMail.Name = "BtnAutoAll_TabMail"
-        Me.BtnAutoAll_TabMail.ShowImage = True
         '
         'Tab1
         '
@@ -114,6 +109,7 @@
         'Group1
         '
         Me.Group1.Items.Add(Me.btnAutoAll)
+        Me.Group1.Items.Add(Me.UnsortedMails2)
         Me.Group1.Items.Add(Me.ReplyToBidBtn)
         Me.Group1.Items.Add(Me.MoveBtn)
         Me.Group1.Items.Add(Me.MvAttach)
@@ -127,6 +123,35 @@
         Me.Group1.Items.Add(Me.BtnLater)
         Me.Group1.Label = "Processing Actions"
         Me.Group1.Name = "Group1"
+        '
+        'Group3
+        '
+        Me.Group3.Items.Add(Me.btnOnOff)
+        Me.Group3.Items.Add(Me.btnHoliday)
+        Me.Group3.Label = "Automation"
+        Me.Group3.Name = "Group3"
+        '
+        'Group2
+        '
+        Me.Group2.Items.Add(Me.BtnAddtoDB)
+        Me.Group2.Items.Add(Me.ImprtLots)
+        Me.Group2.Items.Add(Me.addOPG)
+        Me.Group2.Items.Add(Me.btnLookup)
+        Me.Group2.Items.Add(Me.btnChangeAM)
+        Me.Group2.Label = "Database Actions"
+        Me.Group2.Name = "Group2"
+        '
+        'Group4
+        '
+        Me.Group4.Items.Add(Me.Button1)
+        Me.Group4.Items.Add(Me.Button2)
+        Me.Group4.Label = "Ticket Tools"
+        Me.Group4.Name = "Group4"
+        '
+        'Button2
+        '
+        Me.Button2.Label = "Button2"
+        Me.Button2.Name = "Button2"
         '
         'btnAutoAll
         '
@@ -224,13 +249,6 @@
         Me.BtnLater.Name = "BtnLater"
         Me.BtnLater.ShowImage = True
         '
-        'Group3
-        '
-        Me.Group3.Items.Add(Me.btnOnOff)
-        Me.Group3.Items.Add(Me.btnHoliday)
-        Me.Group3.Label = "Automation"
-        Me.Group3.Name = "Group3"
-        '
         'btnOnOff
         '
         Me.btnOnOff.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -246,16 +264,6 @@
         Me.btnHoliday.Label = "At Work"
         Me.btnHoliday.Name = "btnHoliday"
         Me.btnHoliday.ShowImage = True
-        '
-        'Group2
-        '
-        Me.Group2.Items.Add(Me.BtnAddtoDB)
-        Me.Group2.Items.Add(Me.ImprtLots)
-        Me.Group2.Items.Add(Me.addOPG)
-        Me.Group2.Items.Add(Me.btnLookup)
-        Me.Group2.Items.Add(Me.btnChangeAM)
-        Me.Group2.Label = "Database Actions"
-        Me.Group2.Name = "Group2"
         '
         'BtnAddtoDB
         '
@@ -294,13 +302,6 @@
         Me.btnChangeAM.Name = "btnChangeAM"
         Me.btnChangeAM.ShowImage = True
         '
-        'Group4
-        '
-        Me.Group4.Items.Add(Me.Button1)
-        Me.Group4.Items.Add(Me.Button2)
-        Me.Group4.Label = "Ticket Tools"
-        Me.Group4.Name = "Group4"
-        '
         'Button1
         '
         Me.Button1.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -309,10 +310,29 @@
         Me.Button1.Name = "Button1"
         Me.Button1.ShowImage = True
         '
-        'Button2
+        'BtnAutoAll_TabMail
         '
-        Me.Button2.Label = "Button2"
-        Me.Button2.Name = "Button2"
+        Me.BtnAutoAll_TabMail.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.BtnAutoAll_TabMail.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.robot_pngrepo_com
+        Me.BtnAutoAll_TabMail.Label = "Auto Process"
+        Me.BtnAutoAll_TabMail.Name = "BtnAutoAll_TabMail"
+        Me.BtnAutoAll_TabMail.ShowImage = True
+        '
+        'UnSortedMails
+        '
+        Me.UnSortedMails.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.UnSortedMails.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.Green_robot
+        Me.UnSortedMails.Label = "Reprocess Not Defined"
+        Me.UnSortedMails.Name = "UnSortedMails"
+        Me.UnSortedMails.ShowImage = True
+        '
+        'UnsortedMails2
+        '
+        Me.UnsortedMails2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.UnsortedMails2.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.Green_robot
+        Me.UnsortedMails2.Label = "Reprocess Not Defined"
+        Me.UnsortedMails2.Name = "UnsortedMails2"
+        Me.UnsortedMails2.ShowImage = True
         '
         'MainRibbon
         '
@@ -366,6 +386,8 @@
     Friend WithEvents Group5 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents BtnAutoAll_TabMail As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Button2 As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents UnSortedMails As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents UnsortedMails2 As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

@@ -4,11 +4,11 @@
     Public Const drDecision As String = "<br>&nbsp; Please see below/attached the vendor's decision on your deal registration.<br> Thanks,<br> Martin."
     Public Const dellDecline As String = "<br>&nbsp; Please note that a declined Dell DR can always be appealed if you feel you have a strong reason as to why it should have been approved - please contact simon_archibald@dell.com & shireen_kandola@dell.com to make your case.<br>"
     Public Const sqFwdMessage As String = "<br>&nbsp; Please see attached pricing from distribution.<br> Thanks,<br> Martin."
-    Public Const opgFwdMessage As String = "<br>&nbsp; Please see attached the OPG pricing from distribution, which you'll need for UPR Creation.<br> Thanks,<br> Martin."
+    Public Const opgFwdMessage As String = "<br>&nbsp; Please see attached the OPG pricing from distribution, you can now create a UPR creation ticket, but no longer need to attach this to it.<br> Thanks,<br> Martin."
     Public Const HPPublishMessage As String = "<br>&nbsp; Your SmartQuote has been approved by HP, and is now being priced by distribution. We should have the first responses back very shortly. "
     Public Const HPExtensionSubmitted As String = "<br>&nbsp; I've submitted your request for an extension in the portal, you should hopefully receive an updated response shortly. Please note though that pricing may be different on the renewed deal. <br> Thanks,<br> Martin."
     Public Const DellExtensionSubmitted As String = "<br>&nbsp; I've submitted your request for an extension in the portal, and it has been extended by 90 days. Please ensure the continued validity of any quotes before passing them on to your customer. <br> Thanks,<br> Martin."
-    Public Const WonMessage As String = "<br>&nbsp; As below, your SQ has been set to won. I'm now getting OPG Pricing from distribution for you to use on your UPR Creation ticket.<br> Thanks,<br> Martin."
+    Public Const WonMessage As String = "<br>&nbsp; As below, your SQ has been set to won. Please wait for confirmation of success from the vendor before creating your UPR ticket.<br> Thanks,<br> Martin."
     Public Const DeadMessage As String = "<br>&nbsp; Thank you for letting me know, I've updated my records.<br> Thanks,<br> Martin."
     Public Const SubmitMessage As String = "<br>&nbsp;I've created the below for you with %VENDOR% (ref: %DEALID%). %NDT%<br>&nbsp;Please check that everything is correct and let me know asap if there are any errors.<br> Regards, Martin."
 

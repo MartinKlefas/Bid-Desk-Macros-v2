@@ -217,9 +217,71 @@ Public Class MainRibbon
     End Function
 
     Private Sub Button2_Click_2(sender As Object, e As RibbonControlEventArgs) Handles Button2.Click
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
-        ndt.TicketNumber = 6641172
+        Dim ribbon As MainRibbon = Globals.Ribbons.Ribbon1
+        ribbon.UpdateNotDefinedButton()
+    End Sub
 
-        Debug.WriteLine(ndt.InBin("Pre-sales triage"))
+    Private Sub Button3_Click_2(sender As Object, e As RibbonControlEventArgs) Handles UnSortedMails.Click
+        Dim olApp As New Outlook.Application
+        Dim olNameSpace As Outlook.NameSpace
+
+        Dim olDestFolder As Outlook.MAPIFolder
+
+        Dim MessageList As New List(Of Outlook.MailItem)
+
+        olNameSpace = olApp.GetNamespace("MAPI")
+
+
+
+        olDestFolder = olNameSpace.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderInbox).Folders("Bids").Folders("Not Defined")
+
+
+        For Each item In olDestFolder.Items
+            If TypeName(item) = "MailItem" Then
+                MessageList.Add(item)
+            End If
+        Next
+
+        Dim autoForm As New NewMailForm(MessageList)
+        autoForm.Show()
+    End Sub
+
+    Public Sub UpdateNotDefinedButton()
+
+        Dim olApp As New Outlook.Application
+        Dim olNameSpace As Outlook.NameSpace
+
+        Dim olDestFolder As Outlook.MAPIFolder
+        olNameSpace = olApp.GetNamespace("MAPI")
+
+
+
+        olDestFolder = olNameSpace.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderInbox).Folders("Bids").Folders("Not Defined")
+
+
+        Dim CountEmails As Integer = olDestFolder.Items.Count
+
+        Select Case CountEmails
+            Case 0
+                Me.UnSortedMails.Image = My.Resources.Green_robot
+            Case 1
+                Me.UnSortedMails.Image = My.Resources._1redrobot
+            Case 2
+                Me.UnSortedMails.Image = My.Resources._2redrobot
+            Case 3
+                Me.UnSortedMails.Image = My.Resources._3redrobot
+            Case 4
+                Me.UnSortedMails.Image = My.Resources._4redrobot
+            Case 5
+                Me.UnSortedMails.Image = My.Resources._5redrobot
+            Case Else
+                Me.UnSortedMails.Image = My.Resources.plusredrobot
+        End Select
+        Me.UnsortedMails2.Image = Me.UnSortedMails.Image
+
+    End Sub
+
+    Private Sub Button3_Click_3(sender As Object, e As RibbonControlEventArgs) Handles UnsortedMails2.Click
+        Button3_Click_2(sender, e)
     End Sub
 End Class
