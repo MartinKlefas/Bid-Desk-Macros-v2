@@ -9,6 +9,7 @@ Public Class MainRibbon
     Private Sub Ribbon1_Load(ByVal sender As System.Object, ByVal e As RibbonUIEventArgs) Handles MyBase.Load
         AutoInbound = False
         OnHoliday = False
+        UpdateNotDefinedButton()
     End Sub
 
     Public Shared Function WriteHolidayMessage() As String
