@@ -286,6 +286,20 @@ Partial Class ThisAddIn
 
     End Function
 
+    Public Function WriteFwdMessage(DealID As String, AttachedOrBelow As String) As String
+
+        WriteFwdMessage = Replace(MoreInfoRequested, "%DEALID%", DealID)
+        WriteFwdMessage = Replace(WriteFwdMessage, "%BELOW%", AttachedOrBelow)
+
+        WriteFwdMessage = Replace(WriteFwdMessage, "%NDT%", GetNDTbyDeal(DealID))
+
+        WriteFwdMessage = Replace(WriteFwdMessage, "%VENDOR%", GetVendor(DealID))
+
+
+
+
+    End Function
+
 
     Public Function FileFromResource(resource As Byte(), resourceFileName As String) As String
 

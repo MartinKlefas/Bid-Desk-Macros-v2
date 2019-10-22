@@ -154,6 +154,34 @@ Public Class ThisAddIn
         DealIDForm.Show()
 
     End Sub
+
+    Sub FwdVendorEmail(Optional passedMessage As Outlook.MailItem = Nothing, Optional CompleteAutonomy As Boolean = False)
+
+        Dim MessagesList As New List(Of Outlook.MailItem)
+        Dim Autonomy As Boolean
+
+        If passedMessage Is Nothing Then
+            Dim obj As Object
+            Dim msg As Outlook.MailItem
+
+            For Each obj In GetSelection()
+                If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
+                    msg = obj
+                    MessagesList.Add(msg)
+                End If
+
+            Next
+            Autonomy = CompleteAutonomy
+        Else
+            MessagesList.Add(passedMessage)
+            Autonomy = True
+        End If
+
+        Dim DealIDForm As New DealIdent(MessagesList, "Forward Vendor Mail", Autonomy)
+        DealIDForm.Show()
+
+    End Sub
+
     Sub ReqMoreInfo(Optional passedMessage As Outlook.MailItem = Nothing, Optional CompleteAutonomy As Boolean = False)
 
         Dim MessagesList As New List(Of Outlook.MailItem)

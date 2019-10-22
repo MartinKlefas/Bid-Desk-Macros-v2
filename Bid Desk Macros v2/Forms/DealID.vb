@@ -87,7 +87,8 @@ Public Class DealIdent
 
                     Globals.ThisAddIn.UpdateStatus(tDealID, "More Info Requested")
 
-
+                Case "Forward Vendor Mail"
+                    Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, Globals.ThisAddIn.WriteFwdMessage(tDealID, "Below"), SuppressWarnings:=True, CompleteAutonomy:=True)
                 Case Else
 
 

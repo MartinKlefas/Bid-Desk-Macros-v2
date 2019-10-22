@@ -60,6 +60,8 @@ Public Class NewMailForm
                                 Globals.ThisAddIn.ReqMoreInfo(msg, CompleteAutonomy:=True)
                             Case "CiscoApproved"
                                 Globals.ThisAddIn.DoCiscoDownload(msg)
+                            Case "Forward Request"
+                                Globals.ThisAddIn.FwdVendorEmail(msg, CompleteAutonomy:=True)
                         End Select
 
                     End If
@@ -108,6 +110,9 @@ Public Class NewMailForm
             Return "MoreInfo"
         End If
 
+        If IsForwardRequest(msg) Then
+            Return "Forward Request"
+        End If
 
         Return "Nothing"
     End Function
@@ -221,6 +226,11 @@ Public Class NewMailForm
         Else
             Return False
         End If
+    End Function
+
+
+    Private Function IsForwardRequest(newmail As MailItem) As Boolean
+        Return newmail.Subject.ToLower.StartsWith("[autoforward")
     End Function
 
     Private Sub CloseMe()
