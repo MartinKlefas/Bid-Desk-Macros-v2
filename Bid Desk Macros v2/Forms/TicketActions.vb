@@ -50,6 +50,13 @@
         Select Case Action
             Case "MS-More-Info"
                 ndt.UpdateNextDesk(PreSubMoreInfo)
+            Case "Cisco-DR-Type"
+
+                ndt.UpdateNextDesk(CiscoDRType)
+
+                ndt.UpdateNextDeskAttach(Globals.ThisAddIn.FileFromResource(My.Resources.Hunting_Questionnaire_Blank, "Hunting Questionnaire Blank.docx"))
+                ndt.UpdateNextDeskAttach(Globals.ThisAddIn.FileFromResource(My.Resources.Teaming_Blank, "Teaming Questionnaire Blank.docx"))
+
             Case "Close"
                 ndt.CloseTicket(Comment)
             Case "AttachCisco"

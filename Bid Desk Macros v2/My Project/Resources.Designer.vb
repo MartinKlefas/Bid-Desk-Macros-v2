@@ -193,6 +193,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property DR() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("DR", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property exclamation_mark_red() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("exclamation_mark_red", resourceCulture)
@@ -227,6 +237,16 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("Green robot", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Byte[].
+        '''</summary>
+        Friend ReadOnly Property Hunting_Questionnaire_Blank() As Byte()
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Hunting_Questionnaire_Blank", resourceCulture)
+                Return CType(obj,Byte())
             End Get
         End Property
         
@@ -367,6 +387,16 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("smiley_devilish_face", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Byte[].
+        '''</summary>
+        Friend ReadOnly Property Teaming_Blank() As Byte()
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Teaming_Blank", resourceCulture)
+                Return CType(obj,Byte())
             End Get
         End Property
         

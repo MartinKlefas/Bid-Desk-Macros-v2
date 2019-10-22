@@ -218,8 +218,23 @@ Public Class MainRibbon
     End Function
 
     Private Sub Button2_Click_2(sender As Object, e As RibbonControlEventArgs) Handles Button2.Click
-        Dim ribbon As MainRibbon = Globals.Ribbons.Ribbon1
-        ribbon.UpdateNotDefinedButton()
+        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
+        Dim ndt As String = ""
+
+        If Selection.Count = 1 AndAlso TypeName(Selection.Item(1)) = "MailItem" Then
+            Dim msg As Outlook.MailItem = Selection.Item(1)
+
+            If msg.Subject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
+                ndt = msg.Subject.Substring(InStr(msg.Subject, "#"), 7)
+
+            End If
+
+        End If
+
+
+
+        Dim ticketform As New TicketActions("Cisco-DR-Type", ndt)
+        ticketform.Show()
     End Sub
 
     Private Sub Button3_Click_2(sender As Object, e As RibbonControlEventArgs) Handles UnSortedMails.Click

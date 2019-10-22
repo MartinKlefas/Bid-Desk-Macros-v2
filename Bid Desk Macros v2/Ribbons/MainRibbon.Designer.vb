@@ -48,8 +48,8 @@
         Me.Group3 = Me.Factory.CreateRibbonGroup
         Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.Group4 = Me.Factory.CreateRibbonGroup
-        Me.Button2 = Me.Factory.CreateRibbonButton
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
+        Me.UnsortedMails2 = Me.Factory.CreateRibbonButton
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
         Me.MoveBtn = Me.Factory.CreateRibbonButton
         Me.MvAttach = Me.Factory.CreateRibbonButton
@@ -69,9 +69,9 @@
         Me.btnLookup = Me.Factory.CreateRibbonButton
         Me.btnChangeAM = Me.Factory.CreateRibbonButton
         Me.Button1 = Me.Factory.CreateRibbonButton
+        Me.Button2 = Me.Factory.CreateRibbonButton
         Me.BtnAutoAll_TabMail = Me.Factory.CreateRibbonButton
         Me.UnSortedMails = Me.Factory.CreateRibbonButton
-        Me.UnsortedMails2 = Me.Factory.CreateRibbonButton
         Tab2 = Me.Factory.CreateRibbonTab
         Tab2.SuspendLayout()
         Me.Group5.SuspendLayout()
@@ -148,11 +148,6 @@
         Me.Group4.Label = "Ticket Tools"
         Me.Group4.Name = "Group4"
         '
-        'Button2
-        '
-        Me.Button2.Label = "Button2"
-        Me.Button2.Name = "Button2"
-        '
         'btnAutoAll
         '
         Me.btnAutoAll.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -160,6 +155,14 @@
         Me.btnAutoAll.Label = "Auto Process"
         Me.btnAutoAll.Name = "btnAutoAll"
         Me.btnAutoAll.ShowImage = True
+        '
+        'UnsortedMails2
+        '
+        Me.UnsortedMails2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.UnsortedMails2.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.Green_robot
+        Me.UnsortedMails2.Label = "Reprocess Not Defined"
+        Me.UnsortedMails2.Name = "UnsortedMails2"
+        Me.UnsortedMails2.ShowImage = True
         '
         'ReplyToBidBtn
         '
@@ -310,6 +313,14 @@
         Me.Button1.Name = "Button1"
         Me.Button1.ShowImage = True
         '
+        'Button2
+        '
+        Me.Button2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.Button2.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.DR
+        Me.Button2.Label = "Cisco DR Type"
+        Me.Button2.Name = "Button2"
+        Me.Button2.ShowImage = True
+        '
         'BtnAutoAll_TabMail
         '
         Me.BtnAutoAll_TabMail.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
@@ -325,14 +336,6 @@
         Me.UnSortedMails.Label = "Reprocess Not Defined"
         Me.UnSortedMails.Name = "UnSortedMails"
         Me.UnSortedMails.ShowImage = True
-        '
-        'UnsortedMails2
-        '
-        Me.UnsortedMails2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
-        Me.UnsortedMails2.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.Green_robot
-        Me.UnsortedMails2.Label = "Reprocess Not Defined"
-        Me.UnsortedMails2.Name = "UnsortedMails2"
-        Me.UnsortedMails2.ShowImage = True
         '
         'MainRibbon
         '

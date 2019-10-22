@@ -340,6 +340,8 @@
       <DependentUpon>MainRibbon.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Resources\Hunting Questionnaire Blank.docx" />
+    <None Include="Resources\Teaming Blank.docx" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.vb</DependentUpon>
     </None>
@@ -456,6 +458,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\output-onlinepngtools %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DR.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

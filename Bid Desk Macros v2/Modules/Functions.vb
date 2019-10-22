@@ -285,6 +285,23 @@ Partial Class ThisAddIn
 
 
     End Function
+
+
+    Public Function FileFromResource(resource As Byte(), resourceFileName As String) As String
+
+
+
+        Dim tempPath As String = Environ("TEMP") & "\bid-desk\" & RandomString(18) & "\"
+
+        If (Not System.IO.Directory.Exists(tempPath)) Then
+            System.IO.Directory.CreateDirectory(tempPath)
+        End If
+        Dim filename As String = tempPath & resourceFileName
+
+        System.IO.File.WriteAllBytes(filename, resource)
+
+        Return filename
+    End Function
 End Class
 
 

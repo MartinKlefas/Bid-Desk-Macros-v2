@@ -118,6 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_4redrobot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4redrobot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_champion_signal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light_champion_signal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Green robot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Green robot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="actions_view_calendar_tasks" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\actions_view_calendar_tasks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -130,14 +139,17 @@
   <data name="right_arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\right_arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_2redrobot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2redrobot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="output-onlinepngtools" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\output-onlinepngtools.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="question-mark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\question-mark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="light_champion_signal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\light_champion_signal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="repeat_alt_media" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\repeat_alt_media.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="folder_download_down_decrease_arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder_download_down_decrease_arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -150,6 +162,9 @@
   </data>
   <data name="copy_cut_clipboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\copy_cut_clipboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="robot-pngrepo-com" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\robot-pngrepo-com.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -165,9 +180,6 @@
   </data>
   <data name="smiley_devilish_face" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\smiley_devilish_face.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="repeat_alt_media" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\repeat_alt_media.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="OfficeWork Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OfficeWork Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -187,34 +199,31 @@
   <data name="money_dollar_coins_cash_piggy_bank_finance_business" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\money_dollar_coins_cash_piggy_bank_finance_business.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Vacation Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Vacation Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="robot-pngrepo-com" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\robot-pngrepo-com.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="on" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Green robot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Green robot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="plusredrobot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pluredrobot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="_1redrobot" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\output-onlinepngtools (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_2redrobot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2redrobot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Vacation Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Vacation Icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_3redrobot" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3redrobot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_4redrobot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4redrobot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="plusredrobot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pluredrobot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_5redrobot" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\5redrobot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hunting_Questionnaire_Blank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hunting Questionnaire Blank.docx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Teaming_Blank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Teaming Blank.docx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
