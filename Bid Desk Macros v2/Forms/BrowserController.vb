@@ -56,7 +56,7 @@ Public Class BrowserController
                     ' UpdateLabel(LabelMessages("DL1"))
                     DL_PageOne(browser, QuoteNum)
 
-                    Threading.Thread.Sleep(TimeSpan.FromSeconds(5))
+
 
                     Dim result As String = GetQuote(browser)
                     browser.Quit()
@@ -93,19 +93,24 @@ Public Class BrowserController
         WithBrowser.Navigate.GoToUrl("https://apps.cisco.com/ccw/cpc/home")
 
         Try
-            Threading.Thread.Sleep(TimeSpan.FromSeconds(1))
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
             WithBrowser.FindElementByName("pf.username").SendKeys("martinklefas")
 
             WithBrowser.FindElementByName("login-button").Click()
 
             Threading.Thread.Sleep(TimeSpan.FromSeconds(4))
-
-            WithBrowser.FindElementByName("password").SendKeys("sis1898p7aPu")
+startpassword:
+            Try
+                WithBrowser.FindElementByName("password").SendKeys("sis1898p7aPu")
+            Catch
+                Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
+                GoTo startpassword
+            End Try
 
             WithBrowser.FindElementById("kc-login").Click()
 
-        Catch ex As Exception
-            WithBrowser.FindElementByClassName("username-input").SendKeys("martinklefas")
+            Catch ex As Exception
+                WithBrowser.FindElementByClassName("username-input").SendKeys("martinklefas")
             WithBrowser.FindElementByClassName("password-input").SendKeys("sis1898p7aPu")
 
             WithBrowser.FindElementByName("login-button").Click()

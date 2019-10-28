@@ -4,8 +4,16 @@ Imports clsNextDeskTicket
 Imports OpenQA.Selenium.Chrome
 Partial Class BrowserController
     Private Sub DL_PageOne(Browser As ChromeDriver, SearchFor As String)
+findsearchbox:
         Dim elements = Browser.FindElementsByClassName("commonGlobalSearch")
         Dim kdfid As String
+
+
+        If elements.Count < 1 Then
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
+            GoTo findsearchbox
+        End If
+
         For Each elemnt In elements
             Try
                 kdfid = elemnt.GetAttribute("kdfpage")
@@ -37,12 +45,25 @@ Partial Class BrowserController
             Catch
             End Try
         Next
-        Threading.Thread.Sleep(TimeSpan.FromSeconds(5))
-        Browser.FindElementByLinkText(SearchFor).Click()
+        Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
+gotodealpage:
+        Try
+            Browser.FindElementByLinkText(SearchFor).Click()
+        Catch
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
+            GoTo gotodealpage
+        End Try
 
     End Sub
     Private Sub DL_pageTwo(Browser As ChromeDriver)
+
+findExportLink:
+        Threading.Thread.Sleep(TimeSpan.FromSeconds(1))
+
+
         Dim elements = Browser.FindElementsByPartialLinkText("Export")
+
+        If elements.Count < 1 Then GoTo findExportLink
 
         For Each elemnt In elements
             If elemnt.Text = "Export" Then
@@ -60,9 +81,17 @@ Partial Class BrowserController
             End If
         Next
 
-        Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
+        Dim myContinue As Boolean = False
+
+findFormatSelector:
+
+        Threading.Thread.Sleep(TimeSpan.FromSeconds(1))
 
         elements = Browser.FindElementsByTagName("Select")
+
+        If elements.Count < 1 Then GoTo findFormatSelector
+
+
         Dim kdfid As String
         For Each elemnt In elements
             Try
@@ -74,12 +103,15 @@ Partial Class BrowserController
                 Select Case kdfid
                     Case "fileType"
                         elemnt.SendKeys("C")
+                        myContinue = True
                         Exit For
                 End Select
             Catch
 
             End Try
         Next
+
+        If Not myContinue Then GoTo findFormatSelector
 
         elements = Browser.FindElementsByTagName("label")
         For Each elemnt In elements
@@ -112,7 +144,7 @@ Partial Class BrowserController
                 Select Case kdfid
                     Case "exportQuote();"
                         elemnt.Click()
-
+                        Exit For
                 End Select
             Catch
             End Try
@@ -123,7 +155,13 @@ Partial Class BrowserController
     End Sub
 
     Public Function IsApproved(Browser As ChromeDriver) As Boolean
+
+waitforquoteload:
+        Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
         Dim elements = Browser.FindElementsByClassName("text-danger")
+
+        If elements.Count < 1 Then GoTo waitforquoteload
+
         Dim kdfid As String
         For Each elemnt In elements
             Try
@@ -140,6 +178,7 @@ Partial Class BrowserController
             Catch
             End Try
         Next
+
         Return False
     End Function
 
@@ -155,9 +194,11 @@ Partial Class BrowserController
             DL_pageTwo(Browser)
 
             'UpdateLabel(LabelMessages("DL3"))
+            Dim newfile As String = Directory.GetFiles(Downloads).OrderByDescending(Function(f) New FileInfo(f).LastWriteTime).First()
 
-            Do While Directory.GetFiles(Downloads).OrderByDescending(Function(f) New FileInfo(f).LastWriteTime).First() = oldfile
+            Do While newfile = oldfile OrElse Strings.Right(newfile, 10) = "crdownload" OrElse Strings.Right(newfile, 3) = "tmp"
                 Threading.Thread.Sleep(100)
+                newfile = Directory.GetFiles(Downloads).OrderByDescending(Function(f) New FileInfo(f).LastWriteTime).First()
             Loop
             Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
             Return Directory.GetFiles(Downloads).OrderByDescending(Function(f) New FileInfo(f).LastWriteTime).First()
