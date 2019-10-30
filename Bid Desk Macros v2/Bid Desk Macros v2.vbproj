@@ -339,6 +339,7 @@
     <EmbeddedResource Include="Ribbons\MainRibbon.resx">
       <DependentUpon>MainRibbon.vb</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\Hunting Questionnaire Blank.docx" />
     <None Include="Resources\Teaming Blank.docx" />

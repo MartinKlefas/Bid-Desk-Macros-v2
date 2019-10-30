@@ -3,10 +3,23 @@ Imports Microsoft.Office.Interop.Outlook
 Imports String_Extensions.StringExtensions
 
 Public Class NewMailForm
-    Private ReadOnly entryIDCollection As String
+    Private entryIDCollection As String
     Private ReadOnly searchType As StringComparison = ThisAddIn.searchType
     Private NumberOfEmails As Integer
     Public myContinue As Boolean
+
+    Public Sub New()
+        myContinue = True
+        ' This call is required by the designer.
+        InitializeComponent()
+        Me.entryIDCollection = My.Settings.entryIDCollection
+        My.Settings.entryIDCollection = ""
+        My.Settings.Save()
+        Me.NumberOfEmails = entryIDCollection.CountCharacter(",") + 1
+        Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails & " new emails."
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
 
     Public Sub New(entryIDCollection As String)
         myContinue = True
@@ -36,6 +49,7 @@ Public Class NewMailForm
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
 
         Dim msg As Outlook.MailItem
+startOver:
 
         For Each itemID In Split(entryIDCollection, ",")
             If myContinue Then
@@ -73,8 +87,13 @@ Public Class NewMailForm
                 Call UpdateLabel(Me.NumberOfEmails)
             End If
         Next
+        If My.Settings.entryIDCollection = "" Then
 
-        Call CloseMe()
+            Call CloseMe()
+        Else
+            Me.entryIDCollection = My.Settings.entryIDCollection
+            GoTo startover
+        End If
     End Sub
 
     Private Function FindMessageType(msg As MailItem) As String
