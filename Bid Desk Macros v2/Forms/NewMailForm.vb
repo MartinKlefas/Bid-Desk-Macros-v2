@@ -15,8 +15,7 @@ Public Class NewMailForm
         Me.entryIDCollection = My.Settings.entryIDCollection
         My.Settings.entryIDCollection = ""
         My.Settings.Save()
-        Me.NumberOfEmails = entryIDCollection.CountCharacter(",") + 1
-        Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails & " new emails."
+
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
@@ -25,9 +24,6 @@ Public Class NewMailForm
         myContinue = True
         InitializeComponent()
         Me.entryIDCollection = entryIDCollection
-        Me.NumberOfEmails = entryIDCollection.CountCharacter(",") + 1
-        Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails & " new emails."
-
         BackgroundWorker1.RunWorkerAsync()
     End Sub
 
@@ -39,9 +35,6 @@ Public Class NewMailForm
             If Me.entryIDCollection <> "" Then Me.entryIDCollection.Append(",")
             Me.entryIDCollection.Append(email.EntryID)
         Next
-        Me.NumberOfEmails = entryIDCollection.CountCharacter(",") + 1
-        Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails & " new emails."
-
         BackgroundWorker1.RunWorkerAsync()
     End Sub
 
@@ -50,7 +43,8 @@ Public Class NewMailForm
 
         Dim msg As Outlook.MailItem
 startOver:
-
+        Me.NumberOfEmails = entryIDCollection.CountCharacter(",") + 1
+        Call UpdateLabel(Me.NumberOfEmails)
         For Each itemID In Split(entryIDCollection, ",")
             If myContinue Then
                 Try
@@ -92,6 +86,8 @@ startOver:
             Call CloseMe()
         Else
             Me.entryIDCollection = My.Settings.entryIDCollection
+            My.Settings.entryIDCollection = ""
+            My.Settings.Save()
             GoTo startover
         End If
     End Sub

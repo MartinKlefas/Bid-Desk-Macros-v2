@@ -58,7 +58,7 @@ gotodealpage:
     Private Sub DL_pageTwo(Browser As ChromeDriver)
 
 findExportLink:
-        Threading.Thread.Sleep(TimeSpan.FromSeconds(1))
+        Threading.Thread.Sleep(TimeSpan.FromSeconds(10))
 
 
         Dim elements = Browser.FindElementsByPartialLinkText("Export")

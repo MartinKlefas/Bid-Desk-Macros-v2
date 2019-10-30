@@ -351,8 +351,14 @@ Public Class ThisAddIn
 
     Private Sub Application_NewMailEx(EntryIDCollection As String) Handles Application.NewMailEx
         If Globals.Ribbons.Ribbon1.AutoInbound Then
-            Dim frm As New NewMailForm(EntryIDCollection)
-            frm.Show()
+            If My.Settings.entryIDCollection = "" Then
+                Dim frm As New NewMailForm(EntryIDCollection)
+                frm.Show()
+            Else
+                My.Settings.entryIDCollection = My.Settings.entryIDCollection & "," & EntryIDCollection
+                My.Settings.Save()
+            End If
+
         Else
             'Debug.WriteLine("New Mail - Ignoring")
         End If
