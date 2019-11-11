@@ -151,7 +151,11 @@ Public Class DealIdent
                 If subjAr(i).StartsWith("P00", ThisAddIn.searchType) Or
                     subjAr(i).StartsWith("E00", ThisAddIn.searchType) Or
                     subjAr(i).StartsWith("NQ", ThisAddIn.searchType) Then
-                    If Mid(LCase(subjAr(i)), Len(subjAr(i)) - 2, 2) = "-v" Then subjAr(i) = Strings.Left(subjAr(i), Len(subjAr(i)) - 3)
+                    If Mid(LCase(subjAr(i)), Len(subjAr(i)) - 2, 2) = "-v" Or Mid(LCase(subjAr(i)), Len(subjAr(i)) - 2, 2) = "-0" Then subjAr(i) = Strings.Left(subjAr(i), Len(subjAr(i)) - 3)
+
+
+
+
                     tempResult = TrimExtended(subjAr(i))
                 End If
                 If subjAr(i).StartsWith("REGI-", ThisAddIn.searchType) Or
