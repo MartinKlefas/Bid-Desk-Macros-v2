@@ -136,7 +136,7 @@
             If GetVendor(DealID, True) = "Dell" Then
                 .CC = .CC & "; mike.parker@insight.com; rajesh.pindoria@insight.com"
             ElseIf GetVendor(DealID, True) = "HPE" Then
-                .CC = .CC & "; Simon.Hill@insight.com; Hussam.Haq@insight.com"
+                .CC = .CC & "; Simon.Hill@insight.com; Jonathan.Mann@insight.com"
             End If
             .HTMLBody = myGreeting & messageBodyAddition & "<br>" & GetFact(DealID) & MainRibbon.WriteHolidayMessage() & .HTMLBody
             Try
