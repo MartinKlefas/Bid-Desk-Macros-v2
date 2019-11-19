@@ -11,12 +11,12 @@ Public Class DealIdent
     Private MessageNumber As Integer
     Private ReadOnly CompleteAutonomy As Boolean
 
-    Public Sub New(messagesList As List(Of MailItem), OpMode As String, Optional Autonomy As Boolean = False)
+    Public Sub New(messagesList As List(Of MailItem), OpMode As String, Optional Autonomy As Boolean = False, Optional DealID As String = "")
         Me.MessagesList = messagesList
         Me.Mode = OpMode
         Me.MessageNumber = 0
         Me.CompleteAutonomy = Autonomy
-
+        Me.DealID.Text = DealID
         InitializeComponent()
     End Sub
 
@@ -122,8 +122,9 @@ Public Class DealIdent
     Private Sub DealIdent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.DialogResult = DialogResult.None
-        Me.DealID.Text = FindDealID(MessagesList(MessageNumber))
-
+        If Me.DealID.Text = "" Then
+            Me.DealID.Text = FindDealID(MessagesList(MessageNumber))
+        End If
         If CompleteAutonomy Then Call Button1_Click()
 
     End Sub

@@ -51,7 +51,11 @@ Public Class DealIdent
         Dim xmlFileName As String = ""
 
         Select Case Mode
-            Case "Extended" Or "Clone"
+            Case "Extended"
+                remoteAddMail.Subject = "[dbaddition] Extension to process"
+                xmlFileName = WriteXMlOutput(Mode, tDealID)
+
+            Case "Clone"
                 remoteAddMail.Subject = "[dbaddition] Extension to process"
                 xmlFileName = WriteXMlOutput(Mode, tDealID)
 
@@ -64,9 +68,9 @@ Public Class DealIdent
         remoteAddMail.Attachments.Add(Message)
         EnableButtons()
 
+        remoteAddMail.Send()
 
-
-
+        Message.Delete()
     End Sub
 
     Private Function WriteXMlOutput(Method As String, tDealID As String) As String
@@ -75,7 +79,7 @@ Public Class DealIdent
                 .Indent = True
             }
 
-            Dim filePath As String = IO.Path.GetTempPath & "\dealinfo.xml"
+            Dim filePath As String = IO.Path.GetTempPath & "dealinfo.xml"
 
             ' Create XmlWriter.
             Using writer As XmlWriter = XmlWriter.Create(filePath, settings)
@@ -86,8 +90,8 @@ Public Class DealIdent
 
 
 
-                writer.WriteElementString(tDealID, Method)
-
+                writer.WriteElementString("DealID", tDealID)
+                writer.WriteElementString("Action", Method)
 
 
 

@@ -1,12 +1,13 @@
 ﻿Public Class CloneLater
     Private ReadOnly CurrentItem As Outlook.MailItem
 
-    Public Sub New(targetDate As Date, email As Outlook.MailItem)
+    Public Sub New(targetDate As Date, email As Outlook.MailItem, Optional fullAutonomy As Boolean = False)
         Me.InitializeComponent()
         Me.targetDate.SelectionStart = targetDate
         Me.targetDate.SelectionEnd = targetDate
 
         Me.CurrentItem = email
+        If fullAutonomy Then btnSetReminder.PerformClick()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnSetReminder.Click
