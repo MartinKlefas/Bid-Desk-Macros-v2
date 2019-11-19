@@ -146,7 +146,7 @@ Public Class AddDeal
             .Subject = .Subject & " - " & tCreateDealRecord("DealID")
             .Display() ' or .Send
         End With
-        'Globals.ThisAddIn.MoveToFolder(TrimExtended(tCreateDealRecord("AM")), mail)
+
 
         Dim remoteAddMail As Outlook.MailItem
 

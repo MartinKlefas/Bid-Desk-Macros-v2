@@ -183,10 +183,22 @@
   -->
   <ItemGroup>
     <AppDesigner Include="My Project\" />
+    <Compile Include="Forms\DealID.designer.vb">
+      <DependentUpon>DealID.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DealID.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\DealLog.designer.vb">
       <DependentUpon>DealLog.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\DealLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Extension.Designer.vb">
+      <DependentUpon>Extension.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Extension.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modules\ClipBoard Reader.vb" />
@@ -204,8 +216,14 @@
     <Compile Include="ThisAddIn.vb">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="Forms\DealID.resx">
+      <DependentUpon>DealID.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DealLog.resx">
       <DependentUpon>DealLog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Extension.resx">
+      <DependentUpon>Extension.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ribbon1.resx">
       <DependentUpon>Ribbon1.vb</DependentUpon>
@@ -247,6 +265,9 @@
       <Project>{b020b362-9b91-40b2-a97f-a01e57f8fd62}</Project>
       <Name>String Extensions</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\actions_view_calendar_tasks.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
