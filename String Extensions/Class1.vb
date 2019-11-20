@@ -81,6 +81,7 @@ Public Module StringExtensions
         Return aString
     End Function
 
+
     Public Function RandomString(ByVal Length As Integer) As String
         Dim s As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
         Dim r As New Random
@@ -92,6 +93,26 @@ Public Module StringExtensions
         Next
 
         Return sb.ToString
+    End Function
+
+    <Extension>
+    Public Function ContainsAny(ByVal aString As String, ByVal SearchFor As IEnumerable(Of String)) As Boolean
+        Dim result As Boolean = False
+        For Each searchString As String In SearchFor
+            If Not result Then result = aString.Contains(searchString)
+        Next
+
+        Return result
+    End Function
+
+    <Extension>
+    Public Function StartsWithAny(ByVal aString As String, ByVal SearchFor As IEnumerable(Of String)) As Boolean
+        Dim result As Boolean = False
+        For Each searchString As String In SearchFor
+            If Not result Then result = aString.StartsWith(searchString)
+        Next
+
+        Return result
     End Function
 End Module
 

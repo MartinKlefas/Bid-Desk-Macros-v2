@@ -216,7 +216,7 @@ startOver:
 
         tmpresult = newMail.SenderEmailAddress.ToLower.Equals("sfdc.support@hpe.com") AndAlso newMail.Subject.StartsWith("your action required", searchType)
 
-        If newMail.Subject.ToLower.Contains("your quote expiration reminder mail") Then Return True
+        If newMail.Subject.ToLower.StartsWith("your quote expiration reminder mail") Then Return True
         If Not tmpresult Then
             tmpresult = newMail.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") AndAlso newMail.Body.Contains("will expire in") AndAlso newMail.Body.Contains("days unless action is taken")
         End If
