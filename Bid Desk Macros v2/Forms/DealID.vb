@@ -12,12 +12,13 @@ Public Class DealIdent
     Private ReadOnly CompleteAutonomy As Boolean
 
     Public Sub New(messagesList As List(Of MailItem), OpMode As String, Optional Autonomy As Boolean = False, Optional DealID As String = "")
+        InitializeComponent()
         Me.MessagesList = messagesList
         Me.Mode = OpMode
         Me.MessageNumber = 0
         Me.CompleteAutonomy = Autonomy
         Me.DealID.Text = DealID
-        InitializeComponent()
+
     End Sub
 
     Private Sub DealID_KeyDown(sender As Object, e As KeyEventArgs) Handles DealID.KeyDown

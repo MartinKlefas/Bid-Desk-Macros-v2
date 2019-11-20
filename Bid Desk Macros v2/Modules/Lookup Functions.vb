@@ -223,10 +223,12 @@ Partial Class ThisAddIn
             Dim request As WebRequest = WebRequest.Create(url)
 
             'create StreamReader to hold the returned request
-            Dim stream As New StreamReader(request.GetResponse().GetResponseStream())
+            Using stream As New StreamReader(request.GetResponse().GetResponseStream())
 
-            Dim text As String = stream.ReadToEnd()
-            Return text
+                Dim text As String = stream.ReadToEnd()
+                Return text
+            End Using
+
         Catch ex As Exception
             'put your error handling here
             Return String.Empty
