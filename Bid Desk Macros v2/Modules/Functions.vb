@@ -259,7 +259,7 @@ Partial Class ThisAddIn
             WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", Replace(NDTUseMessage, "%NDT%", DealDetails("NDT")))
         End If
 
-        WriteSubmitMessage = WriteSubmitMessage ' & drloglink
+        WriteSubmitMessage = WriteSubmitMessage & drloglink
     End Function
 
     Public Function WriteTicketMessage(ByVal DealDetails As Dictionary(Of String, String)) As String
@@ -269,7 +269,7 @@ Partial Class ThisAddIn
 
 
 
-        WriteTicketMessage = WriteTicketMessage ' & drloglink
+        WriteTicketMessage = WriteTicketMessage & drloglink
     End Function
 
     Public Function WriteReqMessage(DealID As String, AttBelow As String) As String

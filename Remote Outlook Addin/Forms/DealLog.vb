@@ -176,7 +176,7 @@ Public Class AddDeal
 
         WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", NoNDTMessage)
 
-        WriteSubmitMessage = WriteSubmitMessage ' & drloglink
+        WriteSubmitMessage = WriteSubmitMessage & drloglink
     End Function
 
 

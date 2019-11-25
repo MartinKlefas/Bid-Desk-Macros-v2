@@ -65,7 +65,7 @@
                 If ndt.TicketNumber <> 0 Then
                     Try
                         ndt.UpdateNextDeskAttach(Comment, CiscoAttachComment)
-                        If Not ndt.InBin("Pre-sales triage") Then
+                        If Not ndt.InBin("Pre-sales triage") AndAlso MoveBack(ndt) Then
                             ndt.Move("Pre-sales triage")
                         End If
 
@@ -81,6 +81,18 @@
 
         closeme()
     End Sub
+
+
+    Function MoveBack(ticket As clsNextDeskTicket.ClsNextDeskTicket) As Boolean
+
+        Dim UpdatesDict As Dictionary(Of String, String) = ticket.GetUpdates
+
+        For Each update As String In UpdatesDict.Values
+            If update.ToLower.Contains("no need to move back") Then Return False
+
+        Next
+        Return True
+    End Function
 
     Private Sub CloseMe()
 
