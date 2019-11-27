@@ -65,10 +65,13 @@
                 If ndt.TicketNumber <> 0 Then
                     Try
                         ndt.UpdateNextDeskAttach(Comment, CiscoAttachComment)
-                        If Not ndt.InBin("Pre-sales triage") AndAlso MoveBack(ndt) Then
-                            ndt.Move("Pre-sales triage")
-                        End If
+                        If (Not ndt.InBin("Pre-sales triage")) Then
+                            If MoveBack(ndt) Then
 
+                                ndt.Move("Pre-sales triage")
+
+                            End If
+                        End If
                     Catch
                     End Try
 
