@@ -226,6 +226,7 @@ Partial Class ThisAddIn
         oNS = Application.GetNamespace("MAPI")
 
         If lookupName.ToLower = "not defined" Or lookupName = "TP2 Enquiries" Then newLookupName = "Klefas, Martin"
+        If lookupName.ToLower = "amy stonestreet" Then newLookupName = "Kim Woodward"
         If lookupName.ToLower = "andy walsh" Then newLookupName = "Walsh, Andrew"
         If lookupName.ToLower = "nhs solutions" Then newLookupName = "NHSSolutions@Insight.com"
         If lookupName.ToLower = "insight police team" Then newLookupName = "ipt@insight.com"
