@@ -8,11 +8,14 @@ Public Class BrowserController
     Private ReadOnly Mode As String
     Private ReadOnly QuoteNum As String
     Private ReadOnly EmailMessage As Outlook.MailItem
-    Public Sub New(thisMode As String, Optional thisQuoteNum As String = "", Optional Sourcemessage As Outlook.MailItem = Nothing)
+    Private ReadOnly ndtNumber As String
+    Public Sub New(thisMode As String, Optional thisQuoteNum As String = "",
+                   Optional Sourcemessage As Outlook.MailItem = Nothing, Optional ticketNumber As String = "")
         InitializeComponent()
         Me.Mode = thisMode
         Me.QuoteNum = thisQuoteNum
         Me.EmailMessage = Sourcemessage
+        Me.ndtNumber = ticketNumber
     End Sub
 
     Public Sub RunCode()
@@ -25,7 +28,7 @@ Public Class BrowserController
 
 
 
-            If Mode = "Login" Or Mode = "NewDeal" Or Mode = "DownloadQuote" Then
+            If Mode = "Login" Or Mode = "NewDeal" Or Mode = "DownloadQuote" Or Mode = "FindCiscoAM" Then
                 'UpdateLabel(LabelMessages("Login"))
                 Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
 
@@ -75,9 +78,39 @@ Public Class BrowserController
                     End If
                 End If
             End If
+
+            If Mode = "FindCiscoAM" Then
+                If QuoteNum <> "0" Then
+                    DL_PageOne(browser, QuoteNum)
+
+                    Dim tmpAM As String
+                    'UpdateLabel(LabelMessages("AM1"))
+                    tmpAM = ReadAMText(browser)
+
+                    browser.Close()
+                    browser.Dispose()
+
+                    If tmpAM <> "" Then
+                        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
+                                .TicketNumber = ndtNumber,
+                                .VisibleBrowser = False,
+                                .TimeOperations = True,
+                                .TimingOutputFile = ThisAddIn.timingFile
+                            }
+
+                        ndt.UpdateNextDesk(writeAMMessage(tmpAM))
+
+                    End If
+                End If
+
+            End If
+
+
         Catch
             browser.Quit()
         End Try
+
+
 
     End Sub
 

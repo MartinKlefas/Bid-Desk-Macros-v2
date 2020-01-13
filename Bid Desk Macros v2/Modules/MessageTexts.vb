@@ -57,6 +57,16 @@ There are further discounts available based on things like our pre-sales (time) 
         {"NewDeal4", "Creating Deal (page 4) ..."},
         {"DL1", "Finding the deal..."},
         {"DL2", "Exporting Quote..."},
-        {"DL3", "Waiting for file download..."}
+        {"DL3", "Waiting for file download..."},
+        {"AM1", "Looking up AM Details..."}
         }
+
+    Public Const CiscoAMMessage As String = "The Cisco portal shows the Account Manager to be %AM%. While there is no requirement for you to do so, discussing this deal with them will more than likely speed up the approvals process, and decrease your chances of it being rejected or ignored."
+
+    Public Const CiscoAMTeamMessage As String = "The Cisco portal shows that this account is managed by a team as below:
+%AM%
+
+While there is no requirement for you to do so, discussing this deal with them will more than likely speed up the approvals process, and decrease your chances of it being rejected or ignored."
+
+
 End Module

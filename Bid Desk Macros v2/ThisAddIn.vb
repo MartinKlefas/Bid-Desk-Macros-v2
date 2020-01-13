@@ -369,6 +369,14 @@ Public Class ThisAddIn
         frm.RunCode()
         frm.Dispose()
     End Sub
+
+    Sub AddAMDetails(msg As MailItem)
+        Dim frm As New BrowserController("FindCiscoAM", CiscoQuoteNumberTKT(msg.Body), msg, )
+        frm.RunCode()
+        frm.Dispose()
+    End Sub
+
+
     Function CiscoQuoteNumber(MessageSubject As String) As String
         Try
             CiscoQuoteNumber = CInt(Strings.Left(MessageSubject.Split(" ")(2), 8))
@@ -383,5 +391,15 @@ Public Class ThisAddIn
 
 
     End Function
-
+    Function CiscoQuoteNumberTKT(MessageBody As String) As String
+        Try
+            If MessageBody.ToLower.Contains("by:	martin klefas") And MessageBody.ToLower.Contains("deal id") And
+                MessageBody.ToLower.Contains("submitted") Then
+                Return TrimExtended(Mid(MessageBody.ToLower, Strings.InStr(MessageBody.ToLower, "deal id"), 9))
+            End If
+            Return ""
+        Catch
+            Return ""
+        End Try
+    End Function
 End Class

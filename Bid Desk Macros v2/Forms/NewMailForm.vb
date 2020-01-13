@@ -70,6 +70,8 @@ startOver:
                                 Globals.ThisAddIn.DoCiscoDownload(msg)
                             Case "Forward Request"
                                 Globals.ThisAddIn.FwdVendorEmail(msg, CompleteAutonomy:=True)
+                            Case "Cisco Submitted"
+                                Globals.ThisAddIn.AddAmDetails(msg)
                         End Select
 
                     End If
@@ -127,6 +129,10 @@ startOver:
 
         If IsForwardRequest(msg) Then
             Return "Forward Request"
+        End If
+
+        If isCiscoSubmittedTicket(msg) Then
+            Return "Cisco Submitted"
         End If
 
         Return "Nothing"
@@ -246,6 +252,22 @@ startOver:
 
     Private Function IsForwardRequest(newmail As MailItem) As Boolean
         Return newmail.Subject.ToLower.StartsWith("[autoforward")
+    End Function
+
+
+    Private Function isCiscoSubmittedTicket(newmail As MailItem) As Boolean
+
+        If newmail.Subject.ToLower.StartsWith("[nextdesk]") Then
+            Dim MessageBody As String = newmail.Body
+            If MessageBody.ToLower.Contains("by:	martin klefas") And MessageBody.ToLower.Contains("deal id") And
+                MessageBody.ToLower.Contains("submitted") Then
+                Return True
+            End If
+
+        End If
+
+        Return False
+
     End Function
 
     Private Sub CloseMe()
