@@ -21,4 +21,9 @@ Public Class Ribbon1
         Dim frm As New BrowserController("DownloadQuote", "6645831")
         frm.Show()
     End Sub
+
+    Private Sub Button1_Click_1(sender As Object, e As RibbonControlEventArgs) Handles Button1.Click
+        Dim frm As New FindCiscoAM("45378469")
+        frm.Show()
+    End Sub
 End Class

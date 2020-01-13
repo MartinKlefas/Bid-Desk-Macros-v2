@@ -64,14 +64,20 @@
                 ndt.TicketNumber = ndt.FindTicket(0, Ticket, openOnly:=False)
                 If ndt.TicketNumber <> 0 Then
                     Try
-                        ndt.UpdateNextDeskAttach(Comment, CiscoAttachComment)
-                        If (Not ndt.InBin("Pre-sales triage")) Then
-                            If MoveBack(ndt) Then
+                        If Not TierTwo(ndt) Then
+                            ndt.UpdateNextDeskAttach(Comment, CiscoAttachComment)
+                            If (Not ndt.InBin("Pre-sales triage")) Then
+                                If MoveBack(ndt) Then
 
-                                ndt.Move("Pre-sales triage")
+                                    ndt.Move("Pre-sales triage")
 
+                                End If
                             End If
+                        Else
+                            ndt.UpdateNextDesk("This has now been approved by Cisco, DART REF pending")
+
                         End If
+
                     Catch
                     End Try
 
@@ -95,6 +101,17 @@
 
         Next
         Return True
+    End Function
+
+    Function TierTwo(ticket As clsNextDeskTicket.ClsNextDeskTicket) As Boolean
+        Dim UpdatesDict As Dictionary(Of String, String) = ticket.GetUpdates
+
+        For Each update As String In UpdatesDict.Values
+            If update.ToLower.Contains("tier 2") Then Return True
+
+        Next
+        Return False
+
     End Function
 
     Private Sub CloseMe()

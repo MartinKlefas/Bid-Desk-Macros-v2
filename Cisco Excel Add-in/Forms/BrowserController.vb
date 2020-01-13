@@ -80,10 +80,30 @@ Public Class BrowserController
 
         WithBrowser.Navigate.GoToUrl("https://apps.cisco.com/ccw/cpc/home")
 
-        WithBrowser.FindElementByClassName("username-input").SendKeys("martinklefas")
-        WithBrowser.FindElementByClassName("password-input").SendKeys("sis1898p7aPu")
+        Try
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
+            WithBrowser.FindElementByName("pf.username").SendKeys("martinklefas")
 
-        WithBrowser.FindElementByName("login-button").Click()
+            WithBrowser.FindElementByName("login-button").Click()
+
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(4))
+startpassword:
+            Try
+                WithBrowser.FindElementByName("password").SendKeys("sis1898p7aPu")
+            Catch
+                Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
+                GoTo startpassword
+            End Try
+
+            WithBrowser.FindElementById("kc-login").Click()
+
+        Catch ex As Exception
+            WithBrowser.FindElementByClassName("username-input").SendKeys("martinklefas")
+            WithBrowser.FindElementByClassName("password-input").SendKeys("sis1898p7aPu")
+
+            WithBrowser.FindElementByName("login-button").Click()
+        End Try
+
     End Sub
 
 
