@@ -260,7 +260,7 @@ startOver:
         If newmail.Subject.ToLower.StartsWith("[nextdesk]") Then
             Dim MessageBody As String = newmail.Body
             If MessageBody.ToLower.Contains("by:	martin klefas") And MessageBody.ToLower.Contains("deal id") And
-                MessageBody.ToLower.Contains("submitted") Then
+                MessageBody.ToLower.Contains("submitted") And MessageBody.ToLower.Contains("cisco") Then
                 Return True
             End If
 

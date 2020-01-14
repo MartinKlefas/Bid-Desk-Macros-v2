@@ -317,6 +317,30 @@ Partial Class ThisAddIn
 
         Return filename
     End Function
+
+    Function TicketNumberFromSubject(MsgSubject As String) As String
+        Dim ndt As String
+        If MsgSubject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
+            ndt = MsgSubject.Substring(InStr(MsgSubject, "#"), 7)
+        Else
+            ndt = ""
+        End If
+
+        Return ndt
+
+    End Function
+
+    Function TicketNumberFromSubject(Msg As Outlook.MailItem) As String
+        Dim ndt As String
+        If Msg.Subject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
+            ndt = Msg.Subject.Substring(InStr(Msg.Subject, "#"), 7)
+        Else
+            ndt = ""
+        End If
+
+        Return ndt
+
+    End Function
 End Class
 
 

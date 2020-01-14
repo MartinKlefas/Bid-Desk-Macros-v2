@@ -99,11 +99,10 @@ Public Class MainRibbon
                 End If
             End If
 
-            If msg.Subject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
-                ndt = msg.Subject.Substring(InStr(msg.Subject, "#"), 7)
-            Else
-                ndt = ""
-            End If
+
+            ndt = Globals.ThisAddIn.TicketNumberFromSubject(msg.Subject)
+
+
 
             frmAddtoSql = New ImportDeal(senderEmail, ndt)
         Else
@@ -176,10 +175,10 @@ Public Class MainRibbon
         If Selection.Count = 1 AndAlso TypeName(Selection.Item(1)) = "MailItem" Then
             Dim msg As Outlook.MailItem = Selection.Item(1)
 
-            If msg.Subject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
-                ndt = msg.Subject.Substring(InStr(msg.Subject, "#"), 7)
 
-            End If
+            ndt = Globals.ThisAddIn.TicketNumberFromSubject(msg.Subject)
+
+
 
         End If
 
@@ -224,12 +223,12 @@ Public Class MainRibbon
         If Selection.Count = 1 AndAlso TypeName(Selection.Item(1)) = "MailItem" Then
             Dim msg As Outlook.MailItem = Selection.Item(1)
 
-            If msg.Subject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
-                ndt = msg.Subject.Substring(InStr(msg.Subject, "#"), 7)
+
+            ndt = Globals.ThisAddIn.TicketNumberFromSubject(msg.Subject)
+
+
 
             End If
-
-        End If
 
 
 

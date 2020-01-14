@@ -371,7 +371,7 @@ Public Class ThisAddIn
     End Sub
 
     Sub AddAMDetails(msg As MailItem)
-        Dim frm As New BrowserController("FindCiscoAM", CiscoQuoteNumberTKT(msg.Body), msg, )
+        Dim frm As New BrowserController("FindCiscoAM", CiscoQuoteNumberTKT(msg.Body), msg, Globals.ThisAddIn.TicketNumberFromSubject(msg.Subject))
         frm.RunCode()
         frm.Dispose()
     End Sub
@@ -395,11 +395,13 @@ Public Class ThisAddIn
         Try
             If MessageBody.ToLower.Contains("by:	martin klefas") And MessageBody.ToLower.Contains("deal id") And
                 MessageBody.ToLower.Contains("submitted") Then
-                Return TrimExtended(Mid(MessageBody.ToLower, Strings.InStr(MessageBody.ToLower, "deal id"), 9))
+                Return TrimExtended(Mid(MessageBody.ToLower, Strings.InStr(MessageBody.ToLower, "deal id") + 8, 10))
             End If
             Return ""
         Catch
             Return ""
         End Try
     End Function
+
+
 End Class
