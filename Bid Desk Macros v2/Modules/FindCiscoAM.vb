@@ -6,7 +6,7 @@ Partial Class BrowserController
 
 
         Dim expandButtons = Browser.FindElementsByClassName("accordion-toggle")
-        Dim buttonText As String = ""
+        Dim buttonText As String
 
         For Each elemnt In expandButtons
             Try
