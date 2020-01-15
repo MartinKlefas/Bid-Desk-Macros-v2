@@ -83,6 +83,8 @@ Public Class BrowserController
                 If QuoteNum <> "0" Then
                     DL_PageOne(browser, QuoteNum)
 
+                    Threading.Thread.Sleep(TimeSpan.FromSeconds(5))
+
                     Dim tmpAM As String
                     'UpdateLabel(LabelMessages("AM1"))
                     tmpAM = ReadAMText(browser)

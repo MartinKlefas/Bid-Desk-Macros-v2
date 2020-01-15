@@ -376,6 +376,21 @@ Public Class ThisAddIn
         frm.Dispose()
     End Sub
 
+    Sub OfferAMDetails(msg As MailItem)
+        Dim ndtNumber As String = Globals.ThisAddIn.TicketNumberFromSubject(msg.Subject)
+
+        If ndtNumber <> "" Then
+            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
+                                .TicketNumber = ndtNumber,
+                                .VisibleBrowser = False,
+                                .TimeOperations = True,
+                                .TimingOutputFile = ThisAddIn.timingFile
+                            }
+
+            ndt.UpdateNextDesk(FindAMMessage)
+
+        End If
+    End Sub
 
     Function CiscoQuoteNumber(MessageSubject As String) As String
         Try

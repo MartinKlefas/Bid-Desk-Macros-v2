@@ -71,13 +71,15 @@ startOver:
                             Case "Forward Request"
                                 Globals.ThisAddIn.FwdVendorEmail(msg, CompleteAutonomy:=True)
                             Case "Cisco Submitted"
-                                Globals.ThisAddIn.AddAmDetails(msg)
+                                Globals.ThisAddIn.AddAMDetails(msg)
+                            Case "Other Submitted"
+                                Globals.ThisAddIn.OfferAMDetails(msg)
                         End Select
 
                     End If
 
                 Catch
-                    Debug.WriteLine("Could not find item for some reason")
+                    Debug.WriteLine("Could Not find item for some reason")
                 End Try
                 Me.NumberOfEmails -= 1
                 Call UpdateLabel(Me.NumberOfEmails)
@@ -133,6 +135,10 @@ startOver:
 
         If isCiscoSubmittedTicket(msg) Then
             Return "Cisco Submitted"
+        End If
+
+        If isOtherSubmittedTicket(msg) Then
+            Return "Other Submitted"
         End If
 
         Return "Nothing"
@@ -209,7 +215,7 @@ startOver:
 
         If newMail.Subject.StartsWith("Deal Registration", searchType) And newMail.Subject.ToLower.Contains("expiring") Then
             Return True
-        ElseIf newMail.Subject.Equals("A Reminder that your Approved Deal is about to Expire", searchType) Then
+        ElseIf newMail.Subject.Equals("A Reminder that your Approved Deal Is about to Expire", searchType) Then
             Return True
 
         Else
@@ -224,7 +230,7 @@ startOver:
 
         If newMail.Subject.ToLower.StartsWith("your quote expiration reminder mail") Then Return True
         If Not tmpresult Then
-            tmpresult = newMail.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") AndAlso newMail.Body.Contains("will expire in") AndAlso newMail.Body.Contains("days unless action is taken")
+            tmpresult = newMail.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") AndAlso newMail.Body.Contains("will expire in") AndAlso newMail.Body.Contains("days unless action Is taken")
         End If
         Return tmpresult
     End Function
@@ -241,7 +247,7 @@ startOver:
     Private Function IsPricingApproval(newmail As MailItem) As Boolean
         If (newmail.SenderEmailAddress.ToLower.Contains("noreply.hpintegratedquoting@hp.com") Or
               newmail.SenderEmailAddress.ToLower.Contains("noreply.hpeintegratedquoting@hpe.com")) AndAlso
-              newmail.Body.ToLower.Contains("quote request is now ready for viewing") Then
+              newmail.Body.ToLower.Contains("quote request Is now ready for viewing") Then
 
             Return True
         Else
@@ -261,6 +267,21 @@ startOver:
             Dim MessageBody As String = newmail.Body
             If MessageBody.ToLower.Contains("by:	martin klefas") And MessageBody.ToLower.Contains("deal id") And
                 MessageBody.ToLower.Contains("submitted") And MessageBody.ToLower.Contains("cisco") Then
+                Return True
+            End If
+
+        End If
+
+        Return False
+
+    End Function
+
+    Private Function isOtherSubmittedTicket(newmail As MailItem) As Boolean
+
+        If newmail.Subject.ToLower.StartsWith("[nextdesk]") Then
+            Dim MessageBody As String = newmail.Body
+            If MessageBody.ToLower.Contains("by:	martin klefas") And MessageBody.ToLower.Contains("deal id") And
+                MessageBody.ToLower.Contains("submitted") Then
                 Return True
             End If
 

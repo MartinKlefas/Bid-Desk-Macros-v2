@@ -7,6 +7,9 @@ Partial Class BrowserController
 
         Dim expandButtons = Browser.FindElementsByClassName("accordion-toggle")
         Dim buttonText As String
+        Dim foundButton As Boolean = False
+
+lookforButton:
 
         For Each elemnt In expandButtons
             Try
@@ -18,9 +21,20 @@ Partial Class BrowserController
 
             If buttonText = "Who's Involved" Then
                 elemnt.Click()
+                foundButton = True
                 Continue For
             End If
         Next
+
+        If Not foundButton Then
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
+            GoTo lookforButton
+        End If
+
+        Dim waitedforDetails As Integer = 0
+
+LookforAMDetails:
+
 
         Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
 
@@ -53,6 +67,12 @@ Partial Class BrowserController
                 Next
             End If
         Next
+
+        If waitedforDetails > 2 Then
+            Return ""
+        Else
+            GoTo LookforAMDetails
+        End If
 
         Return ""
 
