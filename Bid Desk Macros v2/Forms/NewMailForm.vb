@@ -285,9 +285,14 @@ startOver:
                 Return True
             End If
 
+            If MessageBody.ToLower.Contains("i\'ve created") And MessageBody.ToLower.Contains("for you on the") And
+                 MessageBody.ToLower.Contains("portal") And MessageBody.ToLower.Contains("by:	martin klefas") Then
+                Return True
+            End If
+
         End If
 
-        Return False
+            Return False
 
     End Function
 

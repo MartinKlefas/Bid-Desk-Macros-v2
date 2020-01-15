@@ -4,12 +4,13 @@ Imports OpenQA.Selenium.Chrome
 Partial Class BrowserController
     Function ReadAMText(Browser As ChromeDriver) As String
 
+lookforButton:
 
         Dim expandButtons = Browser.FindElementsByClassName("accordion-toggle")
         Dim buttonText As String
         Dim foundButton As Boolean = False
 
-lookforButton:
+
 
         For Each elemnt In expandButtons
             Try
@@ -20,9 +21,15 @@ lookforButton:
             End Try
 
             If buttonText = "Who's Involved" Then
-                elemnt.Click()
-                foundButton = True
-                Continue For
+                Try
+                    elemnt.Click()
+                    foundButton = True
+                    Continue For
+                Catch
+                    Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
+                    GoTo lookforButton
+                End Try
+
             End If
         Next
 
