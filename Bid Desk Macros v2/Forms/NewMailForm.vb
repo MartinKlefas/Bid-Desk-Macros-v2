@@ -230,7 +230,7 @@ startOver:
 
         If newMail.Subject.ToLower.StartsWith("your quote expiration reminder mail") Then Return True
         If Not tmpresult Then
-            tmpresult = newMail.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") AndAlso newMail.Body.Contains("will expire in") AndAlso newMail.Body.Contains("days unless action Is taken")
+            tmpresult = newMail.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") AndAlso newMail.Body.ToLower.Contains("will expire in") AndAlso newMail.Body.ToLower.Contains("days unless action is taken")
         End If
         Return tmpresult
     End Function
@@ -261,7 +261,7 @@ startOver:
     End Function
 
 
-    Private Function isCiscoSubmittedTicket(newmail As MailItem) As Boolean
+    Private Function IsCiscoSubmittedTicket(newmail As MailItem) As Boolean
 
         If newmail.Subject.ToLower.StartsWith("[nextdesk]") Then
             Dim MessageBody As String = newmail.Body
@@ -276,7 +276,7 @@ startOver:
 
     End Function
 
-    Private Function isOtherSubmittedTicket(newmail As MailItem) As Boolean
+    Private Function IsOtherSubmittedTicket(newmail As MailItem) As Boolean
 
         If newmail.Subject.ToLower.StartsWith("[nextdesk]") Then
             Dim MessageBody As String = newmail.Body
@@ -292,7 +292,7 @@ startOver:
 
         End If
 
-            Return False
+        Return False
 
     End Function
 
