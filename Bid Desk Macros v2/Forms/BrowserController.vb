@@ -108,7 +108,8 @@ Public Class BrowserController
             End If
 
 
-        Catch
+        Catch ex As Exception
+            MsgBox(ex.Message)
             browser.Quit()
         End Try
 
