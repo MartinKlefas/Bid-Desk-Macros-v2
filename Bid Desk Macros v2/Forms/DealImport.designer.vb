@@ -44,6 +44,8 @@ Partial Class ImportDeal
         Me.Label4 = New System.Windows.Forms.Label()
         Me.ccList = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.VendorGroupBox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -66,6 +68,7 @@ Partial Class ImportDeal
         '
         'VendorGroupBox
         '
+        Me.VendorGroupBox.Controls.Add(Me.RadioButton1)
         Me.VendorGroupBox.Controls.Add(Me.MSOption)
         Me.VendorGroupBox.Controls.Add(Me.HPEOption)
         Me.VendorGroupBox.Controls.Add(Me.DellOption)
@@ -155,6 +158,7 @@ Partial Class ImportDeal
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.CheckBox1)
         Me.GroupBox2.Controls.Add(Me.cWestcoast)
         Me.GroupBox2.Controls.Add(Me.cTechData)
         Me.GroupBox2.Controls.Add(Me.cIngram)
@@ -239,7 +243,7 @@ Partial Class ImportDeal
         '
         'ccList
         '
-        Me.ccList.Location = New System.Drawing.Point(11, 64)
+        Me.ccList.Location = New System.Drawing.Point(13, 64)
         Me.ccList.Name = "ccList"
         Me.ccList.Size = New System.Drawing.Size(290, 20)
         Me.ccList.TabIndex = 16
@@ -252,6 +256,26 @@ Partial Class ImportDeal
         Me.Label5.Size = New System.Drawing.Size(158, 13)
         Me.Label5.TabIndex = 15
         Me.Label5.Text = "Extra People to CC (; separated)"
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(154, 37)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(57, 17)
+        Me.CheckBox1.TabIndex = 3
+        Me.CheckBox1.Text = "Exertis"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Location = New System.Drawing.Point(118, 42)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(61, 17)
+        Me.RadioButton1.TabIndex = 4
+        Me.RadioButton1.Text = "Lenovo"
+        Me.RadioButton1.UseVisualStyleBackColor = True
         '
         'ImportDeal
         '
@@ -305,4 +329,6 @@ Partial Class ImportDeal
     Friend WithEvents ccList As Windows.Forms.TextBox
     Friend WithEvents Label5 As Windows.Forms.Label
     Friend WithEvents MSOption As Windows.Forms.RadioButton
+    Friend WithEvents RadioButton1 As Windows.Forms.RadioButton
+    Friend WithEvents CheckBox1 As Windows.Forms.CheckBox
 End Class

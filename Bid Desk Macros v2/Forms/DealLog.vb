@@ -48,7 +48,7 @@ Public Class AddDeal
                 Case "Microsoft"
                     Call CheckOnly(btnMS)
                 Case "Lenovo"
-                    Call CheckOnly(btnLenovo)
+                    Call CheckOnly(LenovoOption)
 
 
             End Select
@@ -106,6 +106,8 @@ Public Class AddDeal
             Vendor = "HPI"
         ElseIf Me.HPEOption.Checked Then
             Vendor = "HPE"
+        ElseIf Me.lenovooption.checked Then
+            Vendor = "Lenovo"
         Else
             Vendor = "Microsoft"
         End If
@@ -262,11 +264,13 @@ Public Class AddDeal
         HPIOption.Enabled = False
         HPEOption.Enabled = False
         DellOption.Enabled = False
+        LenovoOption.Enabled = False
         btnMS.Enabled = False
         cIngram.Enabled = False
         cTechData.Enabled = False
         cWestcoast.Enabled = False
         DealID.Enabled = False
+        chkExertis.Enabled = False
 
 
     End Sub

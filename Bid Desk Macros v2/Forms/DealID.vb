@@ -137,7 +137,7 @@ Public Class DealIdent
         Dim i As Integer
         Dim tempResult As String = ""
 
-        MsgSubject = Replace(message.Subject, " ", " ")
+        MsgSubject = ReplaceSpaces(message.Subject)
         msgBody = message.Body
 
         subjAr = Split(MsgSubject, " ")
@@ -206,7 +206,7 @@ Public Class DealIdent
                 tempResult = subjAr(2)
 
 
-            ElseIf message.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", ThisAddIn.searchType) And (MsgSubject.StartsWith("Deal", ThisAddIn.searchType) Or MsgSubject.StartsWith("OPG", ThisAddIn.searchType)) And MsgSubject.ToLower.Contains("for reseller insight direct") Then
+            ElseIf (message.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", ThisAddIn.searchType) Or message.SenderEmailAddress.Equals("westquotes@westcoast.co.uk")) And (MsgSubject.StartsWith("Deal", ThisAddIn.searchType) Or MsgSubject.StartsWith("OPG", ThisAddIn.searchType)) And MsgSubject.ToLower.Contains("for reseller insight direct") Then
                 tempResult = subjAr(1)
 
             End If
@@ -215,7 +215,7 @@ Public Class DealIdent
 
         If tempResult = "" Then
             If message.SenderEmailAddress.Contains("microsoft.com") Then
-                tempResult = Mid(message.Subject, InStr(1, message.Subject, "CAS-"), 18)
+                tempResult = Mid(message.Subject, InStr(1, MsgSubject, "CAS-"), 18)
             End If
         End If
 
@@ -236,7 +236,13 @@ Public Class DealIdent
             End If
         End If
 
-        FindDealID = tempResult
+        If tempResult = "" Then
+            If MsgSubject.Contains("BBR-") Then
+                tempResult = Mid(MsgSubject, InStr(1, MsgSubject, "BBR-"), 12)
+            End If
+        End If
+
+        FindDealID = TrimExtended(tempResult)
     End Function
 
 

@@ -165,9 +165,11 @@ startOver:
         Dim tSubj As String = msg.Subject.ReplaceSpaces()
         If msg.SenderEmailAddress.Equals("smart.quotes@techdata.com", searchType) And tSubj.StartsWith("QUOTE Deal", searchType) Then
             Return True
-        ElseIf msg.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", searchType) And tSubj.StartsWith("Deal", searchType) And tSubj.ToLower.Contains("for reseller insight direct") Then
+        ElseIf (msg.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", searchType) Or msg.SenderEmailAddress.Equals("westquotes@westcoast.co.uk")) And
+            tSubj.StartsWith("Deal", searchType) And tSubj.ToLower.Contains("for reseller insight direct") Then
             Return True
-        ElseIf msg.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", searchType) And tSubj.StartsWith("OPG", searchType) And tSubj.ToLower.Contains("for reseller insight direct") Then
+        ElseIf (msg.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", searchType) Or msg.SenderEmailAddress.Equals("westquotes@westcoast.co.uk")) And
+             tSubj.StartsWith("OPG", searchType) And tSubj.ToLower.Contains("for reseller insight direct") Then
             Return True
 
         Else
@@ -186,6 +188,10 @@ startOver:
             Return True
         ElseIf tSubj.StartsWith("Case Processed", searchType) AndAlso msg.SenderEmailAddress.tolower.Contains("hbd-int@microsoft.com") Then
             Return True
+
+        ElseIf msg.SenderEmailAddress.tolower.equals("noreplylbp@lenovo.com") And tsubj.startswith("Lenovo Bid Portal Bid Request") Then
+            Return True
+
         Else
             Return False
         End If
