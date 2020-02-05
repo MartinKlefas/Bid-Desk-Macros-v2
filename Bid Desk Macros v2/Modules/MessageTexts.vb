@@ -33,6 +33,9 @@
 
     Public Const MoreInfoRequested As String = "Please see %BELOW% a request for more information from %VENDOR% regarding deal ref: %DEALID% / NDT#: %NDT%. As outlined in the request, %VENDOR% requires this information within 4 business days or request will be denied.<br><br>If you decide not to proceed with this request before this deadline passes, please could you let me know by email as soon as possible."
 
+    Public Const VendorInfoUpdate As String = "Please see %BELOW% an update from %VENDOR% regarding deal ref: %DEALID% / NDT#: %NDT%."
+
+
     Public Const EmailForwardMessage As String = "Please see %BELOW% an email from %VENDOR% regarding deal ref: %DEALID% / NDT#: %NDT%. Please can you reach out directly to %VENDOR% to discuss this opportunity, copying me in only if there is a need for me to make changes in the %VENDOR% portal."
 
 

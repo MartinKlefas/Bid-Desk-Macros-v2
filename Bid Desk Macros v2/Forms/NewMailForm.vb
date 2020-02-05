@@ -68,8 +68,8 @@ startOver:
                                 Globals.ThisAddIn.ReqMoreInfo(msg, CompleteAutonomy:=True)
                             Case "CiscoApproved"
                                 Globals.ThisAddIn.DoCiscoDownload(msg)
-                            Case "Forward Request"
-                                Globals.ThisAddIn.FwdVendorEmail(msg, CompleteAutonomy:=True)
+                            Case "Forward Update"
+                                Globals.ThisAddIn.FwdVendorUpdate(msg, CompleteAutonomy:=True)
                             Case "Cisco Submitted"
                                 Globals.ThisAddIn.AddAMDetails(msg)
                             Case "Other Submitted"
@@ -129,8 +129,8 @@ startOver:
             Return "MoreInfo"
         End If
 
-        If IsForwardRequest(msg) Then
-            Return "Forward Request"
+        If IsForwardUpdate(msg) Then
+            Return "Forward Update"
         End If
 
         If isCiscoSubmittedTicket(msg) Then
@@ -256,8 +256,8 @@ startOver:
     End Function
 
 
-    Private Function IsForwardRequest(newmail As MailItem) As Boolean
-        Return newmail.Subject.ToLower.StartsWith("[autoforward")
+    Private Function IsForwardUpdate(newmail As MailItem) As Boolean
+        Return newmail.Subject.ToLower.StartsWith("lenovo bid portal education customer")
     End Function
 
 

@@ -155,7 +155,7 @@ Public Class ThisAddIn
 
     End Sub
 
-    Sub FwdVendorEmail(Optional passedMessage As Outlook.MailItem = Nothing, Optional CompleteAutonomy As Boolean = False)
+    Sub FwdVendorUpdate(Optional passedMessage As Outlook.MailItem = Nothing, Optional CompleteAutonomy As Boolean = False)
 
         Dim MessagesList As New List(Of Outlook.MailItem)
         Dim Autonomy As Boolean
@@ -177,7 +177,7 @@ Public Class ThisAddIn
             Autonomy = True
         End If
 
-        Dim DealIDForm As New DealIdent(MessagesList, "Forward Vendor Mail", Autonomy)
+        Dim DealIDForm As New DealIdent(MessagesList, "Forward Vendor Update", Autonomy)
         DealIDForm.Show()
 
     End Sub
