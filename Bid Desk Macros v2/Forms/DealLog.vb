@@ -47,6 +47,8 @@ Public Class AddDeal
                     Call CheckOnly(DellOption)
                 Case "Microsoft"
                     Call CheckOnly(btnMS)
+                Case "Lenovo"
+                    Call CheckOnly(btnLenovo)
 
 
             End Select
@@ -312,4 +314,6 @@ Public Class AddDeal
     Private Sub AddDeal_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         myContinue = False
     End Sub
+
+
 End Class
