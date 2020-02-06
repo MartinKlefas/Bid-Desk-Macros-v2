@@ -8,9 +8,10 @@ findsearchbox:
         Dim elements = Browser.FindElementsByClassName("commonGlobalSearch")
         Dim kdfid As String
 
+        Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
 
         If elements.Count < 1 Then
-            Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
             GoTo findsearchbox
         End If
 
