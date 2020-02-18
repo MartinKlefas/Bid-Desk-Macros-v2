@@ -64,6 +64,8 @@ There are further discounts available based on things like our pre-sales (time) 
         {"AM1", "Looking up AM Details..."}
         }
 
+    Public Const CiscoAMFail As String = "The Cisco portal did not yet show the Account Manager. While there is no requirement for you to do so, discussing this deal with them will more than likely speed up the approvals process, and decrease your chances of it being rejected or ignored. If you would like me to check again shortly so that you can reach out to the right person, please let me know and I will."
+
     Public Const CiscoAMMessage As String = "The Cisco portal shows the Account Manager to be %AM%. While there is no requirement for you to do so, discussing this deal with them will more than likely speed up the approvals process, and decrease your chances of it being rejected or ignored."
 
     Public Const CiscoAMTeamMessage As String = "The Cisco portal shows that this account is managed by a team as below:

@@ -92,8 +92,8 @@ Public Class BrowserController
                     browser.Close()
                     browser.Dispose()
 
-                    If tmpAM <> "" Then
-                        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
+
+                    Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
                                 .TicketNumber = ndtNumber,
                                 .VisibleBrowser = False,
                                 .TimeOperations = True,
@@ -102,8 +102,8 @@ Public Class BrowserController
 
                         ndt.UpdateNextDesk(writeAMMessage(tmpAM))
 
+
                     End If
-                End If
 
             End If
 

@@ -4,6 +4,8 @@ Imports OpenQA.Selenium.Chrome
 Partial Class BrowserController
     Function ReadAMText(Browser As ChromeDriver) As String
 
+        Dim FailCounter As Integer = 0
+
 lookforButton:
 
         Dim expandButtons = Browser.FindElementsByClassName("accordion-toggle")
@@ -27,7 +29,12 @@ lookforButton:
                     Continue For
                 Catch
                     Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
-                    GoTo lookforButton
+                    FailCounter += 1
+                    If FailCounter < 20 Then
+                        GoTo lookforButton
+                    Else
+                        Return ""
+                    End If
                 End Try
 
             End If
@@ -35,10 +42,16 @@ lookforButton:
 
         If Not foundButton Then
             Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
-            GoTo lookforButton
+            FailCounter += 1
+            If FailCounter < 20 Then
+                GoTo lookforButton
+            Else
+                Return ""
+            End If
         End If
 
         Dim waitedforDetails As Integer = 0
+
 
 LookforAMDetails:
 
@@ -87,9 +100,11 @@ LookforAMDetails:
 
 
     Function WriteAMMessage(AMString As String) As String
+
         If AMString.Contains(vbCr) Or AMString.Contains(vbLf) Or AMString.Contains(vbCrLf) Then
             Return Replace(CiscoAMTeamMessage, "%AM%", AMString)
-
+        ElseIf AMString = "" Then
+            Return CiscoAMFail
         Else
             AMString = Replace(AMString, ")", "@cisco.com)")
             Return Replace(CiscoAMMessage, "%AM%", AMString)

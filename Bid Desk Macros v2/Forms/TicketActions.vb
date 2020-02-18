@@ -70,6 +70,8 @@
                                 If MoveBack(ndt) Then
 
                                     ndt.Move("Pre-sales triage")
+                                Else
+                                    ndt.CloseTicket("Completed as requested")
 
                                 End If
                             End If
