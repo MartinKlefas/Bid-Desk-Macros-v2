@@ -92,7 +92,7 @@ startOver:
             Me.entryIDCollection = My.Settings.entryIDCollection
             My.Settings.entryIDCollection = ""
             My.Settings.Save()
-            GoTo startover
+            GoTo startOver
         End If
     End Sub
 
@@ -242,6 +242,11 @@ startOver:
         If Not tmpresult Then
             tmpresult = newMail.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") AndAlso newMail.Body.ToLower.Contains("will expire in") AndAlso newMail.Body.ToLower.Contains("days unless action is taken")
         End If
+
+        If Not tmpresult Then
+            tmpresult = newMail.SenderEmailAddress.Equals("noreplylbp@lenovo.com") AndAlso newMail.Subject.Contains("Bid Request expiration Reminder")
+        End If
+
         Return tmpresult
     End Function
 

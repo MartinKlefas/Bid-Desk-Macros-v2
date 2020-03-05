@@ -47,12 +47,17 @@ findsearchbox:
             End Try
         Next
         Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
+
+        Dim tries As Integer = 0
+
 gotodealpage:
         Try
             Browser.FindElementByLinkText(SearchFor).Click()
+
         Catch
+            tries += 1
             Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
-            GoTo gotodealpage
+            If tries < 5 Then GoTo gotodealpage
         End Try
 
     End Sub
