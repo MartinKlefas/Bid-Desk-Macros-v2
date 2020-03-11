@@ -70,6 +70,11 @@ Public Class DealIdent
                 Case "DRDecision"
                     Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, drDecision, True, CompleteAutonomy)
                     Globals.ThisAddIn.UpdateStatus(tDealID, "DR Decision with AM")
+
+                    If Globals.ThisAddIn.GetVendor(tDealID) = "Lenovo" Then
+                        'Get the Lenovo portal to forward the quote to Distribution.
+                    End If
+
                 Case "Expiry"
                     Globals.ThisAddIn.DoOneExpiry(tDealID, tMsg, CompleteAutonomy, True)
                 Case "ExpiryQuote"

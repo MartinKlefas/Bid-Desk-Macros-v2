@@ -193,7 +193,7 @@ startOver:
         ElseIf tSubj.StartsWith("Case Processed", searchType) AndAlso msg.SenderEmailAddress.tolower.Contains("hbd-int@microsoft.com") Then
             Return True
 
-        ElseIf msg.SenderEmailAddress.tolower.equals("noreplylbp@lenovo.com") And tsubj.startswith("Lenovo Bid Portal Bid Request") Then
+        ElseIf msg.SenderEmailAddress.tolower.equals("noreplylbp@lenovo.com") And (tsubj.startswith("Lenovo Bid Portal Bid Request") Or tsubj.startswith("Bid Request Declined Notification")) Then
             Return True
 
         Else

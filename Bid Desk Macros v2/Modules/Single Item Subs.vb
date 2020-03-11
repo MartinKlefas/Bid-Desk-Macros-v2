@@ -171,7 +171,7 @@
             End Try
 
             If CompleteAutonomy Then
-                If messageBodyAddition = drDecision OrElse QuotesReceived(DealID) > 2 Then
+                If (messageBodyAddition = drDecision And GetVendor(DealID) <> "Lenovo") OrElse QuotesReceived(DealID) > 2 Then
 
                     ndt.CloseTicket(browser:=browser)
                 End If
