@@ -44,7 +44,10 @@ Public Class AddDeal
                     Call CheckOnly(HPEOption)
                 Case "Dell"
                     Call CheckOnly(DellOption)
-
+                Case "Microsoft"
+                    Call CheckOnly(btnMS)
+                Case "Lenovo"
+                    Call CheckOnly(LenovoOption)
 
             End Select
             If Me.mail.Subject.ToLower.StartsWith("[nextdesk]") Then
@@ -103,6 +106,10 @@ Public Class AddDeal
             Vendor = "Dell"
         ElseIf Me.HPIOption.Checked Then
             Vendor = "HPI"
+        ElseIf Me.LenovoOption.Checked Then
+            Vendor = "Lenovo"
+        ElseIf Me.btnMS.Checked Then
+            Vendor = "Microsoft"
         Else
             Vendor = "HPE"
         End If

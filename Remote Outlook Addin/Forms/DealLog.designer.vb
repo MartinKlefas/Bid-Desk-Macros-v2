@@ -39,6 +39,8 @@ Partial Class AddDeal
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.txtNDTNum = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.LenovoOption = New System.Windows.Forms.RadioButton()
+        Me.btnMS = New System.Windows.Forms.RadioButton()
         Me.VendorGroupBox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -61,12 +63,14 @@ Partial Class AddDeal
         '
         'VendorGroupBox
         '
+        Me.VendorGroupBox.Controls.Add(Me.LenovoOption)
+        Me.VendorGroupBox.Controls.Add(Me.btnMS)
         Me.VendorGroupBox.Controls.Add(Me.HPEOption)
         Me.VendorGroupBox.Controls.Add(Me.DellOption)
         Me.VendorGroupBox.Controls.Add(Me.HPIOption)
         Me.VendorGroupBox.Location = New System.Drawing.Point(15, 52)
         Me.VendorGroupBox.Name = "VendorGroupBox"
-        Me.VendorGroupBox.Size = New System.Drawing.Size(290, 47)
+        Me.VendorGroupBox.Size = New System.Drawing.Size(290, 69)
         Me.VendorGroupBox.TabIndex = 2
         Me.VendorGroupBox.TabStop = False
         Me.VendorGroupBox.Text = "Vendor"
@@ -108,7 +112,7 @@ Partial Class AddDeal
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 169)
+        Me.Label2.Location = New System.Drawing.Point(12, 190)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(182, 13)
         Me.Label2.TabIndex = 4
@@ -116,14 +120,14 @@ Partial Class AddDeal
         '
         'DealID
         '
-        Me.DealID.Location = New System.Drawing.Point(15, 185)
+        Me.DealID.Location = New System.Drawing.Point(15, 206)
         Me.DealID.Name = "DealID"
         Me.DealID.Size = New System.Drawing.Size(287, 20)
         Me.DealID.TabIndex = 5
         '
         'OKButton
         '
-        Me.OKButton.Location = New System.Drawing.Point(15, 250)
+        Me.OKButton.Location = New System.Drawing.Point(15, 271)
         Me.OKButton.Name = "OKButton"
         Me.OKButton.Size = New System.Drawing.Size(138, 29)
         Me.OKButton.TabIndex = 6
@@ -132,7 +136,7 @@ Partial Class AddDeal
         '
         'tCancelButton
         '
-        Me.tCancelButton.Location = New System.Drawing.Point(163, 250)
+        Me.tCancelButton.Location = New System.Drawing.Point(163, 271)
         Me.tCancelButton.Name = "tCancelButton"
         Me.tCancelButton.Size = New System.Drawing.Size(138, 29)
         Me.tCancelButton.TabIndex = 7
@@ -144,7 +148,7 @@ Partial Class AddDeal
         Me.GroupBox2.Controls.Add(Me.cWestcoast)
         Me.GroupBox2.Controls.Add(Me.cTechData)
         Me.GroupBox2.Controls.Add(Me.cIngram)
-        Me.GroupBox2.Location = New System.Drawing.Point(13, 106)
+        Me.GroupBox2.Location = New System.Drawing.Point(13, 127)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(288, 60)
         Me.GroupBox2.TabIndex = 9
@@ -186,7 +190,7 @@ Partial Class AddDeal
         '
         'txtNDTNum
         '
-        Me.txtNDTNum.Location = New System.Drawing.Point(13, 224)
+        Me.txtNDTNum.Location = New System.Drawing.Point(13, 245)
         Me.txtNDTNum.Name = "txtNDTNum"
         Me.txtNDTNum.Size = New System.Drawing.Size(287, 20)
         Me.txtNDTNum.TabIndex = 11
@@ -194,17 +198,39 @@ Partial Class AddDeal
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(10, 208)
+        Me.Label3.Location = New System.Drawing.Point(10, 229)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(127, 13)
         Me.Label3.TabIndex = 10
         Me.Label3.Text = "NextDesk Ticket Number"
         '
+        'LenovoOption
+        '
+        Me.LenovoOption.AutoSize = True
+        Me.LenovoOption.Location = New System.Drawing.Point(25, 46)
+        Me.LenovoOption.Name = "LenovoOption"
+        Me.LenovoOption.Size = New System.Drawing.Size(61, 17)
+        Me.LenovoOption.TabIndex = 6
+        Me.LenovoOption.TabStop = True
+        Me.LenovoOption.Text = "Lenovo"
+        Me.LenovoOption.UseVisualStyleBackColor = True
+        '
+        'btnMS
+        '
+        Me.btnMS.AutoSize = True
+        Me.btnMS.Location = New System.Drawing.Point(118, 46)
+        Me.btnMS.Name = "btnMS"
+        Me.btnMS.Size = New System.Drawing.Size(96, 17)
+        Me.btnMS.TabIndex = 5
+        Me.btnMS.TabStop = True
+        Me.btnMS.Text = "Microsoft (HW)"
+        Me.btnMS.UseVisualStyleBackColor = True
+        '
         'AddDeal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(317, 291)
+        Me.ClientSize = New System.Drawing.Size(317, 316)
         Me.Controls.Add(Me.txtNDTNum)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.GroupBox2)
@@ -242,4 +268,6 @@ Partial Class AddDeal
     Friend WithEvents BackgroundWorker1 As ComponentModel.BackgroundWorker
     Friend WithEvents txtNDTNum As Windows.Forms.TextBox
     Friend WithEvents Label3 As Windows.Forms.Label
+    Friend WithEvents LenovoOption As Windows.Forms.RadioButton
+    Friend WithEvents btnMS As Windows.Forms.RadioButton
 End Class

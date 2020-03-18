@@ -224,7 +224,7 @@ Partial Class AddDeal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(317, 301)
+        Me.ClientSize = New System.Drawing.Size(317, 277)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.tCancelButton)
         Me.Controls.Add(Me.OKButton)

@@ -2,11 +2,15 @@
 Module ClipBoard_Reader
     Public Function FindDealID(ClipBoardText As String) As String
         Dim strArry As String()
+
+        'Old HP SQs
         FindDealID = ""
         If InStr(1, ClipBoardText, "SQ-") > 0 Then
             FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "SQ-"), 10)
 
         End If
+
+        'HPI/HPE Quotes
         If InStr(1, ClipBoardText, "Quote Number") > 0 AndAlso FindDealID = "" Then
             If InStr(1, ClipBoardText, "Quote Number: ") > 0 Then
                 FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "Quote Number: ") + 14, 10)
@@ -15,6 +19,8 @@ Module ClipBoard_Reader
             End If
 
         End If
+
+        'Dell Deal Registration
         If InStr(1, ClipBoardText, "Deal ID") > 0 AndAlso FindDealID = "" Then
             strArry = Split(Mid(ClipBoardText, InStr(1, ClipBoardText, "Deal ID")), vbTab)
             Try
@@ -24,6 +30,8 @@ Module ClipBoard_Reader
             End Try
         End If
 
+
+        'HPI/HPE Deal Registration
         If InStr(1, ClipBoardText.ToLower, "deal registration id") > 0 AndAlso FindDealID = "" Then
             strArry = Split(Mid(ClipBoardText, InStr(1, ClipBoardText.ToLower, "deal registration id")), vbCrLf)
             Try
@@ -33,11 +41,26 @@ Module ClipBoard_Reader
             End Try
         End If
 
+        'Miscrosoft Hardware Deal Registration
+
+        If InStr(1, ClipBoardText, "CAS-") > 0 Then
+            FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "CAS-"), 19)
+
+        End If
+
+
+        'Lenovo Bid Request
+
+        If InStr(1, ClipBoardText, "BBR-") > 0 Then
+            FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "BBR-"), 13)
+        End If
+
+
         FindDealID = TrimExtended(FindDealID)
     End Function
 
     Function FindVendor(ClipBoardText As String) As String
-        FindVendor = ""
+        FindVendor = "Dell"
 
 
         If InStr(1, ClipBoardText, "E00") > 0 Or InStr(1, ClipBoardText, "NQ0") > 0 Then
@@ -49,6 +72,15 @@ Module ClipBoard_Reader
 
         If InStr(1, ClipBoardText, "Deal Registration id") > 0 Then
             FindVendor = "HPI"
+        End If
+
+        If InStr(1, ClipBoardText, "CAS-") > 0 Then
+            FindVendor = "Microsoft"
+        End If
+
+        If InStr(1, ClipBoardText, "BBR-") > 0 Then
+            FindVendor = "Lenovo"
+
         End If
     End Function
 
@@ -92,6 +124,12 @@ Module ClipBoard_Reader
             Catch
                 FindCustomer = ""
             End Try
+        End If
+
+
+
+        If InStr(1, ClipboardText, "BBR-") > 0 Then
+            FindCustomer = Split(Mid(ClipboardText, InStr(1, ClipboardText, "End Customer Name") + 18), vbCrLf)(0)
         End If
 
         FindCustomer = TrimExtended(FindCustomer)
