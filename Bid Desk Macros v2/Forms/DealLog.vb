@@ -179,6 +179,9 @@ Public Class AddDeal
             If newNDT <> 0 And newNDT <> 404 Then ' continue on second
 
                 If Not DealData.ContainsKey("NDT") Then DealData.Add("NDT", newNDT)
+
+                If DealData("NDT") = "" Then DealData("NDT") = newNDT
+
                 ndt.Move("Public Sector")
 
                 If Not myContinue Then
