@@ -114,5 +114,27 @@ Public Module StringExtensions
 
         Return result
     End Function
+
+    ''' <summary>
+    ''' Removes illegal characters from a string to make it acceptable for windows. Removes "\/|?*'lt''gt'"":"
+    ''' Also discards any characters that make the string longer than 260
+    ''' </summary>
+    ''' <param name="strFileNameIn">Input filename</param>
+    ''' <returns>a legal filename in a string.</returns>
+    <Extension>
+    Public Function LegalFileName(strFileNameIn As String) As String
+        Dim i As Integer
+
+        Const strIllegals = "\/|?*<>"":"
+        LegalFileName = strFileNameIn
+        For i = 1 To Len(strIllegals)
+            LegalFileName = Replace(LegalFileName, Mid$(strIllegals, i, 1), "")
+        Next i
+
+        If Len(LegalFileName) > 259 Then
+            LegalFileName = Left(LegalFileName, 259)
+        End If
+
+    End Function
 End Module
 

@@ -57,8 +57,16 @@ Partial Class ThisAddIn
                     Debug.WriteLine(ex.Message)
                 End Try
             ElseIf tAttachment.FileName.ToLower.Contains(".msg") Then
-                Dim fileName As String = IO.Path.GetTempPath & RandomString(6) & tAttachment.FileName
+                Dim fileName As String
+                Dim tempPath As String = Environ("TEMP") & "\clsnextdeskticket\" & RandomString(18) & "\"
+
+                If (Not System.IO.Directory.Exists(tempPath)) Then
+                    System.IO.Directory.CreateDirectory(tempPath)
+                End If
+                fileName = tempPath & LegalFileName(tAttachment.FileName) & ".msg"
+
                 tAttachment.SaveAsFile(fileName)
+
                 Try
                     Dim Mail As Outlook.MailItem = Globals.ThisAddIn.Application.GetNamespace("MAPI").OpenSharedItem(fileName)
                     replyMail = Mail.ReplyAll
@@ -99,8 +107,8 @@ Partial Class ThisAddIn
     Public Sub RemoteExtension(ByRef InboundMail As Outlook.MailItem)
 
         Dim dealsRead As New List(Of Dictionary(Of String, String))
-        Dim replyMail As Outlook.MailItem
-        replyMail = Nothing
+        Dim RequestMail As Outlook.MailItem
+        RequestMail = Nothing
 
         For Each tAttachment As Outlook.Attachment In InboundMail.Attachments
             If tAttachment.FileName.ToLower.Contains(".xml") Then
@@ -128,12 +136,18 @@ Partial Class ThisAddIn
                 End Try
 
             ElseIf tAttachment.FileName.ToLower.Contains(".msg") Then
+                Dim fileName As String
+                Dim tempPath As String = Environ("TEMP") & "\clsnextdeskticket\" & RandomString(18) & "\"
 
-                Dim fileName As String = IO.Path.GetTempPath & RandomString(6) & tAttachment.FileName
+                If (Not System.IO.Directory.Exists(tempPath)) Then
+                    System.IO.Directory.CreateDirectory(tempPath)
+                End If
+                fileName = tempPath & LegalFileName(tAttachment.FileName) & ".msg"
+
                 tAttachment.SaveAsFile(fileName)
                 Try
                     Dim Mail As Outlook.MailItem = Globals.ThisAddIn.Application.GetNamespace("MAPI").OpenSharedItem(fileName)
-                    replyMail = Mail.ReplyAll
+                    RequestMail = Mail
                 Catch
                     Debug.WriteLine("Could Not reply To attached mail")
                 End Try
@@ -149,21 +163,28 @@ Partial Class ThisAddIn
 
         For Each deal As Dictionary(Of String, String) In dealsRead
 
-            If Not IsNothing(replyMail) Then
+            If Not IsNothing(RequestMail) Then
                 If deal("Action") = "Extended" Then
-                    Dim DealIDForm As New DealIdent(New List(Of Microsoft.Office.Interop.Outlook.MailItem) From {replyMail}, "ExtensionMessage", True, deal("DealID"))
+                    Dim DealIDForm As New DealIdent(New List(Of Microsoft.Office.Interop.Outlook.MailItem) From {RequestMail}, "ExtensionMessage", True, deal("DealID"))
                     DealIDForm.Show()
                 ElseIf deal("Action") = "Clone" Then
-                    Dim cloneLaterForm As New CloneLater(ReadDate(replyMail), replyMail, True)
-                    cloneLaterForm.Show()
 
-                    Dim DealIDForm As New DealIdent(New List(Of Microsoft.Office.Interop.Outlook.MailItem) From {replyMail}, "CloneLater", True, deal("DealID"))
-                    DealIDForm.Show()
+                    ' not yet working - needs a test case **FIX ME**
+                    'Dim cloneLaterForm As New CloneLater(ReadDate(RequestMail), RequestMail, True)
+                    'cloneLaterForm.Show()
+
+                    'Dim DealIDForm As New DealIdent(New List(Of Microsoft.Office.Interop.Outlook.MailItem) From {RequestMail}, "CloneLater", True, deal("DealID"))
+                    'DealIDForm.Show()
 
                 End If
             End If
         Next
-
+        If Not IsNothing(RequestMail) AndAlso dealsRead.Count > 0 Then
+            Try
+                InboundMail.Delete()
+            Catch
+            End Try
+        End If
     End Sub
 
 End Class
