@@ -71,6 +71,9 @@ Public Class DealIdent
         remoteAddMail.Send()
 
         Message.Delete()
+
+        CloseMe()
+        Exit Sub
     End Sub
 
     Private Function WriteXMlOutput(Method As String, tDealID As String) As String

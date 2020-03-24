@@ -19,7 +19,7 @@ Public Class Extension
         End If
         If RadioButton2.Checked Then
             action = "Clone"
-            Dim msgReply As Outlook.MailItem = msg.ReplyAll
+            Dim msgReply As Outlook.MailItem = Me.msg.ReplyAll
 
             msgReply.HTMLBody = CloneLaterMessage.Replace("%CLONEDATE%", "on the day of its' expiry") & msgReply.HTMLBody
 
