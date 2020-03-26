@@ -40,7 +40,7 @@
 
         msgReply.HTMLBody = CloneLaterMessage.Replace("%CLONEDATE%", Me.targetDate.SelectionEnd.ToShortDateString) & MainRibbon.WriteHolidayMessage() & msgReply.HTMLBody
         If fullAutonomy Then
-            msgReply.Display()
+            msgReply.Send()
         Else
             msgReply.Display()
         End If
