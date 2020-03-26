@@ -1,13 +1,22 @@
 ﻿Public Class CloneLater
     Private ReadOnly CurrentItem As Outlook.MailItem
+    Private ReadOnly fullAutonomy As Boolean
+    Private ReadOnly ReplyToThis As Outlook.MailItem
+    Private ReadOnly DealID As String
 
-    Public Sub New(targetDate As Date, email As Outlook.MailItem, Optional fullAutonomy As Boolean = False)
+    Public Sub New(targetDate As Date, email As Outlook.MailItem, Optional ReplyToThisMail As Outlook.MailItem = Nothing, Optional fullAutonomy As Boolean = False, Optional DealID As String = "")
         Me.InitializeComponent()
         Me.targetDate.SelectionStart = targetDate
         Me.targetDate.SelectionEnd = targetDate
 
         Me.CurrentItem = email
-        If fullAutonomy Then btnSetReminder.PerformClick()
+        Me.fullAutonomy = fullAutonomy
+        Me.ReplyToThis = ReplyToThisMail
+        Me.DealID = DealID
+        If fullAutonomy Then
+
+            Call Button1_Click(Nothing, Nothing)
+        End If
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnSetReminder.Click
@@ -20,14 +29,21 @@
             .ReminderTime = Me.targetDate.SelectionStart
             .Save()
         End With
+        Dim msgReply As Outlook.MailItem
 
-        'reply
-        Dim msgReply As Outlook.MailItem = CurrentItem.ReplyAll
+        If ReplyToThis Is Nothing Then
+            'reply
+            msgReply = CurrentItem.ReplyAll
+        Else
+            msgReply = ReplyToThis.ReplyAll
+        End If
 
         msgReply.HTMLBody = CloneLaterMessage.Replace("%CLONEDATE%", Me.targetDate.SelectionEnd.ToShortDateString) & MainRibbon.WriteHolidayMessage() & msgReply.HTMLBody
-
-        msgReply.Display()
-
+        If fullAutonomy Then
+            msgReply.Display()
+        Else
+            msgReply.Display()
+        End If
         Me.Close()
 
         'set do not remind again flag
@@ -35,7 +51,7 @@
             CurrentItem
         }
 
-        Dim DealIDForm As New DealIdent(MessagesList, "CloneLater", True)
+        Dim DealIDForm As New DealIdent(MessagesList, "CloneLater", True, DealID:=Me.DealID)
         DealIDForm.Show()
 
     End Sub

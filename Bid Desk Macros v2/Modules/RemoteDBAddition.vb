@@ -8,6 +8,7 @@ Partial Class ThisAddIn
 
         If inboundMail.Subject.Contains("Extension") Then
             Call RemoteExtension(inboundMail)
+            Exit Sub
         End If
 
         Dim dealsRead As New List(Of Dictionary(Of String, String))
@@ -167,24 +168,21 @@ Partial Class ThisAddIn
                 If deal("Action") = "Extended" Then
                     Dim DealIDForm As New DealIdent(New List(Of Microsoft.Office.Interop.Outlook.MailItem) From {RequestMail}, "ExtensionMessage", True, deal("DealID"))
                     DealIDForm.Show()
+                    Try
+                        InboundMail.Delete()
+                    Catch
+                    End Try
+
                 ElseIf deal("Action") = "Clone" Then
+                    'the "new" sub contains every action needed
+                    Dim cloneLaterForm As New CloneLater(ReadDate(RequestMail), InboundMail, RequestMail, True, DealID:=deal("DealID"))
 
-                    ' not yet working - needs a test case **FIX ME**
-                    'Dim cloneLaterForm As New CloneLater(ReadDate(RequestMail), RequestMail, True)
-                    'cloneLaterForm.Show()
-
-                    'Dim DealIDForm As New DealIdent(New List(Of Microsoft.Office.Interop.Outlook.MailItem) From {RequestMail}, "CloneLater", True, deal("DealID"))
-                    'DealIDForm.Show()
+                    cloneLaterForm.Dispose()
 
                 End If
             End If
         Next
-        If Not IsNothing(RequestMail) AndAlso dealsRead.Count > 0 Then
-            Try
-                InboundMail.Delete()
-            Catch
-            End Try
-        End If
+
     End Sub
 
 End Class

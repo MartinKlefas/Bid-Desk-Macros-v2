@@ -76,6 +76,6 @@ While there is no requirement for you to do so, discussing this deal with them w
 
     Public Const FindAMMessage As String = "While there is no requirement for you to do so, discussing this deal with the vendor Account Manager will more than likely speed up the approvals process, and decrease your chances of it being rejected or ignored.
 
- Please let me know if you'd like me to find out who the Account Manager for this customer is."
+ Please let me know if you'd like me to find out who the Vendor Account Manager for this customer is."
 
 End Module
