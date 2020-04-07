@@ -200,7 +200,7 @@ Public Class AddDeal
         cTechData.Enabled = False
         cWestcoast.Enabled = False
         DealID.Enabled = False
-
+        txtNDTNum.Enabled = False
 
     End Sub
 
