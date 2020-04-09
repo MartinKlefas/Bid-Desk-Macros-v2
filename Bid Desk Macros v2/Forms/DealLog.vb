@@ -186,7 +186,7 @@ Public Class AddDeal
 
                 If DealData("NDT") = "" Then DealData("NDT") = newNDT
 
-                ndt.Move("Public Sector")
+                ndt.Move("Public Sector - Special Bid")
 
                 If Not myContinue Then
                     Return False
