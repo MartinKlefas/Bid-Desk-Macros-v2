@@ -26,6 +26,7 @@ Partial Class Extension
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.txtDealId = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'RadioButton1
@@ -52,27 +53,35 @@ Partial Class Extension
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(13, 61)
+        Me.Button1.Location = New System.Drawing.Point(12, 93)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(79, 23)
+        Me.Button1.Size = New System.Drawing.Size(95, 23)
         Me.Button1.TabIndex = 2
         Me.Button1.Text = "Cancel"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(98, 61)
+        Me.Button2.Location = New System.Drawing.Point(131, 93)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.Size = New System.Drawing.Size(120, 23)
         Me.Button2.TabIndex = 3
         Me.Button2.Text = "OK"
         Me.Button2.UseVisualStyleBackColor = True
+        '
+        'txtDealId
+        '
+        Me.txtDealId.Location = New System.Drawing.Point(13, 61)
+        Me.txtDealId.Name = "txtDealId"
+        Me.txtDealId.Size = New System.Drawing.Size(238, 20)
+        Me.txtDealId.TabIndex = 4
         '
         'Extension
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(185, 94)
+        Me.ClientSize = New System.Drawing.Size(263, 128)
+        Me.Controls.Add(Me.txtDealId)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.RadioButton2)
@@ -88,4 +97,5 @@ Partial Class Extension
     Friend WithEvents RadioButton2 As Windows.Forms.RadioButton
     Friend WithEvents Button1 As Windows.Forms.Button
     Friend WithEvents Button2 As Windows.Forms.Button
+    Friend WithEvents txtDealId As Windows.Forms.TextBox
 End Class

@@ -8,7 +8,7 @@ Imports System.Xml
 
 Public Class DealIdent
     Private ReadOnly Message As MailItem
-    Private ReadOnly Mode As String
+    Public Mode As String
 
     Private ReadOnly CompleteAutonomy As Boolean
 
@@ -19,6 +19,9 @@ Public Class DealIdent
         Me.CompleteAutonomy = Autonomy
 
         InitializeComponent()
+
+        Me.DealID.Text = FindDealID(message)
+
     End Sub
 
     Private Sub DealID_KeyDown(sender As Object, e As KeyEventArgs) Handles DealID.KeyDown
@@ -28,16 +31,16 @@ Public Class DealIdent
     End Sub
 
 
-    Private Sub Button1_Click() Handles OKButton.Click
+    Public Sub Button1_Click() Handles OKButton.Click
         Me.DialogResult = DialogResult.OK
 
         DisableButtons()
-            Dim tDealID As String = TrimExtended(Me.DealID.Text)
+        Dim tDealID As String = TrimExtended(Me.DealID.Text)
 
-            If tDealID = "" Then
-                CloseMe()
-                Exit Sub
-            End If
+        If tDealID = "" Then
+            CloseMe()
+            Exit Sub
+        End If
 
 
 
@@ -123,7 +126,7 @@ Public Class DealIdent
     Private Sub DealIdent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.DialogResult = DialogResult.None
-        Me.DealID.Text = FindDealID(Message)
+
 
         If CompleteAutonomy Then Call Button1_Click()
 

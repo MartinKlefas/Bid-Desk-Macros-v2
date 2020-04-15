@@ -2,10 +2,13 @@
 
 Public Class Extension
     Private ReadOnly msg As MailItem
+    Private ReadOnly dealform As DealIdent
 
     Public Sub New(msg As MailItem)
         InitializeComponent()
         Me.msg = msg
+        dealform = New DealIdent(msg, "", False)
+        Me.txtDealId.Text = dealform.DealID.Text
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -25,9 +28,12 @@ Public Class Extension
 
             msgReply.Display()
         End If
+        dealform.DealID.Text = Me.txtDealId.Text
+        dealform.Mode = action
+        Call dealform.Button1_Click()
 
-        Dim dealForm As New DealIdent(msg, action, False)
-        dealForm.Show()
         Me.Close()
+
+
     End Sub
 End Class
