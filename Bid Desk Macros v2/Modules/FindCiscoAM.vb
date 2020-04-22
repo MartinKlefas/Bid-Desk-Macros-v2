@@ -22,7 +22,7 @@ lookforButton:
                 buttonText = ""
             End Try
 
-            If buttonText = "Who's Involved" Then
+            If buttonText = "Who's Involved" AndAlso Not foundButton Then
                 Try
                     elemnt.Click()
                     foundButton = True
@@ -74,7 +74,11 @@ LookforAMDetails:
 
                 For Each child In childelements
                     If child.Text = "View Members" Then
+
                         child.Click()
+                        Dim waitedforTable As Integer = 0
+waitforAMTable:
+
                         Dim tableCandidates = Browser.FindElementsByClassName("table-responsive")
 
                         For Each table In tableCandidates
@@ -82,6 +86,14 @@ LookforAMDetails:
                                 Return table.Text
                             End If
                         Next
+                        waitedforTable += 1
+                        If waitedforTable <= 10 Then
+                            Threading.Thread.Sleep(TimeSpan.FromSeconds(1))
+                            GoTo waitforAMTable
+                        Else
+                            Return ""
+
+                        End If
                     End If
 
                 Next
