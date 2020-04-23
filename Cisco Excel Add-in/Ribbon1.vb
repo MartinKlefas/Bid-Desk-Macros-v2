@@ -26,4 +26,9 @@ Public Class Ribbon1
         Dim frm As New FindCiscoAM("45378469")
         frm.Show()
     End Sub
+
+    Private Sub Button2_Click(sender As Object, e As RibbonControlEventArgs) Handles Button2.Click
+        Dim frm As New LenovoBrowserController("Login")
+        frm.Show()
+    End Sub
 End Class

@@ -199,6 +199,12 @@
     <Compile Include="Forms\FindCiscoAM.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\LenovoBrowserController.Designer.vb">
+      <DependentUpon>LenovoBrowserController.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LenovoBrowserController.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modules\CreateDeal Pages.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -220,6 +226,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FindCiscoAM.resx">
       <DependentUpon>FindCiscoAM.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LenovoBrowserController.resx">
+      <DependentUpon>LenovoBrowserController.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ribbon1.resx">
       <DependentUpon>Ribbon1.vb</DependentUpon>

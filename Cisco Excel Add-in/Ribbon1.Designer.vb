@@ -42,29 +42,33 @@
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Tab1 = Me.Factory.CreateRibbonTab
-        Me.Group1 = Me.Factory.CreateRibbonGroup
+        Me.Cisco = Me.Factory.CreateRibbonGroup
         Me.BtnLogin = Me.Factory.CreateRibbonButton
         Me.NewDeal = Me.Factory.CreateRibbonButton
         Me.BtnDLDeal = Me.Factory.CreateRibbonButton
         Me.Button1 = Me.Factory.CreateRibbonButton
+        Me.Group1 = Me.Factory.CreateRibbonGroup
+        Me.Button2 = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
+        Me.Cisco.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Tab1
         '
+        Me.Tab1.Groups.Add(Me.Cisco)
         Me.Tab1.Groups.Add(Me.Group1)
-        Me.Tab1.Label = "Cisco Tools"
+        Me.Tab1.Label = "Browser Controller Tools"
         Me.Tab1.Name = "Tab1"
         '
-        'Group1
+        'Cisco
         '
-        Me.Group1.Items.Add(Me.BtnLogin)
-        Me.Group1.Items.Add(Me.NewDeal)
-        Me.Group1.Items.Add(Me.BtnDLDeal)
-        Me.Group1.Items.Add(Me.Button1)
-        Me.Group1.Label = "Group1"
-        Me.Group1.Name = "Group1"
+        Me.Cisco.Items.Add(Me.BtnLogin)
+        Me.Cisco.Items.Add(Me.NewDeal)
+        Me.Cisco.Items.Add(Me.BtnDLDeal)
+        Me.Cisco.Items.Add(Me.Button1)
+        Me.Cisco.Label = "Cisco"
+        Me.Cisco.Name = "Cisco"
         '
         'BtnLogin
         '
@@ -86,6 +90,17 @@
         Me.Button1.Label = "Get Cisco AM Details"
         Me.Button1.Name = "Button1"
         '
+        'Group1
+        '
+        Me.Group1.Items.Add(Me.Button2)
+        Me.Group1.Label = "Lenovo"
+        Me.Group1.Name = "Group1"
+        '
+        'Button2
+        '
+        Me.Button2.Label = "Log in"
+        Me.Button2.Name = "Button2"
+        '
         'Ribbon1
         '
         Me.Name = "Ribbon1"
@@ -93,6 +108,8 @@
         Me.Tabs.Add(Me.Tab1)
         Me.Tab1.ResumeLayout(False)
         Me.Tab1.PerformLayout()
+        Me.Cisco.ResumeLayout(False)
+        Me.Cisco.PerformLayout()
         Me.Group1.ResumeLayout(False)
         Me.Group1.PerformLayout()
         Me.ResumeLayout(False)
@@ -100,11 +117,13 @@
     End Sub
 
     Friend WithEvents Tab1 As Microsoft.Office.Tools.Ribbon.RibbonTab
-    Friend WithEvents Group1 As Microsoft.Office.Tools.Ribbon.RibbonGroup
+    Friend WithEvents Cisco As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents BtnLogin As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents NewDeal As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents BtnDLDeal As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Button1 As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents Group1 As Microsoft.Office.Tools.Ribbon.RibbonGroup
+    Friend WithEvents Button2 As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection
