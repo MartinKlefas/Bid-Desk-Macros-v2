@@ -66,7 +66,7 @@ Public Class LenovoBrowserController
 
                 'send the quote to everyone (why the heck not)
                 WithBrowser.FindElementByName("j_id0:theForm:j_id11:j_id38").Click()
-                WithBrowser.FindElementByTagName("submit").Click()
+                WithBrowser.FindElementByClassName("btn").Click()
             End If
 
         Next
