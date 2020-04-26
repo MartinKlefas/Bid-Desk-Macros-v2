@@ -25,8 +25,8 @@ Public Class LenovoBrowserController
         Dim browser As ChromeDriver = Nothing
 
 
-        If Mode = "Login" Or Mode = "NewDeal" Or Mode = "DownloadQuote" Then
-            UpdateLabel(LabelMessages("Login"))
+        If Mode = "Login" Or Mode = "ShowBid" Or Mode = "SendToDisti" Then
+            UpdateLabel(LabelMessages("LenovoLogin"))
             Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
 
             browser = ndt.GiveMeChrome(True, True)
@@ -34,8 +34,42 @@ Public Class LenovoBrowserController
             DoLogin(browser)
         End If
 
+        If Mode = "ShowBid" Or Mode = "SendToDisti" Then
+            UpdateLabel(LabelMessages("Searching"))
+            Call FindBid(QuoteNum, browser)
+        End If
+
+        If Mode = "SendToDisti" Then
+            UpdateLabel(LabelMessages("Sending"))
+            Call SendToDistribution(QuoteNum, browser)
+        End If
+
 
         Call CloseMe()
+    End Sub
+
+    Private Sub SendToDistribution(BidName As String, WithBrowser As ChromeDriver)
+        Dim MainWindowID As String = WithBrowser.CurrentWindowHandle()
+
+
+        WithBrowser.FindElementByName("email_quotation_to_distributor").Click()
+
+        WithBrowser.SwitchTo().Alert().Accept()
+
+        Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
+
+        For Each handle As String In WithBrowser.WindowHandles()
+
+            If Not handle.Equals(MainWindowID) Then
+                'set controlled window to the new child.
+                WithBrowser.SwitchTo().Window(handle)
+
+                'send the quote to everyone (why the heck not)
+                WithBrowser.FindElementByName("j_id0:theForm:j_id11:j_id38").Click()
+                WithBrowser.FindElementByTagName("submit").Click()
+            End If
+
+        Next
     End Sub
 
     Sub DoLogin(Optional WithBrowser As ChromeDriver = Nothing)
@@ -61,6 +95,22 @@ Public Class LenovoBrowserController
 
 
 
+    End Sub
+
+    Sub FindBid(BidName As String, WithBrowser As ChromeDriver)
+
+
+
+        WithBrowser.Navigate.GoToUrl("https://lbp.force.com/apex/XBEMyBidRequestList?bbrtype=PCD")
+
+        WithBrowser.FindElementByName("j_id0:form:theBlock:j_id66:j_id70").SendKeys(BidName)
+        WithBrowser.FindElementByName("j_id0:form:theBlock:j_id66:j_id70").SendKeys(OpenQA.Selenium.Keys.Enter)
+
+        Try
+            WithBrowser.FindElementByLinkText(BidName).Click()
+        Catch
+            MsgBox("Could not find bid")
+        End Try
     End Sub
 
 

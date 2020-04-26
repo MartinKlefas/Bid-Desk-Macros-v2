@@ -31,4 +31,14 @@ Public Class Ribbon1
         Dim frm As New LenovoBrowserController("Login")
         frm.Show()
     End Sub
+
+    Private Sub Button3_Click(sender As Object, e As RibbonControlEventArgs) Handles Button3.Click
+        Dim frm As New LenovoBrowserController("ShowBid", "BBR-01516191")
+        frm.Show()
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As RibbonControlEventArgs) Handles Button4.Click
+        Dim frm As New LenovoBrowserController("SendToDisti", "BBR-01516191")
+        frm.Show()
+    End Sub
 End Class
