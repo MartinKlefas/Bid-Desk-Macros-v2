@@ -61,7 +61,10 @@ There are further discounts available based on things like our pre-sales (time) 
         {"DL1", "Finding the deal..."},
         {"DL2", "Exporting Quote..."},
         {"DL3", "Waiting for file download..."},
-        {"AM1", "Looking up AM Details..."}
+        {"AM1", "Looking up AM Details..."},
+        {"LenovoLogin", "Logging into LBP..."},
+        {"Searching", "Searching for the bid"},
+        {"Sending", "Sending the bid to westcoast"}
         }
 
     Public Const CiscoAMFail As String = "The Cisco portal did not yet show the Account Manager. While there is no requirement for you to do so, discussing this deal with them will more than likely speed up the approvals process, and decrease your chances of it being rejected or ignored. If you would like me to check again shortly so that you can reach out to the right person, please let me know and I will."

@@ -73,6 +73,9 @@ Public Class DealIdent
 
                     If Globals.ThisAddIn.GetVendor(tDealID) = "Lenovo" Then
                         'Get the Lenovo portal to forward the quote to Distribution.
+                        Dim frm As New LenovoBrowserController("SendToDisti", tDealID)
+                        frm.Show()
+
                     End If
 
                 Case "Expiry"
