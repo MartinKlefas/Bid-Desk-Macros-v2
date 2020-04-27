@@ -81,4 +81,10 @@ While there is no requirement for you to do so, discussing this deal with them w
 
  Please let me know if you'd like me to find out who the Vendor Account Manager for this customer is."
 
+    Public Const LenovoBotAttempt As String = "The bid bots will now attempt to send the pricing from the Lenovo Bid Portal to all available distributors, and will update this ticket once they've made their attempts."
+
+    Public Const LenovoBotFail As String = "The bots have failed for an unknown reason, and on this occasion the bid will have to be manually sent to distribution"
+
+    Public Const LenovoBotSuccess As String = "This bid has successfully been sent to all available distributors. Some of them will now email me pricing, which will be attached to this ticket and forwarded to you when received. You will need to reach out to those whose pricing we don't recieve automatically, such as Ingram."
+
 End Module

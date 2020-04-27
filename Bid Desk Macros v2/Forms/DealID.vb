@@ -73,8 +73,13 @@ Public Class DealIdent
 
                     If Globals.ThisAddIn.GetVendor(tDealID) = "Lenovo" Then
                         'Get the Lenovo portal to forward the quote to Distribution.
+                        Globals.ThisAddIn.UpdateTicket(tDealID, LenovoBotAttempt)
                         Dim frm As New LenovoBrowserController("SendToDisti", tDealID)
-                        frm.Show()
+                        If frm.Runcode() Then
+                            Globals.ThisAddIn.UpdateTicket(tDealID, LenovoBotSuccess)
+                        Else
+                            Globals.ThisAddIn.UpdateTicket(tDealID, LenovoBotFail)
+                        End If
 
                     End If
 

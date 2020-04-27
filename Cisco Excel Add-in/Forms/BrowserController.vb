@@ -55,7 +55,7 @@ Public Class BrowserController
 
 
             UpdateLabel(LabelMessages("DL1"))
-            DL_PageOne(browser, "QuoteNum")
+            DL_PageOne(browser, QuoteNum)
 
             Threading.Thread.Sleep(TimeSpan.FromSeconds(5))
 

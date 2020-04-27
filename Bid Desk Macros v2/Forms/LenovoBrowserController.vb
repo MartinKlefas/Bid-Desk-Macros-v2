@@ -14,49 +14,50 @@ Public Class LenovoBrowserController
         Me.Mode = thisMode
         Me.QuoteNum = thisQuoteNum
     End Sub
-    Private Sub LenovoBrowserController_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        UpdateLabel("Getting Everything Ready...")
-        Me.TopMost = True
-        BackgroundWorker1.RunWorkerAsync()
 
-    End Sub
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-
-        Dim browser As ChromeDriver = Nothing
+    Public Function Runcode() As Boolean
+        Try
+            Dim browser As ChromeDriver = Nothing
 
 
-        If Mode = "Login" Or Mode = "ShowBid" Or Mode = "SendToDisti" Then
-            UpdateLabel(LabelMessages("LenovoLogin"))
-            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
+            If Mode = "Login" Or Mode = "ShowBid" Or Mode = "SendToDisti" Then
+                UpdateLabel(LabelMessages("LenovoLogin"))
+                Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket
 
-            browser = ndt.GiveMeChrome(True, True)
+                browser = ndt.GiveMeChrome(True, True)
 
-            DoLogin(browser)
-        End If
+                DoLogin(browser)
+            End If
 
-        If Mode = "ShowBid" Or Mode = "SendToDisti" Then
-            UpdateLabel(LabelMessages("Searching"))
-            Call FindBid(QuoteNum, browser)
-        End If
+            If Mode = "ShowBid" Or Mode = "SendToDisti" Then
+                UpdateLabel(LabelMessages("Searching"))
+                Call FindBid(browser)
+            End If
 
-        If Mode = "SendToDisti" Then
-            UpdateLabel(LabelMessages("Sending"))
-            Call SendToDistribution(QuoteNum, browser)
+            If Mode = "SendToDisti" Then
+                UpdateLabel(LabelMessages("Sending"))
+                Call SendToDistribution(browser)
 
-            browser.Quit()
-            browser.Dispose()
+                browser.Quit()
+                browser.Dispose()
 
-        End If
+            End If
 
 
-        Call CloseMe()
-    End Sub
+            Call CloseMe()
+            Return True
+        Catch
+            Return False
+        End Try
+    End Function
 
-    Private Sub SendToDistribution(BidName As String, WithBrowser As ChromeDriver)
+    Private Sub SendToDistribution(WithBrowser As ChromeDriver)
         Dim MainWindowID As String = WithBrowser.CurrentWindowHandle()
 
 
         WithBrowser.FindElementByName("email_quotation_to_distributor").Click()
+
+        Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
 
         WithBrowser.SwitchTo().Alert().Accept()
 
@@ -101,17 +102,17 @@ Public Class LenovoBrowserController
 
     End Sub
 
-    Sub FindBid(BidName As String, WithBrowser As ChromeDriver)
+    Sub FindBid(WithBrowser As ChromeDriver)
 
 
 
         WithBrowser.Navigate.GoToUrl("https://lbp.force.com/apex/XBEMyBidRequestList?bbrtype=PCD")
 
-        WithBrowser.FindElementByName("j_id0:form:theBlock:j_id66:j_id70").SendKeys(BidName)
+        WithBrowser.FindElementByName("j_id0:form:theBlock:j_id66:j_id70").SendKeys(QuoteNum)
         WithBrowser.FindElementByName("j_id0:form:theBlock:j_id66:j_id70").SendKeys(OpenQA.Selenium.Keys.Enter)
 
         Try
-            WithBrowser.FindElementByLinkText(BidName).Click()
+            WithBrowser.FindElementByLinkText(QuoteNum).Click()
         Catch
             MsgBox("Could not find bid")
         End Try

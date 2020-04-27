@@ -341,6 +341,17 @@ Partial Class ThisAddIn
         Return ndt
 
     End Function
+
+    Sub UpdateTicket(DealID As String, Message As String)
+        Dim ticketNum As String = GetNDTbyDeal(DealID)
+        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
+            .TicketNumber = ticketNum,
+            .VisibleBrowser = False,
+            .TimeOperations = True,
+            .TimingOutputFile = ThisAddIn.timingFile
+        }
+        ndt.UpdateNextDesk(Message)
+    End Sub
 End Class
 
 

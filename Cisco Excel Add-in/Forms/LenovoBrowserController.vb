@@ -41,7 +41,7 @@ Public Class LenovoBrowserController
 
         If Mode = "SendToDisti" Then
             UpdateLabel(LabelMessages("Sending"))
-            Call SendToDistribution(QuoteNum, browser)
+            Call SendToDistribution(browser)
 
             browser.Quit()
             browser.Dispose()
@@ -52,7 +52,7 @@ Public Class LenovoBrowserController
         Call CloseMe()
     End Sub
 
-    Private Sub SendToDistribution(BidName As String, WithBrowser As ChromeDriver)
+    Private Sub SendToDistribution(WithBrowser As ChromeDriver)
         Dim MainWindowID As String = WithBrowser.CurrentWindowHandle()
 
 
