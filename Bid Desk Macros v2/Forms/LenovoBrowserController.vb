@@ -61,7 +61,7 @@ Public Class LenovoBrowserController
 
         WithBrowser.SwitchTo().Alert().Accept()
 
-        Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
+        Threading.Thread.Sleep(TimeSpan.FromSeconds(13))
 
         For Each handle As String In WithBrowser.WindowHandles()
 
