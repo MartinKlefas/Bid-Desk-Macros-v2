@@ -282,10 +282,16 @@ startOver:
             Dim MessageBody As String = newmail.Body
             If MessageBody.ToLower.Contains("by:	martin klefas") And MessageBody.ToLower.Contains("deal id") And
                 MessageBody.ToLower.Contains("submitted") And MessageBody.ToLower.Contains("cisco") Then
-                Return True
+                If MessageBody.ToLower.Contains("the cisco portal shows") Or
+                    MessageBody.ToLower.Contains("the cisco portal did not yet show the") Then
+                    Return False
+                Else
+                    Return True
+                End If
+
             End If
 
-        End If
+            End If
 
         Return False
 
@@ -293,21 +299,27 @@ startOver:
 
     Private Function IsOtherSubmittedTicket(newmail As MailItem) As Boolean
 
+
+
         If newmail.Subject.ToLower.StartsWith("[nextdesk]") Then
             Dim MessageBody As String = newmail.Body
+            If MessageBody.ToLower.Contains("cisco") Then
+                Return False
+            End If
+
             If MessageBody.ToLower.Contains("by:	martin klefas") And MessageBody.ToLower.Contains("deal id") And
                 MessageBody.ToLower.Contains("submitted") Then
-                Return True
-            End If
+                    Return True
+                End If
 
-            If MessageBody.ToLower.Contains("i\'ve created") And MessageBody.ToLower.Contains("for you on the") And
+                If MessageBody.ToLower.Contains("i\'ve created") And MessageBody.ToLower.Contains("for you on the") And
                  MessageBody.ToLower.Contains("portal") And MessageBody.ToLower.Contains("by:	martin klefas") Then
-                Return True
+                    Return True
+                End If
+
             End If
 
-        End If
-
-        Return False
+            Return False
 
     End Function
 

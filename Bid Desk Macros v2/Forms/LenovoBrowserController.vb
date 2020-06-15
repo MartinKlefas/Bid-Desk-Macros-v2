@@ -91,7 +91,7 @@ Public Class LenovoBrowserController
         Try
             Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
             WithBrowser.FindElementByName("username").SendKeys("martin.klefas@insight.com")
-            WithBrowser.FindElementByName("password").SendKeys("07^%*zZt2M6q&M")
+            WithBrowser.FindElementByName("password").SendKeys("4an60M27PND7")
 
             WithBrowser.FindElementByName("password").SendKeys(OpenQA.Selenium.Keys.Enter)
         Catch ex As Exception
