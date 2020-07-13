@@ -240,19 +240,32 @@ Public Class DealIdent
         End If
 
         If tempResult = "" Then
-            If message.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") AndAlso message.Subject.StartsWith("Cisco:") Then
-                Try
-                    tempResult = CInt(message.Subject.Split(" ")(1))
-                Catch
-                    tempResult = ""
-                End Try
+            If message.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") Then
+                If message.Subject.StartsWith("Cisco:") Then
+                    Try
+                        tempResult = CInt(message.Subject.Split(" ")(1))
+                    Catch
+                        tempResult = ""
+                    End Try
+                ElseIf message.Subject.StartsWith("Deal ID#") Then
+                    Try
+                        tempResult = CInt(message.Subject.Split(" ")(2))
+                    Catch
+                        tempResult = ""
+                    End Try
+                End If
+
             End If
         End If
+
 
         If tempResult = "" Then
             If MsgSubject.Contains("BBR-") Then
                 tempResult = Mid(MsgSubject, InStr(1, MsgSubject, "BBR-"), 12)
+            ElseIf MsgSubject.Contains("D-0") Then
+                tempResult = Mid(MsgSubject, InStr(1, MsgSubject, "D-0"), 11).TrimExtended
             End If
+
         End If
 
         FindDealID = TrimExtended(tempResult)

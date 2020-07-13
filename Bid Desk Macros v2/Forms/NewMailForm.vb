@@ -193,7 +193,7 @@ startOver:
         ElseIf tSubj.StartsWith("Case Processed", searchType) AndAlso msg.SenderEmailAddress.tolower.Contains("hbd-int@microsoft.com") Then
             Return True
 
-        ElseIf msg.SenderEmailAddress.tolower.equals("noreplylbp@lenovo.com") And (tsubj.startswith("Lenovo Bid Portal Bid Request") Or tsubj.startswith("Bid Request Declined Notification")) Then
+        ElseIf msg.SenderEmailAddress.tolower.equals("noreplylbp@lenovo.com") And (tsubj.startswith("Lenovo Bid Portal Bid Request") Or tsubj.startswith("Bid Request Declined Notification") Or tSubj.StartsWith("Your Lenovo Deal Registration D-")) Then
             Return True
 
         Else
@@ -212,6 +212,9 @@ startOver:
 
         ElseIf msg.SenderEmailAddress.Equals("hbd-int@microsoft.com", searchType) And tSubj.StartsWith("Submission Confirmation", searchType) Then
 
+            Return True
+
+        ElseIf msg.SenderEmailAddress.tolower.equals("noreplylbp@lenovo.com") And tSubj.StartsWith("Your Deal Registration D-") Then
             Return True
         Else
             Return False
@@ -240,7 +243,9 @@ startOver:
 
         If newMail.Subject.ToLower.StartsWith("your quote expiration reminder mail") Then Return True
         If Not tmpresult Then
-            tmpresult = newMail.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") AndAlso newMail.Body.ToLower.Contains("will expire in") AndAlso newMail.Body.ToLower.Contains("days unless action is taken")
+            tmpresult = newMail.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") AndAlso
+                (newMail.Body.ToLower.Contains("will expire in") AndAlso newMail.Body.ToLower.Contains("days unless action is taken")) OrElse
+                newMail.Body.ToLower.Contains("following promotions that will expire soon unless action is taken")
         End If
 
         If Not tmpresult Then
