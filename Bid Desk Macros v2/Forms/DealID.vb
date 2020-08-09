@@ -264,6 +264,8 @@ Public Class DealIdent
                 tempResult = Mid(MsgSubject, InStr(1, MsgSubject, "BBR-"), 12)
             ElseIf MsgSubject.Contains("D-0") Then
                 tempResult = Mid(MsgSubject, InStr(1, MsgSubject, "D-0"), 11).TrimExtended
+            ElseIf MsgSubject.Contains("BRPE") Then
+                tempResult = Mid(MsgSubject, InStr(1, MsgSubject, "BRPE"), 14)
             End If
 
         End If

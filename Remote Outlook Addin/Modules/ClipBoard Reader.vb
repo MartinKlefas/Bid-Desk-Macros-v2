@@ -55,6 +55,18 @@ Module ClipBoard_Reader
             FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "BBR-"), 13)
         End If
 
+        'New Lenovo Deal ID
+
+        If InStr(1, ClipBoardText, "BRPE") Then
+            strArry = Split(Mid(ClipBoardText, InStr(1, ClipBoardText.ToLower, "end customer name")), vbCrLf)
+            Try
+                FindDealID = strArry(1)
+            Catch
+                FindDealID = ""
+            End Try
+
+        End If
+
 
         FindDealID = TrimExtended(FindDealID)
     End Function
@@ -63,9 +75,10 @@ Module ClipBoard_Reader
         FindVendor = "Dell"
 
 
-        If InStr(1, ClipBoardText, "E00") > 0 Or InStr(1, ClipBoardText, "NQ0") > 0 Then
+        If InStr(1, ClipBoardText, "E00") > 0 Or InStr(1, ClipBoardText, "NQ0") > 0 Or InStr(1, ClipBoardText, "REGE-") > 0 Then
             FindVendor = "HPE"
         End If
+
         If InStr(1, ClipBoardText, "P00") > 0 Then
             FindVendor = "HPI"
         End If
@@ -78,7 +91,7 @@ Module ClipBoard_Reader
             FindVendor = "Microsoft"
         End If
 
-        If InStr(1, ClipBoardText, "BBR-") > 0 Then
+        If InStr(1, ClipBoardText, "BBR-") > 0 Or InStr(1, ClipBoardText, "BRPE") > 0 Then
             FindVendor = "Lenovo"
 
         End If
@@ -130,6 +143,19 @@ Module ClipBoard_Reader
 
         If InStr(1, ClipboardText, "BBR-") > 0 Then
             FindCustomer = Split(Mid(ClipboardText, InStr(1, ClipboardText, "End Customer Name") + 18), vbCrLf)(0)
+        End If
+
+
+        'New Lenovo Deal ID
+
+        If InStr(1, ClipboardText, "BRPE") Then
+            strArry = Split(Mid(ClipboardText, InStr(1, ClipboardText.ToLower, "brpe")), vbCrLf)
+            Try
+                FindCustomer = strArry(0)
+            Catch
+                FindCustomer = ""
+            End Try
+
         End If
 
         FindCustomer = TrimExtended(FindCustomer)

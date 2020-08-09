@@ -172,6 +172,8 @@ startOver:
                 Return True
             ElseIf tSubj.Contains("BBR") And tSubj.ToLower.Contains("reseller insight (dmr)") Then
                 Return True
+            ElseIf tSubj.StartsWith("Bid BRPE") Then
+                Return True
             Else
                 Return False
             End If
