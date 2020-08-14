@@ -161,68 +161,68 @@ Public Class AddDeal
         Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
         If Not DealData.ContainsKey("NDT") OrElse DealData("NDT") = "" Then
-            UpdateTitle("Creating Ticket...")
+            'UpdateTitle("Creating Ticket...")
 
 
 
 
-            newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(DealData, replyMail))
+            'newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(DealData, replyMail))
 
-            If Not myContinue Then
-                Return False
-                Exit Function
-            End If
+            'If Not myContinue Then
+            '    Return False
+            '    Exit Function
+            'End If
 
-            If newNDT = 0 Or newNDT = 404 Then ' retry on first fail
-                newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(DealData, replyMail))
-            End If
-
-
+            'If newNDT = 0 Or newNDT = 404 Then ' retry on first fail
+            '    newNDT = ndt.CreateTicket(1, Globals.ThisAddIn.MakeTicketData(DealData, replyMail))
+            'End If
 
 
-            If newNDT <> 0 And newNDT <> 404 Then ' continue on second
 
-                If Not DealData.ContainsKey("NDT") Then DealData.Add("NDT", newNDT)
 
-                If DealData("NDT") = "" Then DealData("NDT") = newNDT
+            'If newNDT <> 0 And newNDT <> 404 Then ' continue on second
 
-                ndt.Move("Public Sector - Special Bid")
+            '    If Not DealData.ContainsKey("NDT") Then DealData.Add("NDT", newNDT)
 
-                If Not myContinue Then
-                    Return False
-                    Exit Function
-                End If
+            '    If DealData("NDT") = "" Then DealData("NDT") = newNDT
 
-                Dim aliases As String = ""
-                'add people to notify
-                For Each recipient As Outlook.Recipient In replyMail.Recipients
-                    Try
-                        aliases &= recipient.AddressEntry.GetExchangeUser.Alias & ";"
-                    Catch
-                        Globals.ThisAddIn.ShoutError("Could not find alias for: " & recipient.ToString)
-                    End Try
-                Next
+            '    ndt.Move("Public Sector - Special Bid")
 
-                UpdateTitle("Adding Notify...")
+            '    If Not myContinue Then
+            '        Return False
+            '        Exit Function
+            '    End If
 
-                ndt.AddToNotify(aliases)
-                If Not myContinue Then
-                    Return False
-                    Exit Function
-                End If
+            '    Dim aliases As String = ""
+            '    'add people to notify
+            '    For Each recipient As Outlook.Recipient In replyMail.Recipients
+            '        Try
+            '            aliases &= recipient.AddressEntry.GetExchangeUser.Alias & ";"
+            '        Catch
+            '            Globals.ThisAddIn.ShoutError("Could not find alias for: " & recipient.ToString)
+            '        End Try
+            '    Next
 
-                UpdateTitle("Attaching Info...")
+            '    UpdateTitle("Adding Notify...")
 
-                'update ticket with bid number & original email
-                ndt.AttachMail(mail, "Deal ID  " & DealData("DealID") & " was submitted to " & DealData("Vendor") & " based on the information in the attached email")
+            '    ndt.AddToNotify(aliases)
+            '    If Not myContinue Then
+            '        Return False
+            '        Exit Function
+            '    End If
 
-                If Not myContinue Then
-                    Return False
-                    Exit Function
-                End If
+            '    UpdateTitle("Attaching Info...")
 
-                DealData.Remove("AMEmailAddress")
-            End If
+            '    'update ticket with bid number & original email
+            '    ndt.AttachMail(mail, "Deal ID  " & DealData("DealID") & " was submitted to " & DealData("Vendor") & " based on the information in the attached email")
+
+            '    If Not myContinue Then
+            '        Return False
+            '        Exit Function
+            '    End If
+
+            '    DealData.Remove("AMEmailAddress")
+            'End If
         Else
 
             ndt.TicketNumber = DealData("NDT")

@@ -28,60 +28,60 @@
                 End Try
             End With
 
-            If CreateTicket Then
-                Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
-                Dim TicketNum As Integer
-                Try
-                    Dim DealData As Dictionary(Of String, String) = MakeTicketData(DealID)
+            'If CreateTicket Then
+            '    Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+            '    Dim TicketNum As Integer
+            '    Try
+            '        Dim DealData As Dictionary(Of String, String) = MakeTicketData(DealID)
 
-                    If NoOpenTickets(DealID) Then ' check if there's already open tickets for this deal
-                        TicketNum = ndt.CreateTicket(1, DealData)
+            '        If NoOpenTickets(DealID) Then ' check if there's already open tickets for this deal
+            '            TicketNum = ndt.CreateTicket(1, DealData)
 
-                        If TicketNum = 0 Then
-                            ShoutError("Adding the new ticketID failed", SuppressWarnings)
-                            success = False
-                        Else
-                            ndt.Move("Public Sector - Special bid")
-                            'update notify to include everyone.
-                            Dim aliases As String = DealData("Sales Alias")
-                            For Each ccPerson In Split(CCList, ";")
-                                If ccPerson <> "" Then
-                                    Try
-                                        aliases &= ";" & MyResolveName(ccPerson).Alias
-                                    Catch
-                                        ShoutError("Could not find alias for: " & ccPerson, SuppressWarnings)
-                                    End Try
-                                End If
-                            Next
+            '            If TicketNum = 0 Then
+            '                ShoutError("Adding the new ticketID failed", SuppressWarnings)
+            '                success = False
+            '            Else
+            '                ndt.Move("Public Sector - Special bid")
+            '                'update notify to include everyone.
+            '                Dim aliases As String = DealData("Sales Alias")
+            '                For Each ccPerson In Split(CCList, ";")
+            '                    If ccPerson <> "" Then
+            '                        Try
+            '                            aliases &= ";" & MyResolveName(ccPerson).Alias
+            '                        Catch
+            '                            ShoutError("Could not find alias for: " & ccPerson, SuppressWarnings)
+            '                        End Try
+            '                    End If
+            '                Next
 
-                            Try
-                                'attach the notification with an explanation
-                                ndt.AttachMail(msg, "This is the vendor's original expiration notification")
-                            Catch
-                            End Try
+            '                Try
+            '                    'attach the notification with an explanation
+            '                    ndt.AttachMail(msg, "This is the vendor's original expiration notification")
+            '                Catch
+            '                End Try
 
-                            'Ask the CC List what to do.
-                            ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
-                        End If
+            '                'Ask the CC List what to do.
+            '                ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
+            '            End If
 
-                        AddNewTicketToDeal(DealID, TicketNum)
-                    Else
-                        ndt.TicketNumber = GetOpenTicket(DealID)
-                        Try
-                            ndt.AttachMail(msg, "This is the vendor's original expiration notification")
-                        Catch
-                        End Try
+            '            AddNewTicketToDeal(DealID, TicketNum)
+            '        Else
+            '            ndt.TicketNumber = GetOpenTicket(DealID)
+            '            Try
+            '                ndt.AttachMail(msg, "This is the vendor's original expiration notification")
+            '            Catch
+            '            End Try
 
-                        'Ask the CC List what to do.
-                        ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
+            '            'Ask the CC List what to do.
+            '            ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
 
-                    End If
+            '        End If
 
 
-                Catch
-                    Return False
-                End Try
-            End If
+            '    Catch
+            '        Return False
+            '    End Try
+            'End If
 
 
             UpdateStatus(DealID, "Expiration notice with AM")
@@ -139,6 +139,8 @@
                 .CC = .CC & "; Simon.Hill@insight.com; Jonathan.Mann@insight.com"
             ElseIf GetVendor(DealID, True) = "HPI" Then
                 .CC = .CC & ";mike.ward@hp.com"
+            ElseIf GetVendor(DealID, True) = "Microsoft" Then
+                .CC = .CC & ";josh.smith@insight.com"
             End If
             .HTMLBody = myGreeting & messageBodyAddition & "<br>" & GetFact(DealID) & MainRibbon.WriteHolidayMessage() & .HTMLBody
             Try

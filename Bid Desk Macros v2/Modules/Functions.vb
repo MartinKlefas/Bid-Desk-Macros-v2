@@ -344,13 +344,17 @@ Partial Class ThisAddIn
 
     Sub UpdateTicket(DealID As String, Message As String)
         Dim ticketNum As String = GetNDTbyDeal(DealID)
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
+        If ticketNum <> "" Then
+            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
             .TicketNumber = ticketNum,
             .VisibleBrowser = False,
             .TimeOperations = True,
             .TimingOutputFile = ThisAddIn.timingFile
         }
-        ndt.UpdateNextDesk(Message)
+
+
+            ndt.UpdateNextDesk(Message)
+        End If
     End Sub
 End Class
 
