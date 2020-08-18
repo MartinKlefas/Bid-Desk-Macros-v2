@@ -157,8 +157,8 @@ Public Class AddDeal
     Public Function DoNewCreation(DealData As Dictionary(Of String, String), ByRef replyMail As Outlook.MailItem) As Boolean
 
         myContinue = True
-        Dim newNDT As Integer
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+        'Dim newNDT As Integer
+
 
         If Not DealData.ContainsKey("NDT") OrElse DealData("NDT") = "" Then
             'UpdateTitle("Creating Ticket...")
@@ -221,15 +221,17 @@ Public Class AddDeal
             '        Exit Function
             '    End If
 
-            '    DealData.Remove("AMEmailAddress")
+            '    
             'End If
         Else
 
+            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
             ndt.TicketNumber = DealData("NDT")
-            DealData.Remove("AMEmailAddress")
+
             ndt.UpdateNextDesk(Globals.ThisAddIn.WriteTicketMessage(DealData))
         End If
 
+        DealData.Remove("AMEmailAddress")
 
         If Globals.ThisAddIn.sqlInterface.Add_Data(DealData) > 0 Then
             Dim rFName As String() = Split(DealData("AM"))
