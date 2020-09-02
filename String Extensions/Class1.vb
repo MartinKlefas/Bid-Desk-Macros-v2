@@ -96,11 +96,18 @@ Public Module StringExtensions
     End Function
 
     <Extension>
-    Public Function ContainsAny(ByVal aString As String, ByVal SearchFor As IEnumerable(Of String)) As Boolean
+    Public Function ContainsAny(ByVal aString As String, ByVal SearchFor As IEnumerable(Of String), Optional ByVal CaseSensitive As Boolean = False) As Boolean
         Dim result As Boolean = False
-        For Each searchString As String In SearchFor
-            If Not result Then result = aString.Contains(searchString)
-        Next
+
+        If CaseSensitive Then
+            For Each searchString As String In SearchFor
+                If Not result Then result = aString.Contains(searchString)
+            Next
+        Else
+            For Each searchString As String In SearchFor
+                If Not result Then result = aString.ToLower.Contains(searchString.ToLower)
+            Next
+        End If
 
         Return result
     End Function
