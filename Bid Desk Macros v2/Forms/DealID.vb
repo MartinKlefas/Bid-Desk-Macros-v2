@@ -215,11 +215,11 @@ Public Class DealIdent
         End If
 
         If tempResult = "" Then
-            If message.SenderEmailAddress.Equals("smart.quotes@techdata.com", ThisAddIn.searchType) And MsgSubject.StartsWith("QUOTE Deal", ThisAddIn.searchType) Then
+            If message.SenderEmailAddress.ToLower.Equals("smart.quotes@techdata.com", ThisAddIn.searchType) And MsgSubject.StartsWith("QUOTE Deal", ThisAddIn.searchType) Then
                 tempResult = subjAr(2)
 
 
-            ElseIf (message.SenderEmailAddress.Equals("nathan.cole@westcoast.co.uk", ThisAddIn.searchType) Or message.SenderEmailAddress.Equals("westquotes@westcoast.co.uk")) And (MsgSubject.StartsWith("Deal", ThisAddIn.searchType) Or MsgSubject.StartsWith("OPG", ThisAddIn.searchType)) Then
+            ElseIf (message.SenderEmailAddress.ToLower.Equals("nathan.cole@westcoast.co.uk", ThisAddIn.searchType) Or message.SenderEmailAddress.ToLower.Equals("westquotes@westcoast.co.uk")) And (MsgSubject.StartsWith("Deal", ThisAddIn.searchType) Or MsgSubject.StartsWith("OPG", ThisAddIn.searchType)) Then
                 tempResult = subjAr(1)
 
             End If
@@ -228,7 +228,18 @@ Public Class DealIdent
 
         If tempResult = "" Then
             If message.SenderEmailAddress.Contains("microsoft.com") Then
-                tempResult = Mid(message.Subject, InStr(1, MsgSubject, "CAS-"), 18)
+                Try
+                    tempResult = Mid(message.Subject, InStr(1, MsgSubject, "CAS-"), 18)
+                Catch
+                    Dim mailContents As String() = message.Body.Split(" ")
+                    For i = 0 To mailContents.Length
+                        If mailContents(i) = "reference" Then
+                            tempResult = Mid(mailContents(i + 1), 2)
+                            Exit For
+                        End If
+                    Next
+                End Try
+
             End If
         End If
 

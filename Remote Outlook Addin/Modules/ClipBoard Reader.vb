@@ -58,9 +58,9 @@ Module ClipBoard_Reader
         'New Lenovo Deal ID
 
         If InStr(1, ClipBoardText, "BRPE") Then
-            strArry = Split(Mid(ClipBoardText, InStr(1, ClipBoardText.ToLower, "end customer name")), vbCrLf)
+            strArry = Split(Mid(ClipBoardText, InStr(1, ClipBoardText.ToLower, "brpe")), vbCrLf)
             Try
-                FindDealID = strArry(1)
+                FindDealID = strArry(0)
             Catch
                 FindDealID = ""
             End Try
@@ -149,12 +149,13 @@ Module ClipBoard_Reader
         'New Lenovo Deal ID
 
         If InStr(1, ClipboardText, "BRPE") Then
-            strArry = Split(Mid(ClipboardText, InStr(1, ClipboardText.ToLower, "brpe")), vbCrLf)
+            strArry = Split(Mid(ClipboardText, InStr(1, ClipboardText.ToLower, "end customer name")), vbCrLf)
             Try
-                FindCustomer = strArry(0)
+                FindCustomer = strArry(1)
             Catch
                 FindCustomer = ""
             End Try
+
 
         End If
 
