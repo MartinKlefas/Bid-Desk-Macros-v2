@@ -150,7 +150,7 @@ Public Class DealIdent
         Dim i As Integer
         Dim tempResult As String = ""
 
-        MsgSubject = ReplaceSpaces(message.Subject)
+        MsgSubject = ReplaceSpaces(message.Subject).TrimExtended
         msgBody = message.Body
 
         subjAr = Split(MsgSubject, " ")
@@ -219,7 +219,7 @@ Public Class DealIdent
                 tempResult = subjAr(2)
 
 
-            ElseIf (message.SenderEmailAddress.ToLower.Equals("nathan.cole@westcoast.co.uk", ThisAddIn.searchType) Or message.SenderEmailAddress.ToLower.Equals("westquotes@westcoast.co.uk")) And (MsgSubject.StartsWith("Deal", ThisAddIn.searchType) Or MsgSubject.StartsWith("OPG", ThisAddIn.searchType)) Then
+            ElseIf (message.SenderEmailAddress.ToLower.Equals("nathan.cole@westcoast.co.uk", ThisAddIn.searchType) Or message.SenderEmailAddress.ToLower.Equals("neil.large@westcoast.co.uk", ThisAddIn.searchType) Or message.SenderEmailAddress.ToLower.Equals("westquotes@westcoast.co.uk")) And (MsgSubject.StartsWith("Deal", ThisAddIn.searchType) Or MsgSubject.StartsWith("OPG", ThisAddIn.searchType)) Then
                 tempResult = subjAr(1)
 
             End If

@@ -162,10 +162,10 @@ startOver:
         Return msg.Subject.ToLower.StartsWith("request incomplete")
     End Function
     Private Function IsPricing(msg As MailItem) As Boolean
-        Dim tSubj As String = msg.Subject.ReplaceSpaces()
+        Dim tSubj As String = msg.Subject.ReplaceSpaces().TrimExtended
         If msg.SenderEmailAddress.Equals("smart.quotes@techdata.com", searchType) And tSubj.StartsWith("QUOTE Deal", searchType) Then
             Return True
-        ElseIf (msg.SenderEmailAddress.tolower.Equals("nathan.cole@westcoast.co.uk", searchType) Or msg.SenderEmailAddress.Equals("westquotes@westcoast.co.uk")) Then
+        ElseIf (msg.SenderEmailAddress.tolower.Equals("nathan.cole@westcoast.co.uk", searchType) Or msg.SenderEmailAddress.Equals("westquotes@westcoast.co.uk") Or msg.SenderEmailAddress.tolower.Equals("neil.large@westcoast.co.uk", searchType)) Then
             If tSubj.StartsWith("Deal", searchType) And tSubj.ToLower.Contains("for reseller insight direct") Then
                 Return True
             ElseIf tSubj.StartsWith("OPG", searchType) And tSubj.ToLower.Contains("crm:") Then
