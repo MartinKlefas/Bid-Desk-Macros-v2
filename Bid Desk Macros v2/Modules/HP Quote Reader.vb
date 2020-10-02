@@ -8,7 +8,7 @@ Imports String_Extensions
 
 Module HP_Quote_Reader
     Public Function RipFromFile(tAttachment As Attachment, CurrentGuess As String) As String
-        If tAttachment.FileName.ToLower = "quote.csv" Then
+        If tAttachment.FileName.ToLower.Contains(".csv") Then
             Dim fName As String = Path.GetTempPath() & RandomString(6) & "quote.csv"
             Try
                 tAttachment.SaveAsFile(fName)
