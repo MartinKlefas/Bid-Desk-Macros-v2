@@ -165,10 +165,10 @@ startOver:
         Dim tSubj As String = msg.Subject.ReplaceSpaces().TrimExtended
         If msg.SenderEmailAddress.Equals("smart.quotes@techdata.com", searchType) And tSubj.StartsWith("QUOTE Deal", searchType) Then
             Return True
-        ElseIf (msg.SenderEmailAddress.tolower.Equals("nathan.cole@westcoast.co.uk", searchType) Or msg.SenderEmailAddress.Equals("westquotes@westcoast.co.uk") Or msg.SenderEmailAddress.tolower.Equals("neil.large@westcoast.co.uk", searchType)) Then
-            If tSubj.StartsWith("Deal", searchType) And tSubj.ToLower.Contains("for reseller insight direct") Then
+        ElseIf (msg.SenderEmailAddress.tolower.Contains("@westcoast.co.uk")) Then
+            If tSubj.StartsWith("HPE", searchType) And tSubj.ToLower.Contains("for reseller insight direct") Then
                 Return True
-            ElseIf tSubj.StartsWith("OPG", searchType) And tSubj.ToLower.Contains("crm:") Then
+            ElseIf tSubj.StartsWith("OPG", searchType) And tSubj.ToLower.Contains("for reseller insight direct") Then
                 Return True
             ElseIf tSubj.Contains("BBR") And tSubj.ToLower.Contains("reseller insight (dmr)") Then
                 Return True

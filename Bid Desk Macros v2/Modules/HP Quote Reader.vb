@@ -15,16 +15,25 @@ Module HP_Quote_Reader
                 Dim quoteCsvString As String = File.ReadAllText(fName)
                 quoteCsvString = Replace(quoteCsvString, vbNullChar, "")
                 Dim quoteArry As String() = Split(quoteCsvString, "-")
+
                 For Each fragment As String In quoteArry
-                    If fragment.ToLower.StartsWith("p0") Or fragment.ToLower.StartsWith("e0") Or fragment.ToLower.StartsWith("nq0") Then
 
-                        Dim OPG As String = CurrentGuess
+                    If fragment.ToLower.Contains("p0") Or fragment.ToLower.Contains("e0") Or fragment.ToLower.Contains("nq0") Then
+                        Dim subfragments As String() = Split(fragment, ",")
+                        For Each sfrag In subfragments
+                            sfrag = Replace(sfrag, Chr(34), "")
+                            If sfrag.ToLower.StartsWith("p0") Or sfrag.ToLower.StartsWith("e0") Or sfrag.ToLower.StartsWith("nq0") Then
+                                Dim OPG As String = CurrentGuess
 
-                        Globals.ThisAddIn.AddOPG(fragment, OPG)
+                                Globals.ThisAddIn.AddOPG(sfrag, OPG)
 
-                        CurrentGuess = fragment
+                                CurrentGuess = sfrag
 
-                        Exit For
+                                Exit For
+                            End If
+
+                        Next
+
                     End If
                 Next
                 File.Delete(fName)
@@ -72,8 +81,8 @@ Module HP_Quote_Reader
         column -= 1
 
         Dim conStr As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & file & ";Extended Properties='Excel 12.0 Xml;HDR=No;'"
-        ' HDR=Yes skips first row which contains headers for the columns
-        Using conn As System.Data.OleDb.OleDbConnection = New System.Data.OleDb.OleDbConnection(conStr)
+                            ' HDR=Yes skips first row which contains headers for the columns
+                            Using conn As System.Data.OleDb.OleDbConnection = New System.Data.OleDb.OleDbConnection(conStr)
 
             ' Notice: I used a fully qualified name 
             ' because Microsoft.Office.Interop.Excel contains also a class named OleDbConnection
