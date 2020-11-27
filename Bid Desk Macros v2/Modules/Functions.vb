@@ -230,6 +230,8 @@ Partial Class ThisAddIn
         If lookupName.ToLower = "andy walsh" Then newLookupName = "Walsh, Andrew"
         If lookupName.ToLower = "nhs solutions" Then newLookupName = "NHSSolutions@Insight.com"
         If lookupName.ToLower = "insight police team" Then newLookupName = "ipt@insight.com"
+        If lookupName.ToLower = "josh smith" Then newLookupName = "josh.smith@insight.com"
+
 
         If noChangeNamesStr.ToLower.Contains(lookupName.ToLower) Then newLookupName = lookupName
 

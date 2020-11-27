@@ -166,10 +166,9 @@ startOver:
         If msg.SenderEmailAddress.Equals("smart.quotes@techdata.com", searchType) And tSubj.StartsWith("QUOTE Deal", searchType) Then
             Return True
         ElseIf (msg.SenderEmailAddress.tolower.Contains("@westcoast.co.uk")) Then
-            If tSubj.StartsWith("HPE", searchType) And tSubj.ToLower.Contains("for reseller insight direct") Then
+            If (tSubj.StartsWith("HPE", searchType) Or tSubj.StartsWith("Deal", ThisAddIn.searchType) Or tSubj.StartsWith("OPG", searchType)) And tSubj.ToLower.Contains("for reseller insight direct") Then
                 Return True
-            ElseIf tSubj.StartsWith("OPG", searchType) And tSubj.ToLower.Contains("for reseller insight direct") Then
-                Return True
+
             ElseIf tSubj.Contains("BBR") And tSubj.ToLower.Contains("reseller insight (dmr)") Then
                 Return True
             ElseIf tSubj.StartsWith("Bid BRPE") Then

@@ -219,7 +219,7 @@ Public Class DealIdent
                 tempResult = subjAr(2)
 
 
-            ElseIf (message.SenderEmailAddress.ToLower.Contains("@westcoast.co.uk")) And (MsgSubject.StartsWith("HPE", ThisAddIn.searchType) Or MsgSubject.StartsWith("OPG", ThisAddIn.searchType)) Then
+            ElseIf (message.SenderEmailAddress.ToLower.Contains("@westcoast.co.uk")) And (MsgSubject.StartsWith("HPE", ThisAddIn.searchType) Or MsgSubject.StartsWith("Deal", ThisAddIn.searchType) Or MsgSubject.StartsWith("OPG", ThisAddIn.searchType)) Then
                 tempResult = subjAr(1)
 
             End If
