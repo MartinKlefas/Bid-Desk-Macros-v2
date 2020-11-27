@@ -299,4 +299,8 @@ Public Class MainRibbon
     Private Sub Button3_Click_3(sender As Object, e As RibbonControlEventArgs) Handles UnsortedMails2.Click
         Button3_Click_2(sender, e)
     End Sub
+
+    Private Sub Button3_Click_4(sender As Object, e As RibbonControlEventArgs) Handles Button3.Click
+        MsgBox("just added the bit to deal with josh smith")
+    End Sub
 End Class

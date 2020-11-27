@@ -72,6 +72,7 @@
         Me.Group4 = Me.Factory.CreateRibbonGroup
         Me.Button1 = Me.Factory.CreateRibbonButton
         Me.Button2 = Me.Factory.CreateRibbonButton
+        Me.Button3 = Me.Factory.CreateRibbonButton
         Tab2 = Me.Factory.CreateRibbonTab
         Tab2.SuspendLayout()
         Me.Group5.SuspendLayout()
@@ -248,6 +249,7 @@
         '
         Me.Group3.Items.Add(Me.btnOnOff)
         Me.Group3.Items.Add(Me.btnHoliday)
+        Me.Group3.Items.Add(Me.Button3)
         Me.Group3.Label = "Automation"
         Me.Group3.Name = "Group3"
         '
@@ -337,6 +339,11 @@
         Me.Button2.Name = "Button2"
         Me.Button2.ShowImage = True
         '
+        'Button3
+        '
+        Me.Button3.Label = "Version Info"
+        Me.Button3.Name = "Button3"
+        '
         'MainRibbon
         '
         Me.Name = "MainRibbon"
@@ -391,6 +398,7 @@
     Friend WithEvents Button2 As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents UnSortedMails As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents UnsortedMails2 As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents Button3 As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection
