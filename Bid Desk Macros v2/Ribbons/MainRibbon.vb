@@ -303,4 +303,18 @@ Public Class MainRibbon
     Private Sub Button3_Click_4(sender As Object, e As RibbonControlEventArgs) Handles Button3.Click
         MsgBox("just added the bit to deal with josh smith")
     End Sub
+
+    Private Sub BtnBack_Click(sender As Object, e As RibbonControlEventArgs) Handles btnBack.Click
+        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
+        Dim MessageList As New List(Of Outlook.MailItem)
+
+        For Each item In Selection
+            If TypeName(item) = "MailItem" Then
+                MessageList.Add(item)
+            End If
+        Next
+
+        Dim backfromHols As New BackFromHolsReplyFrm(MessageList)
+        backfromHols.Show()
+    End Sub
 End Class

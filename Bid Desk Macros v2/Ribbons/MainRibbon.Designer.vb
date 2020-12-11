@@ -63,6 +63,7 @@
         Me.Group3 = Me.Factory.CreateRibbonGroup
         Me.btnOnOff = Me.Factory.CreateRibbonButton
         Me.btnHoliday = Me.Factory.CreateRibbonButton
+        Me.Button3 = Me.Factory.CreateRibbonButton
         Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.ImprtLots = Me.Factory.CreateRibbonButton
@@ -72,7 +73,8 @@
         Me.Group4 = Me.Factory.CreateRibbonGroup
         Me.Button1 = Me.Factory.CreateRibbonButton
         Me.Button2 = Me.Factory.CreateRibbonButton
-        Me.Button3 = Me.Factory.CreateRibbonButton
+        Me.Group6 = Me.Factory.CreateRibbonGroup
+        Me.btnBack = Me.Factory.CreateRibbonButton
         Tab2 = Me.Factory.CreateRibbonTab
         Tab2.SuspendLayout()
         Me.Group5.SuspendLayout()
@@ -81,6 +83,7 @@
         Me.Group3.SuspendLayout()
         Me.Group2.SuspendLayout()
         Me.Group4.SuspendLayout()
+        Me.Group6.SuspendLayout()
         Me.SuspendLayout()
         '
         'Tab2
@@ -120,6 +123,7 @@
         Me.Tab1.Groups.Add(Me.Group3)
         Me.Tab1.Groups.Add(Me.Group2)
         Me.Tab1.Groups.Add(Me.Group4)
+        Me.Tab1.Groups.Add(Me.Group6)
         Me.Tab1.Label = "Bid Tools"
         Me.Tab1.Name = "Tab1"
         '
@@ -269,6 +273,11 @@
         Me.btnHoliday.Name = "btnHoliday"
         Me.btnHoliday.ShowImage = True
         '
+        'Button3
+        '
+        Me.Button3.Label = "Version Info"
+        Me.Button3.Name = "Button3"
+        '
         'Group2
         '
         Me.Group2.Items.Add(Me.BtnAddtoDB)
@@ -339,10 +348,19 @@
         Me.Button2.Name = "Button2"
         Me.Button2.ShowImage = True
         '
-        'Button3
+        'Group6
         '
-        Me.Button3.Label = "Version Info"
-        Me.Button3.Name = "Button3"
+        Me.Group6.Items.Add(Me.btnBack)
+        Me.Group6.Label = "Holiday Tools"
+        Me.Group6.Name = "Group6"
+        '
+        'btnBack
+        '
+        Me.btnBack.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.btnBack.Image = Global.Bid_Desk_Macros_v2.My.Resources.Resources.WavingPerson
+        Me.btnBack.Label = "I'm Back"
+        Me.btnBack.Name = "btnBack"
+        Me.btnBack.ShowImage = True
         '
         'MainRibbon
         '
@@ -364,6 +382,8 @@
         Me.Group2.PerformLayout()
         Me.Group4.ResumeLayout(False)
         Me.Group4.PerformLayout()
+        Me.Group6.ResumeLayout(False)
+        Me.Group6.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -399,6 +419,8 @@
     Friend WithEvents UnSortedMails As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents UnsortedMails2 As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Button3 As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents Group6 As Microsoft.Office.Tools.Ribbon.RibbonGroup
+    Friend WithEvents btnBack As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection
