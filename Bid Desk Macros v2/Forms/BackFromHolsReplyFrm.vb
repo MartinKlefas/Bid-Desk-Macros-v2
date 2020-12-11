@@ -94,7 +94,7 @@ startOver:
                         If Not msg.Subject.ToLower.StartsWith("automatic reply:") Then
                             Dim reply As MailItem = msg.ReplyAll
 
-                            reply.HTMLBody = BackFromHolidayMessage & reply.HTMLBody
+                            reply.HTMLBody = htmlMsgStart & Globals.ThisAddIn.WriteGreeting(Now()) & BackFromHolidayMessage & reply.HTMLBody
 
                             reply.Display()
                         End If

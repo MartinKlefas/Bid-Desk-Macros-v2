@@ -88,7 +88,9 @@ While there is no requirement for you to do so, discussing this deal with them w
     Public Const LenovoBotSuccess As String = "This bid has successfully been sent to all available distributors. Some of them will now email me pricing, which will be attached to this ticket and forwarded to you when received. You will need to reach out to those whose pricing we don't recieve automatically, such as Ingram."
 
 
-    Public Const BackFromHolidayMessage As String = "<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><span style='font-size:13px;font-family:""Verdana"",sans-serif;'>Good Morning,</span></p>
+    Public Const htmlMsgStart As String = "<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><span style='font-size:13px;font-family:""Verdana"",sans-serif;'>"
+
+    Public Const BackFromHolidayMessage As String = "</span></p>
 <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><span style='font-size:13px;font-family:""Verdana"",sans-serif;'>&nbsp;I got your email below while I was off, and wanted to make sure that everything was resolved in my absence. Please let me know if there&rsquo;s still anything outstanding, and I can look into it now.</span></p>
 <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><span style='font-size:13px;font-family:""Verdana"",sans-serif;'>&nbsp;</span></p>
 <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><span style='font-size:13px;font-family:""Verdana"",sans-serif;'>&nbsp;Thanks, and hope you enjoyed my holiday!</span></p>
