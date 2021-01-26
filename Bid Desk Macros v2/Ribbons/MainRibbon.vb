@@ -301,7 +301,7 @@ Public Class MainRibbon
     End Sub
 
     Private Sub Button3_Click_4(sender As Object, e As RibbonControlEventArgs) Handles Button3.Click
-        MsgBox("just added first test of back from hols")
+        MsgBox("updated the 'junk' email filtering to exclude insight@dell.com")
     End Sub
 
     Private Sub BtnBack_Click(sender As Object, e As RibbonControlEventArgs) Handles btnBack.Click

@@ -96,9 +96,9 @@ startOver:
 
                             reply.HTMLBody = htmlMsgStart & Globals.ThisAddIn.WriteGreeting(Now()) & BackFromHolidayMessage & reply.HTMLBody
 
-                            reply.Display()
+                            reply.Send()
                         End If
-
+                        msg.Delete()
                     End If
                 Catch
                     Debug.WriteLine("Could Not find item for some reason")

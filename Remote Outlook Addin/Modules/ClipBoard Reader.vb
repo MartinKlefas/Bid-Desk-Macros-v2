@@ -13,9 +13,9 @@ Module ClipBoard_Reader
         'HPI/HPE Quotes
         If InStr(1, ClipBoardText, "Quote Number") > 0 AndAlso FindDealID = "" Then
             If InStr(1, ClipBoardText, "Quote Number: ") > 0 Then
-                FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "Quote Number: ") + 14, 10)
+                FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "Quote Number: ") + 18, 10)
             Else
-                FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "Quote Number") + 14, 10)
+                FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "Quote Number") + 18, 10)
             End If
 
         End If

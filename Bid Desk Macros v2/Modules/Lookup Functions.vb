@@ -82,6 +82,12 @@ Partial Class ThisAddIn
         aString = Replace(aString, "Ward, Mike(CW", "")
         aString = Replace(aString, "test", "")
         aString = Replace(aString, "csingh", "")
+        aString = Replace(aString, "; Insight;", ";")
+
+        'handles the edge case of the cc list ending in "Insight(@dell.com)" without also matching "insight cap team" or whatever
+        If Right(TrimExtended(aString), 6) = "Insight" Then
+            aString = Replace(aString, "; Insight", "")
+        End If
 
         Return aString
 
