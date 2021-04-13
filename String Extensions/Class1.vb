@@ -52,6 +52,9 @@ Public Module StringExtensions
         aString = Replace(aString, vbCrLf, " ")
         aString = Replace(aString, vbLf, " ")
         aString = Replace(aString, vbCr, " ")
+        aString = Replace(aString, "[", " ")
+        aString = Replace(aString, "]", " ")
+
         aString = Trim(aString)
         Return aString
     End Function

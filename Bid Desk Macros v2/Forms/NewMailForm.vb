@@ -197,6 +197,9 @@ startOver:
         ElseIf msg.SenderEmailAddress.tolower.equals("noreplylbp@lenovo.com") And (tsubj.startswith("Lenovo Bid Portal Bid Request") Or tsubj.startswith("Bid Request Declined Notification") Or tSubj.StartsWith("Your Lenovo Deal Registration D-")) Then
             Return True
 
+        ElseIf tSubj.StartsWith("Follow up for Deal Registration") And msg.SenderEmailAddress.ToLower.Contains("@hpe") Then
+            Return True
+
         Else
             Return False
         End If

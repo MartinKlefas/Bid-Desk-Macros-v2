@@ -149,7 +149,7 @@ Public Class DealIdent
         Dim subjAr, bodyAr, bodyLineAr As String()
         Dim i As Integer
         Dim tempResult As String = ""
-
+        HPExtensionSubmitted
         MsgSubject = ReplaceSpaces(message.Subject).TrimExtended
         msgBody = message.Body
 
@@ -174,7 +174,7 @@ Public Class DealIdent
                     tempResult = TrimExtended(subjAr(i))
                 End If
                 If subjAr(i).StartsWith("REGI-", ThisAddIn.searchType) Or
-                    subjAr(i).StartsWith("REGE-", ThisAddIn.searchType) Then
+                    subjAr(i).StartsWith("REGE-", ThisAddIn.searchType) Or subjAr(i).StartsWith("[REGE-", ThisAddIn.searchType) Then
                     tempResult = TrimExtended(subjAr(i))
                 End If
             End If
