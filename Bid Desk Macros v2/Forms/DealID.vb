@@ -149,7 +149,7 @@ Public Class DealIdent
         Dim subjAr, bodyAr, bodyLineAr As String()
         Dim i As Integer
         Dim tempResult As String = ""
-        HPExtensionSubmitted
+
         MsgSubject = ReplaceSpaces(message.Subject).TrimExtended
         msgBody = message.Body
 
