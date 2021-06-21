@@ -51,15 +51,20 @@
         Me.Button2 = Me.Factory.CreateRibbonButton
         Me.Button3 = Me.Factory.CreateRibbonButton
         Me.Button4 = Me.Factory.CreateRibbonButton
+        Me.Group2 = Me.Factory.CreateRibbonGroup
+        Me.Button5 = Me.Factory.CreateRibbonButton
+        Me.Button6 = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Cisco.SuspendLayout()
         Me.Group1.SuspendLayout()
+        Me.Group2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Tab1
         '
         Me.Tab1.Groups.Add(Me.Cisco)
         Me.Tab1.Groups.Add(Me.Group1)
+        Me.Tab1.Groups.Add(Me.Group2)
         Me.Tab1.Label = "Browser Controller Tools"
         Me.Tab1.Name = "Tab1"
         '
@@ -115,6 +120,23 @@
         Me.Button4.Label = "Send to Disti"
         Me.Button4.Name = "Button4"
         '
+        'Group2
+        '
+        Me.Group2.Items.Add(Me.Button5)
+        Me.Group2.Items.Add(Me.Button6)
+        Me.Group2.Label = "Test Functions"
+        Me.Group2.Name = "Group2"
+        '
+        'Button5
+        '
+        Me.Button5.Label = "Table to Excel file"
+        Me.Button5.Name = "Button5"
+        '
+        'Button6
+        '
+        Me.Button6.Label = "Test String Trimmer"
+        Me.Button6.Name = "Button6"
+        '
         'Ribbon1
         '
         Me.Name = "Ribbon1"
@@ -126,6 +148,8 @@
         Me.Cisco.PerformLayout()
         Me.Group1.ResumeLayout(False)
         Me.Group1.PerformLayout()
+        Me.Group2.ResumeLayout(False)
+        Me.Group2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -140,6 +164,9 @@
     Friend WithEvents Button2 As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Button3 As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Button4 As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents Group2 As Microsoft.Office.Tools.Ribbon.RibbonGroup
+    Friend WithEvents Button5 As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents Button6 As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

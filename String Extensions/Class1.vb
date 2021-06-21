@@ -146,5 +146,32 @@ Public Module StringExtensions
         End If
 
     End Function
+
+    Public Function TrimNumbers(ByVal aString As String) As String
+
+        aString = TrimExtended(aString)
+
+        Dim StrArry = aString.Split(" ")
+
+        Dim strList As New List(Of String)
+
+        For Each item In StrArry
+            strList.Add(item)
+        Next
+
+
+
+        While Regex.IsMatch(strList.First, "([0-9])+") Or strList.First = ""
+            strList.RemoveAt(0)
+
+        End While
+
+        While Regex.IsMatch(strList.Last, "([0-9])+") Or strList.Last = ""
+            strList.RemoveAt(strList.Count - 1)
+
+        End While
+
+        Return Strings.Join(strList.ToArray, " ")
+    End Function
 End Module
 
