@@ -150,40 +150,40 @@
             End Try
         End With
 
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+        'Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
-        Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
-        Try
-            ndt.TicketNumber = CInt(tmpTicketNumber)
-        Catch
-            ndt.TicketNumber = 0
-        End Try
+        'Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
+        'Try
+        '    ndt.TicketNumber = CInt(tmpTicketNumber)
+        'Catch
+        '    ndt.TicketNumber = 0
+        'End Try
 
 
-        Dim browser As OpenQA.Selenium.Chrome.ChromeDriver = ndt.GiveMeChrome(False)
+        'Dim browser As OpenQA.Selenium.Chrome.ChromeDriver = ndt.GiveMeChrome(False)
 
-        If ndt.TicketNumber <> 0 AndAlso Not ndt.IsClosed(browser) Then
+        'If ndt.TicketNumber <> 0 AndAlso Not ndt.IsClosed(browser) Then
 
-            If messageBodyAddition <> drDecision Then
-                If Not AddQuoteReceived(DealID) Then ShoutError("Error adding to the number of quotes received", SuppressWarnings)
-            End If
-            Try
-                ndt.AttachMail(msg, messageBodyAddition, browser)
-            Catch
-            End Try
+        '    If messageBodyAddition <> drDecision Then
+        '        If Not AddQuoteReceived(DealID) Then ShoutError("Error adding to the number of quotes received", SuppressWarnings)
+        '    End If
+        '    Try
+        '        ndt.AttachMail(msg, messageBodyAddition, browser)
+        '    Catch
+        '    End Try
 
-            If CompleteAutonomy Then
-                If (messageBodyAddition = drDecision And GetVendor(DealID) <> "Lenovo") OrElse QuotesReceived(DealID) > 2 Then
+        '    If CompleteAutonomy Then
+        '        If (messageBodyAddition = drDecision And GetVendor(DealID) <> "Lenovo") OrElse QuotesReceived(DealID) > 2 Then
 
-                    ndt.CloseTicket(browser:=browser)
-                End If
-            ElseIf Not CompleteAutonomy AndAlso MsgBox("Would you like to close the ticket", vbYesNo) = vbYes Then
-                ndt.CloseTicket(browser:=browser)
-            End If
+        '            ndt.CloseTicket(browser:=browser)
+        '        End If
+        '    ElseIf Not CompleteAutonomy AndAlso MsgBox("Would you like to close the ticket", vbYesNo) = vbYes Then
+        '        ndt.CloseTicket(browser:=browser)
+        '    End If
 
-        End If
+        'End If
 
-        browser.Quit()
+        'browser.Quit()
 
         Return MoveToFolder(TargetFolder, msg, SuppressWarnings)
     End Function
@@ -332,21 +332,21 @@
 
         End If
 
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+        'Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
-        Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
-        Try
-            ndt.TicketNumber = CInt(tmpTicketNumber)
-        Catch
-            ndt.TicketNumber = 0
-        End Try
+        'Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
+        'Try
+        '    ndt.TicketNumber = CInt(tmpTicketNumber)
+        'Catch
+        '    ndt.TicketNumber = 0
+        'End Try
 
 
-        Try
-            ndt.AttachMail(msg, "Request to extend the DR")
-            ndt.CloseTicket("As requested, an extension has been requested on the vendor portal.")
-        Catch
-        End Try
+        'Try
+        '    ndt.AttachMail(msg, "Request to extend the DR")
+        '    ndt.CloseTicket("As requested, an extension has been requested on the vendor portal.")
+        'Catch
+        'End Try
 
         myGreeting = WriteGreeting(Now(), AM.Split(" ")(0))
 
@@ -359,18 +359,18 @@
         MoveToFolder(AM, msg)
     End Sub
     Sub DoOneAttach(msg As Outlook.MailItem, DealID As String, Optional LogText As String = "")
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+        'Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
-        Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
-        Try
-            ndt.TicketNumber = CInt(tmpTicketNumber)
-        Catch
-            ndt.TicketNumber = 0
-        End Try
+        'Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
+        'Try
+        '    ndt.TicketNumber = CInt(tmpTicketNumber)
+        'Catch
+        '    ndt.TicketNumber = 0
+        'End Try
 
-        Try
-            ndt.AttachMail(msg, LogText)
-        Catch
-        End Try
+        'Try
+        '    ndt.AttachMail(msg, LogText)
+        'Catch
+        'End Try
     End Sub
 End Class

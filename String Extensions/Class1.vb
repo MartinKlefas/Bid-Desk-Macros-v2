@@ -147,9 +147,14 @@ Public Module StringExtensions
 
     End Function
 
-    Public Function TrimNumbers(ByVal aString As String) As String
+    ''' <summary>
+    ''' Removes Numbers and space-like characters from the beginning and end of a string.
+    ''' </summary>
+    ''' <param name="aString">input string to be trimmed</param>
+    ''' <returns>number-less string</returns>
+    Public Function TrimNumbers(ByVal aString As String, Optional ByVal trimspaces As Boolean = True) As String
 
-        aString = TrimExtended(aString)
+        If trimspaces Then aString = TrimExtended(aString)
 
         Dim StrArry = aString.Split(" ")
 
@@ -172,6 +177,45 @@ Public Module StringExtensions
         End While
 
         Return Strings.Join(strList.ToArray, " ")
+    End Function
+
+    ''' <summary>
+    ''' Lazily and Greedily Removes all HTML tags from an input string.
+    ''' The function does not check if it's an actual HTML tag or similar, only that it starts with open and closed diagonal brackets before deleting it.
+    ''' </summary>
+    ''' <param name="aString">The String to be cleaned</param>
+    ''' <returns>A plain string with no HTML in it</returns>
+    Public Function StripHTML(ByVal aString As String) As String
+
+        Dim firstOpen, nextClose As Integer
+
+        While aString.Contains("<") And aString.Contains(">")
+            Dim strBuilder As String = ""
+            firstOpen = InStr(aString, "<")
+            nextClose = InStr(firstOpen, aString, ">")
+
+            If firstOpen > 0 Then
+                strBuilder = Left(aString, firstOpen)
+
+            End If
+
+            strBuilder &= Mid(aString, nextClose)
+
+            aString = strBuilder
+
+        End While
+
+        Return aString
+
+    End Function
+
+    <Extension()>
+    Public Function SplitByWord(ByVal Input As String, ByVal Word As String) As String()
+
+        Dim rgx As New Regex(Word)
+
+        SplitByWord = rgx.Split(Input)
+
     End Function
 End Module
 

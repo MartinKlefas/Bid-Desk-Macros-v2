@@ -45,6 +45,8 @@
         Me.Group5 = Me.Factory.CreateRibbonGroup
         Me.BtnAutoAll_TabMail = Me.Factory.CreateRibbonButton
         Me.UnSortedMails = Me.Factory.CreateRibbonButton
+        Me.Group7 = Me.Factory.CreateRibbonGroup
+        Me.Button4 = Me.Factory.CreateRibbonButton
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.btnAutoAll = Me.Factory.CreateRibbonButton
@@ -78,6 +80,7 @@
         Tab2 = Me.Factory.CreateRibbonTab
         Tab2.SuspendLayout()
         Me.Group5.SuspendLayout()
+        Me.Group7.SuspendLayout()
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.Group3.SuspendLayout()
@@ -91,6 +94,7 @@
         Tab2.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office
         Tab2.ControlId.OfficeId = "TabMail"
         Tab2.Groups.Add(Me.Group5)
+        Tab2.Groups.Add(Me.Group7)
         Tab2.Label = "TabMail"
         Tab2.Name = "Tab2"
         '
@@ -116,6 +120,17 @@
         Me.UnSortedMails.Label = "Reprocess Not Defined"
         Me.UnSortedMails.Name = "UnSortedMails"
         Me.UnSortedMails.ShowImage = True
+        '
+        'Group7
+        '
+        Me.Group7.Items.Add(Me.Button4)
+        Me.Group7.Label = "Testy Test"
+        Me.Group7.Name = "Group7"
+        '
+        'Button4
+        '
+        Me.Button4.Label = "Read a Table"
+        Me.Button4.Name = "Button4"
         '
         'Tab1
         '
@@ -372,6 +387,8 @@
         Tab2.PerformLayout()
         Me.Group5.ResumeLayout(False)
         Me.Group5.PerformLayout()
+        Me.Group7.ResumeLayout(False)
+        Me.Group7.PerformLayout()
         Me.Tab1.ResumeLayout(False)
         Me.Tab1.PerformLayout()
         Me.Group1.ResumeLayout(False)
@@ -421,6 +438,8 @@
     Friend WithEvents Button3 As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Group6 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents btnBack As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents Group7 As Microsoft.Office.Tools.Ribbon.RibbonGroup
+    Friend WithEvents Button4 As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

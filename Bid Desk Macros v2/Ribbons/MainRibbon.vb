@@ -317,4 +317,39 @@ Public Class MainRibbon
         Dim backfromHols As New BackFromHolsReplyFrm(MessageList)
         backfromHols.Show()
     End Sub
+
+    Private Sub Button4_Click(sender As Object, e As RibbonControlEventArgs) Handles Button4.Click
+        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
+        Dim msg As Outlook.MailItem
+
+        For Each item In Selection
+            If TypeName(item) = "MailItem" Then
+                msg = item
+
+                Dim htmlBody As String = msg.HTMLBody
+
+
+                Dim parts As String() = htmlBody.SplitByWord("<table")
+
+                For Each part In parts
+                    If part.Contains(">Custom Fields</TD>") Then
+                        part = Strings.Left(part, Strings.InStr(part, "</table", CompareMethod.Text))
+                        Dim rows As String() = part.SplitByWord("<tr")
+
+                        For Each row In rows
+                            Dim columns As String() = row.SplitByWord("<td")
+                            For Each column In columns
+
+                                Dim actualText As String = StripHTML(column)
+
+                            Next
+                        Next
+
+                    End If
+
+                Next
+            End If
+        Next
+
+    End Sub
 End Class
