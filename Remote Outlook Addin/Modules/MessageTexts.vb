@@ -12,7 +12,7 @@
     Public Const DeadMessage As String = "<br>&nbsp; Thank you for letting me know, I've updated my records.<br> Thanks,<br> Martin."
     Public Const SubmitMessage As String = "<br>&nbsp;I've created the below for you with %VENDOR% (ref: %DEALID%). %NDT%<br>&nbsp;Please check that everything is correct and let me know asap if there are any errors.<br> Regards, Martin."
 
-    Public Const NoNDTMessage As String = "As Nextdesk tickets are being phased-out for DR & Quote actions, none will be created by the bots anymore."
+    Public Const NoNDTMessage As String = ""
 
     Public Const CloneLaterMessage As String = "Due to the age of this deal registration, it can no longer be extended. In order for our protection to continue, we must now clone it onto a fresh deal registration.<br> If this cloning takes place before our existing deal registration ends, the new one will be automatically rejected as a duplicate of the old, and so this will be cloned for you on %CLONEDATE%. I have set myself a reminder to perform this clone, and so no further action is required from you.<br><br>"
 

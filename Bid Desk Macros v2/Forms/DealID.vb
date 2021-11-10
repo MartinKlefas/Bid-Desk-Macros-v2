@@ -181,6 +181,20 @@ Public Class DealIdent
         Next i
 
         If tempResult = "" Then
+
+            If MsgSubject.StartsWith("TD Quote") And MsgSubject.Contains("submitted by Reseller INSIGHT DIRECT (UK) LTD") Then
+                Dim opgNumber As String = Mid(msgBody, msgBody.IndexOf("HP Deal Number: ") + 17, 10)
+                For Each tAttachment As Attachment In message.Attachments
+                    tempResult = RipFromFile(tAttachment, opgNumber)
+                Next
+
+
+            End If
+        End If
+
+
+
+        If tempResult = "" Then
             bodyAr = Split(msgBody, vbCrLf)
             For i = LBound(bodyAr) To UBound(bodyAr)
                 '~~> This will give you the contents of your email

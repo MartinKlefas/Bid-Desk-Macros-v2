@@ -22,7 +22,7 @@ Module HP_Quote_Reader
                         Dim subfragments As String() = Split(fragment, ",")
                         For Each sfrag In subfragments
                             sfrag = Replace(sfrag, Chr(34), "")
-                            If sfrag.ToLower.StartsWith("p0") Or sfrag.ToLower.StartsWith("e0") Or sfrag.ToLower.StartsWith("nq0") Then
+                            If sfrag <> "" AndAlso (sfrag.ToLower.StartsWith("p0") Or sfrag.ToLower.StartsWith("e0") Or sfrag.ToLower.StartsWith("nq0")) Then
                                 Dim OPG As String = CurrentGuess
 
                                 Globals.ThisAddIn.AddOPG(sfrag, OPG)
@@ -63,6 +63,35 @@ Module HP_Quote_Reader
                 File.Delete(fName)
             Catch
                 Debug.WriteLine("Error deleting xlsx file")
+            End Try
+
+
+            CurrentGuess = tmpDealID
+
+        ElseIf tAttachment.FileName.ToLower.EndsWith("xls") Then
+            'the techdata "xls" files are actually html
+            Dim fName As String = Path.GetTempPath() & RandomString(6) & tAttachment.FileName.WinSafeFileName
+            Try
+                tAttachment.SaveAsFile(fName)
+            Catch
+                Debug.WriteLine("Error while saving xlsx file")
+            End Try
+            Dim tmpDealID As String = ""
+
+            Try
+                Dim AllHTMl As String = My.Computer.FileSystem.ReadAllText(fName)
+                tmpDealID = Mid(AllHTMl, AllHTMl.IndexOf("NQ0"), 11)
+                tmpDealID = TrimExtended(tmpDealID)
+            Catch
+                Debug.WriteLine("Error processing xls file")
+            End Try
+
+            Globals.ThisAddIn.AddOPG(tmpDealID, CurrentGuess)
+
+            Try
+                File.Delete(fName)
+            Catch
+                Debug.WriteLine("Error deleting xls file")
             End Try
 
 

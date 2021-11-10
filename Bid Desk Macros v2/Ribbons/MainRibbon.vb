@@ -340,7 +340,7 @@ Public Class MainRibbon
                             Dim columns As String() = row.SplitByWord("<td")
                             For Each column In columns
 
-                                Dim actualText As String = StripHTML(column)
+                                Dim actualText As String = StripHTML("<" & column)
 
                             Next
                         Next

@@ -165,7 +165,10 @@ startOver:
         Dim tSubj As String = msg.Subject.ReplaceSpaces().TrimExtended
         If msg.SenderEmailAddress.Equals("smart.quotes@techdata.com", searchType) And tSubj.StartsWith("QUOTE Deal", searchType) Then
             Return True
-        ElseIf (msg.SenderEmailAddress.tolower.Contains("@westcoast.co.uk")) Then
+        ElseIf tSubj.StartsWith("TD Quote") And tSubj.Contains("submitted by Reseller INSIGHT DIRECT (UK) LTD") Then
+
+            Return True
+        ElseIf (msg.SenderEmailAddress.ToLower.Contains("@westcoast.co.uk")) Then
             If (tSubj.StartsWith("HPE", searchType) Or tSubj.StartsWith("Deal", ThisAddIn.searchType) Or tSubj.StartsWith("OPG", searchType)) And tSubj.ToLower.Contains("for reseller insight direct") Then
                 Return True
 
@@ -173,12 +176,14 @@ startOver:
                 Return True
             ElseIf tSubj.StartsWith("Bid BRPE") Then
                 Return True
+
             Else
+
                 Return False
             End If
 
         Else
-                Return False
+            Return False
         End If
 
     End Function

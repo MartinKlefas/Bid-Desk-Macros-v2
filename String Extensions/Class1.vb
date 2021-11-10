@@ -194,13 +194,13 @@ Public Module StringExtensions
             firstOpen = InStr(aString, "<")
             nextClose = InStr(firstOpen, aString, ">")
 
-            If firstOpen > 0 Then
-                strBuilder = Left(aString, firstOpen)
+            If firstOpen > 1 Then
+                strBuilder = Left(aString, firstOpen - 1)
 
             End If
-
-            strBuilder &= Mid(aString, nextClose)
-
+            'If nextClose < Len(aString) Then ' this won't work. need to do it another way
+            '    strBuilder &= Mid(aString, nextClose + 1)
+            'End If
             aString = strBuilder
 
         End While
