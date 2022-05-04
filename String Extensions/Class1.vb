@@ -217,5 +217,9 @@ Public Module StringExtensions
         SplitByWord = rgx.Split(Input)
 
     End Function
+    Public Function SubTractStrings(ByVal LongString As String, ByVal ShortString As String)
+
+        Return Mid(LongString, Len(ShortString))
+    End Function
 End Module
 

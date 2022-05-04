@@ -134,7 +134,7 @@
 
             .CC = GetCCbyDeal(DealID)
             If GetVendor(DealID, True) = "Dell" Then
-                .CC = .CC & "; mike.parker@insight.com; rajesh.pindoria@insight.com"
+                .CC = .CC & "; Hannah.Frangiamore@insight.com; rajesh.pindoria@insight.com"
             ElseIf GetVendor(DealID, True) = "HPE" Then
                 .CC = .CC & "; Simon.Hill@insight.com"
             ElseIf GetVendor(DealID, True) = "HPI" Then

@@ -14,6 +14,10 @@ Partial Class ThisAddIn
         Dim dealsRead As New List(Of Dictionary(Of String, String))
         Dim replyMail As Outlook.MailItem
         replyMail = Nothing
+
+        Dim replyMailTwo As Outlook.MailItem
+        replyMailTwo = Nothing
+
         For Each tAttachment As Outlook.Attachment In inboundMail.Attachments
             If tAttachment.FileName.ToLower.Contains(".xml") Then
                 Dim fileName As String = IO.Path.GetTempPath & RandomString(6) & tAttachment.FileName
@@ -71,6 +75,7 @@ Partial Class ThisAddIn
                 Try
                     Dim Mail As Outlook.MailItem = Globals.ThisAddIn.Application.GetNamespace("MAPI").OpenSharedItem(fileName)
                     replyMail = Mail.ReplyAll
+                    replyMailTwo = Mail.ReplyAll
                 Catch
                     Debug.WriteLine("Could Not reply To attached mail")
                 End Try
@@ -90,7 +95,7 @@ Partial Class ThisAddIn
 
             If Not IsNothing(replyMail) Then
                 Dim tAddDeal As New AddDeal(replyMail)
-                If Not tAddDeal.DoNewCreation(deal, replyMail) Then
+                If Not tAddDeal.DoNewCreation(deal, replyMail, replyMailTwo) Then
                     Debug.WriteLine("returned false")
                 Else
                     Try

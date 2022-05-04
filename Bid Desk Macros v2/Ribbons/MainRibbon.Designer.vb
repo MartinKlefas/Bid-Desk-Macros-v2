@@ -66,6 +66,7 @@
         Me.btnOnOff = Me.Factory.CreateRibbonButton
         Me.btnHoliday = Me.Factory.CreateRibbonButton
         Me.Button3 = Me.Factory.CreateRibbonButton
+        Me.Button5 = Me.Factory.CreateRibbonButton
         Me.Group2 = Me.Factory.CreateRibbonGroup
         Me.BtnAddtoDB = Me.Factory.CreateRibbonButton
         Me.ImprtLots = Me.Factory.CreateRibbonButton
@@ -269,6 +270,7 @@
         Me.Group3.Items.Add(Me.btnOnOff)
         Me.Group3.Items.Add(Me.btnHoliday)
         Me.Group3.Items.Add(Me.Button3)
+        Me.Group3.Items.Add(Me.Button5)
         Me.Group3.Label = "Automation"
         Me.Group3.Name = "Group3"
         '
@@ -292,6 +294,11 @@
         '
         Me.Button3.Label = "Version Info"
         Me.Button3.Name = "Button3"
+        '
+        'Button5
+        '
+        Me.Button5.Label = "Test Button"
+        Me.Button5.Name = "Button5"
         '
         'Group2
         '
@@ -440,6 +447,7 @@
     Friend WithEvents btnBack As Microsoft.Office.Tools.Ribbon.RibbonButton
     Friend WithEvents Group7 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents Button4 As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents Button5 As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

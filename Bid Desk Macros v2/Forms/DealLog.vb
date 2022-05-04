@@ -82,7 +82,8 @@ Public Class AddDeal
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         Dim requestorName As String, Vendor As String, ccNames As String
-        Dim ReplyMail As MailItem = Mail.ReplyAll
+        Dim ReplyMail As MailItem = mail.ReplyAll
+        Dim ReplyMailTwo As MailItem = mail.ReplyAll
         Dim tCreateDealRecord As Dictionary(Of String, String)
 
 
@@ -143,7 +144,7 @@ Public Class AddDeal
             Exit Sub
         End If
 
-        If Not DoNewCreation(tCreateDealRecord, ReplyMail) Then
+        If Not DoNewCreation(tCreateDealRecord, ReplyMail, ReplyMailTwo) Then
 
             Call ExitEarly()
             Exit Sub
@@ -154,7 +155,7 @@ Public Class AddDeal
     End Sub
 
 
-    Public Function DoNewCreation(DealData As Dictionary(Of String, String), ByRef replyMail As Outlook.MailItem) As Boolean
+    Public Function DoNewCreation(DealData As Dictionary(Of String, String), ByRef replyMail As Outlook.MailItem, ByRef replyMailTwo As Outlook.MailItem) As Boolean
 
         myContinue = True
         'Dim newNDT As Integer
@@ -239,19 +240,28 @@ Public Class AddDeal
             mygreeting = Globals.ThisAddIn.WriteGreeting(Now(), CStr(rFName(0)))
 
 
+            If DealData("Vendor").ToLower = "dell" Then
+                With replyMail
+                    .HTMLBody = mygreeting & Globals.ThisAddIn.WriteDelayedUpdateMessage("25", DealData("DealID")) & .HTMLBody
+                    .Subject = .Subject & " - " & DealData("DealID")
+                    .DeferredDeliveryTime = Now.AddDays(25)
+                    .Send()
+                End With
+                With replyMailTwo
+                    .HTMLBody = mygreeting & Globals.ThisAddIn.WriteDelayedUpdateMessage("55", DealData("DealID")) & .HTMLBody
+                    .Subject = .Subject & " - " & DealData("DealID")
+                    .DeferredDeliveryTime = Now.AddDays(55)
+                    .Send()
+                End With
+            End If
 
-            With replyMail
-                .HTMLBody = mygreeting & Globals.ThisAddIn.WriteSubmitMessage(DealData) & MainRibbon.WriteHolidayMessage() & .HTMLBody
-                .Subject = .Subject & " - " & DealData("DealID")
-                .Display() ' or .Send
-            End With
             Try
-                Globals.ThisAddIn.MoveToFolder(TrimExtended(DealData("AM")), mail, True)
-            Catch
-            End Try
+                    Globals.ThisAddIn.MoveToFolder(TrimExtended(DealData("AM")), mail, True)
+                Catch
+                End Try
 
-        Else
-            DealData.Add("Result", "Failed")
+            Else
+                DealData.Add("Result", "Failed")
         End If
 
 

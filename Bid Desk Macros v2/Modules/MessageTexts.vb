@@ -2,7 +2,7 @@
     Public Const DRExpire As String = "<br>&nbsp; Deal Registration <strong>%dealID%</strong> for customer: <strong>%customer%</strong> will expire shortly.<br>&nbsp;  If this is a Cisco quote, please engage the new Cisco team. Otherwise, please could you Let Me know If you'd like me to renew it, or if the opportunity is dead?<br> Thanks,<br> Martin."
     Public Const drloglink As String = "<br><a href=""https://insightonlinegbr-my.sharepoint.com/:x:/g/personal/martin_klefas_insight_com/EU-6V1ALSjFKox0GCLXblPYBH8cUzFBT2MminUjs2MuGeQ?e=i4IaCp"" >Click here for an automatically updated deal status report(which you should be able to filter)</a>"
     Public Const drDecision As String = "<br>&nbsp; Please see below/attached the vendor's decision on your deal registration.<br> Thanks,<br> Martin."
-    Public Const dellDecline As String = "<br>&nbsp; Please note that a declined Dell DR can always be appealed if you feel you have a strong reason as to why it should have been approved - please contact Rebecca.Pas@dell.com & Edward.kirby@dell.com to make your case.<br>"
+    Public Const dellDecline As String = "<br>&nbsp; Please note that a declined Dell DR can always be appealed if you feel you have a strong reason as to why it should have been approved - please contact Edward.kirby@dell.com to make your case.<br>"
     Public Const sqFwdMessage As String = "<br>&nbsp; Please see attached pricing from distribution.<br> Thanks,<br> Martin."
     Public Const opgFwdMessage As String = "<br>&nbsp; Please see attached the OPG pricing from distribution, you can now create a UPR creation ticket, but no longer need to attach this to it.<br> Thanks,<br> Martin."
     Public Const HPPublishMessage As String = "<br>&nbsp; Your SmartQuote has been approved by HP, and is now being priced by distribution. We should have the first responses back very shortly. "
@@ -16,7 +16,11 @@
 
     Public Const TicketSubmitMessage As String = "I've created %DEALID% for you on the %VENDOR% portal.
         %VENDOR% will endeavor to turn this around for you as soon as possible, but if there are any unexpected delays then please reach out and we can escalate it after the normal SLA period. Regards, Martin."
-
+    Public Const DelayedUpdateMessage As String = " days ago via the email below you requested that I create a Dell Deal Registration. This was created, and the ID was %dealID%. </p>
+<p>Dell now mandate that we update these deal registrations at least once every 30 days, and as such could you please send me a one or two sentence update on the status as a reply to this email as soon as practical?</p>
+<p>It is my understanding that without these updates your deal will be cancelled &ndash; even if you&rsquo;ve been speaking directly to Dell every day since submission.</p>
+<p>Thanks, and apologies for the extra work.</p>
+<p>Martin</p>"
 
 
     Public Const NDTCreateMessage As String = "For internal tracking purposes only, I have also created NextDesk ticket #%NDT%"
@@ -91,7 +95,7 @@ While there is no requirement for you to do so, discussing this deal with them w
     Public Const htmlMsgStart As String = "<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><span style='font-size:13px;font-family:""Verdana"",sans-serif;'>"
 
     Public Const BackFromHolidayMessage As String = "</span></p>
-<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><span style='font-size:13px;font-family:""Verdana"",sans-serif;'>&nbsp;I got your email below while I was off, and wanted to make sure that everything was resolved in my absence. Please let me know if there&rsquo;s still anything outstanding, and I can look into it now.</span></p>
+<p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><span style='font-size:13px;font-family:""Verdana"",sans-serif;'>&nbsp;I got your email below while I was off, and wanted to make sure that you had followed the instructions in my reply to create a ticket. Please let me know if there&rsquo;s still anything outstanding, and I can look into it shortly.</span></p>
 <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><span style='font-size:13px;font-family:""Verdana"",sans-serif;'>&nbsp;</span></p>
 <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><span style='font-size:13px;font-family:""Verdana"",sans-serif;'>&nbsp;Thanks, and hope you enjoyed my holiday!</span></p>
 <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><span style='font-size:13px;font-family:""Verdana"",sans-serif;'>&nbsp;</span></p>

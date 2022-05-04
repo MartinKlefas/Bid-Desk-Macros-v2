@@ -301,7 +301,7 @@ Public Class MainRibbon
     End Sub
 
     Private Sub Button3_Click_4(sender As Object, e As RibbonControlEventArgs) Handles Button3.Click
-        MsgBox("updated the 'junk' email filtering to exclude insight@dell.com")
+        MsgBox("Time delayed message v1 implemented")
     End Sub
 
     Private Sub BtnBack_Click(sender As Object, e As RibbonControlEventArgs) Handles btnBack.Click
@@ -348,6 +348,20 @@ Public Class MainRibbon
                     End If
 
                 Next
+            End If
+        Next
+
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As RibbonControlEventArgs) Handles Button5.Click
+        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
+        Dim msg As Outlook.MailItem
+
+        For Each item In Selection
+            If TypeName(item) = "MailItem" Then
+                msg = item
+
+
             End If
         Next
 

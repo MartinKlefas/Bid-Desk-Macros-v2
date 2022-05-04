@@ -231,7 +231,7 @@ Partial Class ThisAddIn
         If lookupName.ToLower = "nhs solutions" Then newLookupName = "NHSSolutions@Insight.com"
         If lookupName.ToLower = "insight police team" Then newLookupName = "ipt@insight.com"
         If lookupName.ToLower = "josh smith" Then newLookupName = "josh.smith@insight.com"
-
+        If lookupName.ToLower = "mike parker" Then newLookupName = "Hannah.Frangiamore@insight.com"
 
         If noChangeNamesStr.ToLower.Contains(lookupName.ToLower) Then newLookupName = lookupName
 
@@ -318,6 +318,10 @@ Partial Class ThisAddIn
         System.IO.File.WriteAllBytes(filename, resource)
 
         Return filename
+    End Function
+
+    Function WriteDelayedUpdateMessage(tDays As String, DealID As String) As String
+        Return tDays & Strings.Replace(DelayedUpdateMessage, "%DEALID%", DealID)
     End Function
 
     Function TicketNumberFromSubject(MsgSubject As String) As String
