@@ -22,7 +22,7 @@ Partial Class ThisAddIn
             If tAttachment.FileName.ToLower.Contains(".xml") Then
                 Dim fileName As String = IO.Path.GetTempPath & RandomString(6) & tAttachment.FileName
                 tAttachment.SaveAsFile(fileName)
-                Dim doc As XmlDocument = New XmlDocument
+                Dim doc As New XmlDocument
                 Dim nodeList As XmlNodeList
                 doc.PreserveWhitespace = True
 
@@ -95,7 +95,7 @@ Partial Class ThisAddIn
 
             If Not IsNothing(replyMail) Then
                 Dim tAddDeal As New AddDeal(replyMail)
-                If Not tAddDeal.DoNewCreation(deal, replyMail, replyMailTwo) Then
+                If Not tAddDeal.DoNewCreation(deal) Then
                     Debug.WriteLine("returned false")
                 Else
                     Try
@@ -120,7 +120,7 @@ Partial Class ThisAddIn
             If tAttachment.FileName.ToLower.Contains(".xml") Then
                 Dim fileName As String = IO.Path.GetTempPath & RandomString(6) & tAttachment.FileName
                 tAttachment.SaveAsFile(fileName)
-                Dim doc As XmlDocument = New XmlDocument
+                Dim doc As New XmlDocument
                 Dim nodeList As XmlNodeList
                 doc.PreserveWhitespace = True
 

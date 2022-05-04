@@ -81,7 +81,7 @@ Public Class DealIdent
 
     Private Function WriteXMlOutput(Method As String, tDealID As String) As String
         Try
-            Dim settings As XmlWriterSettings = New XmlWriterSettings With {
+            Dim settings As New XmlWriterSettings With {
                 .Indent = True
             }
 

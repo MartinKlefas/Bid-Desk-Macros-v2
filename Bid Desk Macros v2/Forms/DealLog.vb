@@ -144,7 +144,7 @@ Public Class AddDeal
             Exit Sub
         End If
 
-        If Not DoNewCreation(tCreateDealRecord, ReplyMail, ReplyMailTwo) Then
+        If Not DoNewCreation(tCreateDealRecord) Then
 
             Call ExitEarly()
             Exit Sub
@@ -155,7 +155,7 @@ Public Class AddDeal
     End Sub
 
 
-    Public Function DoNewCreation(DealData As Dictionary(Of String, String), ByRef replyMail As Outlook.MailItem, ByRef replyMailTwo As Outlook.MailItem) As Boolean
+    Public Function DoNewCreation(DealData As Dictionary(Of String, String)) As Boolean
 
         myContinue = True
         'Dim newNDT As Integer
@@ -226,8 +226,9 @@ Public Class AddDeal
             'End If
         Else
 
-            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
-            ndt.TicketNumber = DealData("NDT")
+            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile) With {
+                .TicketNumber = DealData("NDT")
+            }
 
             ndt.UpdateNextDesk(Globals.ThisAddIn.WriteTicketMessage(DealData))
         End If
@@ -242,12 +243,12 @@ Public Class AddDeal
 
 
             Try
-                    Globals.ThisAddIn.MoveToFolder(TrimExtended(DealData("AM")), mail, True)
-                Catch
-                End Try
+                Globals.ThisAddIn.MoveToFolder(TrimExtended(DealData("AM")), mail, True)
+            Catch
+            End Try
 
-            Else
-                DealData.Add("Result", "Failed")
+        Else
+            DealData.Add("Result", "Failed")
         End If
 
 

@@ -232,6 +232,8 @@ Partial Class ThisAddIn
         If lookupName.ToLower = "insight police team" Then newLookupName = "ipt@insight.com"
         If lookupName.ToLower = "josh smith" Then newLookupName = "josh.smith@insight.com"
         If lookupName.ToLower = "mike parker" Then newLookupName = "Hannah.Frangiamore@insight.com"
+        If lookupName.ToLower = "csingh" Then newLookupName = "Carl.Singh@insight.com"
+        If lookupName.ToLower = "richard jones" Then newLookupName = "richard.jones@insight.com"
 
         If noChangeNamesStr.ToLower.Contains(lookupName.ToLower) Then newLookupName = lookupName
 
