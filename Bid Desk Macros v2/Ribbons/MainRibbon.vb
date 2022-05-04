@@ -301,7 +301,7 @@ Public Class MainRibbon
     End Sub
 
     Private Sub Button3_Click_4(sender As Object, e As RibbonControlEventArgs) Handles Button3.Click
-        MsgBox("Time delayed message v1 implemented")
+        MsgBox("Time delayed message v2.0a implemented")
     End Sub
 
     Private Sub BtnBack_Click(sender As Object, e As RibbonControlEventArgs) Handles btnBack.Click

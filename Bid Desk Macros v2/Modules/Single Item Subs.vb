@@ -118,12 +118,47 @@
 
         msgFwdOne = msg.Forward
 
+
+
         fNames = Split(TargetFolder, " ")
         myGreeting = WriteGreeting(Now(), CStr(fNames(0)))
+        If GetVendor(DealID, True) = "Dell" Then
+            If msg.Subject.Contains("declined") Then
+                messageBodyAddition &= dellDecline
+            Else
+                'new place for delayed update requests
+                Dim delayedUpdateRequestOne, delayedUpdateRequestTwo As Outlook.MailItem
+                delayedUpdateRequestOne = msgFwdOne.Copy
+                delayedUpdateRequestTwo = msgFwdOne.Copy
+                With delayedUpdateRequestOne
+                    .HTMLBody = WriteGreeting(Now(), "All") & Globals.ThisAddIn.WriteDelayedUpdateMessage("25", DealID) & .HTMLBody
+                    .Subject = .Subject & " - " & DealID
+                    .DeferredDeliveryTime = Now.AddDays(25)
+                    Try
+                        .To = MyResolveName(TargetFolder).PrimarySmtpAddress
+                    Catch
+                        .To = TargetFolder
+                    End Try
+                    .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com; rajesh.pindoria@insight.com"
 
-        If msg.Subject.Contains("declined") Then
-            messageBodyAddition &= dellDecline
+                    .Send()
+                End With
+                With delayedUpdateRequestTwo
+                    .HTMLBody = WriteGreeting(Now(), "All") & Globals.ThisAddIn.WriteDelayedUpdateMessage("55", DealID) & .HTMLBody
+                    .Subject = .Subject & " - " & DealID
+                    .DeferredDeliveryTime = Now.AddDays(55)
+                    Try
+                        .To = MyResolveName(TargetFolder).PrimarySmtpAddress
+                    Catch
+                        .To = TargetFolder
+                    End Try
+                    .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com; rajesh.pindoria@insight.com"
+                    .Send()
+                End With
+
+            End If
         End If
+
 
         With msgFwdOne
             Try

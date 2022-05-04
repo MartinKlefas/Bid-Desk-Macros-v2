@@ -16,9 +16,9 @@
 
     Public Const TicketSubmitMessage As String = "I've created %DEALID% for you on the %VENDOR% portal.
         %VENDOR% will endeavor to turn this around for you as soon as possible, but if there are any unexpected delays then please reach out and we can escalate it after the normal SLA period. Regards, Martin."
-    Public Const DelayedUpdateMessage As String = " days ago via the email below you requested that I create a Dell Deal Registration. This was created, and the ID was %dealID%. </p>
-<p>Dell now mandate that we update these deal registrations at least once every 30 days, and as such could you please send me a one or two sentence update on the status as a reply to this email as soon as practical?</p>
-<p>It is my understanding that without these updates your deal will be cancelled &ndash; even if you&rsquo;ve been speaking directly to Dell every day since submission.</p>
+    Public Const DelayedUpdateMessage As String = " days ago a deal registration was requested and approved by someone who is hopefully copied on this new thread. This was created, and the ID was %dealID%. </p>
+<p>Dell now mandate that Insight update these deal registrations at least once every 30 days, and as such could I please ask that an Insight Account manager, or someone in contact with the customer send me a one or two sentence update on the status of this transaction as a reply to this email as soon as practical?</p>
+<p>It is my understanding that without these updates being added to the Dell portal your deal will be cancelled &ndash; even if you&rsquo;ve been speaking directly to Dell every day since submission.</p>
 <p>Thanks, and apologies for the extra work.</p>
 <p>Martin</p>"
 

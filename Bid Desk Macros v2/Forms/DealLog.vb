@@ -240,20 +240,6 @@ Public Class AddDeal
             mygreeting = Globals.ThisAddIn.WriteGreeting(Now(), CStr(rFName(0)))
 
 
-            If DealData("Vendor").ToLower = "dell" Then
-                With replyMail
-                    .HTMLBody = mygreeting & Globals.ThisAddIn.WriteDelayedUpdateMessage("25", DealData("DealID")) & .HTMLBody
-                    .Subject = .Subject & " - " & DealData("DealID")
-                    .DeferredDeliveryTime = Now.AddDays(25)
-                    .Send()
-                End With
-                With replyMailTwo
-                    .HTMLBody = mygreeting & Globals.ThisAddIn.WriteDelayedUpdateMessage("55", DealData("DealID")) & .HTMLBody
-                    .Subject = .Subject & " - " & DealData("DealID")
-                    .DeferredDeliveryTime = Now.AddDays(55)
-                    .Send()
-                End With
-            End If
 
             Try
                     Globals.ThisAddIn.MoveToFolder(TrimExtended(DealData("AM")), mail, True)
