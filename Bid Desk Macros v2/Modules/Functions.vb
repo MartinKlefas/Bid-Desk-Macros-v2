@@ -323,7 +323,7 @@ Partial Class ThisAddIn
     End Function
 
     Function WriteDelayedUpdateMessage(tDays As String, DealID As String) As String
-        Return tDays & Strings.Replace(DelayedUpdateMessage, "%dealID%", DealID)
+        Return "</p><p>" & tDays & " " & Strings.Replace(DelayedUpdateMessage, "%dealID%", DealID)
     End Function
 
     Function TicketNumberFromSubject(MsgSubject As String) As String

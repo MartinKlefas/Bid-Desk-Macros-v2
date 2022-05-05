@@ -141,7 +141,12 @@
                     End Try
                     .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com; rajesh.pindoria@insight.com"
 
-                    .Send()
+                    Try
+                        .Send()
+                    Catch
+                        .Display()
+                    End Try
+
                 End With
                 With delayedUpdateRequestTwo
                     .HTMLBody = WriteGreeting(Now(), "All") & Globals.ThisAddIn.WriteDelayedUpdateMessage("55", DealID) & .HTMLBody
@@ -153,7 +158,11 @@
                         .To = TargetFolder
                     End Try
                     .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com; rajesh.pindoria@insight.com"
-                    .Send()
+                    Try
+                        .Send()
+                    Catch
+                        .Display()
+                    End Try
                 End With
 
             End If
