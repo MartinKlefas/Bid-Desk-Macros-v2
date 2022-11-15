@@ -155,7 +155,18 @@ Public Class DealIdent
 
         subjAr = Split(MsgSubject, " ")
 
+        If message.SenderEmailAddress.ToLower.Equals("botuk004@ingrammicro.com") Then
+            tempResult = TrimExtended(Mid(message.Subject, InStr(1, message.Subject, "Deal : ") + 6))
+            tempResult = TrimExtended(Microsoft.VisualBasic.Strings.Left(tempResult, InStr(tempResult, " ")))
+        End If
 
+        If message.SenderEmailAddress.ToLower.Equals("reporting.td@tdsynnex.com") And MsgSubject.StartsWith("BRPE") Then
+            tempResult = Strings.Left(MsgSubject, InStr(MsgSubject, " "))
+        End If
+
+        If message.SenderEmailAddress.ToLower.Contains("@exertis.co.uk") And MsgSubject.Contains("BRPE") Then
+            tempResult = Strings.Mid(MsgSubject, InStr(MsgSubject, "BRPE"), 15)
+        End If
 
         For i = LBound(subjAr) To UBound(subjAr)
             '~~> This will give you the contents of your email

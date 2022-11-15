@@ -180,9 +180,9 @@
             If GetVendor(DealID, True) = "Dell" Then
                 .CC = .CC & "; Hannah.Frangiamore@insight.com; rajesh.pindoria@insight.com"
             ElseIf GetVendor(DealID, True) = "HPE" Then
-                .CC = .CC & "; Simon.Hill@insight.com"
+                .CC = .CC & "; Simon.Hill@insight.com;Lewis.Thomson@insight.com"
             ElseIf GetVendor(DealID, True) = "HPI" Then
-                .CC = .CC & ";mike.ward@hp.com"
+                .CC = .CC & ";karl.byron@hp.com"
             ElseIf GetVendor(DealID, True) = "Microsoft" Then
                 .CC = .CC & ";josh.smith@insight.com"
             End If

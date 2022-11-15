@@ -144,10 +144,17 @@ Public Class DealIdent
 
         subjAr = Split(MsgSubject, " ")
 
+        If message.SenderEmailAddress.Equals("botuk004@ingrammicro.com") Then
+            tempResult = Mid(message.Subject, InStr(1, message.Subject, "Deal : "))
+            tempResult = Strings.Left(tempResult, InStr(tempResult, " "))
+        End If
 
+        If message.SenderEmailAddress.Equals("reporting.td@tdsynnex.com") And MsgSubject.StartsWith("BRPE") Then
+            tempResult = Strings.Left(tempResult, InStr(tempResult, " "))
+        End If
 
         For i = LBound(subjAr) To UBound(subjAr)
-            '~~> This will give you the contents of your email
+            '~~> This will give you the contents of your subject
             '~~> on separate lines
             subjAr(i) = TrimExtended(subjAr(i))
 

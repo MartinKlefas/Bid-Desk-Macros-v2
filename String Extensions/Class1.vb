@@ -141,8 +141,8 @@ Public Module StringExtensions
             LegalFileName = Replace(LegalFileName, Mid$(strIllegals, i, 1), "")
         Next i
 
-        If Len(LegalFileName) > 259 Then
-            LegalFileName = Left(LegalFileName, 259)
+        If Len(LegalFileName) > 159 Then
+            LegalFileName = Left(LegalFileName, 159)
         End If
 
     End Function

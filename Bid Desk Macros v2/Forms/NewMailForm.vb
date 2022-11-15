@@ -165,6 +165,12 @@ startOver:
         Dim tSubj As String = msg.Subject.ReplaceSpaces().TrimExtended
         If msg.SenderEmailAddress.Equals("smart.quotes@techdata.com", searchType) And tSubj.StartsWith("QUOTE Deal", searchType) Then
             Return True
+        ElseIf msg.SenderEmailAddress.ToLower.Contains("@exertis.co.uk") And tsubj.Contains("BRPE") Then
+            Return True
+        ElseIf msg.SenderEmailAddress.Equals("Reporting.TD@tdsynnex.com") And tSubj.StartsWith("BRPE", searchType) Then
+            Return True
+        ElseIf msg.SenderEmailAddress.Equals("botuk004@ingrammicro.com") Then
+            Return True
         ElseIf tSubj.StartsWith("TD Quote") And tSubj.Contains("submitted by Reseller INSIGHT DIRECT (UK) LTD") Then
 
             Return True
