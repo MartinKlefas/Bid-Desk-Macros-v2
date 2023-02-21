@@ -103,4 +103,8 @@ While there is no requirement for you to do so, discussing this deal with them w
 <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><span style='font-size:13px;font-family:""Verdana"",sans-serif;'>&nbsp;</span></p>
 <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:""Calibri"",sans-serif;'><strong><span style='font-family:""Verdana"",sans-serif;color:#B01C87;'>Martin Klefas-Stennett&nbsp;</span></strong><span style='font-family:""Verdana"",sans-serif;color:#1F497D;'>| &nbsp;Insight Public Sector | <strong>t.&nbsp;</strong>0844 692 8681</span><span style='font-family:""Verdana"",sans-serif;color:#8D0C64;'>&nbsp;</span></p>"
 
+    Public BlockedSenders As New List(Of String) From {"Chetna Dhillon", "Salvin Dass", "Dhillon, Chetna", "Dass, Salvin"}
+
+    Public Const BlockedReply As String = "Thank you for your email, I am unfortunately now only reachable via ticket. Your email has been deleted and will not be actioned."
+
 End Module

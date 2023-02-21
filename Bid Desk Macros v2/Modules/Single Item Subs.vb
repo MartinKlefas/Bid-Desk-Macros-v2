@@ -139,7 +139,7 @@
                     Catch
                         .To = TargetFolder
                     End Try
-                    .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com; rajesh.pindoria@insight.com"
+                    .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com"
 
                     Try
                         .Send()
@@ -157,7 +157,7 @@
                     Catch
                         .To = TargetFolder
                     End Try
-                    .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com; rajesh.pindoria@insight.com"
+                    .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com; "
                     Try
                         .Send()
                     Catch
@@ -178,7 +178,7 @@
 
             .CC = GetCCbyDeal(DealID)
             If GetVendor(DealID, True) = "Dell" Then
-                .CC = .CC & "; Hannah.Frangiamore@insight.com; rajesh.pindoria@insight.com"
+                .CC = .CC & "; Hannah.Frangiamore@insight.com"
             ElseIf GetVendor(DealID, True) = "HPE" Then
                 .CC = .CC & "; Simon.Hill@insight.com;Lewis.Thomson@insight.com"
             ElseIf GetVendor(DealID, True) = "HPI" Then

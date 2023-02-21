@@ -51,30 +51,32 @@ startOver:
                     Dim item = Globals.ThisAddIn.Application.Session.GetItemFromID(itemID)
                     If TypeName(item) = "MailItem" Then
                         msg = item
-                        Select Case FindMessageType(msg)
-                            Case "Expiry"
-                                Globals.ThisAddIn.ExpiryMessages(msg, True)
-                            Case "ExpiryQuote"
-                                Globals.ThisAddIn.ExpiryMessages(msg, False)
-                            Case "Decision"
-                                Globals.ThisAddIn.FwdDRDecision(msg, CompleteAutonomy:=True)
-                            Case "Pricing"
-                                Globals.ThisAddIn.FwdPricing(msg, CompleteAutonomy:=True)
-                            Case "Submission"
-                                Globals.ThisAddIn.MoveBasedOnDealID(False, msg, CompleteAutonomy:=True)
-                            Case "DBADD"
-                                Globals.ThisAddIn.RemoteDBAddition(msg)
-                            Case "MoreInfo"
-                                Globals.ThisAddIn.ReqMoreInfo(msg, CompleteAutonomy:=True)
-                            Case "CiscoApproved"
-                                Globals.ThisAddIn.DoCiscoDownload(msg)
-                            Case "Forward Update"
-                                Globals.ThisAddIn.FwdVendorUpdate(msg, CompleteAutonomy:=True)
-                            Case "Cisco Submitted"
-                                Globals.ThisAddIn.AddAMDetails(msg)
-                            Case "Other Submitted"
-                                Globals.ThisAddIn.OfferAMDetails(msg)
-                        End Select
+                        If Not BlockedSource(msg) Then
+                            Select Case FindMessageType(msg)
+                                Case "Expiry"
+                                    Globals.ThisAddIn.ExpiryMessages(msg, True)
+                                Case "ExpiryQuote"
+                                    Globals.ThisAddIn.ExpiryMessages(msg, False)
+                                Case "Decision"
+                                    Globals.ThisAddIn.FwdDRDecision(msg, CompleteAutonomy:=True)
+                                Case "Pricing"
+                                    Globals.ThisAddIn.FwdPricing(msg, CompleteAutonomy:=True)
+                                Case "Submission"
+                                    Globals.ThisAddIn.MoveBasedOnDealID(False, msg, CompleteAutonomy:=True)
+                                Case "DBADD"
+                                    Globals.ThisAddIn.RemoteDBAddition(msg)
+                                Case "MoreInfo"
+                                    Globals.ThisAddIn.ReqMoreInfo(msg, CompleteAutonomy:=True)
+                                Case "CiscoApproved"
+                                    Globals.ThisAddIn.DoCiscoDownload(msg)
+                                Case "Forward Update"
+                                    Globals.ThisAddIn.FwdVendorUpdate(msg, CompleteAutonomy:=True)
+                                Case "Cisco Submitted"
+                                    Globals.ThisAddIn.AddAMDetails(msg)
+                                Case "Other Submitted"
+                                    Globals.ThisAddIn.OfferAMDetails(msg)
+                            End Select
+                        End If
 
                     End If
 
@@ -380,6 +382,23 @@ startOver:
     End Sub
 
     Delegate Sub UpdateLabelCallback(ByVal [MailsRemaining] As Integer)
+
+    Private Function BlockedSource(ByRef thisMail As Outlook.MailItem) As Boolean
+
+        If thisMail.SenderName.ContainsAny(BlockedSenders) Then
+            Dim replymail As Outlook.MailItem
+            replymail = thisMail.Reply
+            replymail.Body = BlockedReply
+
+            replymail.Send()
+            thisMail.Delete()
+            Return True
+        End If
+
+        Return False
+
+
+    End Function
 
 
 End Class

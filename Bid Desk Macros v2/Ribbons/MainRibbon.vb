@@ -301,7 +301,7 @@ Public Class MainRibbon
     End Sub
 
     Private Sub Button3_Click_4(sender As Object, e As RibbonControlEventArgs) Handles Button3.Click
-        MsgBox("Time delayed message v2.0 fully implemented")
+        MsgBox("Now with blocking code for nuicance mailers")
     End Sub
 
     Private Sub BtnBack_Click(sender As Object, e As RibbonControlEventArgs) Handles btnBack.Click
