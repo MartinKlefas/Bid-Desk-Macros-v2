@@ -1,6 +1,6 @@
 # Bid Desk Macros
 
-This is a set of tools intended to automate large parts of my work. While not widely useful some of the techniques and workarounds that I've cobbled together may be useuful to other people.
+This is a set of tools intended to automate large parts of my work. While not widely useful some of the techniques and workarounds that I've cobbled together may be useful to other people.
 
 The tools are essentially a suite of actions that read the clipboard and inbound emails to scrape data from each. In so doing they create and maintain records of my work, and allow the tool to forward incoming emails around the business as needed.
 
