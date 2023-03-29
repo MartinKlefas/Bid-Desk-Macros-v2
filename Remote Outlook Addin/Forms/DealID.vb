@@ -159,9 +159,11 @@ Public Class DealIdent
             subjAr(i) = TrimExtended(subjAr(i))
 
             If Len(subjAr(i)) > 4 Then
-                If subjAr(i).StartsWith("P00", ThisAddIn.searchType) Or
-                    subjAr(i).StartsWith("E00", ThisAddIn.searchType) Or
-                    subjAr(i).StartsWith("NQ", ThisAddIn.searchType) Then
+                If subjAr(i).StartsWith("P00", ThisAddIn.SearchType) Or
+                    subjAr(i).StartsWith("E00", ThisAddIn.SearchType) Or
+                    subjAr(i).StartsWith("NQ", ThisAddIn.SearchType) Or
+                     subjAr(i).StartsWith("P2", ThisAddIn.SearchType) Then
+
                     If Mid(LCase(subjAr(i)), Len(subjAr(i)) - 2, 2) = "-v" Or Mid(LCase(subjAr(i)), Len(subjAr(i)) - 2, 2) = "-0" Then subjAr(i) = Strings.Left(subjAr(i), Len(subjAr(i)) - 3)
 
 

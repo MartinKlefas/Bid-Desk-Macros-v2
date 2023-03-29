@@ -18,11 +18,11 @@ Module HP_Quote_Reader
 
                 For Each fragment As String In quoteArry
 
-                    If fragment.ToLower.Contains("p0") Or fragment.ToLower.Contains("e0") Or fragment.ToLower.Contains("nq0") Then
+                    If fragment.ToLower.Contains("p0") Or fragment.ToLower.Contains("e0") Or fragment.ToLower.Contains("nq0") Or fragment.ToLower.Contains("p2") Then
                         Dim subfragments As String() = Split(fragment, ",")
                         For Each sfrag In subfragments
                             sfrag = Replace(sfrag, Chr(34), "")
-                            If sfrag <> "" AndAlso (sfrag.ToLower.StartsWith("p0") Or sfrag.ToLower.StartsWith("e0") Or sfrag.ToLower.StartsWith("nq0")) Then
+                            If sfrag <> "" AndAlso (sfrag.ToLower.StartsWith("p0") Or sfrag.ToLower.StartsWith("e0") Or sfrag.ToLower.StartsWith("nq0")) Or fragment.ToLower.Contains("p2") Then
                                 Dim OPG As String = CurrentGuess
 
                                 Globals.ThisAddIn.AddOPG(sfrag, OPG)

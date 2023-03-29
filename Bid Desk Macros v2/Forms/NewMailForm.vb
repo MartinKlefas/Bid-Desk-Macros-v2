@@ -385,15 +385,15 @@ startOver:
 
     Private Function BlockedSource(ByRef thisMail As Outlook.MailItem) As Boolean
 
-        If thisMail.SenderName.ContainsAny(BlockedSenders) Then
-            Dim replymail As Outlook.MailItem
-            replymail = thisMail.Reply
-            replymail.Body = BlockedReply
+        'If thisMail.SenderName.ContainsAny(BlockedSenders) Then
+        '    Dim replymail As Outlook.MailItem
+        '    replymail = thisMail.Reply
+        '    replymail.Body = BlockedReply
 
-            replymail.Send()
-            thisMail.Delete()
-            Return True
-        End If
+        '    replymail.Send()
+        '    thisMail.Delete()
+        '    Return True
+        'End If
 
         Return False
 

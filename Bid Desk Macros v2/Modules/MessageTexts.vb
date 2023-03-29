@@ -1,7 +1,7 @@
 ﻿Module MessageTexts
     Public Const DRExpire As String = "<br>&nbsp; Deal Registration <strong>%dealID%</strong> for customer: <strong>%customer%</strong> will expire shortly.<br>&nbsp;  If this is a Cisco quote, please engage the new Cisco team. Otherwise, please could you Let Me know If you'd like me to renew it, or if the opportunity is dead?<br> Thanks,<br> Martin."
     Public Const drloglink As String = "<br><a href=""https://insightonlinegbr-my.sharepoint.com/:x:/g/personal/martin_klefas_insight_com/EU-6V1ALSjFKox0GCLXblPYBH8cUzFBT2MminUjs2MuGeQ?e=i4IaCp"" >Click here for an automatically updated deal status report(which you should be able to filter)</a>"
-    Public Const drDecision As String = "<br>&nbsp; Please see below/attached the vendor's decision on your deal registration.<br> Thanks,<br> Martin."
+    Public Const drDecision As String = "<br>&nbsp; Please see below the vendor's decision on your deal registration.<br> Thanks,<br> Martin."
     Public Const dellDecline As String = "<br>&nbsp; Please note that a declined Dell DR can always be appealed if you feel you have a strong reason as to why it should have been approved - please contact Edward.kirby@dell.com to make your case.<br>"
     Public Const sqFwdMessage As String = "<br>&nbsp; Please see attached pricing from distribution.<br> Thanks,<br> Martin."
     Public Const opgFwdMessage As String = "<br>&nbsp; Please see attached the OPG pricing from distribution, you can now create a UPR creation ticket, but no longer need to attach this to it.<br> Thanks,<br> Martin."
