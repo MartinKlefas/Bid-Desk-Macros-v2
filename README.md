@@ -1,4 +1,4 @@
-# Bid Desk-Macros
+# Bid Desk Macros
 
 This is a set of tools intended to automate large parts of my work. While not widely useful some of the techniques and workarounds that I've cobbled together may be useuful to other people.
 
