@@ -25,6 +25,7 @@ Partial Class ImportDeal
         Me.Label1 = New System.Windows.Forms.Label()
         Me.CustomerName = New System.Windows.Forms.TextBox()
         Me.VendorGroupBox = New System.Windows.Forms.GroupBox()
+        Me.LenovoOption = New System.Windows.Forms.RadioButton()
         Me.MSOption = New System.Windows.Forms.RadioButton()
         Me.HPEOption = New System.Windows.Forms.RadioButton()
         Me.DellOption = New System.Windows.Forms.RadioButton()
@@ -34,6 +35,7 @@ Partial Class ImportDeal
         Me.OKButton = New System.Windows.Forms.Button()
         Me.tCancelButton = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.cWestcoast = New System.Windows.Forms.CheckBox()
         Me.cTechData = New System.Windows.Forms.CheckBox()
         Me.cIngram = New System.Windows.Forms.CheckBox()
@@ -66,6 +68,7 @@ Partial Class ImportDeal
         '
         'VendorGroupBox
         '
+        Me.VendorGroupBox.Controls.Add(Me.LenovoOption)
         Me.VendorGroupBox.Controls.Add(Me.MSOption)
         Me.VendorGroupBox.Controls.Add(Me.HPEOption)
         Me.VendorGroupBox.Controls.Add(Me.DellOption)
@@ -76,6 +79,16 @@ Partial Class ImportDeal
         Me.VendorGroupBox.TabIndex = 2
         Me.VendorGroupBox.TabStop = False
         Me.VendorGroupBox.Text = "Vendor"
+        '
+        'LenovoOption
+        '
+        Me.LenovoOption.AutoSize = True
+        Me.LenovoOption.Location = New System.Drawing.Point(118, 42)
+        Me.LenovoOption.Name = "LenovoOption"
+        Me.LenovoOption.Size = New System.Drawing.Size(61, 17)
+        Me.LenovoOption.TabIndex = 4
+        Me.LenovoOption.Text = "Lenovo"
+        Me.LenovoOption.UseVisualStyleBackColor = True
         '
         'MSOption
         '
@@ -155,6 +168,7 @@ Partial Class ImportDeal
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.CheckBox1)
         Me.GroupBox2.Controls.Add(Me.cWestcoast)
         Me.GroupBox2.Controls.Add(Me.cTechData)
         Me.GroupBox2.Controls.Add(Me.cIngram)
@@ -164,6 +178,16 @@ Partial Class ImportDeal
         Me.GroupBox2.TabIndex = 9
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Distribution Partners"
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(154, 37)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(57, 17)
+        Me.CheckBox1.TabIndex = 3
+        Me.CheckBox1.Text = "Exertis"
+        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'cWestcoast
         '
@@ -239,7 +263,7 @@ Partial Class ImportDeal
         '
         'ccList
         '
-        Me.ccList.Location = New System.Drawing.Point(11, 64)
+        Me.ccList.Location = New System.Drawing.Point(13, 64)
         Me.ccList.Name = "ccList"
         Me.ccList.Size = New System.Drawing.Size(290, 20)
         Me.ccList.TabIndex = 16
@@ -305,4 +329,6 @@ Partial Class ImportDeal
     Friend WithEvents ccList As Windows.Forms.TextBox
     Friend WithEvents Label5 As Windows.Forms.Label
     Friend WithEvents MSOption As Windows.Forms.RadioButton
+    Friend WithEvents LenovoOption As Windows.Forms.RadioButton
+    Friend WithEvents CheckBox1 As Windows.Forms.CheckBox
 End Class

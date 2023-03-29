@@ -8,23 +8,32 @@ Imports String_Extensions
 
 Module HP_Quote_Reader
     Public Function RipFromFile(tAttachment As Attachment, CurrentGuess As String) As String
-        If tAttachment.FileName.ToLower = "quote.csv" Then
+        If tAttachment.FileName.ToLower.Contains(".csv") Then
             Dim fName As String = Path.GetTempPath() & RandomString(6) & "quote.csv"
             Try
                 tAttachment.SaveAsFile(fName)
                 Dim quoteCsvString As String = File.ReadAllText(fName)
                 quoteCsvString = Replace(quoteCsvString, vbNullChar, "")
                 Dim quoteArry As String() = Split(quoteCsvString, "-")
+
                 For Each fragment As String In quoteArry
-                    If fragment.ToLower.StartsWith("p0") Or fragment.ToLower.StartsWith("e0") Or fragment.ToLower.StartsWith("nq0") Then
 
-                        Dim OPG As String = CurrentGuess
+                    If fragment.ToLower.Contains("p0") Or fragment.ToLower.Contains("e0") Or fragment.ToLower.Contains("nq0") Or fragment.ToLower.Contains("p2") Then
+                        Dim subfragments As String() = Split(fragment, ",")
+                        For Each sfrag In subfragments
+                            sfrag = Replace(sfrag, Chr(34), "")
+                            If sfrag <> "" AndAlso (sfrag.ToLower.StartsWith("p0") Or sfrag.ToLower.StartsWith("e0") Or sfrag.ToLower.StartsWith("nq0")) Or fragment.ToLower.Contains("p2") Then
+                                Dim OPG As String = CurrentGuess
 
-                        Globals.ThisAddIn.AddOPG(fragment, OPG)
+                                Globals.ThisAddIn.AddOPG(sfrag, OPG)
 
-                        CurrentGuess = fragment
+                                CurrentGuess = sfrag
 
-                        Exit For
+                                Exit For
+                            End If
+
+                        Next
+
                     End If
                 Next
                 File.Delete(fName)
@@ -58,6 +67,35 @@ Module HP_Quote_Reader
 
 
             CurrentGuess = tmpDealID
+
+        ElseIf tAttachment.FileName.ToLower.EndsWith("xls") Then
+            'the techdata "xls" files are actually html
+            Dim fName As String = Path.GetTempPath() & RandomString(6) & tAttachment.FileName.WinSafeFileName
+            Try
+                tAttachment.SaveAsFile(fName)
+            Catch
+                Debug.WriteLine("Error while saving xlsx file")
+            End Try
+            Dim tmpDealID As String = ""
+
+            Try
+                Dim AllHTMl As String = My.Computer.FileSystem.ReadAllText(fName)
+                tmpDealID = Mid(AllHTMl, AllHTMl.IndexOf("NQ0"), 11)
+                tmpDealID = TrimExtended(tmpDealID)
+            Catch
+                Debug.WriteLine("Error processing xls file")
+            End Try
+
+            Globals.ThisAddIn.AddOPG(tmpDealID, CurrentGuess)
+
+            Try
+                File.Delete(fName)
+            Catch
+                Debug.WriteLine("Error deleting xls file")
+            End Try
+
+
+            CurrentGuess = tmpDealID
         End If
 
         Return CurrentGuess
@@ -73,13 +111,13 @@ Module HP_Quote_Reader
 
         Dim conStr As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & file & ";Extended Properties='Excel 12.0 Xml;HDR=No;'"
         ' HDR=Yes skips first row which contains headers for the columns
-        Using conn As System.Data.OleDb.OleDbConnection = New System.Data.OleDb.OleDbConnection(conStr)
+        Using conn As New OleDbConnection(conStr)
 
             ' Notice: I used a fully qualified name 
             ' because Microsoft.Office.Interop.Excel contains also a class named OleDbConnection
 
             conn.Open()
-            Using cmd As OleDbCommand = New OleDbCommand("select * from [" & sheet & "$]", conn)
+            Using cmd As New OleDbCommand("select * from [" & sheet & "$]", conn)
 
                 Using dataReader As OleDbDataReader = cmd.ExecuteReader()
                     Dim tempStr As String = ""

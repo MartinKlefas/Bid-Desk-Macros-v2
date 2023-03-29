@@ -30,7 +30,10 @@ Public Class AddDeal
     Private Sub UserForm_Activate() Handles Me.Activated
 
 
-        Dim strClip As String
+        Dim strClip As String, requestorName As String = ""
+
+        Dim ReplyMail As MailItem = mail.ReplyAll
+
 
         If Me.DealID.Text = "" And Me.CustomerName.Text = "" Then ' Only read clipboard if nothing has been typed into the boxes already
             strClip = My.Computer.Clipboard.GetText
@@ -44,12 +47,75 @@ Public Class AddDeal
                     Call CheckOnly(HPEOption)
                 Case "Dell"
                     Call CheckOnly(DellOption)
-
+                Case "Microsoft"
+                    Call CheckOnly(btnMS)
+                Case "Lenovo"
+                    Call CheckOnly(LenovoOption)
 
             End Select
             If Me.mail.Subject.ToLower.StartsWith("[nextdesk]") Then
                 Me.txtNDTNum.Text = Me.mail.Subject.Substring(InStr(mail.Subject, "#"), 7)
             End If
+
+
+            Dim toNames, rname As String()
+
+            UpdateTitle("Preparing Details...")
+
+            toNames = Split(ReplyMail.To, ";") ' Split out each recipient
+
+            If toNames(0).ToLower = "ius_dealregadmin@insight.com" Then
+                Try
+                    Dim emailtables As String() = mail.Body.Split(vbCrLf)
+
+                    For i = 0 To emailtables.Length
+                        If emailtables(i).ToLower.Contains("createdby") Then
+                            Dim rNameTable As String() = emailtables(i).Split(vbTab)
+
+                            Dim OutlookAlias As String = rNameTable(1)
+
+                            Dim recipients As Outlook.Recipients = mail.Recipients
+
+                            For j = 1 To recipients.Count
+                                recipients.Remove(1)
+                            Next
+
+                            recipients.Add(OutlookAlias)
+                            recipients.ResolveAll()
+
+
+                            requestorName = recipients(1).AddressEntry.Name
+
+                            If InStr(requestorName, ",") > 1 Then ' Some email names are "fName, lName" others aren't
+
+                                rname = Split(requestorName, ",")
+                                requestorName = TrimExtended(rname(1)) & " " & TrimExtended(rname(0))
+                            Else
+                                requestorName = TrimExtended(requestorName)
+                            End If
+
+                            Exit For
+                        End If
+
+                    Next
+
+                Catch
+                    requestorName = toNames(0)
+                End Try
+
+
+            Else
+                If InStr(toNames(0), ",") > 1 Then ' Some email names are "fName, lName" others aren't
+
+                    rName = Split(toNames(0), ",")
+                    requestorName = TrimExtended(rName(1)) & " " & TrimExtended(rName(0))
+                Else
+                    requestorName = TrimExtended(toNames(0))
+                End If
+            End If
+
+            Me.txtAMName.Text = requestorName
+
         End If
 
     End Sub
@@ -84,25 +150,19 @@ Public Class AddDeal
         Dim ReplyMail As MailItem = Mail.ReplyAll
         Dim tCreateDealRecord As Dictionary(Of String, String)
 
+        Dim toNames As String() = Split(ReplyMail.To, ";")
 
-        Dim toNames As String(), rName() As String
+        requestorName = txtAMName.Text
 
-        UpdateTitle("Preparing Details...")
-
-        toNames = Split(ReplyMail.To, ";") ' Split out each recipient
-
-        If InStr(toNames(0), ",") > 1 Then ' Some email names are "fName, lName" others aren't
-
-            rName = Split(toNames(0), ",")
-            requestorName = TrimExtended(rName(1)) & " " & TrimExtended(rName(0))
-        Else
-            requestorName = TrimExtended(toNames(0))
-        End If
 
         If Me.DellOption.Checked Then
             Vendor = "Dell"
         ElseIf Me.HPIOption.Checked Then
             Vendor = "HPI"
+        ElseIf Me.LenovoOption.Checked Then
+            Vendor = "Lenovo"
+        ElseIf Me.btnMS.Checked Then
+            Vendor = "Microsoft"
         Else
             Vendor = "HPE"
         End If
@@ -146,7 +206,7 @@ Public Class AddDeal
             .Subject = .Subject & " - " & tCreateDealRecord("DealID")
             .Display() ' or .Send
         End With
-        'Globals.ThisAddIn.MoveToFolder(TrimExtended(tCreateDealRecord("AM")), mail)
+
 
         Dim remoteAddMail As Outlook.MailItem
 
@@ -176,7 +236,7 @@ Public Class AddDeal
 
         WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", NoNDTMessage)
 
-        WriteSubmitMessage = WriteSubmitMessage ' & drloglink
+        WriteSubmitMessage = WriteSubmitMessage & drloglink
     End Function
 
 
@@ -193,7 +253,7 @@ Public Class AddDeal
         cTechData.Enabled = False
         cWestcoast.Enabled = False
         DealID.Enabled = False
-
+        txtNDTNum.Enabled = False
 
     End Sub
 

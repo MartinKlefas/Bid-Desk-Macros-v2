@@ -28,60 +28,60 @@
                 End Try
             End With
 
-            If CreateTicket Then
-                Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
-                Dim TicketNum As Integer
-                Try
-                    Dim DealData As Dictionary(Of String, String) = MakeTicketData(DealID)
+            'If CreateTicket Then
+            '    Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+            '    Dim TicketNum As Integer
+            '    Try
+            '        Dim DealData As Dictionary(Of String, String) = MakeTicketData(DealID)
 
-                    If NoOpenTickets(DealID) Then ' check if there's already open tickets for this deal
-                        TicketNum = ndt.CreateTicket(1, DealData)
+            '        If NoOpenTickets(DealID) Then ' check if there's already open tickets for this deal
+            '            TicketNum = ndt.CreateTicket(1, DealData)
 
-                        If TicketNum = 0 Then
-                            ShoutError("Adding the new ticketID failed", SuppressWarnings)
-                            success = False
-                        Else
-                            ndt.Move("Public Sector")
-                            'update notify to include everyone.
-                            Dim aliases As String = DealData("Sales Alias")
-                            For Each ccPerson In Split(CCList, ";")
-                                If ccPerson <> "" Then
-                                    Try
-                                        aliases &= ";" & MyResolveName(ccPerson).Alias
-                                    Catch
-                                        ShoutError("Could not find alias for: " & ccPerson, SuppressWarnings)
-                                    End Try
-                                End If
-                            Next
+            '            If TicketNum = 0 Then
+            '                ShoutError("Adding the new ticketID failed", SuppressWarnings)
+            '                success = False
+            '            Else
+            '                ndt.Move("Public Sector - Special bid")
+            '                'update notify to include everyone.
+            '                Dim aliases As String = DealData("Sales Alias")
+            '                For Each ccPerson In Split(CCList, ";")
+            '                    If ccPerson <> "" Then
+            '                        Try
+            '                            aliases &= ";" & MyResolveName(ccPerson).Alias
+            '                        Catch
+            '                            ShoutError("Could not find alias for: " & ccPerson, SuppressWarnings)
+            '                        End Try
+            '                    End If
+            '                Next
 
-                            Try
-                                'attach the notification with an explanation
-                                ndt.AttachMail(msg, "This is the vendor's original expiration notification")
-                            Catch
-                            End Try
+            '                Try
+            '                    'attach the notification with an explanation
+            '                    ndt.AttachMail(msg, "This is the vendor's original expiration notification")
+            '                Catch
+            '                End Try
 
-                            'Ask the CC List what to do.
-                            ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
-                        End If
+            '                'Ask the CC List what to do.
+            '                ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
+            '            End If
 
-                        AddNewTicketToDeal(DealID, TicketNum)
-                    Else
-                        ndt.TicketNumber = GetOpenTicket(DealID)
-                        Try
-                            ndt.AttachMail(msg, "This is the vendor's original expiration notification")
-                        Catch
-                        End Try
+            '            AddNewTicketToDeal(DealID, TicketNum)
+            '        Else
+            '            ndt.TicketNumber = GetOpenTicket(DealID)
+            '            Try
+            '                ndt.AttachMail(msg, "This is the vendor's original expiration notification")
+            '            Catch
+            '            End Try
 
-                        'Ask the CC List what to do.
-                        ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
+            '            'Ask the CC List what to do.
+            '            ndt.UpdateNextDesk("Please let me know if you would like to renew " & DealID & " or if it can be marked as Dead/Won in the portal.")
 
-                    End If
+            '        End If
 
 
-                Catch
-                    Return False
-                End Try
-            End If
+            '    Catch
+            '        Return False
+            '    End Try
+            'End If
 
 
             UpdateStatus(DealID, "Expiration notice with AM")
@@ -118,12 +118,56 @@
 
         msgFwdOne = msg.Forward
 
+
+
         fNames = Split(TargetFolder, " ")
         myGreeting = WriteGreeting(Now(), CStr(fNames(0)))
+        If GetVendor(DealID, True) = "Dell" Then
+            If msg.Subject.Contains("declined") Then
+                messageBodyAddition &= dellDecline
+            Else
+                'new place for delayed update requests
+                Dim delayedUpdateRequestOne, delayedUpdateRequestTwo As Outlook.MailItem
+                delayedUpdateRequestOne = msgFwdOne.Copy
+                delayedUpdateRequestTwo = msgFwdOne.Copy
+                With delayedUpdateRequestOne
+                    .HTMLBody = WriteGreeting(Now(), "All") & Globals.ThisAddIn.WriteDelayedUpdateMessage("25", DealID) & .HTMLBody
+                    .Subject = .Subject & " - " & DealID
+                    .DeferredDeliveryTime = Now.AddDays(25)
+                    Try
+                        .To = MyResolveName(TargetFolder).PrimarySmtpAddress
+                    Catch
+                        .To = TargetFolder
+                    End Try
+                    .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com"
 
-        If msg.Subject.Contains("declined") Then
-            messageBodyAddition &= dellDecline
+                    Try
+                        .Send()
+                    Catch
+                        .Display()
+                    End Try
+
+                End With
+                With delayedUpdateRequestTwo
+                    .HTMLBody = WriteGreeting(Now(), "All") & Globals.ThisAddIn.WriteDelayedUpdateMessage("55", DealID) & .HTMLBody
+                    .Subject = .Subject & " - " & DealID
+                    .DeferredDeliveryTime = Now.AddDays(55)
+                    Try
+                        .To = MyResolveName(TargetFolder).PrimarySmtpAddress
+                    Catch
+                        .To = TargetFolder
+                    End Try
+                    .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com; "
+                    Try
+                        .Send()
+                    Catch
+                        .Display()
+                    End Try
+                End With
+
+            End If
         End If
+
 
         With msgFwdOne
             Try
@@ -134,9 +178,13 @@
 
             .CC = GetCCbyDeal(DealID)
             If GetVendor(DealID, True) = "Dell" Then
-                .CC = .CC & "; mike.parker@insight.com; rajesh.pindoria@insight.com"
+                .CC = .CC & "; Hannah.Frangiamore@insight.com"
             ElseIf GetVendor(DealID, True) = "HPE" Then
-                .CC = .CC & "; Simon.Hill@insight.com; Hussam.Haq@insight.com"
+                .CC = .CC & "; Simon.Hill@insight.com;Lewis.Thomson@insight.com"
+            ElseIf GetVendor(DealID, True) = "HPI" Then
+                .CC = .CC & ";karl.byron@hp.com"
+            ElseIf GetVendor(DealID, True) = "Microsoft" Then
+                .CC = .CC & ";josh.smith@insight.com"
             End If
             .HTMLBody = myGreeting & messageBodyAddition & "<br>" & GetFact(DealID) & MainRibbon.WriteHolidayMessage() & .HTMLBody
             Try
@@ -146,40 +194,40 @@
             End Try
         End With
 
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+        'Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
-        Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
-        Try
-            ndt.TicketNumber = CInt(tmpTicketNumber)
-        Catch
-            ndt.TicketNumber = 0
-        End Try
+        'Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
+        'Try
+        '    ndt.TicketNumber = CInt(tmpTicketNumber)
+        'Catch
+        '    ndt.TicketNumber = 0
+        'End Try
 
 
-        Dim browser As OpenQA.Selenium.Chrome.ChromeDriver = ndt.GiveMeChrome(False)
+        'Dim browser As OpenQA.Selenium.Chrome.ChromeDriver = ndt.GiveMeChrome(False)
 
-        If ndt.TicketNumber <> 0 AndAlso Not ndt.IsClosed(browser) Then
+        'If ndt.TicketNumber <> 0 AndAlso Not ndt.IsClosed(browser) Then
 
-            If messageBodyAddition <> drDecision Then
-                If Not AddQuoteReceived(DealID) Then ShoutError("Error adding to the number of quotes received", SuppressWarnings)
-            End If
-            Try
-                ndt.AttachMail(msg, messageBodyAddition, browser)
-            Catch
-            End Try
+        '    If messageBodyAddition <> drDecision Then
+        '        If Not AddQuoteReceived(DealID) Then ShoutError("Error adding to the number of quotes received", SuppressWarnings)
+        '    End If
+        '    Try
+        '        ndt.AttachMail(msg, messageBodyAddition, browser)
+        '    Catch
+        '    End Try
 
-            If CompleteAutonomy Then
-                If messageBodyAddition = drDecision OrElse QuotesReceived(DealID) > 2 Then
+        '    If CompleteAutonomy Then
+        '        If (messageBodyAddition = drDecision And GetVendor(DealID) <> "Lenovo") OrElse QuotesReceived(DealID) > 2 Then
 
-                    ndt.CloseTicket(browser:=browser)
-                End If
-            ElseIf Not CompleteAutonomy AndAlso MsgBox("Would you like to close the ticket", vbYesNo) = vbYes Then
-                ndt.CloseTicket(browser:=browser)
-            End If
+        '            ndt.CloseTicket(browser:=browser)
+        '        End If
+        '    ElseIf Not CompleteAutonomy AndAlso MsgBox("Would you like to close the ticket", vbYesNo) = vbYes Then
+        '        ndt.CloseTicket(browser:=browser)
+        '    End If
 
-        End If
+        'End If
 
-        browser.Quit()
+        'browser.Quit()
 
         Return MoveToFolder(TargetFolder, msg, SuppressWarnings)
     End Function
@@ -328,21 +376,21 @@
 
         End If
 
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+        'Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
-        Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
-        Try
-            ndt.TicketNumber = CInt(tmpTicketNumber)
-        Catch
-            ndt.TicketNumber = 0
-        End Try
+        'Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
+        'Try
+        '    ndt.TicketNumber = CInt(tmpTicketNumber)
+        'Catch
+        '    ndt.TicketNumber = 0
+        'End Try
 
 
-        Try
-            ndt.AttachMail(msg, "Request to extend the DR")
-            ndt.CloseTicket("As requested, an extension has been requested on the vendor portal.")
-        Catch
-        End Try
+        'Try
+        '    ndt.AttachMail(msg, "Request to extend the DR")
+        '    ndt.CloseTicket("As requested, an extension has been requested on the vendor portal.")
+        'Catch
+        'End Try
 
         myGreeting = WriteGreeting(Now(), AM.Split(" ")(0))
 
@@ -355,18 +403,18 @@
         MoveToFolder(AM, msg)
     End Sub
     Sub DoOneAttach(msg As Outlook.MailItem, DealID As String, Optional LogText As String = "")
-        Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
+        'Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket(False, True, ThisAddIn.timingFile)
 
-        Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
-        Try
-            ndt.TicketNumber = CInt(tmpTicketNumber)
-        Catch
-            ndt.TicketNumber = 0
-        End Try
+        'Dim tmpTicketNumber As String = GetNDTbyDeal(DealID)
+        'Try
+        '    ndt.TicketNumber = CInt(tmpTicketNumber)
+        'Catch
+        '    ndt.TicketNumber = 0
+        'End Try
 
-        Try
-            ndt.AttachMail(msg, LogText)
-        Catch
-        End Try
+        'Try
+        '    ndt.AttachMail(msg, LogText)
+        'Catch
+        'End Try
     End Sub
 End Class

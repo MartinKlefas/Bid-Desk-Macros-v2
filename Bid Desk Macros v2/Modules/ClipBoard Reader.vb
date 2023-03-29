@@ -49,6 +49,13 @@ Module ClipBoard_Reader
         End If
 
 
+        'Lenovo Bid Request
+
+        If InStr(1, ClipBoardText, "BBR-") > 0 Then
+            FindDealID = Mid(ClipBoardText, InStr(1, ClipBoardText, "BBR-"), 13)
+        End If
+
+
         FindDealID = TrimExtended(FindDealID)
     End Function
 
@@ -69,6 +76,11 @@ Module ClipBoard_Reader
 
         If InStr(1, ClipBoardText, "CAS-") > 0 Then
             FindVendor = "Microsoft"
+        End If
+
+        If InStr(1, ClipBoardText, "BBR-") > 0 Then
+            FindVendor = "Lenovo"
+
         End If
     End Function
 
@@ -112,6 +124,12 @@ Module ClipBoard_Reader
             Catch
                 FindCustomer = ""
             End Try
+        End If
+
+
+
+        If InStr(1, ClipboardText, "BBR-") > 0 Then
+            FindCustomer = Split(Mid(ClipboardText, InStr(1, ClipboardText, "End Customer Name") + 18), vbCrLf)(0)
         End If
 
         FindCustomer = TrimExtended(FindCustomer)

@@ -8,9 +8,10 @@ findsearchbox:
         Dim elements = Browser.FindElementsByClassName("commonGlobalSearch")
         Dim kdfid As String
 
+        Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
 
         If elements.Count < 1 Then
-            Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
+            Threading.Thread.Sleep(TimeSpan.FromSeconds(3))
             GoTo findsearchbox
         End If
 
@@ -46,19 +47,24 @@ findsearchbox:
             End Try
         Next
         Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
+
+        Dim tries As Integer = 0
+
 gotodealpage:
         Try
             Browser.FindElementByLinkText(SearchFor).Click()
+
         Catch
+            tries += 1
             Threading.Thread.Sleep(TimeSpan.FromSeconds(2))
-            GoTo gotodealpage
+            If tries < 5 Then GoTo gotodealpage
         End Try
 
     End Sub
     Private Sub DL_pageTwo(Browser As ChromeDriver)
 
 findExportLink:
-        Threading.Thread.Sleep(TimeSpan.FromSeconds(1))
+        Threading.Thread.Sleep(TimeSpan.FromSeconds(10))
 
 
         Dim elements = Browser.FindElementsByPartialLinkText("Export")

@@ -42,7 +42,7 @@ Partial Class NewMailForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(304, 39)
+        Me.ClientSize = New System.Drawing.Size(395, 39)
         Me.Controls.Add(Me.Label1)
         Me.Name = "NewMailForm"
         Me.Text = "Emails Received"

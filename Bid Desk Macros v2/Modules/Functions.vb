@@ -226,9 +226,14 @@ Partial Class ThisAddIn
         oNS = Application.GetNamespace("MAPI")
 
         If lookupName.ToLower = "not defined" Or lookupName = "TP2 Enquiries" Then newLookupName = "Klefas, Martin"
+        If lookupName.ToLower = "amy stonestreet" Then newLookupName = "Kim Woodward"
         If lookupName.ToLower = "andy walsh" Then newLookupName = "Walsh, Andrew"
         If lookupName.ToLower = "nhs solutions" Then newLookupName = "NHSSolutions@Insight.com"
         If lookupName.ToLower = "insight police team" Then newLookupName = "ipt@insight.com"
+        If lookupName.ToLower = "josh smith" Then newLookupName = "josh.smith@insight.com"
+        If lookupName.ToLower = "mike parker" Then newLookupName = "Hannah.Frangiamore@insight.com"
+        If lookupName.ToLower = "csingh" Then newLookupName = "Carl.Singh@insight.com"
+        If lookupName.ToLower = "richard jones" Then newLookupName = "richard.jones@insight.com"
 
         If noChangeNamesStr.ToLower.Contains(lookupName.ToLower) Then newLookupName = lookupName
 
@@ -259,7 +264,7 @@ Partial Class ThisAddIn
             WriteSubmitMessage = Replace(WriteSubmitMessage, "%NDT%", Replace(NDTUseMessage, "%NDT%", DealDetails("NDT")))
         End If
 
-        WriteSubmitMessage = WriteSubmitMessage ' & drloglink
+        WriteSubmitMessage &= drloglink
     End Function
 
     Public Function WriteTicketMessage(ByVal DealDetails As Dictionary(Of String, String)) As String
@@ -269,7 +274,7 @@ Partial Class ThisAddIn
 
 
 
-        WriteTicketMessage = WriteTicketMessage ' & drloglink
+        WriteTicketMessage &= drloglink
     End Function
 
     Public Function WriteReqMessage(DealID As String, AttBelow As String) As String
@@ -286,21 +291,21 @@ Partial Class ThisAddIn
 
     End Function
 
-    Public Function WriteFwdMessage(DealID As String, AttachedOrBelow As String) As String
 
-        WriteFwdMessage = Replace(MoreInfoRequested, "%DEALID%", DealID)
-        WriteFwdMessage = Replace(WriteFwdMessage, "%BELOW%", AttachedOrBelow)
 
-        WriteFwdMessage = Replace(WriteFwdMessage, "%NDT%", GetNDTbyDeal(DealID))
+    Public Function WriteInfoMessage(DealID As String, AttachedOrBelow As String) As String
 
-        WriteFwdMessage = Replace(WriteFwdMessage, "%VENDOR%", GetVendor(DealID))
+        WriteInfoMessage = Replace(VendorInfoUpdate, "%DEALID%", DealID)
+        WriteInfoMessage = Replace(WriteInfoMessage, "%BELOW%", AttachedOrBelow)
+
+        WriteInfoMessage = Replace(WriteInfoMessage, "%NDT%", GetNDTbyDeal(DealID))
+
+        WriteInfoMessage = Replace(WriteInfoMessage, "%VENDOR%", GetVendor(DealID))
 
 
 
 
     End Function
-
-
     Public Function FileFromResource(resource As Byte(), resourceFileName As String) As String
 
 
@@ -316,6 +321,49 @@ Partial Class ThisAddIn
 
         Return filename
     End Function
+
+    Function WriteDelayedUpdateMessage(tDays As String, DealID As String) As String
+        Return "</p><p>" & tDays & " " & Strings.Replace(DelayedUpdateMessage, "%dealID%", DealID)
+    End Function
+
+    Function TicketNumberFromSubject(MsgSubject As String) As String
+        Dim ndt As String
+        If MsgSubject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
+            ndt = MsgSubject.Substring(InStr(MsgSubject, "#"), 7)
+        Else
+            ndt = ""
+        End If
+
+        Return ndt
+
+    End Function
+
+    Function TicketNumberFromSubject(Msg As Outlook.MailItem) As String
+        Dim ndt As String
+        If Msg.Subject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
+            ndt = Msg.Subject.Substring(InStr(Msg.Subject, "#"), 7)
+        Else
+            ndt = ""
+        End If
+
+        Return ndt
+
+    End Function
+
+    Sub UpdateTicket(DealID As String, Message As String)
+        Dim ticketNum As String = GetNDTbyDeal(DealID)
+        If ticketNum <> "" Then
+            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
+            .TicketNumber = ticketNum,
+            .VisibleBrowser = False,
+            .TimeOperations = True,
+            .TimingOutputFile = ThisAddIn.timingFile
+        }
+
+
+            ndt.UpdateNextDesk(Message)
+        End If
+    End Sub
 End Class
 
 

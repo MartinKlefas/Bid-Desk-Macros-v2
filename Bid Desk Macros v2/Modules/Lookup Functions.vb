@@ -67,12 +67,30 @@ Partial Class ThisAddIn
         Try
             Dim tmp As String = sqlInterface.SelectData("CC", "DealID = '" & dealID & "'")
             If TrimExtended(tmp) = "0" Then tmp = ""
+            tmp = RemoveJunkEmailAddresses(tmp)
             Return tmp
         Catch
             ShoutError("there was an error getting the CC details", SuppressWarnings)
 
             Return ""
         End Try
+    End Function
+
+    Private Function RemoveJunkEmailAddresses(aString As String) As String
+        aString = aString.ToLower
+        aString = Replace(aString, "dealreg", "")
+        aString = Replace(aString, "Ward, Mike(CW", "")
+        aString = Replace(aString, "test", "")
+        aString = Replace(aString, "csingh", "")
+        aString = Replace(aString, "; Insight;", ";")
+
+        'handles the edge case of the cc list ending in "Insight(@dell.com)" without also matching "insight cap team" or whatever
+        If Right(TrimExtended(aString), 6) = "Insight" Then
+            aString = Replace(aString, "; Insight", "")
+        End If
+
+        Return aString
+
     End Function
 
     Public Function NoOpenTickets(DealID As String) As Boolean
@@ -117,7 +135,7 @@ Partial Class ThisAddIn
         Try
             Dim allData As String = sqlInterface.SelectData("NDT", "DealID = '" & DealID & "'")
 
-            If AllTickets Or Not allData.Contains(";") Then
+        If AllTickets Or Not allData.Contains(";") Then
                 Return allData.TrimExtended
             Else
                 Return Split(allData, ";").Last.TrimExtended
@@ -223,10 +241,12 @@ Partial Class ThisAddIn
             Dim request As WebRequest = WebRequest.Create(url)
 
             'create StreamReader to hold the returned request
-            Dim stream As New StreamReader(request.GetResponse().GetResponseStream())
+            Using stream As New StreamReader(request.GetResponse().GetResponseStream())
 
-            Dim text As String = stream.ReadToEnd()
-            Return text
+                Dim text As String = stream.ReadToEnd()
+                Return text
+            End Using
+
         Catch ex As Exception
             'put your error handling here
             Return String.Empty

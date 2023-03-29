@@ -28,6 +28,7 @@ Public Class ImportDeal
         If HPEOption.Checked Then Vendor = "HPE"
         If DellOption.Checked Then Vendor = "Dell"
         If MSOption.Checked Then Vendor = "Microsoft"
+        If LenovoOption.Checked Then Vendor = "Lenovo"
 
         Dim AmExUser = Globals.ThisAddIn.MyResolveName(AMMail.Text)
 
@@ -107,6 +108,8 @@ Public Class ImportDeal
                 Call CheckOnly(DellOption)
             Case "Microsoft"
                 Call CheckOnly(MSOption)
+            Case "Lenovo"
+                Call CheckOnly(LenovoOption)
 
         End Select
     End Sub

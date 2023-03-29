@@ -25,6 +25,8 @@ Partial Class AddDeal
         Me.Label1 = New System.Windows.Forms.Label()
         Me.CustomerName = New System.Windows.Forms.TextBox()
         Me.VendorGroupBox = New System.Windows.Forms.GroupBox()
+        Me.LenovoOption = New System.Windows.Forms.RadioButton()
+        Me.btnMS = New System.Windows.Forms.RadioButton()
         Me.HPEOption = New System.Windows.Forms.RadioButton()
         Me.DellOption = New System.Windows.Forms.RadioButton()
         Me.HPIOption = New System.Windows.Forms.RadioButton()
@@ -33,11 +35,11 @@ Partial Class AddDeal
         Me.OKButton = New System.Windows.Forms.Button()
         Me.tCancelButton = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkExertis = New System.Windows.Forms.CheckBox()
         Me.cWestcoast = New System.Windows.Forms.CheckBox()
         Me.cTechData = New System.Windows.Forms.CheckBox()
         Me.cIngram = New System.Windows.Forms.CheckBox()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.btnMS = New System.Windows.Forms.RadioButton()
         Me.VendorGroupBox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -60,6 +62,7 @@ Partial Class AddDeal
         '
         'VendorGroupBox
         '
+        Me.VendorGroupBox.Controls.Add(Me.LenovoOption)
         Me.VendorGroupBox.Controls.Add(Me.btnMS)
         Me.VendorGroupBox.Controls.Add(Me.HPEOption)
         Me.VendorGroupBox.Controls.Add(Me.DellOption)
@@ -70,6 +73,28 @@ Partial Class AddDeal
         Me.VendorGroupBox.TabIndex = 2
         Me.VendorGroupBox.TabStop = False
         Me.VendorGroupBox.Text = "Vendor"
+        '
+        'LenovoOption
+        '
+        Me.LenovoOption.AutoSize = True
+        Me.LenovoOption.Location = New System.Drawing.Point(25, 42)
+        Me.LenovoOption.Name = "LenovoOption"
+        Me.LenovoOption.Size = New System.Drawing.Size(61, 17)
+        Me.LenovoOption.TabIndex = 4
+        Me.LenovoOption.TabStop = True
+        Me.LenovoOption.Text = "Lenovo"
+        Me.LenovoOption.UseVisualStyleBackColor = True
+        '
+        'btnMS
+        '
+        Me.btnMS.AutoSize = True
+        Me.btnMS.Location = New System.Drawing.Point(118, 42)
+        Me.btnMS.Name = "btnMS"
+        Me.btnMS.Size = New System.Drawing.Size(96, 17)
+        Me.btnMS.TabIndex = 3
+        Me.btnMS.TabStop = True
+        Me.btnMS.Text = "Microsoft (HW)"
+        Me.btnMS.UseVisualStyleBackColor = True
         '
         'HPEOption
         '
@@ -141,6 +166,7 @@ Partial Class AddDeal
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.chkExertis)
         Me.GroupBox2.Controls.Add(Me.cWestcoast)
         Me.GroupBox2.Controls.Add(Me.cTechData)
         Me.GroupBox2.Controls.Add(Me.cIngram)
@@ -150,6 +176,16 @@ Partial Class AddDeal
         Me.GroupBox2.TabIndex = 9
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Distribution Partners"
+        '
+        'chkExertis
+        '
+        Me.chkExertis.AutoSize = True
+        Me.chkExertis.Location = New System.Drawing.Point(154, 37)
+        Me.chkExertis.Name = "chkExertis"
+        Me.chkExertis.Size = New System.Drawing.Size(57, 17)
+        Me.chkExertis.TabIndex = 3
+        Me.chkExertis.Text = "Exertis"
+        Me.chkExertis.UseVisualStyleBackColor = True
         '
         'cWestcoast
         '
@@ -184,22 +220,11 @@ Partial Class AddDeal
         'BackgroundWorker1
         '
         '
-        'btnMS
-        '
-        Me.btnMS.AutoSize = True
-        Me.btnMS.Location = New System.Drawing.Point(25, 42)
-        Me.btnMS.Name = "btnMS"
-        Me.btnMS.Size = New System.Drawing.Size(96, 17)
-        Me.btnMS.TabIndex = 3
-        Me.btnMS.TabStop = True
-        Me.btnMS.Text = "Microsoft (HW)"
-        Me.btnMS.UseVisualStyleBackColor = True
-        '
         'AddDeal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(317, 301)
+        Me.ClientSize = New System.Drawing.Size(317, 277)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.tCancelButton)
         Me.Controls.Add(Me.OKButton)
@@ -234,4 +259,6 @@ Partial Class AddDeal
     Friend WithEvents HPEOption As Windows.Forms.RadioButton
     Friend WithEvents BackgroundWorker1 As ComponentModel.BackgroundWorker
     Friend WithEvents btnMS As Windows.Forms.RadioButton
+    Friend WithEvents LenovoOption As Windows.Forms.RadioButton
+    Friend WithEvents chkExertis As Windows.Forms.CheckBox
 End Class

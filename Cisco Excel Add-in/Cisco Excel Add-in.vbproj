@@ -115,9 +115,23 @@
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
+    <Reference Include="EPPlus, Version=5.7.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.5.7.0\lib\net45\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -193,6 +207,18 @@
     <Compile Include="Forms\BrowserController.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FindCiscoAM.Designer.vb">
+      <DependentUpon>FindCiscoAM.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FindCiscoAM.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LenovoBrowserController.Designer.vb">
+      <DependentUpon>LenovoBrowserController.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LenovoBrowserController.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Modules\CreateDeal Pages.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +226,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Modules\Message Texts.vb" />
+    <Compile Include="Modules\TableMaker.vb" />
     <Compile Include="Ribbon1.Designer.vb">
       <DependentUpon>Ribbon1.vb</DependentUpon>
     </Compile>
@@ -211,6 +238,12 @@
     </Compile>
     <EmbeddedResource Include="Forms\BrowserController.resx">
       <DependentUpon>BrowserController.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FindCiscoAM.resx">
+      <DependentUpon>FindCiscoAM.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LenovoBrowserController.resx">
+      <DependentUpon>LenovoBrowserController.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ribbon1.resx">
       <DependentUpon>Ribbon1.vb</DependentUpon>
@@ -292,11 +325,11 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.78.0.3904.7000\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.78.0.3904.7000\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.91.0.4472.10100\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.91.0.4472.10100\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.78.0.3904.7000\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.78.0.3904.7000\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.91.0.4472.10100\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.91.0.4472.10100\build\Selenium.WebDriver.ChromeDriver.targets'))" />
   </Target>
 </Project>

@@ -3,7 +3,7 @@ Imports System.IO
 Imports clsNextDeskTicket
 Imports OpenQA.Selenium.Chrome
 Partial Class BrowserController
-    Private Sub DL_PageOne(Browser As ChromeDriver, SearchFor As String)
+    Friend Sub DL_PageOne(Browser As ChromeDriver, SearchFor As String)
         Dim elements = Browser.FindElementsByClassName("commonGlobalSearch")
         Dim kdfid As String
         For Each elemnt In elements

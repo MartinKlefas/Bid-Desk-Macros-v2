@@ -11,13 +11,14 @@ Public Class DealIdent
     Private MessageNumber As Integer
     Private ReadOnly CompleteAutonomy As Boolean
 
-    Public Sub New(messagesList As List(Of MailItem), OpMode As String, Optional Autonomy As Boolean = False)
+    Public Sub New(messagesList As List(Of MailItem), OpMode As String, Optional Autonomy As Boolean = False, Optional DealID As String = "")
+        InitializeComponent()
         Me.MessagesList = messagesList
         Me.Mode = OpMode
         Me.MessageNumber = 0
         Me.CompleteAutonomy = Autonomy
+        Me.DealID.Text = DealID
 
-        InitializeComponent()
     End Sub
 
     Private Sub DealID_KeyDown(sender As Object, e As KeyEventArgs) Handles DealID.KeyDown
@@ -69,6 +70,19 @@ Public Class DealIdent
                 Case "DRDecision"
                     Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, drDecision, True, CompleteAutonomy)
                     Globals.ThisAddIn.UpdateStatus(tDealID, "DR Decision with AM")
+
+                    If Globals.ThisAddIn.GetVendor(tDealID) = "Lenovo" Then
+                        'Get the Lenovo portal to forward the quote to Distribution.
+                        Globals.ThisAddIn.UpdateTicket(tDealID, LenovoBotAttempt)
+                        Dim frm As New LenovoBrowserController("SendToDisti", tDealID)
+                        If frm.Runcode() Then
+                            Globals.ThisAddIn.UpdateTicket(tDealID, LenovoBotSuccess)
+                        Else
+                            Globals.ThisAddIn.UpdateTicket(tDealID, LenovoBotFail)
+                        End If
+
+                    End If
+
                 Case "Expiry"
                     Globals.ThisAddIn.DoOneExpiry(tDealID, tMsg, CompleteAutonomy, True)
                 Case "ExpiryQuote"
@@ -87,8 +101,8 @@ Public Class DealIdent
 
                     Globals.ThisAddIn.UpdateStatus(tDealID, "More Info Requested")
 
-                Case "Forward Vendor Mail"
-                    Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, Globals.ThisAddIn.WriteFwdMessage(tDealID, "Below"), SuppressWarnings:=True, CompleteAutonomy:=True)
+                Case "Forward Vendor Update"
+                    Call Globals.ThisAddIn.DoOneFwd(tDealID, tMsg, Globals.ThisAddIn.WriteInfoMessage(tDealID, "Below"), SuppressWarnings:=True, CompleteAutonomy:=True)
                 Case Else
 
 
@@ -122,8 +136,9 @@ Public Class DealIdent
     Private Sub DealIdent_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.DialogResult = DialogResult.None
-        Me.DealID.Text = FindDealID(MessagesList(MessageNumber))
-
+        If Me.DealID.Text = "" Then
+            Me.DealID.Text = FindDealID(MessagesList(MessageNumber))
+        End If
         If CompleteAutonomy Then Call Button1_Click()
 
     End Sub
@@ -135,12 +150,23 @@ Public Class DealIdent
         Dim i As Integer
         Dim tempResult As String = ""
 
-        MsgSubject = Replace(message.Subject, " ", " ")
+        MsgSubject = ReplaceSpaces(message.Subject).TrimExtended
         msgBody = message.Body
 
         subjAr = Split(MsgSubject, " ")
 
+        If message.SenderEmailAddress.ToLower.Equals("botuk004@ingrammicro.com") Then
+            tempResult = TrimExtended(Mid(message.Subject, InStr(1, message.Subject, "Deal : ") + 6))
+            tempResult = TrimExtended(Microsoft.VisualBasic.Strings.Left(tempResult, InStr(tempResult, " ")))
+        End If
 
+        If message.SenderEmailAddress.ToLower.Equals("reporting.td@tdsynnex.com") And MsgSubject.StartsWith("BRPE") Then
+            tempResult = Strings.Left(MsgSubject, InStr(MsgSubject, " "))
+        End If
+
+        If message.SenderEmailAddress.ToLower.Contains("@exertis.co.uk") And MsgSubject.Contains("BRPE") Then
+            tempResult = Strings.Mid(MsgSubject, InStr(MsgSubject, "BRPE"), 15)
+        End If
 
         For i = LBound(subjAr) To UBound(subjAr)
             '~~> This will give you the contents of your email
@@ -150,16 +176,36 @@ Public Class DealIdent
             If Len(subjAr(i)) > 4 Then
                 If subjAr(i).StartsWith("P00", ThisAddIn.searchType) Or
                     subjAr(i).StartsWith("E00", ThisAddIn.searchType) Or
-                    subjAr(i).StartsWith("NQ", ThisAddIn.searchType) Then
-                    If Mid(LCase(subjAr(i)), Len(subjAr(i)) - 2, 2) = "-v" Then subjAr(i) = Strings.Left(subjAr(i), Len(subjAr(i)) - 3)
+                    subjAr(i).StartsWith("NQ", ThisAddIn.searchType) Or
+                     subjAr(i).StartsWith("P2", ThisAddIn.searchType) Then
+
+                    If Mid(LCase(subjAr(i)), Len(subjAr(i)) - 2, 2) = "-v" Or Mid(LCase(subjAr(i)), Len(subjAr(i)) - 2, 2) = "-0" Then subjAr(i) = Strings.Left(subjAr(i), Len(subjAr(i)) - 3)
+
+
+
+
                     tempResult = TrimExtended(subjAr(i))
                 End If
                 If subjAr(i).StartsWith("REGI-", ThisAddIn.searchType) Or
-                    subjAr(i).StartsWith("REGE-", ThisAddIn.searchType) Then
+                    subjAr(i).StartsWith("REGE-", ThisAddIn.searchType) Or subjAr(i).StartsWith("[REGE-", ThisAddIn.searchType) Then
                     tempResult = TrimExtended(subjAr(i))
                 End If
             End If
         Next i
+
+        If tempResult = "" Then
+
+            If MsgSubject.StartsWith("TD Quote") And MsgSubject.Contains("submitted by Reseller INSIGHT DIRECT (UK) LTD") Then
+                Dim opgNumber As String = Mid(msgBody, msgBody.IndexOf("HP Deal Number: ") + 17, 10)
+                For Each tAttachment As Attachment In message.Attachments
+                    tempResult = RipFromFile(tAttachment, opgNumber)
+                Next
+
+
+            End If
+        End If
+
+
 
         If tempResult = "" Then
             bodyAr = Split(msgBody, vbCrLf)
@@ -196,11 +242,11 @@ Public Class DealIdent
         End If
 
         If tempResult = "" Then
-            If message.SenderEmailAddress.Equals("smart.quotes@techdata.com", ThisAddIn.searchType) And MsgSubject.StartsWith("QUOTE Deal", ThisAddIn.searchType) Then
+            If message.SenderEmailAddress.ToLower.Equals("smart.quotes@techdata.com", ThisAddIn.searchType) And MsgSubject.StartsWith("QUOTE Deal", ThisAddIn.searchType) Then
                 tempResult = subjAr(2)
 
 
-            ElseIf message.SenderEmailAddress.Equals("Neil.Large@westcoast.co.uk", ThisAddIn.searchType) And (MsgSubject.StartsWith("Deal", ThisAddIn.searchType) Or MsgSubject.StartsWith("OPG", ThisAddIn.searchType)) And MsgSubject.ToLower.Contains("for reseller insight direct") Then
+            ElseIf (message.SenderEmailAddress.ToLower.Contains("@westcoast.co.uk")) And (MsgSubject.StartsWith("HPE", ThisAddIn.searchType) Or MsgSubject.StartsWith("Deal", ThisAddIn.searchType) Or MsgSubject.StartsWith("OPG", ThisAddIn.searchType)) Then
                 tempResult = subjAr(1)
 
             End If
@@ -209,7 +255,18 @@ Public Class DealIdent
 
         If tempResult = "" Then
             If message.SenderEmailAddress.Contains("microsoft.com") Then
-                tempResult = Mid(message.Subject, InStr(1, message.Subject, "CAS-"), 18)
+                Try
+                    tempResult = Mid(message.Subject, InStr(1, MsgSubject, "CAS-"), 18)
+                Catch
+                    Dim mailContents As String() = message.Body.Split(" ")
+                    For i = 0 To mailContents.Length
+                        If mailContents(i) = "reference" Then
+                            tempResult = Mid(mailContents(i + 1), 2)
+                            Exit For
+                        End If
+                    Next
+                End Try
+
             End If
         End If
 
@@ -221,16 +278,37 @@ Public Class DealIdent
         End If
 
         If tempResult = "" Then
-            If message.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") AndAlso message.Subject.StartsWith("Cisco:") Then
-                Try
-                    tempResult = CInt(message.Subject.Split(" ")(1))
-                Catch
-                    tempResult = ""
-                End Try
+            If message.SenderEmailAddress.ToLower.Equals("donotreply@cisco.com") Then
+                If message.Subject.StartsWith("Cisco:") Then
+                    Try
+                        tempResult = CInt(message.Subject.Split(" ")(1))
+                    Catch
+                        tempResult = ""
+                    End Try
+                ElseIf message.Subject.StartsWith("Deal ID#") Then
+                    Try
+                        tempResult = CInt(message.Subject.Split(" ")(2))
+                    Catch
+                        tempResult = ""
+                    End Try
+                End If
+
             End If
         End If
 
-        FindDealID = tempResult
+
+        If tempResult = "" Then
+            If MsgSubject.Contains("BBR-") Then
+                tempResult = Mid(MsgSubject, InStr(1, MsgSubject, "BBR-"), 12)
+            ElseIf MsgSubject.Contains("D-0") Then
+                tempResult = Mid(MsgSubject, InStr(1, MsgSubject, "D-0"), 11).TrimExtended
+            ElseIf MsgSubject.Contains("BRPE") Then
+                tempResult = Mid(MsgSubject, InStr(1, MsgSubject, "BRPE"), 14)
+            End If
+
+        End If
+
+        FindDealID = TrimExtended(tempResult)
     End Function
 
 

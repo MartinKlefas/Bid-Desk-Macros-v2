@@ -4,6 +4,7 @@ Imports Microsoft.Office.Interop.Outlook
 Imports String_Extensions
 
 Partial Class ThisAddIn
+    Public Shared Property SearchType As StringComparison = StringComparison.CurrentCultureIgnoreCase
 
     Public Function MoveToFolder(folderName As String, thisMailItem As MailItem, Optional suppressWarnings As Boolean = False) As Boolean
         Dim mailboxNameString As String

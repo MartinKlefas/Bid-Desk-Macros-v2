@@ -155,7 +155,7 @@ Public Class ThisAddIn
 
     End Sub
 
-    Sub FwdVendorEmail(Optional passedMessage As Outlook.MailItem = Nothing, Optional CompleteAutonomy As Boolean = False)
+    Sub FwdVendorUpdate(Optional passedMessage As Outlook.MailItem = Nothing, Optional CompleteAutonomy As Boolean = False)
 
         Dim MessagesList As New List(Of Outlook.MailItem)
         Dim Autonomy As Boolean
@@ -177,7 +177,7 @@ Public Class ThisAddIn
             Autonomy = True
         End If
 
-        Dim DealIDForm As New DealIdent(MessagesList, "Forward Vendor Mail", Autonomy)
+        Dim DealIDForm As New DealIdent(MessagesList, "Forward Vendor Update", Autonomy)
         DealIDForm.Show()
 
     End Sub
@@ -351,8 +351,14 @@ Public Class ThisAddIn
 
     Private Sub Application_NewMailEx(EntryIDCollection As String) Handles Application.NewMailEx
         If Globals.Ribbons.Ribbon1.AutoInbound Then
-            Dim frm As New NewMailForm(EntryIDCollection)
-            frm.Show()
+            If My.Settings.entryIDCollection = "" Then
+                Dim frm As New NewMailForm(EntryIDCollection)
+                frm.Show()
+            Else
+                My.Settings.entryIDCollection = My.Settings.entryIDCollection & "," & EntryIDCollection
+                My.Settings.Save()
+            End If
+
         Else
             'Debug.WriteLine("New Mail - Ignoring")
         End If
@@ -363,6 +369,29 @@ Public Class ThisAddIn
         frm.RunCode()
         frm.Dispose()
     End Sub
+
+    Sub AddAMDetails(msg As MailItem)
+        Dim frm As New BrowserController("FindCiscoAM", CiscoQuoteNumberTKT(msg.Body), msg, Globals.ThisAddIn.TicketNumberFromSubject(msg.Subject))
+        frm.RunCode()
+        frm.Dispose()
+    End Sub
+
+    Sub OfferAMDetails(msg As MailItem)
+        Dim ndtNumber As String = Globals.ThisAddIn.TicketNumberFromSubject(msg.Subject)
+
+        If ndtNumber <> "" Then
+            Dim ndt As New clsNextDeskTicket.ClsNextDeskTicket With {
+                                .TicketNumber = ndtNumber,
+                                .VisibleBrowser = False,
+                                .TimeOperations = True,
+                                .TimingOutputFile = ThisAddIn.timingFile
+                            }
+
+            ndt.UpdateNextDesk(FindAMMessage)
+
+        End If
+    End Sub
+
     Function CiscoQuoteNumber(MessageSubject As String) As String
         Try
             CiscoQuoteNumber = CInt(Strings.Left(MessageSubject.Split(" ")(2), 8))
@@ -377,5 +406,17 @@ Public Class ThisAddIn
 
 
     End Function
+    Function CiscoQuoteNumberTKT(MessageBody As String) As String
+        Try
+            If MessageBody.ToLower.Contains("by:	martin klefas") And MessageBody.ToLower.Contains("deal id") And
+                MessageBody.ToLower.Contains("submitted") Then
+                Return TrimExtended(Mid(MessageBody.ToLower, Strings.InStr(MessageBody.ToLower, "deal id") + 8, 10))
+            End If
+            Return ""
+        Catch
+            Return ""
+        End Try
+    End Function
+
 
 End Class

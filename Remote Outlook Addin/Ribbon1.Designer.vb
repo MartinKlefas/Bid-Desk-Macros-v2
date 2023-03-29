@@ -44,6 +44,7 @@
         Me.Tab1 = Me.Factory.CreateRibbonTab
         Me.Group1 = Me.Factory.CreateRibbonGroup
         Me.ReplyToBidBtn = Me.Factory.CreateRibbonButton
+        Me.ExtensionBtn = Me.Factory.CreateRibbonButton
         Me.Tab1.SuspendLayout()
         Me.Group1.SuspendLayout()
         Me.SuspendLayout()
@@ -59,6 +60,7 @@
         'Group1
         '
         Me.Group1.Items.Add(Me.ReplyToBidBtn)
+        Me.Group1.Items.Add(Me.ExtensionBtn)
         Me.Group1.Label = "Bids DB"
         Me.Group1.Name = "Group1"
         '
@@ -69,6 +71,14 @@
         Me.ReplyToBidBtn.Label = "Reply to Bid Request"
         Me.ReplyToBidBtn.Name = "ReplyToBidBtn"
         Me.ReplyToBidBtn.ShowImage = True
+        '
+        'ExtensionBtn
+        '
+        Me.ExtensionBtn.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge
+        Me.ExtensionBtn.Image = Global.Remote_Outlook_Addin.My.Resources.Resources.actions_view_calendar_tasks
+        Me.ExtensionBtn.Label = "Extension Options"
+        Me.ExtensionBtn.Name = "ExtensionBtn"
+        Me.ExtensionBtn.ShowImage = True
         '
         'Ribbon1
         '
@@ -86,6 +96,7 @@
     Friend WithEvents Tab1 As Microsoft.Office.Tools.Ribbon.RibbonTab
     Friend WithEvents Group1 As Microsoft.Office.Tools.Ribbon.RibbonGroup
     Friend WithEvents ReplyToBidBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
+    Friend WithEvents ExtensionBtn As Microsoft.Office.Tools.Ribbon.RibbonButton
 End Class
 
 Partial Class ThisRibbonCollection

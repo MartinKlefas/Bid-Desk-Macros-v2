@@ -99,11 +99,10 @@ Public Class MainRibbon
                 End If
             End If
 
-            If msg.Subject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
-                ndt = msg.Subject.Substring(InStr(msg.Subject, "#"), 7)
-            Else
-                ndt = ""
-            End If
+
+            ndt = Globals.ThisAddIn.TicketNumberFromSubject(msg.Subject)
+
+
 
             frmAddtoSql = New ImportDeal(senderEmail, ndt)
         Else
@@ -176,10 +175,10 @@ Public Class MainRibbon
         If Selection.Count = 1 AndAlso TypeName(Selection.Item(1)) = "MailItem" Then
             Dim msg As Outlook.MailItem = Selection.Item(1)
 
-            If msg.Subject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
-                ndt = msg.Subject.Substring(InStr(msg.Subject, "#"), 7)
 
-            End If
+            ndt = Globals.ThisAddIn.TicketNumberFromSubject(msg.Subject)
+
+
 
         End If
 
@@ -224,12 +223,12 @@ Public Class MainRibbon
         If Selection.Count = 1 AndAlso TypeName(Selection.Item(1)) = "MailItem" Then
             Dim msg As Outlook.MailItem = Selection.Item(1)
 
-            If msg.Subject.StartsWith("[nextDesk]", ThisAddIn.searchType) Then
-                ndt = msg.Subject.Substring(InStr(msg.Subject, "#"), 7)
+
+            ndt = Globals.ThisAddIn.TicketNumberFromSubject(msg.Subject)
+
+
 
             End If
-
-        End If
 
 
 
@@ -299,5 +298,72 @@ Public Class MainRibbon
 
     Private Sub Button3_Click_3(sender As Object, e As RibbonControlEventArgs) Handles UnsortedMails2.Click
         Button3_Click_2(sender, e)
+    End Sub
+
+    Private Sub Button3_Click_4(sender As Object, e As RibbonControlEventArgs) Handles Button3.Click
+        MsgBox("Now with blocking code for nuicance mailers")
+    End Sub
+
+    Private Sub BtnBack_Click(sender As Object, e As RibbonControlEventArgs) Handles btnBack.Click
+        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
+        Dim MessageList As New List(Of Outlook.MailItem)
+
+        For Each item In Selection
+            If TypeName(item) = "MailItem" Then
+                MessageList.Add(item)
+            End If
+        Next
+
+        Dim backfromHols As New BackFromHolsReplyFrm(MessageList)
+        backfromHols.Show()
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As RibbonControlEventArgs) Handles Button4.Click
+        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
+        Dim msg As Outlook.MailItem
+
+        For Each item In Selection
+            If TypeName(item) = "MailItem" Then
+                msg = item
+
+                Dim htmlBody As String = msg.HTMLBody
+
+
+                Dim parts As String() = htmlBody.SplitByWord("<table")
+
+                For Each part In parts
+                    If part.Contains(">Custom Fields</TD>") Then
+                        part = Strings.Left(part, Strings.InStr(part, "</table", CompareMethod.Text))
+                        Dim rows As String() = part.SplitByWord("<tr")
+
+                        For Each row In rows
+                            Dim columns As String() = row.SplitByWord("<td")
+                            For Each column In columns
+
+                                Dim actualText As String = StripHTML("<" & column)
+
+                            Next
+                        Next
+
+                    End If
+
+                Next
+            End If
+        Next
+
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As RibbonControlEventArgs) Handles Button5.Click
+        Dim Selection As Outlook.Selection = Globals.ThisAddIn.GetSelection()
+        Dim msg As Outlook.MailItem
+
+        For Each item In Selection
+            If TypeName(item) = "MailItem" Then
+                msg = item
+
+
+            End If
+        Next
+
     End Sub
 End Class
