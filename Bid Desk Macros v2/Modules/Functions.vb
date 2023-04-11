@@ -35,10 +35,15 @@ Partial Class ThisAddIn
                 thisMailItem.Move(olDestFolder)
                 MoveToFolder = True
             Catch
+                If thisMailItem.SenderEmailAddress = "simon.tsui@exertis.co.uk" Then
+                    thisMailItem.Delete()
+                    MoveToFolder = True
+                Else
+                    ShoutError("Couldn't move the mail for some reason...", suppressWarnings)
 
-                ShoutError("Couldn't move the mail for some reason...", suppressWarnings)
+                    MoveToFolder = False
+                End If
 
-                MoveToFolder = False
             End Try
         End Try
     End Function
