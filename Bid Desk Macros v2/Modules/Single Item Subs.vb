@@ -150,7 +150,7 @@ Partial Class ThisAddIn
                     Try
                         .To = MyResolveName(TargetFolder).PrimarySmtpAddress
                     Catch
-                        .To = TargetFolderor amends
+                        .To = TargetFolderor
                     End Try
                     .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com;david.grainger@insight.com; stuart.hyde@insight.com; michael.kelliher@dell.com;"
 
