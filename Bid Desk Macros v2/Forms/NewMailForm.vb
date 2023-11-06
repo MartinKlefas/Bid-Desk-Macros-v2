@@ -121,6 +121,7 @@ startOver:
             Return "Decision"
         End If
         If IsPricing(msg) Then
+            Globals.ThisAddIn.DoOneSharePointUpload(msg)
             Return "Pricing"
         End If
         If IsDRSubmission(msg) OrElse IsEscalation(msg) OrElse IsPricingApproval(msg) Then
@@ -167,11 +168,11 @@ startOver:
         Dim tSubj As String = msg.Subject.ReplaceSpaces().TrimExtended
         If msg.SenderEmailAddress.Equals("smart.quotes@techdata.com", searchType) And tSubj.StartsWith("QUOTE Deal", searchType) Then
             Return True
-        ElseIf msg.SenderEmailAddress.ToLower.Contains("@exertis.co.uk") And tsubj.Contains("BRPE") Then
+        ElseIf msg.SenderEmailAddress.ToLower.Contains("@exertis.co.uk") And (tsubj.Contains("BRPE") Or tsubj.StartsWith("Lenovo Bid - ")) Then
             Return True
         ElseIf msg.SenderEmailAddress.Equals("Reporting.TD@tdsynnex.com") And tSubj.StartsWith("BRPE", searchType) Then
             Return True
-        ElseIf msg.SenderEmailAddress.Equals("botuk004@ingrammicro.com") Then
+        ElseIf msg.SenderEmailAddress.Equals("botuk004@ingrammicro.com") Or msg.SenderEmailAddress.Equals("botuk006@ingrammicro.com") Then
             Return True
         ElseIf tSubj.StartsWith("TD Quote") And tSubj.Contains("submitted by Reseller INSIGHT DIRECT (UK) LTD") Then
 

@@ -1,4 +1,7 @@
-﻿Partial Class ThisAddIn
+﻿Imports System.IO
+Imports Microsoft.SharePoint.Client
+
+Partial Class ThisAddIn
 
     Public Function DoOneExpiry(DealID As String, msg As Outlook.MailItem, Optional SuppressWarnings As Boolean = True, Optional CreateTicket As Boolean = True) As Boolean
 
@@ -101,6 +104,16 @@
         Return success
     End Function
 
+
+
+    Public Function DoOneSharePointUpload(message As Outlook.MailItem)
+        System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12
+
+        Dim tempFilePath As String = Path.Combine("C:\Users\mklefass\Insight\Vendor Special Bid Archive - Documents\", message.Subject & ".msg")
+        message.SaveAs(tempFilePath)
+
+        Return Nothing
+    End Function
     Public Function DoOneFwd(DealID As String, msg As Outlook.MailItem, messageBodyAddition As String, Optional SuppressWarnings As Boolean = True, Optional CompleteAutonomy As Boolean = False) As Boolean
 
         Dim fNames As String()
@@ -137,9 +150,9 @@
                     Try
                         .To = MyResolveName(TargetFolder).PrimarySmtpAddress
                     Catch
-                        .To = TargetFolder
+                        .To = TargetFolderor amends
                     End Try
-                    .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com"
+                    .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com;david.grainger@insight.com; stuart.hyde@insight.com; michael.kelliher@dell.com;"
 
                     Try
                         .Send()
@@ -157,7 +170,7 @@
                     Catch
                         .To = TargetFolder
                     End Try
-                    .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com; "
+                    .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com; david.grainger@insight.com;stuart.hyde@insight.com; michael.kelliher@dell.com;"
                     Try
                         .Send()
                     Catch
@@ -178,7 +191,7 @@
 
             .CC = GetCCbyDeal(DealID)
             If GetVendor(DealID, True) = "Dell" Then
-                .CC = .CC & "; Hannah.Frangiamore@insight.com"
+                .CC = .CC & "; Hannah.Frangiamore@insight.com; david.grainger@insight.com;stuart.hyde@insight.com; michael.kelliher@dell.com;"
             ElseIf GetVendor(DealID, True) = "HPE" Then
                 .CC = .CC & "; Simon.Hill@insight.com;Lewis.Thomson@insight.com"
             ElseIf GetVendor(DealID, True) = "HPI" Then
@@ -322,7 +335,7 @@
         Dim TargetFolder As String
 
         If DealID = "" Then Exit Sub
-        targetFolder = GetFolderbyDeal(DealID, False)
+        TargetFolder = GetFolderbyDeal(DealID, False)
 
 
         Dim msgReplyOne As Outlook.MailItem = msg.ReplyAll
@@ -339,7 +352,7 @@
 
         CloseAllTickets(DealID)
 
-        MoveToFolder(targetFolder, msg)
+        MoveToFolder(TargetFolder, msg)
 
 
     End Sub

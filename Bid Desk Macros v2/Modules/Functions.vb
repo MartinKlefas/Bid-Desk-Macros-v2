@@ -35,7 +35,7 @@ Partial Class ThisAddIn
                 thisMailItem.Move(olDestFolder)
                 MoveToFolder = True
             Catch
-                If thisMailItem.SenderEmailAddress = "simon.tsui@exertis.co.uk" Then
+                If thisMailItem.SenderEmailAddress.ToLower() = "simon.tsui@exertis.co.uk" Then
                     thisMailItem.Delete()
                     MoveToFolder = True
                 Else
