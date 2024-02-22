@@ -1,5 +1,7 @@
-﻿Imports System.IO
+﻿Imports System.Diagnostics
+Imports System.IO
 Imports Microsoft.SharePoint.Client
+Imports String_Extensions.StringExtensions
 
 Partial Class ThisAddIn
 
@@ -27,6 +29,7 @@ Partial Class ThisAddIn
                 Try
                     .Send()
                 Catch
+                    Debug.WriteLine("error sending v4")
                     .Display()
                 End Try
             End With
@@ -109,9 +112,12 @@ Partial Class ThisAddIn
     Public Function DoOneSharePointUpload(message As Outlook.MailItem)
         System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12
 
-        Dim tempFilePath As String = Path.Combine("C:\Users\mklefass\Insight\Vendor Special Bid Archive - Documents\", message.Subject & ".msg")
+        Dim tempFilePath As String = Path.Combine("C:\Users\mklefass\Insight\Vendor Special Bid Archive - Documents\", WinSafeFileName(message.Subject) & ".msg")
         message.SaveAs(tempFilePath)
-
+        ' change created time so that sharepoint is accurate
+        Dim receivedTime As DateTime = message.ReceivedTime
+        System.IO.File.SetCreationTime(tempFilePath, receivedTime)
+        System.IO.File.SetLastWriteTime(tempFilePath, receivedTime)
         Return Nothing
     End Function
     Public Function DoOneFwd(DealID As String, msg As Outlook.MailItem, messageBodyAddition As String, Optional SuppressWarnings As Boolean = True, Optional CompleteAutonomy As Boolean = False) As Boolean
@@ -125,7 +131,7 @@ Partial Class ThisAddIn
 
 
 
-        RecordWaitTime(GetSubmitTime(DealID), msg.ReceivedTime, GetVendor(DealID))
+        'RecordWaitTime(GetSubmitTime(DealID), msg.ReceivedTime, GetVendor(DealID))
 
         TargetFolder = GetFolderbyDeal(DealID, SuppressWarnings)
 
@@ -150,13 +156,14 @@ Partial Class ThisAddIn
                     Try
                         .To = MyResolveName(TargetFolder).PrimarySmtpAddress
                     Catch
-                        .To = TargetFolderor
+                        .To = TargetFolder
                     End Try
                     .CC = GetCCbyDeal(DealID) & "; Hannah.Frangiamore@insight.com;david.grainger@insight.com; stuart.hyde@insight.com; michael.kelliher@dell.com;"
 
                     Try
                         .Send()
                     Catch
+                        Debug.WriteLine("error sending mail")
                         .Display()
                     End Try
 
@@ -174,6 +181,7 @@ Partial Class ThisAddIn
                     Try
                         .Send()
                     Catch
+                        Debug.WriteLine("error sening mail 2")
                         .Display()
                     End Try
                 End With
@@ -186,6 +194,7 @@ Partial Class ThisAddIn
             Try
                 .To = MyResolveName(TargetFolder).PrimarySmtpAddress
             Catch
+                Debug.WriteLine("error resolving name")
                 .To = TargetFolder
             End Try
 
@@ -203,6 +212,7 @@ Partial Class ThisAddIn
             Try
                 .Send()  'or .Display
             Catch
+                Debug.WriteLine("error sending mail 3")
                 .Display()
             End Try
         End With
@@ -262,6 +272,7 @@ Partial Class ThisAddIn
                 msgFwdOne.Send()
             End If
         Catch
+            Debug.WriteLine("wc error")
             Return False
         End Try
 
@@ -273,6 +284,7 @@ Partial Class ThisAddIn
                 msgFwdOne.Send()
             End If
         Catch
+            Debug.WriteLine("ig error")
             Return False
         End Try
 
@@ -284,6 +296,7 @@ Partial Class ThisAddIn
                 msgFwdOne.Send()
             End If
         Catch
+            Debug.WriteLine("td error")
             Return False
         End Try
 
@@ -314,6 +327,7 @@ Partial Class ThisAddIn
             Try
                 .To = MyResolveName(TargetFolder).PrimarySmtpAddress
             Catch
+                Debug.WriteLine("error resolving name 5")
                 .To = TargetFolder
             End Try
             .CC = GetCCbyDeal(DealID)
@@ -321,6 +335,7 @@ Partial Class ThisAddIn
             Try
                 .Send()
             Catch
+                Debug.WriteLine("error sending v4")
                 .Display()
             End Try
 
@@ -365,6 +380,7 @@ Partial Class ThisAddIn
             Try
                 ndt.TicketNumber = CInt(ticketNumber)
             Catch
+                Debug.WriteLine("error in ndt3")
                 ndt.TicketNumber = 0
             End Try
             If ndt.TicketNumber <> 0 Then

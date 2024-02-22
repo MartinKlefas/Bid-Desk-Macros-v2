@@ -80,7 +80,8 @@ startOver:
 
                     End If
 
-                Catch
+                Catch ex2 As System.Exception
+                    Debug.WriteLine("Error: " & ex2.ToString())
                     Debug.WriteLine("Could Not find item for some reason")
                 End Try
                 Me.NumberOfEmails -= 1
@@ -164,11 +165,16 @@ startOver:
     Private Function IsMoreInfo(msg As MailItem) As Boolean
         Return msg.Subject.ToLower.StartsWith("request incomplete")
     End Function
-    Private Function IsPricing(msg As MailItem) As Boolean
+    Public Function IsPricing(msg As MailItem) As Boolean
         Dim tSubj As String = msg.Subject.ReplaceSpaces().TrimExtended
+
+        If msg.SenderEmailAddress Is Nothing OrElse tSubj Is Nothing OrElse tSubj.Length < 10 Then
+            Return False
+        End If
+
         If msg.SenderEmailAddress.Equals("smart.quotes@techdata.com", searchType) And tSubj.StartsWith("QUOTE Deal", searchType) Then
             Return True
-        ElseIf msg.SenderEmailAddress.ToLower.Contains("@exertis.co.uk") And (tsubj.Contains("BRPE") Or tsubj.StartsWith("Lenovo Bid - ")) Then
+        ElseIf msg.SenderEmailAddress.ToLower.Contains("@exertis.co.uk") And (tSubj.Contains("BRPE") Or tSubj.StartsWith("Lenovo Bid - ")) Then
             Return True
         ElseIf msg.SenderEmailAddress.Equals("Reporting.TD@tdsynnex.com") And tSubj.StartsWith("BRPE", searchType) Then
             Return True
@@ -367,12 +373,13 @@ startOver:
         ' calling thread to the thread ID of the creating thread.'
         ' If these threads are different, it returns true.'
         If Me.Label1.InvokeRequired Then
-            Dim d As New UpdateLabelCallback(AddressOf UpdateLabel)
-            Me.Invoke(d, New Object() {[MailsRemaining]})
+            Me.Invoke(Sub() UpdateLabel(MailsRemaining))
         Else
             Try
                 Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails & " new emails."
-            Catch
+            Catch e As System.Exception
+                Debug.Write(e)
+                Debug.WriteLine("could not change label")
             End Try
 
         End If
@@ -401,5 +408,7 @@ startOver:
 
     End Function
 
+    Private Sub BackgroundWorker2_DoWork(sender As Object, e As ComponentModel.DoWorkEventArgs) 
 
+    End Sub
 End Class

@@ -35,6 +35,7 @@ Partial Class ThisAddIn
                 thisMailItem.Move(olDestFolder)
                 MoveToFolder = True
             Catch
+                Debug.WriteLine("trying to move mail failed")
                 If thisMailItem.SenderEmailAddress.ToLower() = "simon.tsui@exertis.co.uk" Then
                     thisMailItem.Delete()
                     MoveToFolder = True
@@ -164,9 +165,10 @@ Partial Class ThisAddIn
         If DealExists(DealID) Then
             Try
                 sqlInterface.Update_Data("Status = '" & NewStatus & "'", "DealID = '" & DealID & "'")
-                sqlInterface.Update_Data("StatusDate = '" & Now() & "'", "DealID = '" & DealID & "'")
+                sqlInterface.Update_Data("StatusDate = '" & Now().ToString("MM-dd-yyyy HH:mm:ss") & "'", "DealID = '" & DealID & "'")
                 Return True
             Catch
+                Debug.WriteLine("sql interface error")
                 Return False
             End Try
         Else

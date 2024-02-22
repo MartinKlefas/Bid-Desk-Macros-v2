@@ -69,6 +69,7 @@ Public Class BackFromHolsReplyFrm
             Try
                 Me.Label1.Text = "Determining the appropriate action for " & Me.NumberOfEmails & " new emails."
             Catch
+                Debug.WriteLine("could not changel label")
             End Try
 
         End If

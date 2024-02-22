@@ -62,7 +62,7 @@ Public Module StringExtensions
     <Extension()>
     Public Function WinSafeFileName(ByVal aString As String) As String
 
-        Dim pattern As New Regex("[0-9a-zA-Z-._]")
+        Dim pattern As New Regex("[0-9a-zA-Z-._ ]")
 
         Dim result As String = ""
 

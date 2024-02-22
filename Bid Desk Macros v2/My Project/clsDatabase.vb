@@ -254,6 +254,8 @@ Public Class ClsDatabase
                 Catch
                     Add_Data = 0
                     Debug.WriteLine("Error in adding lines to the database")
+
+                    Debug.WriteLine(cmd.CommandText)
                 End Try
             End Using
         End Using
@@ -280,6 +282,7 @@ Public Class ClsDatabase
                 Catch ex As Exception
                     Update_Data = 0
                     Debug.WriteLine("SQL Error updating data:" & vbCrLf & ex.Message)
+                    Debug.WriteLine(cmd.CommandText)
                 End Try
             End Using
         End Using

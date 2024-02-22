@@ -366,4 +366,17 @@ Public Class MainRibbon
         Next
 
     End Sub
+
+    Private Sub Button6_Click(sender As Object, e As RibbonControlEventArgs) Handles Button6.Click
+        ' Main code to get all mail items from subfolders of the current folder
+        Dim currentFolder As Outlook.Folder = Globals.ThisAddIn.Application.ActiveExplorer.CurrentFolder
+        Dim MessageList As New List(Of Outlook.MailItem)
+
+
+
+        Dim autoForm As New SavePricingForm(currentFolder)
+        autoForm.Show()
+    End Sub
+
+
 End Class

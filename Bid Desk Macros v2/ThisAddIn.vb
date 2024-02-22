@@ -268,7 +268,7 @@ Public Class ThisAddIn
         If obj IsNot Nothing AndAlso TypeName(obj) = "MailItem" Then
             msg = obj
 
-            RecordWaitTime(msg.ReceivedTime, Now(), "Me")
+            'RecordWaitTime(msg.ReceivedTime, Now(), "Me")
 
             CreateDealRecord(msg)
 
@@ -399,6 +399,7 @@ Public Class ThisAddIn
             Try
                 CiscoQuoteNumber = CInt(Strings.Left(MessageSubject.Split(" ")(6), 8))
             Catch
+                Debug.WriteLine("error finding cisco quote number")
                 CiscoQuoteNumber = 0
             End Try
         End Try
@@ -414,6 +415,7 @@ Public Class ThisAddIn
             End If
             Return ""
         Catch
+            Debug.WriteLine("error in cisco ticket number")
             Return ""
         End Try
     End Function

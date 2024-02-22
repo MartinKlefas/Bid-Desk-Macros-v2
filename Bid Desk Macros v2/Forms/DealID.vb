@@ -260,6 +260,7 @@ Public Class DealIdent
                 Try
                     tempResult = Mid(message.Subject, InStr(1, MsgSubject, "CAS-"), 18)
                 Catch
+                    Debug.WriteLine("MS error finding cas")
                     Dim mailContents As String() = message.Body.Split(" ")
                     For i = 0 To mailContents.Length
                         If mailContents(i) = "reference" Then
@@ -285,12 +286,14 @@ Public Class DealIdent
                     Try
                         tempResult = CInt(message.Subject.Split(" ")(1))
                     Catch
+                        Debug.WriteLine("cisco error 1")
                         tempResult = ""
                     End Try
                 ElseIf message.Subject.StartsWith("Deal ID#") Then
                     Try
                         tempResult = CInt(message.Subject.Split(" ")(2))
                     Catch
+                        Debug.WriteLine("cisco error 2")
                         tempResult = ""
                     End Try
                 End If
@@ -333,6 +336,7 @@ Public Class DealIdent
             Try
                 Me.Invoke(d, New Object() {})
             Catch
+                Debug.WriteLine("invoke erorr")
             End Try
         Else
             OKButton.Enabled = True

@@ -51,6 +51,7 @@ Partial Class ThisAddIn
                             tCreateDealRecord.Add("NDT", deal.SelectSingleNode("NDT").InnerText)
 
                         Catch ex As Exception
+                            Debug.WriteLine("old ndt code?")
                             tCreateDealRecord.Add("NDT", "")
 
                         End Try
@@ -80,11 +81,11 @@ Partial Class ThisAddIn
                     Debug.WriteLine("Could Not reply To attached mail")
                 End Try
 
-                Try
-                    My.Computer.FileSystem.DeleteFile(fileName)
-                Catch
-                    Debug.WriteLine("Can't delete File")
-                End Try
+                ' Try
+                'My.Computer.FileSystem.DeleteFile(fileName)
+                'Catch
+                ' Debug.WriteLine("Can't delete File")
+                ' End Try
 
             End If
         Next
@@ -101,6 +102,7 @@ Partial Class ThisAddIn
                     Try
                         inboundMail.Delete()
                     Catch
+                        Debug.WriteLine("could not delete mail")
                     End Try
                 End If
             End If
@@ -158,11 +160,11 @@ Partial Class ThisAddIn
                     Debug.WriteLine("Could Not reply To attached mail")
                 End Try
 
-                Try
-                    My.Computer.FileSystem.DeleteFile(fileName)
-                Catch
-                    Debug.WriteLine("Can't delete File")
-                End Try
+                'Try
+                ' My.Computer.FileSystem.DeleteFile(fileName)
+                ' Catch
+                ' Debug.WriteLine("Can't delete File")
+                ' End Try
 
             End If
         Next
@@ -176,6 +178,7 @@ Partial Class ThisAddIn
                     Try
                         InboundMail.Delete()
                     Catch
+                        Debug.WriteLine("coiuld not delete mail v2")
                     End Try
 
                 ElseIf deal("Action") = "Clone" Then
